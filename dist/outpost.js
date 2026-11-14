@@ -8,6 +8,7 @@ import {createGame} from './story-engine.js';
 import {surfaceObstacles,moveOnGround,groundRoute,nearestFreeGround,KITTY_RADIUS,OUTPOST_START} from './surface-world.js';
 import {drawScene,toWorld,cat} from './art.js';
 import {readyVoices,registerOffline,containPoint,makeUtterances} from './compat.js';
+import {createVoiceClips} from './voice-clips.js';
 import {createStorySound} from './story-sound.js';
 import {resourcesHTML} from './resources.js';
 import {loadSpaceWeather,flareStrength,FALLBACK_EVENT} from './nasa-data.js';
@@ -74,10 +75,13 @@ function sound(kind='win'){
 }
 function settings(){document.body.classList.toggle('big-text',!!profile.bigText);document.body.classList.toggle('reduce-motion',!!profile.reduceMotion);$('voiceToggle').textContent=profile.voice?'🔊':'🔇';$('voiceToggle').setAttribute('aria-label',t('voice'));$('voiceToggle').setAttribute('aria-pressed',String(profile.voice));$('menuToggle').textContent='☰';$('menuToggle').setAttribute('aria-label',t('menu'));}
 function save(){if(mission)write(KEY,mission);write(PROFILE,profile);}
-function stopVoice(){speechId++;try{synth?.cancel();}catch{}}
+const clips=createVoiceClips();globalThis.astroVoiceHeard=clips.heard;
+function stopVoice(){speechId++;clips.stop();try{synth?.cancel();}catch{}}
 async function speak(line){
   lastLine=line;idleTime=0;$('pipLine').textContent=line;$('pipCaption').classList.toggle('hidden',profile.captions===false&&profile.voice===true&&!!synth);stopVoice();const id=speechId;
-  if(!profile.voice||!synth||!globalThis.SpeechSynthesisUtterance)return;
+  if(!profile.voice||paused||document.hidden)return;
+  if(await clips.play(line)||id!==speechId)return;
+  if(!synth||!globalThis.SpeechSynthesisUtterance)return;
   const available=await voices;if(id!==speechId||!profile.voice||paused||document.hidden)return;
   try{const list=makeUtterances(line,synth.getVoices().length?synth.getVoices():available);
     for(const u of list)u.onerror=()=>{$('pipCaption').classList.remove('hidden');};synth.resume();for(const u of list)synth.speak(u);

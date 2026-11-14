@@ -7,6 +7,7 @@ import {TRAINING_MILESTONES,earnedStoryTraining,mergeStoryTraining,storyStartSce
 import {teamCreditHTML} from './flags.js';
 import {tr,t,copy,localizeStatic} from './strings.js';
 import {readyVoices,registerOffline,accessPreferences,makeUtterances} from './compat.js';
+import {createVoiceClips} from './voice-clips.js';
 import { SCENES, LINES, PATCHES } from './story.js';
 import { createGame, enter, advanceStory, interact, connect, matchCable, restoreStory, nearbyDustyPanel, useRoverControls, say, setTarget, skipFilm, goal, distance } from './story-engine.js';
 import { drawScene, toWorld, AVATARS, setAvatar, currentAvatar } from './art.js';
@@ -41,7 +42,8 @@ function chime(win=false){if(win)sound.finish();else sound.chime();}
 const synth='speechSynthesis'in window?window.speechSynthesis:null;
 let utterance=null,narrating=false,narrationStarted=0,voiceTicket=0;
 const voiceReady=readyVoices(synth);
-function stopVoice(){voiceTicket++;if(synth)synth.cancel();narrating=false;utterance=null;}
+const clips=createVoiceClips();globalThis.astroVoiceHeard=clips.heard;
+function stopVoice(){voiceTicket++;clips.stop();if(synth)synth.cancel();narrating=false;utterance=null;}
 function speak(key,praise=''){
  previousSpeech=key;const [speaker,baseLine]=LINES[key]||LINES.welcome,line=praise?praise+' '+baseLine:baseLine;
  setText($('speaker'),speaker);setText($('spokenLine'),line);subtitleLife=10;
@@ -54,8 +56,10 @@ function revealCaptions(){
 }
 async function speakLine(line){
  stopVoice();if(!book.voice||paused)return;
- if(!synth||!('SpeechSynthesisUtterance'in window)){revealCaptions();return;}
- const ticket=voiceTicket;const available=await voiceReady;if(ticket!==voiceTicket||paused||!book.voice)return;
+ const ticket=voiceTicket;
+ if(await clips.play(line,{onstart:()=>{if(ticket===voiceTicket){narrating=true;narrationStarted=performance.now();voiceUnavailable=false;}},onend:()=>{if(ticket===voiceTicket)narrating=false;}}))return;
+ if(ticket!==voiceTicket||paused||!book.voice)return;
+ if(!synth||!('SpeechSynthesisUtterance'in window)){revealCaptions();return;}const available=await voiceReady;if(ticket!==voiceTicket||paused||!book.voice)return;
  try{
   const list=makeUtterances(line,synth.getVoices().length?synth.getVoices():available),u=list[list.length-1];utterance=u;
   list[0].onstart=()=>{if(utterance===u){narrating=true;narrationStarted=performance.now();voiceUnavailable=false;}};
