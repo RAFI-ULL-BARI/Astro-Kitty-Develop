@@ -31,10 +31,6 @@ export function roverGuideOpacity(state,reduced=false){
 }
 
 export function trainingLayout(width,height,scene,socketOrder=PLUG_ORDER){
- if(width>height&&height<500&&scene==='power'){
-  const left=20,w=width-40,h=120;
-  return {left,top:128,width:w,height:h,narrow:true,sources:[{id:'cell0',x:w*.13,y:30},{id:'cell1',x:w*.13,y:90}],targets:DEVICES.map((d,i)=>({...d,x:w*(.34+i*.14),y:60}))};
- }
  const narrow=width<700,left=narrow?14:Math.max(30,(width-1040)/2),top=narrow?156:142,w=width-left*2,h=Math.max(240,height-top-(narrow?155:170));
  const sources=scene==='connect'?CABLES.map((c,i)=>({...c,x:w*(i%2?.37:.15),y:h*(i<2?.29:.73)})):[{id:'cell0',x:w*.16,y:h*.32},{id:'cell1',x:w*.16,y:h*.68}];
  const targets=scene==='connect'?socketOrder.map((id,i)=>({...CABLES.find(c=>c.id===id),x:w*.80,y:h*(.13+i*.235)})):DEVICES.map((d,i)=>({...d,x:w*([.55,.84,.55,.84,.70][i]),y:h*([.19,.19,.52,.52,.83][i])}));

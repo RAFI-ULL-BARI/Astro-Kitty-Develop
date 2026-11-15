@@ -1,4 +1,4 @@
-import {t,copy} from './strings.js?v=10';
+import {t,copy} from './strings.js';
 export const REFLECTION_KEY='astro-kitty-storm-answer-v1';
 export const REFLECTION_ANSWERS=['water','food','signal'];
 export const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

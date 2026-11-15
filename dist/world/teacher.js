@@ -1,6 +1,6 @@
-import {teamCreditHTML} from './flags.js?v=10';
-import {t,copy,setLanguage} from './strings.js?v=10';
-import {registerOffline} from './compat.js?v=10';
+import {teamCreditHTML} from './flags.js';
+import {t,copy,setLanguage} from './strings.js';
+import {registerOffline} from './compat.js';
 let settings={};try{settings=JSON.parse(localStorage.getItem('astro-kitty-profile-v1')||'{}')??{};}catch{}
 const preferences=[['bigText','bigText'],['reduceMotion','reduced'],['captions','captions'],['voice','voice']];
 const page=document.getElementById('teacherPage');

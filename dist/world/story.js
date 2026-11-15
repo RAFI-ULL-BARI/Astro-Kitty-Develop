@@ -1,5 +1,5 @@
-import {STORM_DURATION} from './story-training.js?v=10';
-import {tr,t} from './strings.js?v=10';
+import {STORM_DURATION} from './story-training.js';
+import {tr,t} from './strings.js';
 
 export const LINES = {
   choose:[t('pipName'),t('chooseLine')],

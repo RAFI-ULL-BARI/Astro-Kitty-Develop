@@ -1,8 +1,8 @@
-import {tr} from './strings.js?v=10';
+import {tr} from './strings.js';
 
-import {CABLES,DEVICES,STORM_ARRIVAL,shuffledSockets} from './story-training.js?v=10';
-import {surfaceObstacles,moveOnGround,groundRoute,SURFACE_ROCKS,KITTY_RADIUS,ROVER_RADIUS} from './surface-world.js?v=10';
-import { SCENES, PATCHES } from './story.js?v=10';
+import {CABLES,DEVICES,STORM_ARRIVAL,shuffledSockets} from './story-training.js';
+import {surfaceObstacles,moveOnGround,groundRoute,SURFACE_ROCKS,KITTY_RADIUS,ROVER_RADIUS} from './surface-world.js';
+import { SCENES, PATCHES } from './story.js';
 export const clamp=(n,lo,hi)=>Math.max(lo,Math.min(hi,n));
 export const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 export const BEACONS=[{x:500,y:515,name:tr("text147")},{x:850,y:380,name:tr("text148")},{x:290,y:615,name:tr("text149")}];

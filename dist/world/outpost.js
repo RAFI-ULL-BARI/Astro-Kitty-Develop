@@ -1,30 +1,21 @@
-import {createSceneDissolve} from './visual-core.js?v=10';
-import {startMusic} from './music.js?v=10';
-startMusic('base');
-import {dhruboNarrator} from './narration.js?v=10';
-import {robotPortrait} from './dhrubo-guide.js?v=10';
-import {solRoom} from './sol-rooms.js?v=10';
-import {playMissionFilm} from './flight-adventure.js?v=10';
-import {createBasePicture} from './base-picture.js?v=10';
-import {soundOn,saveSound} from './sound-preference.js?v=10';
-import {archiveStormForCode} from './solar-archive.js?v=10';
-import {truthBadge,eventDate,stormPlayLabel,visualMeter,panelDustHTML,oddsHTML,wallStatusHTML,REFLECTION_ANSWERS,saveReflectionAnswer,learnedHTML,learnedIdeas} from './outpost-presentation.js?v=10';
-import {directedOutpostScene} from './journey.js?v=10';
-import {FLAGS,validateFlag,flagSVG,teamCreditHTML,drawBangladeshFlag} from './flags.js?v=10';
-import {copy,t,setLanguage,LANGUAGES} from './strings.js?v=10';
-import {METERS,SYSTEMS,tomorrowWeather,stormGoal,weatherToday,moraleCells,normalizeMissionCode,codeForSeed,missionStars,createOutpost,restoreOutpost,cellsAvailable,defaultPlan,previewPlan,confirmPlan,choiceEffects,choiceAllowed,choose,tickReply,showSummary,nextSol,collectRock,createDodge,tickDodge,clamp} from './outpost-engine.js?v=10';
-import {createGame} from './story-engine.js?v=10';
-import {surfaceObstacles,moveOnGround,groundRoute,nearestFreeGround,KITTY_RADIUS,OUTPOST_START} from './surface-world.js?v=10';
-import {drawScene,toWorld,cat} from './art.js?v=10';
-import {readyVoices,registerOffline,containPoint,makeUtterances} from './compat.js?v=10';
-import {createVoiceClips} from './voice-clips.js?v=10';
-import {createStorySound} from './story-sound.js?v=10';
-import {resourcesHTML} from './resources.js?v=10';
-import {loadSpaceWeather,flareStrength,FALLBACK_EVENT} from './nasa-data.js?v=10';
-import {MODULES,GRID,PIP_LAYOUT,validLayout,normalizeLayout,layoutEffects,placeModule,encodeLayout} from './base-design.js?v=10';
-import {defaultSite,normalizeSite,siteRules} from './landing-sites.js?v=10';
-import {parseMissionLink,missionLink} from './mission-link.js?v=10';
-import {siteMapHTML,siteCardsHTML,baseGridHTML,designEditorHTML,designEffectsHTML,layoutHint,designAdvice,designTargets,moduleName} from './outpost-setup.js?v=10';
+import {archiveStormForCode} from './solar-archive.js';
+import {truthBadge,eventDate,stormPlayLabel,visualMeter,panelDustHTML,oddsHTML,wallStatusHTML,REFLECTION_ANSWERS,saveReflectionAnswer,learnedHTML,learnedIdeas} from './outpost-presentation.js';
+import {directedOutpostScene} from './journey.js';
+import {FLAGS,validateFlag,flagSVG,teamCreditHTML,drawBangladeshFlag} from './flags.js';
+import {copy,t,setLanguage,LANGUAGES} from './strings.js';
+import {METERS,SYSTEMS,tomorrowWeather,stormGoal,weatherToday,moraleCells,normalizeMissionCode,codeForSeed,missionStars,createOutpost,restoreOutpost,cellsAvailable,defaultPlan,previewPlan,confirmPlan,choiceEffects,choiceAllowed,choose,tickReply,showSummary,nextSol,collectRock,createDodge,tickDodge,clamp} from './outpost-engine.js';
+import {createGame} from './story-engine.js';
+import {surfaceObstacles,moveOnGround,groundRoute,nearestFreeGround,KITTY_RADIUS,OUTPOST_START} from './surface-world.js';
+import {drawScene,toWorld,cat} from './art.js';
+import {readyVoices,registerOffline,containPoint,makeUtterances} from './compat.js';
+import {createVoiceClips} from './voice-clips.js';
+import {createStorySound} from './story-sound.js';
+import {resourcesHTML} from './resources.js';
+import {loadSpaceWeather,flareStrength,FALLBACK_EVENT} from './nasa-data.js';
+import {MODULES,GRID,PIP_LAYOUT,validLayout,normalizeLayout,layoutEffects,placeModule,encodeLayout} from './base-design.js';
+import {defaultSite,normalizeSite,siteRules} from './landing-sites.js';
+import {parseMissionLink,missionLink} from './mission-link.js';
+import {siteMapHTML,siteCardsHTML,baseGridHTML,designEditorHTML,designEffectsHTML,layoutHint,moduleName} from './outpost-setup.js';
 
 const $=id=>document.getElementById(id), esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const KEY='astro-kitty-outpost-v1',PROFILE='astro-kitty-profile-v1',TRAINING='astro-kitty-training-v1';
@@ -48,17 +39,17 @@ profile.name=String(profile.name).slice(0,22);profile.patches=Math.max(0,Number(
 setLanguage(profile.language);document.documentElement.lang=profile.language;
 for(const el of document.querySelectorAll('[data-copy]'))el.textContent=t(el.dataset.copy);
 $('outpostCanvas').setAttribute('aria-label',t('exploreHint'));
-$('basePictureClose').setAttribute('aria-label',t('close'));$('panelClose').setAttribute('aria-label',t('close'));$('bonusClose').setAttribute('aria-label',t('close'));
-let sharedSettings=parseMissionLink(location.href);
+$('panelClose').setAttribute('aria-label',t('close'));$('bonusClose').setAttribute('aria-label',t('close'));
+const sharedSettings=parseMissionLink(location.href);
 let draft=null,selectedModule='shelter',gridCursor=GRID.habitat;
 let weatherState={event:{...FALLBACK_EVENT,mode:'archive'},latest:{...FALLBACK_EVENT,mode:'archive'},quiet:false,replacement:false},weatherPending=true,weatherPromise=null;
 let nextCode=normalizeMissionCode(new URL(location.href).searchParams.get('code'))||codeForSeed(Date.now());
 let mission=restoreOutpost(read(KEY,null)),active=false,plan=null,lastPhase='',lastSol=0,lastTick=0,visualTime=0,spinUntil=0,purrTaps=[],jokeIndex=-1,idleTime=0,savedAt=0;
 let reflectionShown=false;
 let filmShot=null,filmDone=null,filmTime=0,arrivalPending=false;
+const fromStory=new URL(location.href).searchParams.has('arrival');
 let exploringTarget=null,exploringRoute=[],obstacles=[],keys=new Set(),paused=false,dialogKind='',lastLine='',speechId=0,latestEvent={...FALLBACK_EVENT,mode:'archive'},bonus=null,bonusTarget=null,photoPose=false,rockGuide=null;
 const canvas=$('outpostCanvas'),dialog=$('missionDialog'),panel=$('panelBody'),visual=createGame('walk'),motion=matchMedia('(prefers-reduced-motion: reduce)');
-const openBasePicture=createBasePicture($('basePicture'));
 function clearRoute(){exploringTarget=null;exploringRoute=[];}
 function aimOutpost(point){
  exploringRoute=groundRoute(visual.player,point,obstacles,KITTY_RADIUS,300);
@@ -82,15 +73,19 @@ function sound(kind='win'){
   if(!profile.voice)return;
   try{sfx.unlock();if(kind==='purr')sfx.purr();else if(kind==='cheer')sfx.finish();else if(kind==='meow')sfx.kitty();else{sfx.chime();setTimeout(()=>sfx.kitty(),260);}}catch{}
 }
-function settings(){document.body.classList.toggle('big-text',!!profile.bigText);document.body.classList.toggle('reduce-motion',!!profile.reduceMotion);$('voiceToggle').textContent=profile.voice?'🔊':'🔇';$('voiceToggle').setAttribute('aria-label',profile.voice?'Mute Dhrubo':'Hear Dhrubo');$('voiceToggle').title='Dhrubo guidance';$('voiceToggle').setAttribute('aria-pressed',String(profile.voice));$('menuToggle').textContent='☰';$('menuToggle').setAttribute('aria-label',t('menu'));}
+function settings(){document.body.classList.toggle('big-text',!!profile.bigText);document.body.classList.toggle('reduce-motion',!!profile.reduceMotion);$('voiceToggle').textContent=profile.voice?'🔊':'🔇';$('voiceToggle').setAttribute('aria-label',t('voice'));$('voiceToggle').setAttribute('aria-pressed',String(profile.voice));$('menuToggle').textContent='☰';$('menuToggle').setAttribute('aria-label',t('menu'));}
 function save(){if(mission)write(KEY,mission);write(PROFILE,profile);}
-$('pipCaption').insertAdjacentHTML('afterbegin',`<span class="outpost-guide" aria-hidden="true">${robotPortrait}</span>`);
-const clips=dhruboNarrator();globalThis.astroVoiceHeard=clips.heard;
+const clips=createVoiceClips();globalThis.astroVoiceHeard=clips.heard;
 function stopVoice(){speechId++;clips.stop();try{synth?.cancel();}catch{}}
 async function speak(line){
-  lastLine=line;idleTime=0;$('pipLine').textContent=line;$('pipCaption').classList.toggle('hidden',profile.captions===false&&profile.voice===true&&!!synth);stopVoice();const id=speechId;$('pipLine').dataset.speechVersion=String(id);
+  lastLine=line;idleTime=0;$('pipLine').textContent=line;$('pipCaption').classList.toggle('hidden',profile.captions===false&&profile.voice===true&&!!synth);stopVoice();const id=speechId;
   if(!profile.voice||paused||document.hidden)return;
-  await clips.play(line,{onunavailable:()=>{$('pipCaption').classList.remove('hidden');}});
+  if(await clips.play(line)||id!==speechId)return;
+  if(!synth||!globalThis.SpeechSynthesisUtterance)return;
+  const available=await voices;if(id!==speechId||!profile.voice||paused||document.hidden)return;
+  try{const list=makeUtterances(line,synth.getVoices().length?synth.getVoices():available);
+    for(const u of list)u.onerror=()=>{$('pipCaption').classList.remove('hidden');};synth.resume();for(const u of list)synth.speak(u);
+  }catch{$('pipCaption').classList.remove('hidden');}
 }
 function announce(line){$('worldNote').textContent=line;speak(line);}
 const facts=()=>copy('facts'),cards=()=>copy('cards');
@@ -144,7 +139,7 @@ function codeHTML(){return `<p class="mission-code">${t('missionCode')}: <strong
 function weatherHTML(){const event=weatherState.latest,strength=flareStrength(event);return `<section class="weather-card compact" aria-labelledby="weatherTitle"><div class="weather-line"><span class="weather-sun" aria-hidden="true">☀️</span><div><h2 id="weatherTitle">${t('weatherShort')}</h2><p>${t('flareReadout',{date:eventDate(event),class:esc(event.classType)})}</p></div>${truthBadge('real')}</div><meter class="flare-meter" min="0" max="5" value="${strength.level}" aria-label="${t('flareStrength',{class:esc(event.classType)})}">${esc(event.classType)}</meter><details class="learn-more"><summary>${t('learnMore')}</summary><small>${t(event.mode==='live'?'weatherLive':event.mode==='cache'?'weatherCache':'weatherArchive')}</small>${weatherState.quiet?`<p>${t('weatherQuiet')}</p>`:''}${strength.level?'':`<p>${t('flareUnknown')}</p>`}<p class="simple-note">${t('flareClasses')}</p><p>${t('flareHonesty')}</p><p class="simple-note">${t('flareDirection')}</p><p>${truthBadge('game')} ${t('flareGameRule',{strength:t('storm'+strength.tier[0].toUpperCase()+strength.tier.slice(1)),goal:strength.goal})}</p><a href="${esc(event.source)}" target="_blank" rel="noopener">${t('source')}</a>${event.mode==='archive'?`<p class="simple-note">${t('weatherNoQuietClaim')}</p>`:''}</details>${weatherPending?`<p class="simple-note" role="status">${t('weatherChecking')}</p>`:''}</section>`;}
 function marsDataHTML(){return `<section class="mars-data" aria-label="${t('marsDataTitle')}"><h2>${t('marsDataTitle')} ${truthBadge('real')}</h2><div class="mars-tiles">${[['🌗','marsDay','marsDayLabel'],['🪶','marsGravity','marsGravityLabel'],['❄️','marsTemp','marsTempLabel']].map(([i,v,l])=>`<div class="mars-tile"><span aria-hidden="true">${i}</span><strong>${t(v)}</strong><small>${t(l)}</small></div>`).join('')}</div><details class="learn-more"><summary>${t('learnMore')}</summary><p class="simple-note">${t('marsDataNote')}</p><a href="https://science.nasa.gov/mars/facts/" target="_blank" rel="noopener">${t('source')}</a></details></section>`;}
 function sharedNotice(){return (weatherState.replacement?`<p class="event-box">${t('sharedReplacement',{id:esc(weatherState.event.flrID),date:weatherState.event.startTime.slice(0,10)})}</p>`:'')+(sharedSettings.invalid?`<p class="simple-note">${t('sharedRepair')}</p>`:'');}
-function home(){active=false;paused=false;draft=null;const ended=missionEnded(),running=mission&&!ended;openPanel(`<h1>${t('baseHomeTitle')}</h1><label class="callsign-label" for="newCallsign">${t('callsign')}</label><input id="newCallsign" type="text" maxlength="22" value="${esc(profile.name)}" autocomplete="off"><div class="panel-actions home-actions">${running?`<button class="primary big" data-action="continue">${t('continue')}</button>`:''}<button class="${running?'chip-button':'primary big'}" data-action="new">${t(mission?'newMission':'setupNext')}</button>${ended?`<button class="chip-button" data-action="last-report">${t('seeLastReport')}</button>`:''}${mission?`<button class="text-button" data-action="reset-base">${t('resetBase')}</button>`:''}</div><div id="spaceWeather">${weatherHTML()}</div>${marsDataHTML()}<div id="sharedNotice">${sharedNotice()}</div><details class="rules-detail more-options"><summary>${t('moreOptions')}</summary><button class="chip-button" data-action="today">${stormPlayLabel(weatherState.latest)}</button><label class="wall-label" for="missionCodeInput">${t('enterCode')}</label><input id="missionCodeInput" type="text" maxlength="23" value="${esc(nextCode)}" autocomplete="off" spellcheck="false" aria-describedby="codeHint codeError"><p id="codeHint" class="simple-note">${t('codeHint')}</p><p id="codeError" class="plan-error" role="status"></p><button class="chip-button" data-action="pip-setup">${t('pipChoice')}</button><nav class="menu-grid"><a class="chip-button" href="./mars-explorer.html">${t('exploreMars')}</a><a class="chip-button" href="./?training=1">${t('train')}</a><a class="chip-button" href="./teacher.html">${t('teacher')}</a></nav><button class="chip-button" data-action="wardrobe">${t('wardrobe')}</button><details class="rules-detail"><summary>${t('trainingPerks')}</summary>${perkHTML()}</details>${resourcesHTML()}<p class="simple-note">${t('noEndorsement')}</p>${teamCreditHTML()}</details>`,t('setupStep1'),'home');updateMeters();$('taskButton').textContent=t(ended?'newMission':'start');$('rockCounter').textContent=t('rocks',{n:0});}
+function home(){active=false;draft=null;const ended=missionEnded(),running=mission&&!ended;openPanel(`<h1>${t('baseHomeTitle')}</h1><label for="newCallsign">${t('callsign')}</label><input id="newCallsign" type="text" maxlength="22" value="${esc(profile.name)}" autocomplete="off"><div class="panel-actions home-actions">${running?`<button class="primary big" data-action="continue">${t('continue')}</button>`:''}<button class="${running?'chip-button':'primary big'}" data-action="new">${t(mission?'newMission':'setupNext')}</button>${ended?`<button class="chip-button" data-action="last-report">${t('seeLastReport')}</button>`:''}</div><div id="spaceWeather">${weatherHTML()}</div>${marsDataHTML()}<div id="sharedNotice">${sharedNotice()}</div><details class="rules-detail more-options"><summary>${t('moreOptions')}</summary><button class="chip-button" data-action="today">${stormPlayLabel(weatherState.latest)}</button><label class="wall-label" for="missionCodeInput">${t('enterCode')}</label><input id="missionCodeInput" type="text" maxlength="23" value="${esc(nextCode)}" autocomplete="off" spellcheck="false" aria-describedby="codeHint codeError"><p id="codeHint" class="simple-note">${t('codeHint')}</p><p id="codeError" class="plan-error" role="status"></p><button class="chip-button" data-action="pip-setup">${t('pipChoice')}</button><nav class="menu-grid"><a class="chip-button" href="./?training=1">${t('train')}</a><a class="chip-button" href="./teacher.html">${t('teacher')}</a></nav><button class="chip-button" data-action="wardrobe">${t('wardrobe')}</button><details class="rules-detail"><summary>${t('trainingPerks')}</summary>${perkHTML()}</details>${resourcesHTML()}<p class="simple-note">${t('noEndorsement')}</p>${teamCreditHTML()}</details>`,t('setupStep1'),'home');updateMeters();$('taskButton').textContent=t(ended?'newMission':'start');$('rockCounter').textContent=t('rocks',{n:0});}
 async function beginSetup(today=false){
  const code=normalizeMissionCode($('missionCodeInput')?.value??nextCode);if(!code){const d=$('missionCodeInput').closest('details');if(d)d.open=true;$('codeError').textContent=t('codeInvalid');$('missionCodeInput').focus();return;}
  const name=($('newCallsign')?.value||profile.name).trim().slice(0,22)||t('defaultName');
@@ -154,43 +149,9 @@ async function beginSetup(today=false){
  draft={code,callsign:name,site:sharedSettings.site??defaultSite(code),layout:normalizeLayout(sharedSettings.layout),event:today?weatherState.latest:sharedSettings.eventId?weatherState.event:archiveStormForCode(code),replacement:!today&&!!sharedSettings.eventId&&weatherState.replacement};
  landingStep();
 }
-function landingStep({narrate=true}={}){if(!draft)return home();openPanel(`<h2>${t('siteTitle')}</h2>${siteMapHTML(draft.site)}${siteCardsHTML(draft.site)}<footer class="setup-footer"><button class="primary" data-action="design">${t('siteContinue')}</button><button class="chip-button" data-action="pip-site">${t('pipChoice')}</button><button class="text-button" data-action="setup-home">${t('setupBack')}</button></footer>`,t('setupStep2'),'sites',narrate?t('siteIntro'):null);}
-function designGuide(line){const caption=$('designGuideLine');if(caption)caption.textContent=line;speak(line);}
-function designStep({tile=null,action=null,status}={}){
- if(!draft)return home();
- const entering=dialogKind!=='design';
- const scroll=panel.querySelector('.workshop-content')?.scrollTop??0;
- const tipOpen=panel.querySelector('.workshop-guide')?.open;
- const checksOpen=panel.querySelector('.workshop-checks')?.open;
- openPanel(designEditorHTML(draft.layout,selectedModule,gridCursor,draft.site,status),t('setupStep3'),'design');
- if(entering)designGuide(t('designIntro'));
- if(tile!==null)panel.querySelector(`[data-tile="${tile}"]`)?.focus({preventScroll:true});
- if(action)panel.querySelector(`[data-action="${action}"]`)?.focus({preventScroll:true});
- if(tipOpen)panel.querySelector('.workshop-guide').open=true;
- if(checksOpen)panel.querySelector('.workshop-checks').open=true;
- panel.querySelector('.workshop-content').scrollTop=scroll;
-}
-function selectBuilding(id){
- selectedModule=id;
- for(const button of panel.querySelectorAll('[data-module]'))button.setAttribute('aria-pressed',String(button.dataset.module===id));
- for(const {tile,anchor,open,suggested} of designTargets(draft.layout,id)){
-  const cell=panel.querySelector(`[data-tile="${tile}"]`);
-  Object.assign(cell.dataset,{anchor,open,suggested});
-  cell.setAttribute('aria-label',cell.dataset.label+(suggested?' · '+t('workshopSuggested'):''));
- }
- designGuide(designAdvice(draft.layout,id));
- $('designStatus').textContent=t('workshopPickTile',{building:moduleName(id)});
-}
-function putModule(tile){
- if(!draft)return;
- const layout=placeModule(draft.layout,selectedModule,tile);
- if(!layout){
-  $('designStatus').textContent=t(tile===GRID.habitat?'workshopFixed':'workshopOccupied');designGuide($('designStatus').textContent);
-  return;
- }
- draft.layout=layout;gridCursor=tile;
- designStep({tile,status:t('workshopPlaced',{building:moduleName(selectedModule)})});designGuide(t('workshopPlaced',{building:moduleName(selectedModule)})+' '+designAdvice(layout,selectedModule));
-}
+function landingStep(){if(!draft)return home();openPanel(`<h2>${t('siteTitle')}</h2>${siteMapHTML(draft.site)}${siteCardsHTML(draft.site)}<footer class="setup-footer"><button class="primary" data-action="design">${t('siteContinue')}</button><button class="chip-button" data-action="pip-site">${t('pipChoice')}</button><button class="text-button" data-action="setup-home">${t('setupBack')}</button></footer>`,t('setupStep2'),'sites',t('siteIntro'));}
+function designStep(focusTile=null){if(!draft)return home();openPanel(designEditorHTML(draft.layout,selectedModule,gridCursor),t('setupStep3'),'design');if(focusTile!==null)panel.querySelector(`[data-tile="${focusTile}"]`)?.focus({preventScroll:true});}
+function putModule(tile){if(!draft)return;const l=placeModule(draft.layout,selectedModule,tile);if(!l){$('designStatus').textContent=t('designInvalid');return;}draft.layout=l;gridCursor=tile;designStep(tile);$('designStatus').textContent=t('designPlaced',{module:moduleName(selectedModule),hint:layoutHint(l,selectedModule)});}
 function startNew(){
  if(!draft||!validLayout(draft.layout))return;
  reflectionShown=false;mission=createOutpost({code:draft.code,site:draft.site,layout:draft.layout,stormEvent:draft.event,training:read(TRAINING,{}),callsign:draft.callsign});mission.stormEvent={...draft.event};mission.eventReplacement=!!draft.replacement;active=true;arrivalPending=true;plan=null;lastPhase='';lastSol=0;
@@ -204,7 +165,7 @@ function stormRuleText(){return t('stormRuleDynamic',{goal:stormGoal(mission),be
 function goalText(){const id=mission.bonusGoal.id;return t('goal'+id[0].toUpperCase()+id.slice(1));}
 function forecastHTML(){const weather=tomorrowWeather(mission);return weather?`<p class="simple-note">${t('forecastTomorrow',{icon:({clear:'☀️',hazy:'🌤️',dusty:'☁️'})[weather],weather:t('weather'+weather[0].toUpperCase()+weather.slice(1))})}</p>`:'';}
 function briefing(){const line=t('morningBudget',{cells:cellsAvailable(mission)}),early=mission.perks.warning&&mission.sol===mission.stormSol-1,w=weatherToday(mission),mood=moraleCells(mission);
-  openPanel(`${vignetteHTML(mission.weather[mission.sol-1])}<span class="eyebrow">${t('sol',{n:mission.sol})} · ${t('solRoom'+mission.sol)}</span><h2>${t('solTitle'+mission.sol)}</h2>${mission.eventReplacement?`<p class="event-box">${t('sharedReplacement',{id:esc(mission.stormEvent.flrID),date:mission.stormEvent.startTime.slice(0,10)})}</p>`:''}<p class="story-line">${t('solRoomLine'+mission.sol,{name:esc(mission.callsign)})}</p><p class="brief-weather">${w.icon} ${t('weatherBrief',{weather:t('weather'+mission.weather[mission.sol-1][0].toUpperCase()+mission.weather[mission.sol-1].slice(1)),cells:w.cells})}</p>${early?`<div class="event-box">${t('early')}</div>`:''}<details class="learn-more"><summary>${t('todayDetails')}</summary><p>${esc(line)}</p>${forecastHTML()}${codeHTML()}<p class="simple-note">${t(mood>0?'moraleHigh':mood<0?'moraleLow':'moraleNormal')}</p>${visualMeter(t('sunlight'),w.sunlight)}${panelDustHTML(mission.cleanliness)}${mission.sol===1?`<p class="simple-note">${t('shieldingHelp')}</p>`:''}<p>${t('bonusGoal',{goal:goalText()})}</p></details><div class="panel-actions"><button class="primary" data-action="plan">${t('plan')}</button><button class="chip-button" data-action="explore">${t('explore')}</button><button class="chip-button" data-action="share">${t('shareMission')}</button></div>`,t('brief'),'brief',t('solRoomLine'+mission.sol,{name:mission.callsign})+' '+line+(early?' '+t('early'):''));}
+  openPanel(`${vignetteHTML(mission.weather[mission.sol-1])}<span class="eyebrow">${t('sol',{n:mission.sol})}</span><h2>${t('solTitle'+mission.sol)}</h2>${mission.eventReplacement?`<p class="event-box">${t('sharedReplacement',{id:esc(mission.stormEvent.flrID),date:mission.stormEvent.startTime.slice(0,10)})}</p>`:''}<p class="story-line">${t('solStory'+mission.sol,{name:esc(mission.callsign)})}</p><p class="brief-weather">${w.icon} ${t('weatherBrief',{weather:t('weather'+mission.weather[mission.sol-1][0].toUpperCase()+mission.weather[mission.sol-1].slice(1)),cells:w.cells})}</p>${early?`<div class="event-box">${t('early')}</div>`:''}<details class="learn-more"><summary>${t('todayDetails')}</summary><p>${esc(line)}</p>${forecastHTML()}${codeHTML()}<p class="simple-note">${t(mood>0?'moraleHigh':mood<0?'moraleLow':'moraleNormal')}</p>${visualMeter(t('sunlight'),w.sunlight)}${panelDustHTML(mission.cleanliness)}${mission.sol===1?`<p class="simple-note">${t('shieldingHelp')}</p>`:''}<p>${t('bonusGoal',{goal:goalText()})}</p></details><div class="panel-actions"><button class="primary" data-action="plan">${t('plan')}</button><button class="chip-button" data-action="explore">${t('explore')}</button><button class="chip-button" data-action="share">${t('shareMission')}</button></div>`,t('brief'),'brief',t('solStory'+mission.sol,{name:mission.callsign})+' '+line+(early?' '+t('early'):''));}
 function planHTML(){plan??=defaultPlan(mission);const p=previewPlan(mission,plan);return `<div class="plan-content"><h2>${t('planning')}</h2>${forecastHTML()}${truthBadge('game')}${wallStatusHTML(mission,stormGoal(mission))}<p class="simple-note">${mission.sol>mission.stormSol?t('stormFinished'):stormTargetText(mission.sol===mission.stormSol||(mission.perks.warning&&mission.sol===mission.stormSol-1))}</p><div class="allocation-rows">${SYSTEMS.map(k=>`<div class="allocation-row"><span>${k==='shield'?'🛡️':symbols[k]} ${t(k+'System')}</span><div class="stepper"><button class="chip-button" data-alloc="${k}" data-step="-1" aria-label="− ${t(k+'System')}">−</button><output id="alloc-${k}">${plan[k]}</output><button class="chip-button" data-alloc="${k}" data-step="1" aria-label="+ ${t(k+'System')}">+</button></div></div>`).join('')}</div><label class="wall-label" for="wallPlan">${t('wall')}</label><select id="wallPlan">${[[0,'wallNone'],[1,'wallOne'],[2,'wallTwo'],[-1,'wallReturn']].map(([v,label])=>`<option value="${v}" ${plan.wall===v?'selected':''} ${v===-1&&mission.wallWater<10?'disabled':''}>${t(label)}</option>`).join('')}</select><p class="simple-note">${t('wallStored',{n:mission.wallWater})}</p><strong>${t('preview')}</strong><div id="planPreview">${changeHTML(p.changes,true)}</div><details class="rules-detail"><summary>${t('howItWorks')}</summary><p>${t('wallHint')}</p>${SYSTEMS.map(k=>`<p>${t(k+'Hint')}</p>`).join('')}<p>${t('previewNote')}</p><p>${stormRuleText()}</p></details></div><footer class="plan-footer"><div class="plan-status"><b id="cellBudget">${t('cellBudget',{used:p.used,total:p.total})}</b><span>⚡</span></div><p id="planError" class="plan-error" role="status">${p.error?t(p.error):''}</p><button class="primary" data-action="confirm" id="confirmPlan" ${p.valid?'':'disabled'}>${t('confirm')}</button></footer>`;}
 function planning(){openPanel(planHTML(),t('plan'),'plan',t('wallHint'));}
 function updatePreview(){const p=previewPlan(mission,plan);$('cellBudget').textContent=t('cellBudget',{used:p.used,total:p.total});for(const k of SYSTEMS)$('alloc-'+k).textContent=plan[k];$('planPreview').innerHTML=changeHTML(p.changes,true);$('planError').textContent=p.error?t(p.error):'';$('confirmPlan').disabled=!p.valid;}
@@ -237,21 +198,7 @@ function crewReport(){
   openPanel(`<div class="patch-medal">${complete?'🐾':failed?'🏡':'📋'}</div>${complete?`<p class="praise-line" aria-hidden="true">Oshadharon! (Amazing!) 🎉</p>`:''}<h2>${t(complete?'success':failed?'safeHome':'report')}</h2><p>${failed?t('failed'+mission.failedMeter[0].toUpperCase()+mission.failedMeter.slice(1)):t(complete?'successLine':'reportIntro')}</p>${starHTML()}<div class="panel-actions"><button class="primary big" data-action="${complete||failed?'restart':'resume'}">${t(complete||failed?'newPlan':'resume')}</button></div>${learnedHTML(mission)}<details class="rules-detail more-options" id="missionDiary"><summary>${t('missionDiary')}</summary>${codeHTML()}${mission.legacy?`<p class="simple-note">${t('codeLegacy')}</p>`:''}<p class="simple-note">${t('honesty')}</p><div class="panel-actions"><button class="chip-button" data-action="share">${t('shareMission')}</button><button class="chip-button" data-action="download-report">${t('downloadReport')}</button></div>${mission.log.some(r=>r.id==='storm')?factHTML('marsStorm'):''}${missionDesignHTML()}${reportRows()}${resourcesHTML()}${teamCreditHTML()}</details>`,t('report'),'report',failed?t('safeHome'):complete?t('successLine'):t('reportIntro'));
   for(const a of dialog.querySelectorAll('a[href^="#choice-"]'))a.addEventListener('click',()=>{$('missionDiary').open=true;});
 }
-function showMenu(){const ended=missionEnded();if(ended){active=false;updateMeters();}paused=true;stopVoice();openPanel(`<h2>${t('pause')}</h2>${codeHTML()}<button class="chip-button" data-action="share">${t('shareMission')}</button><p>${t('paused')}</p><button class="primary" data-action="${ended?'restart':'resume'}">${t(ended?'newMission':'resume')}</button><div class="menu-grid"><button class="chip-button" data-action="report">${t(ended?'seeLastReport':'report')}</button><button class="chip-button" data-action="wardrobe">${t('wardrobe')}</button><button class="chip-button" data-action="notebook">${t('notebook')}</button><button class="chip-button" data-action="bonus-intro">${t('bonus')}</button><a class="chip-button" href="./?training=1">${t('train')}</a><a class="chip-button" href="./teacher.html">${t('teacher')}</a></div>${[['voice','voice'],['captions','captions'],['bigText','bigText'],['reduceMotion','reduced']].map(([key,label])=>`<label class="checkbox-row"><input type="checkbox" data-setting="${key}" ${profile[key]?'checked':''}>${t(label)}</label>`).join('')}<label for="languageSelect">${t('language')}</label><select id="languageSelect">${Object.entries(LANGUAGES).map(([code,lang])=>`<option value="${code}" ${profile.language===code?'selected':''}>${lang.name}</option>`).join('')}</select><p class="simple-note">${t('translation')}</p><p class="simple-note">${t(storageOK?'saved':'noStorage')} · ${t(offlineReady?'offline':offlineChecked?'offlineUnavailable':'offlinePreparing')}</p>${ended?'':`<button class="text-button" data-action="restart">${t('newMission')}</button>`}${mission?`<button class="text-button" data-action="reset-base">${t('resetBase')}</button>`:''}<button class="text-button" data-action="enter-code">${t('enterCode')}</button><a class="chip-button" href="./?choose=1">${t('chooseNav')}</a>${teamCreditHTML()}`,t('menu'),'menu');}
-function confirmResetBase(){
- if(!mission)return home();
- openPanel(`<h2>${t('resetBase')}</h2><p>${t('resetBasePrompt')}</p><div class="panel-actions"><button class="chip-button" data-action="cancel-reset">${t('keepBase')}</button><button class="primary" data-action="confirm-reset">${t('resetBaseConfirm')}</button></div>`,t('resetBase'),'reset-base');
-}
-function resetBase(){
- stopVoice();sfx.stopAll();mission=null;active=false;plan=null;draft=null;
- arrivalPending=false;reflectionShown=false;rockGuide=null;photoPose=false;
- lastPhase='';lastSol=0;sharedSettings=parseMissionLink(location.pathname);
- weatherState.replacement=false;nextCode=codeForSeed(Date.now());
- history.replaceState(null,'',location.pathname);
- write(KEY,null);
- $('solLabel').textContent='';
- home();
-}
+function showMenu(){const ended=missionEnded();if(ended){active=false;updateMeters();}paused=true;stopVoice();openPanel(`<h2>${t('pause')}</h2>${codeHTML()}<button class="chip-button" data-action="share">${t('shareMission')}</button><p>${t('paused')}</p><button class="primary" data-action="${ended?'restart':'resume'}">${t(ended?'newMission':'resume')}</button><div class="menu-grid"><button class="chip-button" data-action="report">${t(ended?'seeLastReport':'report')}</button><button class="chip-button" data-action="wardrobe">${t('wardrobe')}</button><button class="chip-button" data-action="notebook">${t('notebook')}</button><button class="chip-button" data-action="bonus-intro">${t('bonus')}</button><a class="chip-button" href="./?training=1">${t('train')}</a><a class="chip-button" href="./teacher.html">${t('teacher')}</a></div>${[['voice','voice'],['captions','captions'],['bigText','bigText'],['reduceMotion','reduced']].map(([key,label])=>`<label class="checkbox-row"><input type="checkbox" data-setting="${key}" ${profile[key]?'checked':''}>${t(label)}</label>`).join('')}<label for="languageSelect">${t('language')}</label><select id="languageSelect">${Object.entries(LANGUAGES).map(([code,lang])=>`<option value="${code}" ${profile.language===code?'selected':''}>${lang.name}</option>`).join('')}</select><p class="simple-note">${t('translation')}</p><p class="simple-note">${t(storageOK?'saved':'noStorage')} · ${t(offlineReady?'offline':offlineChecked?'offlineUnavailable':'offlinePreparing')}</p>${ended?'':`<button class="text-button" data-action="restart">${t('newMission')}</button>`}<button class="text-button" data-action="enter-code">${t('enterCode')}</button><a class="chip-button" href="./?choose=1">${t('chooseNav')}</a>${teamCreditHTML()}`,t('menu'),'menu');}
 function notebook(){openPanel(`<h2>${t('honest')}</h2><p>${t('honesty')}</p>${eventHTML(mission?.stormEvent??latestEvent)}<button class="chip-button" data-action="refresh-data">${t('refreshData')}</button>${Object.keys(facts()).map(factHTML).join('')}<p class="simple-note">${t('noEndorsement')}</p>`,t('notebook'),'notebook');}
 function wardrobe(){openPanel(`<h2>${t('wardrobe')}</h2><p>${t('stars',{n:totalStars(),patches:profile.patches})}</p><label for="callsignInput">${t('callsign')}</label><input id="callsignInput" maxlength="22" value="${esc(profile.name)}" type="text"><h3>${t('suits')}</h3><div class="wardrobe-options">${SUITS.map(([colour,label,cost])=>`<button class="chip-button" data-suit="${colour}" aria-pressed="${profile.suit===colour}" ${unlocked(cost)?'':'disabled'}><span class="colour-dot" style="background:${colour}"></span>${t(label)}${unlocked(cost)?'':` · ${t('unlockStars',{n:cost})}`}</button>`).join('')}</div><h3>${t('stickers')}</h3><div class="wardrobe-options">${STICKERS.map(([mark,label,cost],i)=>`<button class="chip-button" data-sticker="${i}" aria-pressed="${profile.sticker===mark}" ${unlocked(cost)?'':'disabled'}>${mark} ${t(label)}${unlocked(cost)?'':` · ${cost<0?t('unlockPatch'):t('unlockStars',{n:cost})}`}</button>`).join('')}</div><h3>${t('flagPatch')}</h3><div class="wardrobe-options">${FLAGS.map(f=>`<button class="chip-button" data-flag="${f.id}" aria-pressed="${profile.flag===f.id}">${flagSVG(f.id,30)}${t(f.nameKey)}</button>`).join('')}</div><button class="primary" data-action="apply-profile">${t('apply')}</button>${perkHTML()}`,t('trainer'),'wardrobe');}
 function fieldRockHTML(r){if(!mission?.perks.fieldwork||!r.found)return '';const kind=copy('fieldworkKinds')[r.id];return `<p>${truthBadge('game')} ${esc(t(copy('sampleRocks')[kind].name))} · ${t('fieldworkNote',{note:esc(copy('fieldworkNotes')[r.id])})}</p>`;}
@@ -301,9 +248,9 @@ async function refreshEvent(){weatherPending=true;weatherState=await loadSpaceWe
 }
 
 panel.addEventListener('click',e=>{
-  const site=e.target.closest('[data-site]');if(site&&draft){draft.site=normalizeSite(site.dataset.site,draft.code);const id=site.dataset.site;landingStep({narrate:false});panel.querySelector(`.site-select[data-site="${id}"]`)?.focus({preventScroll:true});return;}
-  const module=e.target.closest('[data-module]');if(module&&draft){selectBuilding(module.dataset.module);return;}
-  const tile=e.target.closest('[data-tile]');if(tile&&draft&&dialogKind==='design'){if(tile.dataset.placed&&tile.dataset.placed!==selectedModule)selectBuilding(tile.dataset.placed);else putModule(Number(tile.dataset.tile));return;}
+  const site=e.target.closest('[data-site]');if(site&&draft){draft.site=normalizeSite(site.dataset.site,draft.code);const id=site.dataset.site;landingStep();panel.querySelector(`.site-select[data-site="${id}"]`)?.focus({preventScroll:true});return;}
+  const module=e.target.closest('[data-module]');if(module&&draft){selectedModule=module.dataset.module;for(const b of panel.querySelectorAll('[data-module]'))b.setAttribute('aria-pressed',String(b.dataset.module===selectedModule));$('designStatus').textContent=t('designSelected',{module:moduleName(selectedModule)});return;}
+  const tile=e.target.closest('[data-tile]');if(tile&&draft&&dialogKind==='design'){putModule(Number(tile.dataset.tile));return;}
   const choice=e.target.closest('[data-choice]');if(choice){if(choose(mission,choice.dataset.choice)){paused=false;syncPhase(true);}return;}
   const alloc=e.target.closest('[data-alloc]');if(alloc){const k=alloc.dataset.alloc;plan[k]=clamp(plan[k]+Number(alloc.dataset.step),0,6);updatePreview();return;}
   const flag=e.target.closest('[data-flag]');if(flag){profile.name=($('callsignInput')?.value.trim()||profile.name).slice(0,22);if(mission)mission.callsign=profile.name;profile.flag=validateFlag(flag.dataset.flag);save();wardrobe();return;}
@@ -311,19 +258,14 @@ panel.addEventListener('click',e=>{
   const sticker=e.target.closest('[data-sticker]');if(sticker){profile.name=($('callsignInput')?.value.trim()||profile.name).slice(0,22);if(mission)mission.callsign=profile.name;profile.sticker=STICKERS[Number(sticker.dataset.sticker)][0];save();wardrobe();return;}
   const answer=e.target.closest('[data-reflection]')?.dataset.reflection;if(answer){reflection(answer);return;}
   const action=e.target.closest('[data-action]')?.dataset.action;if(!action)return;
-  if(action==='base-picture'&&draft){stopVoice();openBasePicture(draft,e.target.closest('button'));return;}
-  if(action==='design-help'){designGuide(t('designIntro'));return;}
   if(action==='cut-next'){finishCut();return;}else if(action==='cut-repeat'){speak(panel.querySelector('.story-cut p').textContent);return;}
-  if(action==='new')beginSetup();else if(action==='pip-setup'){$('missionCodeInput').value=nextCode;$('newCallsign').value=profile.name||t('defaultName');beginSetup();}else if(action==='today')beginSetup(true);else if(action==='design')designStep();else if(action==='pip-site'){draft.site=defaultSite(draft.code);designStep();}else if(action==='pip-layout'){draft.layout={...PIP_LAYOUT};designStep({action,status:t('workshopTemplatePlaced')});designGuide(t('workshopTemplatePlaced'));}else if(action==='reset-layout'){draft.layout={};designStep({action,status:t('workshopCleared')});designGuide(t('workshopCleared'));}else if(action==='launch')startNew();else if(action==='pip-launch'){draft.layout={...PIP_LAYOUT};startNew();}else if(action==='back-sites')landingStep();else if(action==='setup-home')home();else if(action==='base-map')baseMap();else if(action==='continue'){closePanel();active=true;syncPhase(true);}else if(action==='plan')planning();
+  if(action==='new')beginSetup();else if(action==='pip-setup'){$('missionCodeInput').value=nextCode;$('newCallsign').value=profile.name||t('defaultName');beginSetup();}else if(action==='today')beginSetup(true);else if(action==='design')designStep();else if(action==='pip-site'){draft.site=defaultSite(draft.code);designStep();}else if(action==='pip-layout'){draft.layout={...PIP_LAYOUT};designStep();}else if(action==='reset-layout'){draft.layout={};designStep();}else if(action==='launch')startNew();else if(action==='pip-launch'){draft.layout={...PIP_LAYOUT};startNew();}else if(action==='back-sites')landingStep();else if(action==='setup-home')home();else if(action==='base-map')baseMap();else if(action==='continue'){closePanel();active=true;syncPhase(true);}else if(action==='plan')planning();
   else if(action==='explore'){if(mission.phase==='brief')mission.phase='explore';closePanel();announce(t('exploreHint'));save();}
   else if(action==='confirm'){if(confirmPlan(mission,plan)){plan=null;paused=false;syncPhase(true);}}
   else if(action==='summary'){if(mission.lastChoice?.id==='storm'&&!reflectionShown)reflection();else{showSummary(mission);syncPhase(true);}}else if(action==='reflection-next'){showSummary(mission);syncPhase(true);}else if(action==='nextsol'){nextSol(mission);plan=null;paused=false;syncPhase(true);}
   else if(action==='resume'){closePanel();if(mission?.phase==='waiting')syncPhase(true);}
   else if(action==='report'||action==='last-report')crewReport();else if(action==='notebook')notebook();else if(action==='wardrobe')wardrobe();
   else if(action==='apply-profile'){profile.name=($('callsignInput').value.trim()||t('defaultName')).slice(0,22);if(mission)mission.callsign=profile.name;save();closePanel();}
-  else if(action==='reset-base')confirmResetBase();
-  else if(action==='confirm-reset')resetBase();
-  else if(action==='cancel-reset'){if(active)showMenu();else home();}
   else if(action==='restart'){active=false;nextCode=codeForSeed(Date.now());home();}
   else if(action==='enter-code'){active=false;nextCode=mission?.code??nextCode;home();{const d=$('missionCodeInput').closest('details');if(d)d.open=true;}$('missionCodeInput').focus();$('missionCodeInput').select();}
   else if(action==='share')shareMission();
@@ -332,11 +274,11 @@ panel.addEventListener('click',e=>{
   else if(action==='refresh-data')refreshEvent();else if(action==='photo-save')savePhoto();else if(action==='photo-pose'){photoPose=!photoPose;sound();}
   else if(action==='bonus-intro')bonusIntro();else if(action==='bonus-start')startBonus();
 });
-panel.addEventListener('change',e=>{if(e.target.id==='wallPlan'){plan.wall=Number(e.target.value);updatePreview();}if(e.target.dataset.setting){profile[e.target.dataset.setting]=e.target.checked;settings();save();if(e.target.dataset.setting==='voice'){saveSound(profile.voice);if(!profile.voice)stopVoice();}if(e.target.dataset.setting==='captions')$('pipCaption').classList.toggle('hidden',!profile.captions&&profile.voice&&!!synth);}if(e.target.id==='languageSelect'){profile.language=setLanguage(e.target.value);save();location.reload();}});
+panel.addEventListener('change',e=>{if(e.target.id==='wallPlan'){plan.wall=Number(e.target.value);updatePreview();}if(e.target.dataset.setting){profile[e.target.dataset.setting]=e.target.checked;settings();save();if(e.target.dataset.setting==='voice'&&!profile.voice)stopVoice();if(e.target.dataset.setting==='captions')$('pipCaption').classList.toggle('hidden',!profile.captions&&profile.voice&&!!synth);}if(e.target.id==='languageSelect'){profile.language=setLanguage(e.target.value);save();location.reload();}});
 dialog.addEventListener('cancel',e=>{if(dialogKind==='film'){e.preventDefault();finishCut();}});
 dialog.addEventListener('close',()=>{if(dialog.open)return;keys.clear();paused=false;dialogKind='';lastTick=0;});
 $('panelClose').onclick=closePanel;
-$('voiceToggle').onclick=()=>{profile.voice=!profile.voice;saveSound(profile.voice);settings();save();if(profile.voice)speak(lastLine||t('welcome',{name:profile.name}));else{stopVoice();$('pipCaption').classList.remove('hidden');}};
+$('voiceToggle').onclick=()=>{profile.voice=!profile.voice;settings();save();if(profile.voice)speak(lastLine||t('welcome',{name:profile.name}));else{stopVoice();$('pipCaption').classList.remove('hidden');}};
 $('repeatPip').onclick=()=>speak(lastLine);
 $('baseMapButton').textContent=t('baseMap');$('baseMapButton').onclick=baseMap;$('menuToggle').onclick=showMenu;$('jokeButton').textContent='😺';$('jokeButton').setAttribute('aria-label',t('jokes'));$('jokeButton').onclick=tellJoke;
 $('photoButton').textContent='📷';$('photoButton').setAttribute('aria-label',t('photo'));$('photoButton').onclick=photo;
@@ -345,55 +287,19 @@ $('rockCounter').onclick=rockCollection;
 for(const id of ['phobos','deimos'])$(id+'Button').onclick=()=>openPanel(`<h2>${t(id)}</h2><p>${t(id+'Fact')}</p>${factHTML('moons')}`,t('moons'),'moon',t(id+'Fact'));
 const keymap={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down',a:'left',d:'right',w:'up',s:'down'};
 panel.addEventListener('keydown',e=>{
- if(dialogKind!=='design'||!draft)return;
- const palette=e.target.closest('[data-module]'),tile=e.target.closest('[data-tile]');
- const step={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];
- if(!step||(!palette&&!tile))return;
- e.preventDefault();e.stopPropagation();
- if(palette)selectBuilding(palette.dataset.module);
- const origin=palette?(draft.layout[selectedModule]??GRID.habitat):Number(tile.dataset.tile);
- const column=clamp(origin%GRID.width+step[0],0,GRID.width-1);
- const row=clamp(Math.floor(origin/GRID.width)+step[1],0,GRID.height-1);
- gridCursor=row*GRID.width+column;
- for(const button of panel.querySelectorAll('[data-tile]'))button.tabIndex=Number(button.dataset.tile)===gridCursor?0:-1;
- panel.querySelector(`[data-tile="${gridCursor}"]`)?.focus();
+ if(dialogKind!=='design'||!draft)return;const module=e.target.closest('[data-module]'),tile=e.target.closest('[data-tile]');
+ if(!module&&!tile)return;
+ const delta={ArrowLeft:-1,ArrowRight:1,ArrowUp:-5,ArrowDown:5}[e.key];
+ if(delta){e.preventDefault();e.stopPropagation();if(module){selectedModule=module.dataset.module;gridCursor=draft.layout[selectedModule]??GRID.habitat;}const row=Math.floor(gridCursor/5),column=gridCursor%5;gridCursor=clamp(row+(delta===-5?-1:delta===5?1:0),0,3)*5+clamp(column+(delta===-1?-1:delta===1?1:0),0,4);for(const b of panel.querySelectorAll('[data-module]'))b.setAttribute('aria-pressed',String(b.dataset.module===selectedModule));for(const b of panel.querySelectorAll('[data-tile]'))b.tabIndex=Number(b.dataset.tile)===gridCursor?0:-1;panel.querySelector(`[data-tile="${gridCursor}"]`)?.focus({preventScroll:true});}
 });
 let moduleDrag=null;
-function clearDesignDrag(){
- panel.querySelector('.workshop-tile[data-drop]')?.removeAttribute('data-drop');
- moduleDrag=null;
-}
-const tileAt=(x,y)=>document.elementFromPoint(x,y)?.closest('.workshop-tile');
-panel.addEventListener('pointerdown',e=>{
- const handle=e.target.closest('[data-module],[data-placed]');
- if(dialogKind!=='design'||!handle||e.button!==0||!e.isPrimary)return;
- moduleDrag={module:handle.dataset.module??handle.dataset.placed,x:e.clientX,y:e.clientY,moved:false,pointer:e.pointerId};
- handle.setPointerCapture(e.pointerId);
-});
-panel.addEventListener('pointermove',e=>{
- if(!moduleDrag||e.pointerId!==moduleDrag.pointer)return;
- if(!moduleDrag.moved){
-  if(Math.hypot(e.clientX-moduleDrag.x,e.clientY-moduleDrag.y)<=8)return;
-  moduleDrag.moved=true;
-  selectBuilding(moduleDrag.module);
- }
- panel.querySelector('.workshop-tile[data-drop]')?.removeAttribute('data-drop');
- const tile=tileAt(e.clientX,e.clientY);
- if(tile)tile.dataset.drop=tile.dataset.open;
-});
-panel.addEventListener('pointerup',e=>{
- if(!moduleDrag||e.pointerId!==moduleDrag.pointer)return;
- const moved=moduleDrag.moved;
- clearDesignDrag();
- if(!moved)return;
- const tile=tileAt(e.clientX,e.clientY);
- if(!tile)return;
- // The captured pointer also fires a click on the source button. Ignore that click.
- const source=e.target.closest('[data-module],[data-placed]');
- source?.addEventListener('click',click=>click.stopPropagation(),{once:true});
- putModule(Number(tile.dataset.tile));
-});
-panel.addEventListener('pointercancel',clearDesignDrag);
+panel.addEventListener('pointerdown',e=>{const module=e.target.closest('[data-module]');if(dialogKind!=='design'||!module)return;moduleDrag={module:module.dataset.module,x:e.clientX,y:e.clientY,moved:false,pointer:e.pointerId};module.setPointerCapture(e.pointerId);});
+panel.addEventListener('pointermove',e=>{if(!moduleDrag||e.pointerId!==moduleDrag.pointer)return;if(Math.hypot(e.clientX-moduleDrag.x,e.clientY-moduleDrag.y)>8){moduleDrag.moved=true;selectedModule=moduleDrag.module;e.preventDefault();}});
+panel.addEventListener('pointerup',e=>{if(!moduleDrag||e.pointerId!==moduleDrag.pointer)return;const drag=moduleDrag;moduleDrag=null;if(!drag.moved)return;const tile=document.elementFromPoint(e.clientX,e.clientY)?.closest('[data-tile]');if(tile){selectedModule=drag.module;putModule(Number(tile.dataset.tile));}});
+panel.addEventListener('pointercancel',()=>{moduleDrag=null;});
+panel.addEventListener('dragstart',e=>{const b=e.target.closest('[data-module]');if(b&&MODULES.includes(b.dataset.module)){selectedModule=b.dataset.module;e.dataTransfer.setData('text/plain',selectedModule);e.dataTransfer.effectAllowed='move';}});
+panel.addEventListener('dragover',e=>{if(dialogKind==='design'&&e.target.closest('[data-tile]'))e.preventDefault();});
+panel.addEventListener('drop',e=>{const tile=e.target.closest('[data-tile]'),module=e.dataTransfer.getData('text/plain');if(dialogKind==='design'&&tile&&MODULES.includes(module)){e.preventDefault();selectedModule=module;putModule(Number(tile.dataset.tile));}});
 window.addEventListener('keydown',e=>{if(['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName))return;
   if($('bonusDialog').open){if(['ArrowLeft','ArrowRight','a','d','A','D'].includes(e.key)){e.preventDefault();keys.add(keymap[e.key]??keymap[e.key.toLowerCase()]);}return;}
   if(dialog.open)return;if(['p','P','Escape'].includes(e.key)&&!e.repeat){e.preventDefault();showMenu();return;}
@@ -472,7 +378,6 @@ function move(dt){
   mission.player={x:visual.player.x,y:visual.player.y};
   if(['brief','explore','summary','complete'].includes(mission.phase))for(const r of mission.rocks){if(r.found)continue;const distance=Math.hypot(r.x-visual.player.x,r.y-visual.player.y);if(distance<siteRules(mission.site).rockReach&&collectRock(mission,r.id)){rockGuide=null;save();sound();syncPhase();openPanel(`<h2>${t('rockFound')}</h2><p>${esc(copy('rocks')[r.id])}</p>${fieldRockHTML(r)}${factHTML(mission.perks.fieldwork?['streambed','jezeroLayers','lavaHoles','marsSalt','marsMeteorite'][r.id]:r.id===4?'moons':'mars')}<button class="primary" data-action="resume">${t('resume')}</button>`,t('rockLog',{n:r.id+1}),'rock',copy('rocks')[r.id]);break;}}
 }
-const roomDissolve=createSceneDissolve();let lastRoomKey='';
 function frame(now){
   const dt=lastTick?Math.min(1,(now-lastTick)/1000):0;lastTick=now;
   if(!document.hidden){visualTime+=profile.reduceMotion||motion.matches?0:dt;idleTime+=dt;
@@ -481,26 +386,15 @@ function frame(now){
     if(idleTime>35&&active&&!dialog.open&&!bonus){idleTime=0;speak(t('idle'));}
   }
   if(filmShot&&!document.hidden)filmTime+=dt;
-  const scene=filmShot?.scene??directedOutpostScene(mission,dialogKind),room=dialog.open?solRoom(mission,dialogKind,scene):null,indoors=!!room||['power','shelter','monitor','finale'].includes(scene);
-  canvas.dataset.room=room??'';
+  const scene=filmShot?.scene??directedOutpostScene(mission,dialogKind),indoors=['power','shelter','monitor','finale'].includes(scene);
   document.querySelector('.moon-buttons').hidden=indoors;
   visual.scene=scene;visual.monitor.reading=scene==='monitor'?1:0;visual.sceneTime=filmShot?filmTime:10;visual.cable=true;visual.panels.forEach(p=>p.clean=mission?.cleanliness??100);visual.target=exploringTarget;
 
-  const roomKey=room??scene;if(lastRoomKey&&lastRoomKey!==roomKey)roomDissolve.capture(canvas,now/1000,profile.reduceMotion||motion.matches);lastRoomKey=roomKey;
-  drawScene(canvas,visual,{visualTime,reduceMotion:profile.reduceMotion||motion.matches,suit:profile.suit,sticker:profile.sticker,outpost:mission,room,pipSpin:spinUntil>visualTime,happy:happyUntil>visualTime,wave:photoPose,rockGuide,flag:profile.flag});
-  const context=canvas.getContext('2d');context.save();context.setTransform(1,0,0,1,0,0);roomDissolve.paint(context,canvas.width,canvas.height,now/1000,profile.reduceMotion||motion.matches);context.restore();
+  drawScene(canvas,visual,{visualTime,reduceMotion:profile.reduceMotion||motion.matches,suit:profile.suit,sticker:profile.sticker,outpost:mission,pipSpin:spinUntil>visualTime,happy:happyUntil>visualTime,wave:photoPose,rockGuide,flag:profile.flag});
   if(bonus)drawBonus();if(active&&mission&&now-savedAt>2500){savedAt=now;save();}requestAnimationFrame(frame);
 }
 $('meters').innerHTML=METERS.map(k=>`<div class="outpost-meter" id="meter-${k}" style="--meter-color:${colours[k]}"><div><span aria-hidden="true">${symbols[k]}</span><span>${t(k)}</span><b></b></div><div class="bar" role="meter" aria-label="${t(k)} · ${t('gameRule')}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div></div>`).join('');
 $('taskButton').textContent=t('start');$('rockCounter').textContent=t('rocks',{n:mission?.rocks.filter(r=>r.found).length??0});
-profile.voice=soundOn();profile.captions=true;settings();save();
 settings();updateMeters();
 if(mission?.player)updateGround(mission.player);
-registerOffline().then(ok=>{offlineReady=ok;offlineChecked=true;});
-weatherPromise=refreshEvent();
-playMissionFilm('base',{
- resume:!!mission&&!missionEnded(),finished:!!mission&&missionEnded(),
- reduced:profile.reduceMotion||motion.matches,
- onSound:on=>{profile.voice=on;sfx.setEnabled(on);settings();save();}
-}).then(()=>{home();requestAnimationFrame(frame);});
-
+registerOffline().then(ok=>{offlineReady=ok;offlineChecked=true;});weatherPromise=refreshEvent();home();requestAnimationFrame(frame);

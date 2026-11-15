@@ -1,5 +1,5 @@
-import {CABLES,DEVICES,trainingLayout,feedbackPose} from './story-training.js?v=10';
-import {t} from './strings.js?v=10';
+import {CABLES,DEVICES,trainingLayout,feedbackPose} from './story-training.js';
+import {t} from './strings.js';
 const upper=s=>s[0].toUpperCase()+s.slice(1);
 const colours=['Red','Black','Orange','Grey'];
 export function cableLabel(c,socket=false){return t(socket?'upgradeSocketLabel':'upgradePlugLabel',{panel:c.panel,colour:t('upgradeColour'+colours[CABLES.findIndex(x=>x.id===c.id)]),shape:t('upgradeShape'+upper(c.shape)),sign:t(c.sign==='+'?'upgradePositive':'upgradeNegative')});}

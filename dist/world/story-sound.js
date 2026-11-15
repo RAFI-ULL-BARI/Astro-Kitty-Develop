@@ -29,5 +29,5 @@ export function createStorySound({AudioClass=globalThis.Audio,ContextClass=globa
  function hiss(on){if(!on){if(hissNode){try{hissNode.stop();}catch{}nodes.delete(hissNode);hissNode=null;}return;}if(!enabled||!context||hissNode)return;
   try{const b=context.createBuffer(1,Math.floor(context.sampleRate*.6),context.sampleRate),data=b.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*.08;const source=context.createBufferSource(),filter=context.createBiquadFilter(),gain=context.createGain();source.buffer=b;source.loop=true;filter.type='lowpass';filter.frequency.value=1100;gain.gain.value=.12;source.connect(filter);filter.connect(gain);gain.connect(context.destination);source.onended=()=>{source.disconnect();filter.disconnect();gain.disconnect();};source.start();nodes.add(source);hissNode=source;}catch{}
  }
- return{unlock,load,setEnabled,stopAll,play,finish,hiss,chime,buzz:synthBuzz,footstep:(dust=true)=>{burst(0,.068,.025,dust?730:420);tone(83,0,.061,.014,'sine');},kitty:()=>play('meow'),purr:()=>play('purr'),click:()=>tone(380,0,.06,.02),thunk:()=>tone(105,0,.12,.035)};
+ return{unlock,load,setEnabled,stopAll,play,finish,hiss,chime,buzz:synthBuzz,kitty:()=>play('meow'),purr:()=>play('purr'),click:()=>tone(380,0,.06,.02),thunk:()=>tone(105,0,.12,.035)};
 }

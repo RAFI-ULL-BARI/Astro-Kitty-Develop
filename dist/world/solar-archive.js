@@ -1,4 +1,4 @@
-import {hashCode,normalizeMissionCode} from './mission-code.js?v=10';
+import {hashCode,normalizeMissionCode} from './mission-code.js';
 
 export const ARCHIVE_EVENTS=Object.freeze([
   {
