@@ -1,0 +1,1 @@
+Touch dragging from the physical object pile and greenhouse tray passed. Pause/resume and reduced motion passed.

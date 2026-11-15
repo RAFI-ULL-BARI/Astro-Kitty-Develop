@@ -1,0 +1,8 @@
+@font-face {
+ font-family: Nunito;
+ src: url("./assets/fonts/nunito-latin.woff2") format("woff2");
+ font-style: normal;
+ font-weight: 200 1000;
+ font-display: swap;
+}
+:root { --mission-rounded: Nunito, ui-rounded, "Avenir Next", system-ui, sans-serif; }

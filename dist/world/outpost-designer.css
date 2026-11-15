@@ -1,0 +1,223 @@
+.mission-dialog.setup-dialog[data-kind=design] {
+  --workshop-ink: #fff1d9;
+  --workshop-mint: #a9e5d1;
+  --workshop-line: #afc6da38;
+  --workshop-panel: #22324a;
+  width: min(1010px, calc(100% - 24px));
+  max-width: none;
+  height: fit-content;
+  padding: 18px 22px;
+  margin: auto;
+  border: 1px solid var(--workshop-line);
+  background: linear-gradient(140deg, #252942, #192b43 68%);
+  color: var(--workshop-ink);
+}
+.mission-dialog[data-kind=design] .mission-dialog-top { min-height: 44px; }
+.workshop-content { padding: 0 3px 0 0; }
+.workshop-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 0 0 14px; }
+.workshop-heading h2 { font-size: clamp(26px, 4vw, 42px); line-height: 1.05; }
+.workshop-heading p { margin: 6px 0 0; color: #d9e5ed; }
+.workshop-heading .workshop-site { color: #ffc68c; font-size: 12px; font-weight: 700; }
+.workshop-site span { margin-right: 4px; }
+.workshop-progress {
+  flex: 0 0 148px;
+  padding: 9px 12px;
+  border: 1px solid var(--workshop-line);
+  border-radius: 12px;
+  background: #102235;
+  font-size: 13px;
+  color: var(--workshop-mint);
+}
+.workshop-progress progress { display: block; width: 100%; height: 9px; margin-top: 7px; accent-color: var(--workshop-mint); }
+.workshop-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 32%);
+  grid-template-areas: "map palette" "map guide";
+  grid-template-rows: auto 1fr;
+  align-items: start;
+  gap: 12px;
+}
+.workshop-palette, .workshop-map, .workshop-guide {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--workshop-line);
+  border-radius: 16px;
+  background: var(--workshop-panel);
+}
+.workshop-palette { grid-area: palette; }
+.workshop-map { grid-area: map; }
+.workshop-guide { grid-area: guide; background: #1e394b; }
+.workshop-workspace h3 { margin: 0; font-size: 16px; color: var(--workshop-ink); }
+.workshop-parts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin-top: 9px; }
+.workshop-parts .workshop-part {
+  display: flex;
+  position: relative;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  min-height: 52px;
+  padding: 7px 15px 7px 5px;
+  text-align: left;
+  border: 1px solid #9db6d24d;
+  border-radius: 10px;
+  background: #1a314c;
+  color: var(--workshop-ink);
+  font-size: 13px;
+  line-height: 1.15;
+  touch-action: none;
+  cursor: grab;
+}
+.workshop-part-name { min-width: 0; overflow-wrap: anywhere; }
+.workshop-part[aria-pressed=true] { background: #46726e; border-color: var(--workshop-mint); box-shadow: inset 0 0 0 1px var(--workshop-mint); }
+.workshop-part:active { cursor: grabbing; }
+.workshop-placed { position: absolute; top: 3px; right: 4px; color: var(--workshop-mint); font-size: 11px; }
+.workshop-map-head { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 8px; }
+.workshop-map-head > span { color: #ffe1b1; font-size: 12px; }
+.workshop-map-head b { color: #ffd396; margin-right: 3px; }
+.workshop-board {
+  display: grid;
+  padding: 8px;
+  gap: 5px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-radius: 12px;
+  background: #1a2c45;
+}
+.workshop-tile {
+  position: relative;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 3px;
+  min-height: 44px;
+  height: clamp(51px, 9vh, 79px);
+  min-width: 0;
+  padding: 3px;
+  border: 1px solid #fff0d459;
+  border-radius: 7px;
+  background: #403d53;
+  color: var(--workshop-ink);
+  touch-action: manipulation;
+  cursor: pointer;
+}
+.workshop-tile[data-placed] { touch-action: none; }
+.workshop-tile.workshop-home { background: #475d79; }
+.workshop-tile.workshop-wind {
+  border-style: dashed;
+  border-color: #d1ad81;
+  background: #333e4d;
+}
+.workshop-tile[data-anchor=true] { border-color: #edbd80; box-shadow: inset 0 0 0 1px #edbd80; }
+.workshop-tile[data-suggested=true] { background: #395e5b; border-color: var(--workshop-mint); }
+.workshop-tile[data-open=true]:hover, .workshop-tile[data-drop=true] { box-shadow: inset 0 0 0 2px var(--workshop-mint); }
+.workshop-tile[data-drop=false] { box-shadow: inset 0 0 0 2px #ffb090; }
+.workshop-tile:focus-visible, .workshop-part:focus-visible { outline: 3px solid #fff1d9; outline-offset: -3px; }
+.workshop-tile small { max-width: 100%; font-size: clamp(10px, 1.4vw, 12px); line-height: 1.1; font-weight: 700; text-align: center; }
+.tile-cross { font-size: 16px; color: #ece1d2a6; }
+.tile-cross::after { content: '+'; }
+.workshop-tile[data-suggested=true] .tile-cross { color: var(--workshop-mint); }
+.workshop-map .workshop-legend { display: flex; align-items: center; gap: 6px; margin: 8px 0 0; color: #e1eeeb; font-size: 12px; }
+.workshop-legend span { width: 12px; height: 12px; border: 1px solid var(--workshop-mint); border-radius: 3px; background: #395e5b; }
+.workshop-coach, .workshop-coach > div { display: flex; align-items: center; gap: 7px; }
+.workshop-coach { justify-content: space-between; }
+.workshop-dhrubo { padding: 1px 5px; border: 2px solid #85bfb8; border-radius: 7px; background: #12283c; color: #addfd4; letter-spacing: 2px; font-size: 11px; }
+.workshop-guide #workshopAdvice { color: #f2f8ef; font-size: 13px; margin: 7px 0 0; }
+.workshop-guide #designStatus { color: #bee7d9; font-size: 12px; line-height: 1.4; margin: 8px 0 0; padding-top: 7px; border-top: 1px solid var(--workshop-line); }
+.workshop-checks summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; font-size: 13px; color: var(--workshop-mint); }
+.workshop-checks summary::before { content: '▸'; margin-right: 6px; }
+.workshop-checks[open] summary::before { content: '▾'; }
+.workshop-checks ul { padding: 0; margin: 0; list-style: none; }
+.workshop-checks li { margin-bottom: 5px; font-size: 12px; }
+.workshop-checks [data-met] { display: inline-block; width: 16px; color: #ffd6ad; }
+.workshop-checks [data-met=true] { color: var(--workshop-mint); }
+.workshop-controls { margin: 6px 0 0; }
+.workshop-controls summary { min-height: 44px; }
+.workshop-controls p { margin: 0 0 8px; }
+.mission-dialog.setup-dialog[data-kind=design] .workshop-footer { gap: 8px; align-items: stretch; }
+.workshop-footer .workshop-launch { flex: 0 1 220px; margin-left: auto; }
+.workshop-footer .workshop-clear { padding-inline: 8px; }
+
+.building-art { position: relative; display: block; flex: none; width: 42px; height: 31px; pointer-events: none; }
+.workshop-part .building-art { scale: .68; transform-origin: left center; margin-right: -12px; }
+.base-tile .building-art { width: 40px; height: 30px; }
+
+@media (max-width: 670px) {
+  .mission-dialog.setup-dialog[data-kind=design] { width: calc(100% - 16px); padding: 10px; }
+  .workshop-heading { align-items: start; gap: 7px; margin-bottom: 8px; }
+  .workshop-heading h2 { font-size: clamp(21px, 5.5vw, 31px); }
+  .workshop-heading p { font-size: 12px; line-height: 1.35; }
+  .workshop-progress { flex-basis: 77px; padding: 6px; font-size: 11px; }
+  .workshop-workspace { grid-template-columns: minmax(0, 1fr); grid-template-areas: "palette" "map" "guide"; gap: 6px; }
+  .workshop-palette, .workshop-map, .workshop-guide { padding: 7px; border-radius: 12px; }
+  .workshop-workspace h3 { font-size: 14px; }
+  .workshop-parts { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 4px; margin-top: 5px; }
+  .workshop-parts .workshop-part { min-height: 44px; padding: 4px 3px; gap: 3px; font-size: 11px; }
+  .workshop-part .building-art { scale: .47; margin-right: -22px; }
+  .workshop-board { gap: 4px; padding: 4px; }
+  .workshop-tile { height: 46px; gap: 0; }
+  .workshop-tile .building-art { scale: .8; margin: -3px 0; }
+  .workshop-map .workshop-legend { margin-top: 5px; }
+  .mission-dialog.setup-dialog[data-kind=design] .workshop-footer {
+    display: grid;
+    grid-template-columns: auto minmax(0,1fr) auto;
+    gap: 4px;
+    padding-top: 6px;
+    margin-top: 4px;
+  }
+  .workshop-footer button { min-width: 0; padding: 6px; }
+  .workshop-footer .workshop-launch { grid-column: 1 / -1; grid-row: 1; margin: 0; }
+  .workshop-footer .workshop-template { font-size: 13px; }
+}
+
+@media (max-width: 670px) and (max-height: 700px) {
+  .workshop-palette h3 { display: none; }
+  .workshop-parts { margin-top: 0; }
+  .workshop-map-head { margin-bottom: 4px; }
+  .workshop-tile { height: 44px; }
+}
+
+.workshop-map-foot { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px; margin-top:6px; }
+.workshop-map-foot .workshop-legend { margin:0; }
+.workshop-map-foot button.chip-button { min-height:44px; font-size:13px; }
+.base-picture {
+  position:fixed;
+  inset:0;
+  margin:auto;
+  width:min(820px,calc(100% - 24px));
+  max-height:calc(100svh - 24px);
+  padding:16px;
+  border:1px solid #afc6da59;
+  border-radius:20px;
+  background:#172b43;
+  color:#fff1d9;
+  overflow:auto;
+}
+.base-picture::backdrop { background:#0b1526bb; }
+.base-picture h2 { margin:0; font-size:clamp(22px,4vw,33px); }
+.base-picture [role=status] { margin:10px 0; color:#bce5da; }
+.base-picture img { display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:contain; background:#101f32; border-radius:12px; }
+.base-picture a[download] { min-height:44px; flex:0 1 auto; text-decoration:none; }
+@media (max-width:670px) {
+  .workshop-map-foot .chip-button { padding:6px 8px; font-size:12px; }
+}
+
+.workshop-coach-area { grid-area:guide; min-width:0; }
+.workshop-guide { background:#263a4e; padding:8px 11px; }
+.workshop-coach { justify-content:flex-start; min-height:44px; color:var(--workshop-ink); cursor:pointer; font-weight:650; list-style:none; }
+.workshop-coach::-webkit-details-marker { display:none; }
+.workshop-coach::after { content:'⌄'; margin-left:auto; color:var(--workshop-mint); }
+.workshop-guide[open] .workshop-coach::after { transform:rotate(180deg); }
+.workshop-dhrubo svg { width:31px; height:34px; stroke:none; }
+.workshop-coach .workshop-dhrubo { background:none; padding:0; display:inline-flex; border:0; }
+.workshop-guide #designGuideLine { font-size:13px; line-height:1.5; color:#e1e5ee; margin:5px 0 8px; }
+.workshop-hear { min-height:44px; }
+.workshop-part .building-art { stroke:none; fill:none; }
+.workshop-part .building-art,.workshop-tile .building-art,.base-tile .building-art { max-width:none; flex-shrink:0; }
+.mission-dialog[data-kind=design] .mission-dialog-top,
+.mission-dialog[data-kind=design] .workshop-footer { background:#1d2e46; border-radius:13px; }
+.workshop-heading h2,.base-picture h2 { font-family:var(--mission-rounded); }
+.base-picture { background:#252941; border-color:#abade266; }
+.picture-options summary { min-height:44px; padding:11px 3px; cursor:pointer; }
+.picture-options a { display:inline-flex; align-items:center; }
+@media(max-height:500px) and (orientation:landscape) {
+ .base-picture img { max-height: calc(100dvh - 130px); object-fit:contain; }
+}

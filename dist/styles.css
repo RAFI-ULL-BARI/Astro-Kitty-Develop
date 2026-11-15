@@ -216,3 +216,12 @@ body.big-text p,body.big-text li,body.big-text label,body.big-text .panel-desc{f
 @keyframes softPulse{50%{transform:scale(1.04)}}
 .launch-art canvas{contain:strict}
 .launch-plan .primary:not(:disabled){animation:none;box-shadow:0 0 0 3px #a9e5d155}
+
+.home-worlds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 18px;max-width:640px}
+.home-worlds a{display:grid;grid-template-columns:34px 1fr;gap:1px 8px;align-items:center;text-decoration:none;color:#fff0db;background:#1c2c4699;border:1px solid #e3ddf227;padding:10px 12px;border-radius:16px;transition:transform .2s,background .2s;backdrop-filter:blur(10px)}
+.home-worlds a:first-child{border-color:#f7c87399;background:#3a2f4acc}
+.home-worlds a:hover{transform:translateY(-2px);background:#30415e}
+.home-worlds a>span{grid-row:span 2;font-size:24px;text-align:center}
+.home-worlds strong{font-size:13.5px;line-height:1.2}.home-worlds small{font-size:11px;color:#d8cfdd;line-height:1.3}
+@media(max-width:700px){.home-worlds{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-bottom:12px}.home-worlds a{display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;padding:7px 5px}.home-worlds small{display:none}.home-worlds a>span{font-size:19px}.home-worlds strong{font-size:11.5px}}
+@media(max-width:700px){.game:has(#titleScreen:not(.hidden)){min-height:750px}}

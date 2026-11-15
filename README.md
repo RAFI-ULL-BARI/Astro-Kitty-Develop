@@ -1,115 +1,104 @@
 <div align="center">
 
-# Astro Kitty Mission Trainer 🐱
+# 🐱🚀 Astro Kitty
 ### Junior Astronaut Mission Trainer
 
-**Fly to Mars. Train like an astronaut. Keep a Mars base alive.**<br>
-A playful web game for kids aged 7–12, powered by real NASA space-weather data.
+**Train on Earth. Fly to Mars. Explore a 3D Mars world. Keep a Mars base alive.**<br>
+A playful web game for kids aged 7–12, built on real NASA space data.
 
 <a href="https://astro-kitty-mission-trainer.vercel.app"><img src="https://img.shields.io/badge/▶%20PLAY%20NOW-astro--kitty--mission--trainer.vercel.app-f7c873?style=for-the-badge&labelColor=14233c" alt="Play Astro Kitty now"></a>
 
-<img src="https://img.shields.io/badge/NASA%20Space%20Apps%20Challenge-2026-1d3a55?style=flat-square" alt="NASA Space Apps Challenge 2026">
+<img src="https://img.shields.io/badge/NASA%20Space%20Apps-2026-1d3a55?style=flat-square" alt="NASA Space Apps 2026">
 <img src="https://img.shields.io/badge/Ages-7–12-8fdcc4?style=flat-square" alt="Ages 7 to 12">
 <img src="https://img.shields.io/badge/Made%20in-Bangladesh%20🇧🇩-006a4e?style=flat-square" alt="Made in Bangladesh">
 <img src="https://img.shields.io/badge/Works-offline%20%7C%20phone%20%7C%20laptop-c3a8f5?style=flat-square" alt="Works offline, on phones and laptops">
 
 <br><br>
 
-<img src="docs/screenshots/01-title.jpg" alt="Astro Kitty title screen: pick your kitty and follow three steps" width="88%">
+<img src="docs/screenshots/20-home.jpg" alt="Astro Kitty home screen: pick your kitty and choose an adventure" width="88%">
 
 </div>
 
 ---
 
-## ▫️ What is Astro Kitty?
+## 🌟 What is Astro Kitty?
 
 Astro Kitty is our answer to the NASA Space Apps Challenge **“Build a Junior Astronaut Mission Trainer.”**
 
-Kids pick a kitty astronaut and, with **Dhrubo** (ধ্রুব, “pole star”), a friendly robot buddy, take on a real Mars mission in **three steps**:
+Kids pick a kitty astronaut and, with **Dhrubo** (ধ্রুব, “pole star”), a friendly robot buddy, fly to Mars, train as astronauts and run a Mars base.
 
 <table>
 <tr>
-<td align="center" width="33%"><b>1 · Fly to Mars </b><br><sub>Plan the trip, then watch it play out</sub></b><br></td>
-<td align="center" width="33%"><b>2 · Astronaut training </b><br><sub>Hands-on skills: power, shelter, rover</sub></td>
-<td align="center" width="33%"><b>3 · Mars base </b><br><sub>Five Mars days, real choices, real data</sub></td>
+<td align="center" width="33%"><b>1 · Fly to Mars 🚀</b><br><sub>Plan the trip, then watch it fly</sub></td>
+<td align="center" width="33%"><b>2 · Astronaut training 🐾</b><br><sub>Power, shelter, rover</sub></td>
+<td align="center" width="33%"><b>3 · Mars base 🏠</b><br><sub>Five Mars days, real choices</sub></td>
 </tr>
 </table>
 
-Kids learn by **doing and watching**, not by reading. Every right move earns a cheer: **“Shabbash!”** (Good job!), **“Oshadharon!”** (Amazing!), a happy meow and a little bounce.
+Then the whole planet opens up in **3D**, and **Earth Academy** adds five hands-on science labs.
+
+Kids learn by **doing and watching**, not by reading. Every right move earns a cheer: **“Shabbash!”** (Good job!), **“Oshadharon!”** (Amazing!), a happy meow, a jump or confetti.
 
 ---
 
-## 🚀 Step 1 · Mission Simulator: Earth to Mars
+## 🪐 Kitty’s Mars Adventure 3D
 
-Kids plan the trip in four picture choices: **launch day**, **push**, **path** and **landing gear**. Then they press **Launch!** and watch their own plan fly.
+A walkable 3D Mars world with **24 missions in six chapters**. Kids brush dusty solar panels, drill a rock core, drive a six-wheel rover through crater gates, race a dust storm home, make oxygen, water a space garden and call Earth.
+
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/22-adventure-3d.jpg" alt="Kitty brushing dust off a solar panel in the 3D Mars world"></td>
+<td width="50%"><img src="docs/screenshots/23-rover.jpg" alt="Driving the rover through a gate in the dunes"></td>
+</tr>
+<tr>
+<td><b>Hands-on tools.</b> Hold to brush, scan, drill and repair. A simple arrow always points to the next job.</td>
+<td><b>Drive the rover.</b> Follow the glowing gates across craters and dunes.</td>
+</tr>
+<tr>
+<td width="50%"><img src="docs/screenshots/24-habitat.jpg" alt="Inside the habitat with oxygen, water and garden stations"></td>
+<td width="50%"><img src="docs/screenshots/21-mars-globe.jpg" alt="A spinning Mars globe with real storm stories and weather"></td>
+</tr>
+<tr>
+<td><b>A home on Mars.</b> Fit the air filter, start the oxygen machine, balance the water and grow lunch.</td>
+<td><b>Explore Mars in 3D.</b> Spin a real map of Mars, replay real storms and read Curiosity’s weather.</td>
+</tr>
+</table>
+
+It runs smoothly on phones too: the game lowers its own picture detail when a device is slow, so play stays quick.
+
+---
+
+## 🌍 Earth Academy
+
+Five labs at the fictional **National Kitty Space Center** in Khulna: floating, rover testing, growing food, gravity and making air.
+
+<p align="center"><img src="docs/screenshots/earth-academy-center.png" alt="The National Kitty Space Center lab hall" width="70%"></p>
+
+## 🚀 Step 1 · Fly to Mars
+
+Kids plan the trip in four picture choices: **launch day**, **push**, **path** and **landing gear**. Then they watch their own plan fly. Every mistake plays its own animation, so kids *see* why it failed.
 
 <table>
 <tr>
 <td width="50%"><img src="docs/screenshots/02-mission-path.jpg" alt="Choosing a curved path to where Mars will be"></td>
-<td width="50%"><img src="docs/screenshots/03-liftoff.jpg" alt="Three, two, one, liftoff"></td>
-</tr>
-<tr>
-<td><b>Aim for where Mars <i>will</i> be.</b> A straight path misses, because Mars keeps moving.</td>
-<td><b>Liftoff!</b> Too little push and the rocket falls back. Too much and it zooms past Mars.</td>
+<td width="50%"><img src="docs/screenshots/04-landed.jpg" alt="A soft landing on Mars with confetti"></td>
 </tr>
 </table>
 
-<p align="center"><img src="docs/screenshots/04-landed.jpg" alt="A soft landing on Mars with confetti" width="60%"><br><sub>Heat shield + parachute + landing rockets = a soft landing and the <b>Trip Planner</b> patch.</sub></p>
+## 🐾 Step 2 · Astronaut training
 
-Every mistake plays its **own animation**, so kids *see* why it failed and try again. No paragraphs to read.
+A walk-and-tap story inside the base: match solar-panel plugs by shape and colour, hide from a solar storm behind a water wall, share two battery cells between the air machine and the radio, and drive the rover.
 
----
+<p align="center"><img src="docs/screenshots/solar-storm.gif" alt="Animated solar storm over the Mars base" width="62%"></p>
 
-## 🐾 Step 2 · Astronaut Training
+## 🏠 Step 3 · Run the Mars base
 
-A walk-and-tap story inside the base, with puzzles kids solve with their hands.
-
-<table>
-<tr>
-<td width="50%"><img src="docs/screenshots/05-plug-puzzle.jpg" alt="Matching solar panel plugs by shape and colour"></td>
-<td width="50%"><img src="docs/screenshots/08-power-puzzle.jpg" alt="Connecting the battery to the air system and radio"></td>
-</tr>
-<tr>
-<td><b>Power our home.</b> Match each solar-panel plug to its socket by shape <i>and</i> colour (colour-blind friendly). Wrong plugs shake and say “try again.”</td>
-<td><b>Look after the crew.</b> Only two battery cells! Which machine makes our air fresh? Which one talks to Mission Control?</td>
-</tr>
-<tr>
-<td width="50%"><img src="docs/screenshots/07-water-shield.jpg" alt="Crew safe behind the water shield gate"></td>
-<td width="50%"><img src="docs/screenshots/09-rover.jpg" alt="Driving the rover to marked spots"></td>
-</tr>
-<tr>
-<td><b>Hide from the storm.</b> Through the airlock, into the shelter, and the water gate slides shut. Water helps block fast particles.</td>
-<td><b>Explore again.</b> Drive the rover and scan three marked spots.</td>
-</tr>
-</table>
-
-### ☀️ The solar storm
-
-<p align="center"><img src="docs/screenshots/solar-storm.gif" alt="Animated solar storm: a flash, then particle streaks race across the Mars sky" width="70%"><br>
-<sub>First the flash of light… then the fast particles. Those are what real crews hide from.</sub></p>
-
----
-
-## 🏠 Step 3 · Run the Mars Base
-
-Choose a **real landing site**, design the base, then keep the crew safe for **five Mars days (sols)**. Kids share a few **Sunshine cells** between air, water, food and the water wall. Every day brings a surprise: a leak, a dust devil, a chilly night, ice to dig up, or a **real solar storm from NASA’s records**.
+Choose a **real landing site**, then keep the crew safe for **five Mars days**. Every day brings a surprise: a leak, a dust devil, a chilly night, or a **real solar storm from NASA’s records**.
 
 <table>
 <tr>
-<td width="50%"><img src="docs/screenshots/10-landing-site.jpg" alt="Choosing Jezero, Gale or Arcadia on a real Viking map of Mars"></td>
+<td width="50%"><img src="docs/screenshots/10-landing-site.jpg" alt="Choosing a landing site on a real map of Mars"></td>
 <td width="50%"><img src="docs/screenshots/11-storm-decision.jpg" alt="A real solar storm alert with three choices"></td>
-</tr>
-<tr>
-<td><b>Pick a real place.</b> Jezero Crater, Gale Crater or Arcadia Planitia, on a real Viking map of Mars.</td>
-<td><b>A message from the Sun.</b> Is the water wall strong enough? Shelter now, finish the job, or radio Earth?</td>
-</tr>
-<tr>
-<td width="50%"><img src="docs/screenshots/12-chilly-night.jpg" alt="An animated chilly night event"></td>
-<td width="50%"><img src="docs/screenshots/13-mission-patch.jpg" alt="Mission Patch earned with stars"></td>
-</tr>
-<tr>
-<td><b>Every event is animated.</b> Snow falls, tanks drain or fill, so kids see what is happening.</td>
-<td><b>Mission Patch!</b> Stars, praise and a “What you learned” box tied to the kid’s own choices.</td>
 </tr>
 </table>
 
@@ -119,13 +108,13 @@ Choose a **real landing site**, design the base, then keep the crew safe for **f
 
 | What | How Astro Kitty uses it |
 | --- | --- |
-| **[NASA Open APIs](https://api.nasa.gov/) + [DONKI space weather](https://ccmc.gsfc.nasa.gov/tools/DONKI/)** | Every solar storm is a **real flare record**. The game fetches the latest flares live and falls back to an archive of 9 verified flares when offline. The flare class (C, M or X) sets how strong the shelter must be. |
-| **Viking map of Mars** (Caltech/JPL/USGS) | The real map used to pick a landing site. |
-| **[USGS Gazetteer](https://planetarynames.wr.usgs.gov/Feature/348) and Mars 2020 site studies** | Real coordinates for Jezero, Gale and Arcadia. |
-| **[Mars Trek](https://trek.nasa.gov/mars/)** | Each landing site links to explore it on real NASA Mars maps. |
-| **NASA mission science** | Short “Real NASA fact” cards: Curiosity’s radiation readings, the May 2024 Mars solar storm, MOXIE making oxygen, the space station’s 98% water recycling, InSight’s dusty solar panels, Perseverance’s trip and more. |
+| **[NASA Open APIs](https://api.nasa.gov/) + [DONKI space weather](https://ccmc.gsfc.nasa.gov/tools/DONKI/)** | Every solar storm is a **real flare record**. The game fetches recent flares and falls back to a saved archive when offline. |
+| **[Curiosity REMS weather](https://mars.nasa.gov/rss/api/?feed=weather&category=msl&feedtype=json)** (NASA/JPL-Caltech/CAB) | The Mars weather card shows dated readings from Gale Crater. |
+| **[Viking map of Mars](https://space.jpl.nasa.gov/tmaps/mars.html)** (Caltech/JPL/USGS) | The spinning 3D globe and the landing-site map. |
+| **[Mars Trek](https://trek.nasa.gov/mars/)** | Each landing site links to real NASA Mars maps. |
+| **NASA mission science** | Short “Real” fact cards: Curiosity’s radiation readings, the May 2024 Mars solar storm, the 2018 dust storm, MOXIE making oxygen, space-station water recycling and more. |
 
-Every fact carries a small **🛰️ Real** badge, and every made-up game rule carries a **🎲 Game** badge, so kids always know which is which. Sources sit in tap-to-open “Learn more” drop-downs, out of the way.
+Every fact carries a **🛰️ Real** badge and every made-up game rule carries a **🎲 Game** badge, so kids always know which is which. The 3D landscape and the space center are fictional.
 
 **Also explored from the official Space Apps resources:** [OSDR](https://osdr.nasa.gov/), [RadLab](https://visualization.osdr.nasa.gov/radlab/gui/data-api/), and the Canadian Space Agency’s [STEM resources](https://www.asc-csa.gc.ca/eng/youth-educators/resources-stem-and-youth-organizations.asp) and [food production toolkit](https://www.asc-csa.gc.ca/eng/youth-educators/toolkits/food-production/).
 
@@ -133,62 +122,52 @@ Every fact carries a small **🛰️ Real** badge, and every made-up game rule c
 
 ## 🧒 Designed for kids
 
-<table>
-<tr>
-<td width="62%">
-
-- **Less text, more action.** Big picture cards, short lines and animations that show what is happening.
+- **Less text, more action.** Short lines, big buttons and animations that show what is happening.
 - **A friendly guide.** Dhrubo speaks every line aloud, with captions.
 - **Praise in Bangla and English.** Shabbash! Oshadharon! Purr-fect!
 - **Four kitties to choose from:** Mishti, Megh, Neel and Tara.
 - **Safe to fail.** Wrong answers cost nothing, and the crew is always safe.
-- **Accessible.** Keyboard controls, screen-reader labels, captions, big-text and reduced-motion modes, colour-blind-friendly puzzles.
+- **Soft sounds made in code,** with calm background music in the 3D world and Earth Academy. One button turns sound off.
+- **Accessible.** Keyboard and touch controls, captions and a reduced-motion mode.
 - **Works anywhere.** Phones, tablets and laptops, and offline after the first visit.
 - **Teacher page** with ideas for using the game in class.
-
-</td>
-<td width="38%" align="center"><img src="docs/screenshots/14-phone.jpg" alt="Astro Kitty on a phone" width="78%"></td>
-</tr>
-</table>
-
----
-
-## 🎯 What kids learn
-
-1. **Water does three jobs:** drinking, growing plants and shielding the crew from radiation.
-2. **Space weather is real,** and walls (especially water walls) protect astronauts.
-3. **Earth is far away.** Messages take 3–22 minutes, so the crew must plan ahead and decide for itself.
-4. **Getting to Mars is about timing:** launch windows, enough push, aiming ahead, and landing gear for thin Martian air.
 
 ---
 
 ## 💻 Run it yourself
 
-No build step and no libraries; plain HTML, CSS and JavaScript.
+The game is plain HTML, CSS and JavaScript. The 3D world uses [Three.js](https://threejs.org/).
 
 ```bash
 git clone https://github.com/RAFI-ULL-BARI/Astro-Kitty-NASA-Space-Apps.git
-cd Astro-Kitty-NASA-Space-Apps/dist
-python3 -m http.server 8000
+cd Astro-Kitty-NASA-Space-Apps
+python3 -m http.server 8000 --directory dist
 # open http://localhost:8000
 ```
 
-Run the tests (Node.js 18+): `npm test`
+To rebuild the 3D bundle and run the tests (Node.js 20+):
+
+```bash
+npm ci
+npm test
+```
 
 ```
-dist/        the game (deploy this folder)
-test/        automated tests for the game rules and balance
-docs/        screenshots and technical notes
+dist/        the finished game (this is what gets hosted)
+dist/world/  the 3D Mars world and Earth Academy
+src/         source for the 3D Mars world
+test/        automated tests
+voice/       script and tool for Dhrubo's recorded voice
+docs/        screenshots and notes
 ```
 
-Full technical notes: **[docs/TECHNICAL.md](docs/TECHNICAL.md)**
+More detail: [technical notes](docs/TECHNICAL.md), [Earth Academy](docs/EARTH_ACADEMY.md), [research and design](docs/RESEARCH_AND_DESIGN.md), [release notes](docs/RELEASE_NOTES.md) and [credits](CREDITS.md).
 
 ---
 
 ## 👩‍🚀 Team Astro Kitty 🇧🇩
 
-**Rafiull Bari (Team Leader)** and 
-**Saad Uddin Ahmad Basit**, Bangladesh.<br>
+**Rafiull Bari** and **Saad Uddin Ahmad Basit**, Bangladesh.<br>
 Made with ❤ for the NASA Space Apps Challenge 2026.
 
 ---

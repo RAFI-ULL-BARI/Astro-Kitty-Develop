@@ -1,0 +1,4 @@
+node_modules
+.DS_Store
+dist/audio/voice-test/
+dist/audio/voice-new/

@@ -1,0 +1,8 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {LABS,NODES,routeResult,plantApply,dropDistance,readProgress} from '../../dist/world/academy-model.js';
+test('five requested labs, no removed workshops',()=>assert.deepEqual(LABS.map(l=>l.id),['float','rover','garden','gravity','chemistry']));
+test('rover route reaches both flags and habitat',()=>assert.equal(routeResult([0,1,3,4,6,7]).ok,true));
+test('rover detects continuous segment collisions, not only end points',()=>{const r=routeResult([0,1,2,7]);assert.equal(r.ok,false);assert.ok(r.segments.at(-1).hit<1);assert.equal(routeResult([0,1]).ok,false);});
+test('greenhouse resource budget exactly meets all three needs',()=>{const p=[0,0,0],stock={water:2,lamp:1,nutrient:1};assert.equal(plantApply(p,stock,2,'water').ok,false);assert.equal(stock.water,2);plantApply(p,stock,0,'water');plantApply(p,stock,0,'water');plantApply(p,stock,1,'lamp');assert.equal(plantApply(p,stock,2,'nutrient').done,true);assert.deepEqual(stock,{water:0,lamp:0,nutrient:0});assert.equal(plantApply(p,stock,2,'nutrient').ok,false);});
+test('vacuum drop independent of object and slower on Mars',()=>{assert.equal(dropDistance(.5,'earth',false,'feather'),dropDistance(.5,'earth',false,'hammer'));assert.ok(dropDistance(.5,'mars',false,'rock')<dropDistance(.5,'earth',false,'rock'));assert.ok(dropDistance(.5,'earth',true,'feather')<dropDistance(.5,'earth',true,'hammer'));});
+test('save validates IDs and tolerates corruption',()=>{assert.deepEqual(readProgress({getItem:()=>'{'}).done,[]);assert.deepEqual(readProgress({getItem:()=>JSON.stringify({done:['float','rocks','float','chemistry']})}).done,['float','chemistry']);});

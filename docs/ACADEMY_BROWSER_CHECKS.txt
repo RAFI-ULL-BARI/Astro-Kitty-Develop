@@ -1,0 +1,46 @@
+Arrival movie completes.
+Lab float
+Lab rover
+Rover collision and dragged route verified.
+Lab garden
+All plants rescued by drag/drop.
+Lab gravity
+Pair 🌍 Earth
+🔴 Mars
+Air present
+Vacuum
+Object pile · Drag any two into the drop bays
+🔨
+Hammer · 0
+🪶
+Feather · 0
+●
+Ball
+▱
+Paper
+◆
+Rock
+▯
+Bottle
+Bay A: feather
+Bay B: hammer
+Clear bays
+Your prediction:
+A first
+Together
+B first
+Drop the pair
+
+Earn your patch by testing the same pair in air and vacuum, on the same world.
+Lab chemistry
+Chemistry inputs, reaction and gas routing verified.
+Lab float
+Lab rover
+Lab garden
+Lab gravity
+Lab chemistry
+Five mobile layouts checked.
+Guidance choice verified at training, launch and base entry.
+Lab chemistry
+Saved progress and offline load verified.
+No runtime errors.
