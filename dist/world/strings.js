@@ -1800,9 +1800,9 @@ Object.assign(EN.ui,{
   "upgradeGateClosing": "These two clear panes hold water between them.",
   "upgradeGateSealed": "Click! Water in our walls helps block fast particles.",
   "upgradePowerAir": "We have two cells in our backup battery. Which machine keeps our air fresh?",
-  "upgradeAirQuestion": "Which machine keeps our air fresh?",
+  "upgradeAirQuestion": "Tap a battery plug, then Air system.",
   "upgradePowerRadio": "Our air system is on! Which machine lets us talk to Mission Control?",
-  "upgradeRadioQuestion": "Which machine lets us talk to Mission Control?",
+  "upgradeRadioQuestion": "Connect the other battery plug to Radio.",
   "upgradeAirHint": "The air system has a fan and a tank. Try that first.",
   "upgradeRoverPriority": "That needs 2 cells. Air and radio come first in an emergency.",
   "upgradeSaveBattery": "Not now. Let’s save the battery for air and the radio.",
@@ -1860,7 +1860,7 @@ Object.assign(EN.ui,{
   "upgradeVeggieFact": "NASA’s Veggie garden uses LED lights. Its red and blue light often makes it glow pink-purple.",
   "upgradeConnectorFact": "NASA uses connector shapes, pins and keys to help stop the wrong parts from fitting together."
 });
-EN.trainingCheers=["Shabbash! (Good job!)", "Yay!", "Purr-fect!", "Oshadharon! (Amazing!)", "Well done!"];
+EN.trainingCheers=["Shabbash! (Good job!)", "Yay!", "You did it!", "Oshadharon! (Amazing!)", "Well done!"];
 EN.trainingScience={
   "sun": {
     "textKey": "upgradeSunNote",
@@ -1991,11 +1991,197 @@ EN.launch={
 
 Object.assign(EN.ui,{pickKitty:'Pick your kitty',moreMenu:'More',stepFly:'Fly to Mars',stepTrain:'Astronaut training',stepBase:'Mars base',stepDone:'done',stepNext:'next',chooseTitle:'Where to next?',chooseTrainingText:'Learn the skills.',chooseBaseText:'Lead the crew.',learnMore:'Learn more'});
 Object.assign(EN.ui,{oopsTry:'Not this one. Try again!'});
-Object.assign(EN.ui,{"upgradeConnect": "Match the plugs!", "upgradeConnectLine": "Both panels are clean! Now match each plug to its socket.", "upgradeWarning": "A flash from the Sun! Fast particles may follow. Let’s head inside.", "upgradeAirlock": "One door at a time. Close the outside door first.", "upgradeShelter": "Into the shelter! Then close the water gate.", "upgradePowerAir": "Two battery cells. Which machine makes our air?", "upgradePowerRadio": "Air is on! Which one talks to Mission Control?", "upgradeMonitor": "Let’s watch the particle count and wait for all-clear.", "upgradeRover": "You drive the rover! Visit each marked spot.", "upgradeSelectCable": "Pick a plug first.", "upgradeSelectBattery": "Pick a battery plug first.", "upgradePowerDone": "Air and radio are on. Well done!"});
+Object.assign(EN.ui,{"upgradeConnect": "Match the plugs!", "upgradeConnectLine": "Both panels are clean! Now match each plug to its socket.", "upgradeWarning": "A flash from the Sun! Fast particles may follow. Let’s head inside.", "upgradeAirlock": "One door at a time. Close the outside door first.", "upgradeShelter": "Into the shelter! Then close the water gate.", "upgradePowerAir": "Connect one battery plug to the air system. Save the other for the radio.", "upgradePowerRadio": "Air is on! Connect the other battery plug to the radio.", "upgradeMonitor": "Let’s watch the particle count and wait for all-clear.", "upgradeRover": "You drive the rover! Visit each marked spot.", "upgradeSelectCable": "Pick a plug first.", "upgradeSelectBattery": "Pick a battery plug first.", "upgradePowerDone": "Air and radio are on. Well done!"});
 Object.assign(EN.ui,{weatherShort:'Real storm from NASA',moreOptions:'More options',marsDataTitle:'Mars facts',marsDay:'24 h 37 min',marsDayLabel:'One Mars day (a sol)',marsGravity:'38%',marsGravityLabel:'of Earth’s gravity',marsTemp:'about −60 °C',marsTempLabel:'Average temperature',marsDataNote:'These numbers come from NASA’s Mars facts page. A sol is about 37 minutes longer than an Earth day.',baseHomeTitle:'Your Mars base'});
 Object.assign(EN.ui,{howToPlay:'How to play'});
 Object.assign(EN.ui,{todayDetails:'Today’s details'});
 Object.assign(EN.ui,{realFact:'Real NASA fact'});
 Object.assign(EN.ui,{missionDiary:'Mission diary and sources'});
-Object.assign(EN.ui,{roverAllDone:'All three scans done! The rover is ready.',dhruboHello:'Hi! I’m Dhrubo, your robot buddy.',upgradePowerAir:'Two battery cells. Which machine makes our air fresh?'});
+Object.assign(EN.ui,{roverAllDone:'All three scans done! The rover is ready.',dhruboHello:'Hi! I’m Dhrubo, your robot buddy.',upgradePowerAir:'Connect one battery plug to the air system. Save the other for the radio.'});
 Object.assign(EN.ui,{resTitle:'Official Space Apps resources',resApi:'Our game reads real solar flares through NASA’s open data.',resDonki:'Every solar storm in the game is a real DONKI record.',resOsdr:'Background reading on how space affects astronaut health.',resRadlab:'Real radiation measurements from the space station, for readers who want the numbers.',resTrek:'Explore our three landing sites on real Mars maps.',resCsaStem:'Activities for clubs and classrooms.',resCsaFood:'More about growing food in space, like our greenhouse.',resDisclaimer:'NASA does not endorse any non-U.S. Government entity and is not responsible for information on non-U.S. Government websites.',trekLink:'See it on NASA Mars Trek'});
+
+Object.assign(EN.ui,{
+ workshopTitle:'Design your Mars base',
+ workshopHelp:'Pick or drag a building onto the map.',
+ workshopBuildings:'Buildings',
+ workshopCount:'{n} of {total} placed',
+ workshopWind:'Windy edge',
+ workshopSuggested:'Helpful spot',
+ workshopCoach:'Dhrubo’s tip',
+ workshopTipShelter:'Keep the shelter next to Home so the crew can get inside fast.',
+ workshopTipGreenhouse:'Put the greenhouse next to the water tank. It helps grow more food.',
+ workshopTipWater:'Put the tank next to the greenhouse. It helps grow more food.',
+ workshopTipSolar:'Keep panels away from the windy edge. Put them next to Home for easier cleaning.',
+ workshopSolarWind:'Dust builds up faster here. Move this panel off the windy edge.',
+ workshopSolarNear:'This panel is next to Home, so it takes less Battery to clean.',
+ workshopSolarOpen:'This panel is away from the windy edge. A spot next to Home makes it easier to clean.',
+ workshopTipGarage:'Put the garage next to Home to keep the rover out of soft sand.',
+ workshopChecks:'Check my layout',
+ workshopCheckShelter:'Shelter next to Home',
+ workshopCheckFood:'Greenhouse next to the water tank',
+ workshopCheckSolar:'Both panels off the windy edge',
+ workshopCheckRover:'Rover garage next to Home',
+ workshopMet:'Ready',
+ workshopNotMet:'Could improve',
+ workshopIncomplete:'Place all six buildings to launch.',
+ workshopTemplatePlaced:'Dhrubo’s layout is ready. You can still move the buildings.',
+ workshopCleared:'The map is clear. Home stays where it is.',
+ workshopClear:'Clear map',
+ workshopLaunch:'Launch mission',
+ workshopQuickLaunch:'Launch with Dhrubo’s layout',
+ workshopControls:'Keyboard and touch controls',
+ workshopKeyHelp:'Tap a building, then a tile. Or drag it onto the map. With a keyboard, Tab to a building, use the arrow keys to move, then press Enter.',
+ workshopFixed:'Home stays where it is. Pick an open tile.',
+ workshopOccupied:'That spot has a building. Pick an open tile.',
+ workshopPickTile:'{building} selected. Pick an open tile.',
+ workshopPlaced:'{building} placed.'
+});
+
+
+Object.assign(EN.ui,{
+ basePictureButton:'Generate base picture',
+ basePictureTitle:'Your Mars base picture',
+ basePictureCaption:'Built from your layout. Every building is where you put it.',
+ basePictureGameAlt:'An angled picture of your base on the Mars surface.',
+ basePictureSave:'Save picture',
+ basePictureBrief:'Save picture brief'
+});
+
+Object.assign(EN.ui,{
+ academySkipRound:'Skip round',
+ resetBase:'Reset Mars base',
+ resetBasePrompt:'Start Mars Base over? Your saved mission will be cleared. Your badges and settings stay.',
+ resetBaseConfirm:'Reset mission',
+ keepBase:'Keep mission',
+ pictureMore:'Picture options',
+ pictureClose:'Close base picture',
+ filmPlay:'Play movie',
+ filmPause:'Pause',
+ filmResume:'Resume',
+ filmSkip:'Skip movie',
+ filmIllustration:'Illustrated mission movie',
+ flightPreview:'Flight to Mars',
+ trainingPreview:'Astronaut Training',
+ basePreview:'Mars Base'
+});
+EN.films={
+ departure:[
+  ['National Kitty Space Center','Cadet Kitty, meet me at the launch pad. We’re getting ready for Mars.'],
+  ['All aboard, Kitty','Buckle up! Let’s make sure our crew is ready for the ride.'],
+  ['Liftoff','Away we go! Look how fast Earth falls behind us.'],
+  ['Next stop: Mars','Ready to fly? Pick a launch day, a path, and gear for Mars.']
+ ],
+ training:[
+  ['Ready for training','Cadet Kitty, welcome to Mars! Come see the solar panels that power our home.'],
+  ['Meet your guide','I’m Dhrubo. I’ll show you around. Let’s get those panels clean.']
+ ],
+ base:[
+  ['A home on Mars','Look, Cadet Kitty! That’s where our crew will make a home on Mars.'],
+  ['Build your base','Pick a landing site, then place the buildings that will keep our crew going.']
+ ]
+};
+
+// One narrator, one timeline: every movie caption is its spoken script.
+Object.assign(EN.ui, {
+ upgradePowerAir:'Connect the device that gives us fresh air. Look for a fan and a tank.',
+ upgradePowerRadio:'Now connect the device that sends messages. Look for an antenna.',
+ upgradeAirHint:'The fan and tank keep our air fresh. Connect that device.',
+ upgradePowerDone:'Fresh air is flowing. Our radio can send messages. Nice teamwork!',
+ upgradeSaveBattery:'Save these cells for fresh air and messages.',
+ upgradeRoverPriority:'The rover needs both cells. Let’s connect air and radio first.',
+ upgradeSelectBattery:'Tap a battery plug. Then tap the device.',
+ solRoom1:'Crew lounge', solRoom2:'Plant lab', solRoom3:'Air and water lab',
+ solRoom4:'Rover workshop', solRoom5:'Mission Control',
+ solRoomLine1:'Good morning, Cadet Kitty! Let’s plan our first day from the crew lounge.',
+ solRoomLine2:'Welcome to the plant lab! Our crew and our plants both need water.',
+ solRoomLine3:'Today we’re in the air and water lab. Let’s keep our supplies flowing.',
+ solRoomLine4:'Here’s our rover workshop. Let’s plan the jobs that need sunshine cells.',
+ solRoomLine5:'Our last morning! Let’s check the crew’s supplies here at Mission Control.',
+ roomWindow:'MARS', roomAir:'O₂', roomWater:'H₂O', roomBattery:'Battery', roomRadio:'Radio',
+ voiceUnavailable:'Dhrubo’s voice is not ready. You can still read every caption.',
+ filmPractice:'Practice preview',
+});
+EN.films.departure=[
+ ['Our trip starts here','Cadet Kitty, welcome to our flight simulator. Let’s plan a trip to Mars.'],
+ ['Meet the crew','Here is our practice cabin. We’ll help the crew get ready.'],
+ ['Imagine liftoff','This is a preview. First, we must plan when and how to launch.'],
+ ['Plan our trip','Mars keeps moving. Let’s pick our launch day, push, path, and landing gear.']
+];
+EN.films.training=[
+ ['Welcome to Mars','Welcome, Cadet Kitty! Let’s learn how to care for our Mars home.'],
+ ['A little sunshine','I’ll be right beside you. First, let’s brush the dust off those panels.']
+];
+EN.films.base=[
+ ['Our next adventure','Ready to care for a crew, Cadet Kitty? Let’s imagine our own Mars base.'],
+ ['Make it our home','Pick a landing site. Place our buildings. Then we’ll plan each Mars day together.']
+];
+EN.academyFilm=[
+ ['Our little blue planet.','Hi, I’m Dhrubo! Our space adventure starts on Earth.'],
+ ['Bangladesh','Let’s visit Bangladesh.'],
+ ['Khulna','There’s Khulna, beside the river.'],
+ ['National Kitty Space Center','Welcome to the National Kitty Space Center!'],
+ ['Big discoveries start here.','Come inside! Pick a lab, and let’s discover together.']
+];
+
+EN.films.trainingResume=[
+ ['Welcome back','Welcome back, Cadet Kitty! Our Mars home is waiting.'],
+ ['Let’s carry on','We’ll pick up where we left off. I’ll help with the next job.']
+];
+EN.films.baseResume=[
+ ['Welcome home','Here’s our Mars home, Cadet Kitty. Let’s see how the crew is doing.'],
+ ['Our next plan','We can carry on with our saved mission, or start a new one together.']
+];
+EN.films.baseReport=[
+ ['Our Mars story','Our last trip is over, Cadet Kitty. There’s lots we can learn from it.'],
+ ['Try a new plan','Let’s read our crew report, or build a base for a fresh adventure.']
+];
+
+// Mars Explorer: all visible labels and spoken lines are kept here.
+Object.assign(EN.ui,{
+ exploreMars:'Explore Mars in 3D', explorerTitle:'Mars, up close', explorerSubtitle:'Spin it. Meet a storm. Step onto Mars.',
+ explorerCanvas:'Interactive Mars globe. Drag to turn, pinch or use plus and minus to zoom. Arrow keys turn. Enter chooses a landing spot.',
+ explorerHint:'Drag to spin · Tap to land', explorerKeys:'Arrow keys turn · + / − zoom · Enter lands',
+ explorerIntro:'Cadet Kitty, let’s spin Mars! Tap a storm to find its story, or tap the planet to explore.',
+ explorerStorms:'Storm stories', explorerWeather:'Mars weather', explorerSun:'Sun now', explorerReal:'🛰️ Real', explorerGame:'🎲 Game',
+ explorerRealHelp:'Measured data or a sourced real event.', explorerGameHelp:'An illustration, not a live view or forecast.',
+ explorerSolar:'The sky lit up', explorerDust:'A dusty sky', explorerWhen:'When', explorerHow:'What happened?',
+ explorerSolarStory:'On 20 May 2024, fast particles from the Sun reached Mars. Curiosity measured a big rise in radiation. MAVEN saw auroras across the planet.',
+ explorerSolarTip:'Water walls and rock can help shield a crew. These glowing colors show the idea, not what human eyes would see.',
+ explorerDustStory:'On 10 June 2018, thick dust blocked sunlight at Opportunity. Its last picture showed a very dark sky.',
+ explorerDustTip:'Dust storms start on Mars. Solar storms start at the Sun. They are different kinds of storm!',
+ explorerHistory:'Past event · replay', explorerIllustration:'Storm animation: illustration, not live',
+ explorerSource:'Read the source ↗', explorerReplay:'Replay storm', explorerPause:'Pause motion', explorerPlay:'Play motion',
+ explorerZoomIn:'Zoom in', explorerZoomOut:'Zoom out', explorerReset:'Reset view', explorerHome:'Back to Astro Kitty',
+ explorerWeatherTitle:'Curiosity’s weather station', explorerWeatherTip:'One rover, one place. These readings are from Gale Crater, not all of Mars.',
+ explorerDate:'Measured on {date}', explorerSol:'Mars day {sol}', explorerAir:'Air temperature', explorerLow:'Low', explorerHigh:'High',
+ explorerPressure:'Air pressure', explorerPressureHelp:'Pressure tells us how much the air pushes. Pa means pascals.',
+ explorerArchive:'Saved NASA record · not live', explorerFetched:'Latest feed received · not live weather', explorerCached:'Saved feed · checked within 3 hours',
+ explorerWeatherMissing:'That reading is not available.', explorerWeatherCredit:'Weather: NASA/JPL-Caltech/CAB (CSIC-INTA)',
+ explorerSunTitle:'Latest available Sun report', explorerSunTip:'DONKI reports solar events. This flare was seen from Earth. It does not tell us that a storm is hitting Mars now.',
+ explorerFresh:'NASA feed received now', explorerSunArchive:'NASA archive · not live', explorerClass:'Flare class {class}', explorerSunLine:'A flare is a burst of light from the Sun. Fast particles can follow. Crews shelter from those particles.',
+ explorerNoGlobal:'There is no live, planet-wide Mars weather feed here.', explorerChecked:'Checked {date}',
+ explorerLanding:'Your landing spot', explorerLand:'Land here', explorerCancel:'Keep spinning', explorerCoordinates:'{lat}° latitude · {lon}° east',
+ explorerSurface:'Mars walk', explorerSurfaceLabel:'Imagined training area · not a scanned landing site',
+ explorerSurfaceTip:'Welcome, Cadet Kitty! Drag to look around. Use the arrows to walk. Our training dome is ahead.',
+ explorerSurfaceCanvas:'Walkable Mars training area. Drag to look. W A S D or arrow keys walk. Escape returns to orbit.',
+ explorerOrbit:'Back to orbit', explorerMove:'Move', explorerForward:'Walk forward', explorerBack:'Walk backward', explorerLeft:'Step left', explorerRight:'Step right',
+ explorerWalkKeys:'W A S D or arrows to walk · Drag to look', explorerSurfaceBlocked:'3D is not available on this device. You can still read every storm story and weather card.',
+ walkCenter:'National Kitty Space Center', walkTitle:'Mars walk', walkTools:'Mars walk controls',
+ walkLoading:'Landing on Mars…', walkKeys:'Arrow keys or W A S D to walk · Drag the picture to look around',
+ walkIntro:'Scout Kitty, find the rock sample.', walkFindSample:'Find a rock', walkFindPower:'Check solar power',
+ walkFindShelter:'Reach the airlock', walkTakeSample:'Collect rock', walkReadPower:'Check power', walkOpenDoor:'Open airlock',
+ walkSampleGuide:'Shabbash! Now check solar power.', walkPowerGuide:'Power checked! Walk into the airlock.',
+ walkShelterGuide:'You made it inside!', walkDustDrill:'Dust drill', walkDustGuide:'Dust is blocking the light. Follow the airlock marker.',
+ walkClearGuide:'The sky is clear again.', walkComplete:'Walk complete!', walkCompleteGuide:'Shabbash, Kitty! Your field checks are complete.',
+ walkDustFact:'Rusty iron minerals give Mars dust its reddish color.',
+ walkStormFact:'Dust storms can hide landmarks and block light from solar panels.',
+ walkModel:'This is a fictional outpost. The drill speeds up the weather.',
+ explorerMapCredit:'Mars texture: Caltech/JPL/USGS', explorerMapNote:'Real Viking map on a smooth globe. Terrain height is not measured here.',
+ explorerNoEndorsement:'Uses NASA and partner data. Not endorsed by NASA.', explorerVoice:'Hear Dhrubo', explorerQuiet:'Mute Dhrubo',
+ explorerGale:'Gale · weather', explorerAurora:'Solar storm · 2024', explorerDustButton:'Dust storm · 2018', explorerLoading:'Checking NASA records…',
+ explorerNight:'Practice weather', explorerClear:'Clear sky', explorerStormPractice:'Solar storm', explorerShelterTip:'Head inside the dome. In a real storm, crews stop work and take shelter.', explorerDome:'Training dome', explorerSheltered:'Inside our shelter',
+ solTitle3:'Halfway through our stay', solEvening2:'Our second day is done. Let’s check our notes while the crew rests.',solEvening3:'Three days together! Let’s look back at our choices.',solEvening5:'Our last day is done. Let’s gather the crew and read our report.',
+ upgradeAirQuestion:'Connect the fresh-air device.',upgradeRadioQuestion:'Connect the message device.'
+});
+const sceneLines={landing:'We’re on Mars! Let’s check our balance before we start a big job.',storm:'A solar alert has arrived. Let’s help our crew take shelter.',dust:'Dust is blocking our sunlight. Let’s check the panels and our plants.',leak:'Can you hear that drip? Let’s check the water pipe.',greenhouse:'Our plants look thirsty. Let’s help those drooping leaves.',homesick:'Our friend misses home. Let’s find a kind way to help.',sick:'One of our crew needs rest. Let’s share the work.',dustdevil:'Look at that swirl of dust! The wind might clean our panels, or bring more dust.',filter:'The air fan sounds different. Let’s check its dust filter.',freeze:'It’s cold outside. Let’s check how to keep our home warm.',cargo:'Our supplies have landed! Which crate shall the rover bring first?',ice:'There may be ice below us. Let’s look at our next step.',sand:'Our rover has reached soft sand. Let’s plan a careful way out.',pebbles:'A panel needs a fix. Let’s check our spare parts.',birthday:'It’s our crewmate’s birthday! Let’s plan a little surprise.',drawings:'Drawings from kids on Earth! Their message has reached our home.',help:'Our checklist has a useful note. Let’s check our spare supplies.'};
+for(const [id,line] of Object.entries(sceneLines))if(EN.eventScenes[id])EN.eventScenes[id].line=line;
