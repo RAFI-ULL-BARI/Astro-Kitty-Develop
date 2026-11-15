@@ -174,7 +174,7 @@ async function renderSurface() {
     dirty = true;
   };
   document.querySelectorAll('[data-move]').forEach(button => {
-    const move = button.dataset.move, press = {left:'turnLeft',right:'turnRight'}[move] || move;
+    const move = button.dataset.move, press = move;
     if (press !== move) button.setAttribute('aria-label', move === 'left' ? 'Turn left' : 'Turn right');
     button.addEventListener('pointerdown', event => {
       event.preventDefault();
