@@ -1,4 +1,4 @@
-import {tr} from './strings.js';
+import {tr} from './strings.js?v=10';
 export const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
 export const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 export const MISSIONS=[

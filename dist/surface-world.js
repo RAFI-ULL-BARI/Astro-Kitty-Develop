@@ -1,4 +1,4 @@
-import {sceneModules} from './base-design.js';
+import {sceneModules} from './base-design.js?v=10';
 
 export const SURFACE_ROCKS=[
   {x:615,y:550,r:32},{x:620,y:322,r:28},{x:965,y:585,r:27}
@@ -11,21 +11,27 @@ const step=20;
 const rect=(left,top,right,bottom)=>({left,top,right,bottom});
 const panelFootprint=(x,y)=>rect(x-94,y-41,x+95,y+34);
 
+const moduleFootprints={
+ shelter:{halfWidth:69,top:50,bottom:37},
+ greenhouse:{halfWidth:55,top:53,bottom:16},
+ solar1:{halfWidth:95,left:94,top:41,bottom:34},
+ solar2:{halfWidth:95,left:94,top:41,bottom:34},
+};
+
 export function visibleBaseModules(layout){
-  return sceneModules(layout)
-    .filter(module=>['shelter','greenhouse','solar1','solar2'].includes(module.id))
-    .map(module=>({...module,x:150+module.column*240,y:360+module.row*42}));
+  return sceneModules(layout).map(module=>{
+    const x=150+module.column*240,y=360+module.row*42;
+    const footprint=moduleFootprints[module.id];
+    if(!footprint)return {...module,x,y,ground:y-72};
+    const {halfWidth,left=halfWidth,top,bottom}=footprint;
+    return {...module,x,y,ground:y+bottom,footprint:rect(x-left,y-top,x+halfWidth,y+bottom)};
+  });
 }
 
 export function surfaceObstacles({panels=[],layout=null}={}){
   const objects=[rect(226,471,334,565),rect(889,204,1201,429),...SURFACE_ROCKS];
   if(!layout)return objects.concat(panels.map(({x,y})=>panelFootprint(x,y)));
-  for(const {id,x,y} of visibleBaseModules(layout)){
-    if(id.startsWith('solar'))objects.push(panelFootprint(x,y));
-    else if(id==='shelter')objects.push(rect(x-65,y-50,x+69,y+37));
-    else objects.push(rect(x-55,y-53,x+55,y+16));
-  }
-  return objects;
+  return objects.concat(visibleBaseModules(layout).flatMap(module=>module.footprint?[module.footprint]:[]));
 }
 
 function insideBounds({x,y}){

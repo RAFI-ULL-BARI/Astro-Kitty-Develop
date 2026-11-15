@@ -1,4 +1,4 @@
-import {t,tr} from './strings.js';
+import {t,tr} from './strings.js?v=10';
 
 export const TRAINING_MILESTONES=[
   {id:'solar',patch:'sun',title:'trainingSolar',fact:'dust',perk:'perkSolar',icon:'sun'},

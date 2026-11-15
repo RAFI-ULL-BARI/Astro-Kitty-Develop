@@ -1,9 +1,9 @@
-import {normalizeMissionCode,codeForSeed,hashCode} from './mission-code.js';
-export {normalizeMissionCode,codeForSeed,hashCode} from './mission-code.js';
-import {archiveStormForCode} from './solar-archive.js';
-import {normalizeLayout,layoutEffects} from './base-design.js';
-import {normalizeSite,siteRules,siteWeight} from './landing-sites.js';
-import {flareStrength,normalizeEvent} from './nasa-data.js';
+import {normalizeMissionCode,codeForSeed,hashCode} from './mission-code.js?v=10';
+export {normalizeMissionCode,codeForSeed,hashCode} from './mission-code.js?v=10';
+import {archiveStormForCode} from './solar-archive.js?v=10';
+import {normalizeLayout,layoutEffects} from './base-design.js?v=10';
+import {normalizeSite,siteRules,siteWeight} from './landing-sites.js?v=10';
+import {flareStrength,normalizeEvent} from './nasa-data.js?v=10';
 
 export const METERS=['power','air','water','food','shielding','spirit'];
 export const SYSTEMS=['air','water','food','shield'];

@@ -1,4 +1,4 @@
-import {t} from './strings.js';
+import {t} from './strings.js?v=10';
 
 export const BANGLADESH_FLAG={ratio:.6,discX:.45,discY:.3,radius:.2,green:'#006a4e',red:'#f42a41',outline:'#ffffff55'};
 export function drawBangladeshFlag(ctx,x,y,width){

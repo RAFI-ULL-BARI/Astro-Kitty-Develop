@@ -1,4 +1,4 @@
-import {t} from './strings.js';
+import {t} from './strings.js?v=10';
 
 export const RESOURCES=[
  ['NASA Open APIs','https://api.nasa.gov/','resApi',true],

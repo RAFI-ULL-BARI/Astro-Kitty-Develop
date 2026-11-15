@@ -1,6 +1,6 @@
-import { ARRIVAL_CHAPTERS } from './visual-core.js';
+import { ARRIVAL_CHAPTERS } from './visual-core.js?v=10';
 // @ts-ignore The shared runtime is a dependency-free JavaScript module.
-import { dhruboNarrator } from './narration.js';
+import { dhruboNarrator } from './narration.js?v=10';
 export class MovieNarrator {
     blocked;
     speaking;

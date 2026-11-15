@@ -1,0 +1,72 @@
+.flight-adventure{position:fixed;inset:0;z-index:1000;background:#111d32;color:#fff0d7;display:flex;flex-direction:column;font-family:'Avenir Next',system-ui,sans-serif;overflow:auto}.flight-adventure canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}.flight-adventure header{position:relative;z-index:2;display:flex;align-items:center;gap:10px;padding:22px 5%;background:linear-gradient(#111d32bb,transparent)}.flight-adventure header>span{margin-right:auto;font-size:12px;letter-spacing:1px}.flight-adventure button{min-height:44px;color:#fff0d7;border:1px solid #71809a88;background:#243652;padding:11px 17px;border-radius:16px;font:600 14px system-ui;cursor:pointer;transition:transform .2s,background .2s}.flight-adventure button:hover{transform:translateY(-2px);background:#3d4c6d}.flight-adventure button:focus-visible,.flight-adventure input:focus-visible{outline:3px solid #efb59c;outline-offset:4px}.flight-adventure .flight-copy{position:relative;z-index:2;margin:auto 6% 5%;max-width:720px;pointer-events:none}.flight-copy h2{font-size:clamp(30px,5vw,62px);line-height:1.1;margin:10px 0;letter-spacing:-1px}.flight-copy>p{max-width:600px;font-size:16px;line-height:1.5}.flight-adventure .flight-controls{pointer-events:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}.flight-adventure .flight-controls input{width:min(340px,70vw);accent-color:#bba8ec;min-height:44px}.flight-adventure .flight-controls label{display:flex;align-items:center;gap:10px}.flight-adventure .flight-controls button.good{background:#a9e5d1;color:#172840}.flight-adventure .flight-copy.practice{background:#18283fef;border:1px solid #6e739455;border-radius:24px;padding:20px 25px;margin: auto 5% 3%;max-width:800px}.flight-copy.practice h2{font-size:30px}.flight-copy.practice>p{min-height:24px;margin:10px 0 16px}.flight-adventure .drop-zone{border:2px dashed #bba8ec;background:#bba8ec15;min-width:160px}.flight-adventure .flight-draggable{touch-action:none}.flight-adventure .selected{outline:3px solid #efb59c}.flight-adventure .flight-real{position:relative;z-index:2;margin-left:auto;font-size:12px;max-width:340px}.flight-real[open]{background:#263650;border-radius:16px;padding:14px}.flight-real summary{cursor:pointer;min-height:44px;padding:12px}.flight-real p{font-size:13px;line-height:1.5}.flight-real a{color:#a9e5d1}.flight-adventure header svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8}.flight-drag-ghost{position:fixed;pointer-events:none;z-index:2000;padding:15px;background:#bba8ec;color:#172840;border-radius:15px;transform:translate(-50%,-50%)}@media(max-width:600px){.flight-adventure header{padding:12px 15px;flex-wrap:wrap}.flight-adventure header>span{font-size:10px}.flight-adventure .flight-copy.practice{padding:16px;margin: auto 14px 14px}.flight-copy.practice h2{font-size:24px}.flight-copy.practice>p{font-size:14px}.flight-adventure canvas{height:68%;top:6%}.flight-adventure .flight-copy{margin-bottom:15%}.flight-adventure .flight-real{max-width:270px;position:absolute;right:15px;top:67px}.flight-adventure .flight-controls{gap:8px}.flight-adventure .flight-controls button{font-size:12px;padding:10px 12px}}@media(prefers-reduced-motion:reduce){.flight-adventure *{transition:none!important;animation:none!important}}
+.flight-adventure{background:radial-gradient(ellipse at 75% 20%,#35436255,#111d32 70%)}.flight-adventure header{background:linear-gradient(#14243ddd,transparent)}.flight-adventure button{background:linear-gradient(135deg,#354965,#243852);border-color:#b3bfdc3d;box-shadow:inset 0 1px #fff1}.flight-adventure .flight-copy.practice{background:linear-gradient(120deg,#263b53f2,#1a2e46f5);border-color:#b9c7de33;box-shadow:0 18px 40px #09142633,inset 0 1px #fff1;backdrop-filter:blur(9px)}.flight-adventure .flight-controls button.good{background:linear-gradient(125deg,#c5e8d6,#9bcdbd);border-color:#b4e4cd}.flight-copy.practice h2{font-weight:600;letter-spacing:-.6px}.flight-adventure .flight-copy>p{color:#dce4e7;font-size:15px}.flight-adventure .flight-copy{max-width:790px}.flight-copy h2{text-wrap:balance;font-weight:600}.flight-adventure .drop-zone{border-color:#cdb8e6;background:#bba8ec12}.flight-adventure .flight-draggable:hover{box-shadow:0 6px 18px #0c182b33}.flight-adventure .flight-real summary{list-style:none}.flight-adventure .flight-real summary:before{content:'▸';margin-right:7px}.flight-adventure .flight-real[open] summary:before{content:'▾'}.flight-adventure canvas{image-rendering:auto}.flight-adventure .flight-controls button:active{transform:translateY(1px)}
+@media(prefers-reduced-motion:no-preference){.flight-copy.practice{animation:flight-panel-in .35s ease both}@keyframes flight-panel-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}}
+@media(max-width:600px){.flight-adventure .flight-copy>p{font-size:13px;line-height:1.5}.flight-copy.practice h2{font-size:25px}.flight-adventure .flight-copy.practice{padding:17px}.flight-adventure .flight-controls button{min-height:46px}.flight-adventure header{gap:7px}.flight-adventure header>span{max-width:calc(100% - 250px);font-size:9px;line-height:1.5}.flight-adventure header button{font-size:11px;padding:9px 12px}}
+.flight-adventure:after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,transparent 42%,#111d3200 56%,#111d32cc 100%)}.flight-adventure .flight-copy>h2{text-shadow:0 3px 22px #111d3244}
+.flight-adventure[data-palette=earth],.flight-adventure[data-palette=launch]{background:#3d354e}.flight-adventure[data-palette=cabin]{background:#3a3044}.flight-adventure[data-palette=amber]{background:radial-gradient(ellipse at 75% 15%,#75506777,#28283e 75%)}.flight-adventure[data-palette=amber] .flight-copy.practice{background:linear-gradient(120deg,#4f3c54f2,#322e43f5);border-color:#e6bc8c55}.flight-adventure[data-palette=amber] button{background:#544256;border-color:#d8b1ca55}.flight-adventure[data-palette=amber] .flight-controls button.good{background:#ecd0a3;color:#34403f}
+
+.mission-film canvas { inset:0; width:100%; height:100%; object-fit:cover; }
+.mission-film .flight-copy { max-width: min(650px,88%); }
+.mission-film .flight-copy h2 { letter-spacing: -.022em; }
+.mission-film .flight-copy > p { text-shadow: 0 2px 8px #131d32; }
+.mission-film .flight-play {
+ position:absolute;z-index:5;top:50%;left:50%;translate:-50% -50%;
+ background:#253750;color:#fff1dc;box-shadow:0 5px 22px #15162566;
+}
+@media (max-height: 500px) and (orientation: landscape) {
+ .mission-film header { padding:6px 4%; }
+ .mission-film .flight-copy { margin-bottom:2%; }
+ .mission-film .flight-copy h2 { font-size:26px; margin-bottom:2px; }
+ .mission-film .flight-copy p { margin:0; }
+}
+
+.flight-skip-round { pointer-events:auto; margin-top:8px; }
+.flight-skip-round[hidden] { display:none; }
+
+.mission-film .movie-caption {
+ display:grid;
+ grid-template-columns: 56px minmax(0,1fr);
+ grid-template-rows: auto auto;
+ column-gap:12px;
+ align-items:center;
+ width:min(630px,88%);
+ padding:10px 16px 12px 10px;
+ border:1px solid #e1d5ef42;
+ border-radius:24px;
+ background:linear-gradient(132deg,#202b42ed,#39334bdc);
+}
+.movie-caption h2,.movie-caption>p {
+ grid-column:2;
+ font-family:var(--mission-rounded);
+ opacity:var(--scene-copy-opacity,1);
+}
+.mission-film .movie-caption h2 {
+ font-size:clamp(24px,4vw,42px);
+ font-weight:760;
+ line-height:1.06;
+ letter-spacing:-.025em;
+ margin:0 0 5px;
+}
+.mission-film .movie-caption>p {
+ font-size:clamp(14px,2vw,17px);
+ line-height:1.38;
+ color:#fff2dc;
+ margin:0;
+ font-weight:650;
+}
+.movie-caption .movie-guide {
+ grid-column:1;grid-row:1 / span 2;
+ width:56px;height:63px;display:block;
+ align-self:center;
+}
+.movie-guide svg { display:block;width:100%;height:100%; }
+.movie-caption .flight-controls:empty { display:none; }
+@media (max-width:480px), (max-height:480px) {
+ .mission-film .movie-caption { grid-template-columns:44px minmax(0,1fr);column-gap:9px;padding:9px 12px 10px 8px;border-radius:19px; }
+ .movie-caption .movie-guide { width:44px;height:50px; }
+ .mission-film .movie-caption h2 { font-size:24px; }
+}
+@media (prefers-reduced-motion:no-preference) {
+ .movie-caption.is-speaking:not(.still-guide) .movie-guide svg { animation:movie-guide-float 2.8s ease-in-out infinite; }
+ @keyframes movie-guide-float { 50% { transform:translateY(-2px); } }
+}

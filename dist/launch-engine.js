@@ -82,3 +82,10 @@ export function hintChoices(failures,step,window){
   if(step==='path')return ['curved'];
   return [...REQUIRED_GEAR];
 }
+
+// Normalized visual height: a low-power practice launch rises, then returns safely.
+export function launchAltitude(seconds,fallBack=false){
+ const clamp=n=>Math.max(0,Math.min(1,n)),ease=n=>{const p=clamp(n);return p*p*(3-2*p);};
+ const rise=ease((seconds-3)/5),fall=fallBack?ease((seconds-6)/6):0;
+ return rise*(1-fall);
+}

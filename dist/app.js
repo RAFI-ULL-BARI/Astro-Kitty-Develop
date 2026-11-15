@@ -1,17 +1,25 @@
-import {createLaunchSimulator} from './launch.js';
-import {createStoryControls,bindStoryVisibility} from './story-controls.js';
-import {roverGuideOpacity} from './story-training.js';
-import {createStorySound} from './story-sound.js';
-import {truthBadge,esc} from './outpost-presentation.js';
-import {TRAINING_MILESTONES,earnedStoryTraining,mergeStoryTraining,storyStartScene,storyDoneText,storyBadgeBanner} from './journey.js';
-import {teamCreditHTML} from './flags.js';
-import {tr,t,copy,localizeStatic} from './strings.js';
-import {readyVoices,registerOffline,accessPreferences,makeUtterances} from './compat.js';
-import {createVoiceClips} from './voice-clips.js';
-import { SCENES, LINES, PATCHES } from './story.js';
-import { createGame, enter, advanceStory, interact, connect, matchCable, restoreStory, nearbyDustyPanel, useRoverControls, say, setTarget, skipFilm, goal, distance } from './story-engine.js';
-import { drawScene, toWorld, AVATARS, setAvatar, currentAvatar } from './art.js';
-import {resourcesHTML} from './resources.js';
+import {dhruboNarrator} from './narration.js?v=10';
+import {startMusic} from './music.js?v=10';
+startMusic('story');
+import {robotPortrait} from './dhrubo-guide.js?v=10';
+import {previousTrainingStage,freshAdventure} from './training-navigation.js?v=10';
+import {readProgress as readAcademySave,SAVE as ACADEMY_SAVE} from './academy-model.js?v=10';
+import {soundOn,saveSound} from './sound-preference.js?v=10';
+import {playDeparture,playCruise,playMissionFilm} from './flight-adventure.js?v=10';
+import {createLaunchSimulator} from './launch.js?v=10';
+import {createStoryControls,bindStoryVisibility} from './story-controls.js?v=10';
+import {roverGuideOpacity} from './story-training.js?v=10';
+import {createStorySound} from './story-sound.js?v=10';
+import {truthBadge,esc} from './outpost-presentation.js?v=10';
+import {TRAINING_MILESTONES,earnedStoryTraining,mergeStoryTraining,storyStartScene,storyDoneText,storyBadgeBanner} from './journey.js?v=10';
+import {teamCreditHTML} from './flags.js?v=10';
+import {tr,t,copy,localizeStatic} from './strings.js?v=10';
+import {readyVoices,registerOffline,accessPreferences,makeUtterances} from './compat.js?v=10';
+import {createVoiceClips} from './voice-clips.js?v=10';
+import { SCENES, LINES, PATCHES } from './story.js?v=10';
+import { createGame, enter, advanceStory, interact, connect, matchCable, restoreStory, nearbyDustyPanel, useRoverControls, say, setTarget, skipFilm, goal, distance } from './story-engine.js?v=10';
+import { drawScene, toWorld, AVATARS, setAvatar, currentAvatar } from './art.js?v=10';
+import {resourcesHTML} from './resources.js?v=10';
 const $=id=>document.getElementById(id);
 const icon=id=>tr("text001", [id]);
 const KEY='astro-kitty-story-v2';
@@ -19,7 +27,7 @@ const validPatches=new Set(PATCHES.map(p=>p.id));
 let book={scene:null,trainingScene:null,patches:[],voice:true,subtitles:true,reduceMotion:false,introSeen:false,simulatorSeen:false,tripPlanner:false};
 let storageAvailable=true;
 try{const data=JSON.parse(localStorage.getItem(KEY)||'null');if(data){book.scene=Object.hasOwn(SCENES,data.scene)?data.scene:null;book.patches=Array.isArray(data.patches)?data.patches.filter(x=>validPatches.has(x)):[];book.voice=data.voice!==false;book.subtitles=data.subtitles!==false;book.reduceMotion=data.reduceMotion===true;book.introSeen=data.introSeen===true;book.simulatorSeen=data.simulatorSeen===true;book.tripPlanner=data.tripPlanner===true;book.trainingScene=Object.hasOwn(SCENES,data.trainingScene)&&!['approach','landing','choose'].includes(data.trainingScene)?data.trainingScene:book.scene&&!['approach','landing','choose'].includes(book.scene)?book.scene:null;}}catch{}
-book.voice=accessPreferences().voice??book.voice;
+book.voice=soundOn();
 book.subtitles=accessPreferences().captions??book.subtitles;
 book.reduceMotion=accessPreferences().reduceMotion??book.reduceMotion;
 document.body.classList.toggle('reduce-motion',book.reduceMotion);
@@ -29,6 +37,7 @@ function setText(el,str){if(el.textContent!==str)el.textContent=str;}
 function show(el,on=true){if(el.classList.contains('hidden')===on)el.classList.toggle('hidden',!on);}
 function disabled(el,value){if(el.disabled!==value)el.disabled=value;}
 const canvas=$('scene'),game=$('game'),keys=new Set();
+$('subtitle').querySelector('.pip-portrait').innerHTML=robotPortrait;
 let state=null,paused=false,lastFrame=0,visualTime=0,lastScene='',lastSpeech=-1,lastCheckpoint=-1;
 let lastFeedback=-1,subtitleLife=0,voiceUnavailable=false,previousSpeech='';
 let badgeNotice=null,badgeNoticeLife=0;
@@ -42,7 +51,7 @@ function chime(win=false){if(win)sound.finish();else sound.chime();}
 const synth='speechSynthesis'in window?window.speechSynthesis:null;
 let utterance=null,narrating=false,narrationStarted=0,voiceTicket=0;
 const voiceReady=readyVoices(synth);
-const clips=createVoiceClips();globalThis.astroVoiceHeard=clips.heard;
+const clips=dhruboNarrator();globalThis.astroVoiceHeard=clips.heard;
 function stopVoice(){voiceTicket++;clips.stop();if(synth)synth.cancel();narrating=false;utterance=null;}
 function speak(key,praise=''){
  previousSpeech=key;const [speaker,baseLine]=LINES[key]||LINES.welcome,line=praise?praise+' '+baseLine:baseLine;
@@ -54,36 +63,37 @@ function revealCaptions(){
  voiceUnavailable=true;
  if(state&&state.scene!=='complete')show($('subtitle'));
 }
-async function speakLine(line){
- stopVoice();if(!book.voice||paused)return;
+async function speakLine(line,allowPaused=false){
+ stopVoice();if(!book.voice||paused&&!allowPaused||document.hidden)return;
  const ticket=voiceTicket;
- if(await clips.play(line,{onstart:()=>{if(ticket===voiceTicket){narrating=true;narrationStarted=performance.now();voiceUnavailable=false;}},onend:()=>{if(ticket===voiceTicket)narrating=false;}}))return;
- if(ticket!==voiceTicket||paused||!book.voice)return;
- if(!synth||!('SpeechSynthesisUtterance'in window)){revealCaptions();return;}const available=await voiceReady;if(ticket!==voiceTicket||paused||!book.voice)return;
- try{
-  const list=makeUtterances(line,synth.getVoices().length?synth.getVoices():available),u=list[list.length-1];utterance=u;
-  list[0].onstart=()=>{if(utterance===u){narrating=true;narrationStarted=performance.now();voiceUnavailable=false;}};
-  u.onend=()=>{if(utterance===u)narrating=false;};
-  for(const part of list)part.onerror=e=>{if(utterance===u){narrating=false;if(!['interrupted','canceled'].includes(e.error))revealCaptions();}};
-  synth.resume();for(const part of list)synth.speak(part);
- }catch{revealCaptions();}
+ await clips.play(line,{onstart:()=>{if(ticket===voiceTicket){narrating=true;narrationStarted=performance.now();voiceUnavailable=false;}},onend:()=>{if(ticket===voiceTicket)narrating=false;},onunavailable:revealCaptions});
 }
 function updateVoice(){
- $('voiceButton').innerHTML=icon(book.voice?'sound':'mute');$('voiceButton').setAttribute('aria-label',t(book.voice?'upgradeMuteAction':'upgradeUnmuteAction'));$('voiceButton').setAttribute('aria-pressed',String(book.voice));
+ $('voiceButton').innerHTML=icon(book.voice?'sound':'mute');$('voiceButton').setAttribute('aria-label',t(book.voice?'upgradeMuteAction':'upgradeUnmuteAction'));$('voiceButton').setAttribute('aria-pressed',String(book.voice));$('voiceButton').title='Dhrubo guidance';$('voiceButton').setAttribute('aria-label',book.voice?'Mute Dhrubo':'Hear Dhrubo');
 }
 function clearInput(){keys.clear();controls?.cancel();if(state){state.target=null;state.auto=false;state.player.vx=state.player.vy=0;}}
+const speakOverlay=line=>speakLine(line,true);
 const launchCopy=copy('launch');
 const simulator=createLaunchSimulator($('launchSimulator'),{
  speak:speakLine,stopVoice,unlock:unlockAudio,
  celebrate:()=>{book.tripPlanner=true;save();sound.finish();},
- arrive:()=>startStory('approach'),
+ arrive:async()=>{paused=true;stopVoice();await playCruise({reduced:isReduced(),speak:speakOverlay,stopVoice,onSound:onAdventureSound});startStory('approach');},
  isReduced,showCaptions:()=>book.subtitles||!book.voice||voiceUnavailable
 });
 function leaveTitle(){
  show($('titleScreen'),false);show($('ending'),false);show($('episodeLabel'),false);
  show($('pauseButton'));unlockAudio();
 }
-function startStory(scene){
+function onAdventureSound(on){book.voice=on;sound.setEnabled(on);save();updateVoice();}
+async function beginTraining(){
+ const resume=book.trainingScene&&book.trainingScene!=='complete';
+ stopVoice();paused=true;
+ await playMissionFilm('training',{resume:!!resume,reduced:isReduced(),onSound:onAdventureSound});
+ await startStory(resume?book.trainingScene:'walk');
+}
+async function startStory(scene){
+
+
  stopVoice();game.classList.remove('simulating');canvas.inert=false;
  state=restoreStory({scene,patches:book.patches},newWiringSeed());
  paused=false;lastScene='';lastSpeech=-1;lastCheckpoint=-1;lastFeedback=-1;lastFrame=0;
@@ -91,8 +101,10 @@ function startStory(scene){
  clearInput();leaveTitle();show($('chapter'));show($('actionArea'));
  sync();canvas.focus({preventScroll:true});chime();
 }
-function startSimulator(fresh=false){
- stopVoice();state=null;paused=false;lastFrame=0;keys.clear();
+async function startSimulator(fresh=false){
+ stopVoice();paused=true;await playDeparture({reduced:isReduced(),onSound:onAdventureSound});
+
+ stopVoice();state=null;show($('trainingBack'),false);show($('homeButton'));paused=false;lastFrame=0;keys.clear();
  if(fresh){book.patches=[];book.trainingScene=null;book.scene=null;book.introSeen=false;}
  book.simulatorSeen=true;save();
  leaveTitle();game.classList.add('simulating');canvas.inert=true;
@@ -100,6 +112,7 @@ function startSimulator(fresh=false){
  simulator.start(newWiringSeed());
 }
 $('beginButton').addEventListener('click',()=>{
+ if(!book.introSeen&&!new URL(location.href).searchParams.has('academy')){location.href='./academy.html';return;}
  const scene=storyStartScene(book);
  if(scene==='approach')startSimulator(book.scene==='complete');
  else startStory(scene);
@@ -116,15 +129,16 @@ function renderAvatars(){
 }
 renderAvatars();
 $('avatarChoices').addEventListener('click',e=>{const b=e.target.closest('[data-avatar]');if(!b)return;setAvatar(b.dataset.avatar);renderAvatars();unlockAudio();sound.kitty?.();$('avatarChoices').querySelector('[aria-checked="true"]')?.focus();});
+function academyComplete(){try{return readAcademySave(localStorage).done.length===5;}catch{return false;}}
 function journeyState(){let base=false;try{base=!!localStorage.getItem('astro-kitty-outpost-v1')||!!localStorage.getItem('astro-kitty-outpost');}catch{}
- return[{id:'fly',label:t('stepFly'),icon:'🚀',done:!!(book.tripPlanner||book.introSeen)},{id:'train',label:t('stepTrain'),icon:'🐾',done:book.trainingScene==='complete'||book.scene==='complete'},{id:'base',label:t('stepBase'),icon:'🏠',done:false,started:base}];}
+ return[{id:'earth',label:'Earth Academy',icon:'🌍',done:academyComplete()},{id:'fly',label:t('stepFly'),icon:'🚀',done:!!book.tripPlanner},{id:'train',label:t('stepTrain'),icon:'🐾',done:book.trainingScene==='complete'||book.scene==='complete'},{id:'base',label:t('stepBase'),icon:'🏠',done:false,started:base}];}
 function renderJourney(){const steps=journeyState();const next=steps.findIndex(x=>!x.done);
  $('journeySteps').innerHTML=steps.map((x,i)=>`<li><button type="button" class="journey-step${x.done?' done':''}${i===next?' next':''}" data-step="${x.id}"><span class="step-icon" aria-hidden="true">${x.done?'✓':x.icon}</span><span class="step-num">${i+1}</span><strong>${x.label}</strong><span class="sr-only">${x.done?t('stepDone'):i===next?t('stepNext'):''}</span></button></li>`).join('');}
 renderJourney();
-function goStep(id){if(id==='fly')startSimulator(false);else if(id==='train'){book.introSeen=true;save();startStory(book.trainingScene&&book.trainingScene!=='complete'?book.trainingScene:'walk');}else{stopVoice();book.introSeen=true;save();location.href='./outpost.html?arrival=1';}}
+function goStep(id){if(id==='earth'){location.href='./academy.html';return;}if(id==='fly')startSimulator(false);else if(id==='train'){book.introSeen=true;save();beginTraining();}else{stopVoice();book.introSeen=true;save();location.href='./outpost.html?arrival=1';}}
 $('journeySteps').addEventListener('click',e=>{const b=e.target.closest('[data-step]');if(b)goStep(b.dataset.step);});
 $('voiceButton').addEventListener('click',()=>{
- book.voice=!book.voice;sound.setEnabled(book.voice);save();saveSharedSettings({voice:book.voice});updateVoice();unlockAudio();
+ book.voice=!book.voice;saveSound(book.voice);sound.setEnabled(book.voice);save();saveSharedSettings({voice:book.voice});updateVoice();unlockAudio();
  if(book.voice&&simulator.active)simulator.repeat();
  else if(book.voice&&state)speak(state.speech);
  else{stopVoice();if(state){subtitleLife=10;show($('subtitle'),state.scene!=='complete');}}
@@ -158,7 +172,7 @@ function updateMonitorScale(){
 }
 monitorScale.addEventListener('input',updateMonitorScale);
 function actionUI(){
- const s=state,def=SCENES[s.scene];let task='',action='',progress=null,enabled=true;
+ const s=state,def=SCENES[s.scene];const canGoBack=previousTrainingStage(s.scene)!==null;show($('trainingBack'),canGoBack);show($('homeButton'),!canGoBack);let task='',action='',progress=null,enabled=true;
  const g=goal(s),near=g?distance(s.player,g)<88:false;
  show($('skipButton'),def.kind==='film');disabled($('skipButton'),s.sceneTime<1.2);
  const moving=['walk','drive'].includes(def.kind),pad=$('touchControls');
@@ -224,11 +238,9 @@ function awardTraining(){
  }
 }
 function choosePath(){
- $('routeChoice').innerHTML=`<h2 id="routeTitle">${t('chooseTitle')}</h2><div class="route-options"><button id="chooseTraining" class="route-card"><span class="route-icon">${icon('paw')}</span><span><strong>${t('chooseTraining')}</strong><small>${t('chooseTrainingText')}</small></span>${icon('arrow')}</button><button id="chooseBase" class="route-card"><span class="route-icon">${icon('shield')}</span><span><strong>${t('chooseBase')}</strong><small>${t('chooseBaseText')}</small></span>${icon('arrow')}</button></div>`;
+ $('routeChoice').innerHTML=`<h2 id="routeTitle">${t('chooseTitle')}</h2><div class="route-options"><button id="chooseTraining" class="route-card"><span class="route-icon">${icon('paw')}</span><span><strong>${t('chooseTraining')}</strong><small>${t('chooseTrainingText')}</small></span>${icon('arrow')}</button><button id="chooseBase" class="route-card"><span class="route-icon">${icon('shield')}</span><span><strong>${t('chooseBase')}</strong><small>${t('chooseBaseText')}</small></span>${icon('arrow')}</button></div><a class="text-button" href="./mars-explorer.html">${t('exploreMars')}</a>`;
  show($('routeChoice'));book.introSeen=true;save();
- $('chooseTraining').onclick=()=>{
-  stopVoice();state=restoreStory({scene:book.trainingScene&&book.trainingScene!=='complete'?book.trainingScene:'walk',patches:book.trainingScene==='complete'?[]:book.patches},newWiringSeed());lastFeedback=-1;lastScene='';lastSpeech=-1;lastCheckpoint=-1;sync();canvas.focus({preventScroll:true});chime();
- };
+ $('chooseTraining').onclick=beginTraining;
  $('chooseBase').onclick=()=>{stopVoice();book.introSeen=true;save();location.href='./outpost.html?arrival=1';};
  $('chooseTraining').focus({preventScroll:true});
 }
@@ -244,7 +256,7 @@ function finish(){sound.finish();
 
 function sync(){
  if(!state)return;
- const s=state,def=SCENES[s.scene];
+ const s=state,def=SCENES[s.scene];const canGoBack=previousTrainingStage(s.scene)!==null;show($('trainingBack'),canGoBack);show($('homeButton'),!canGoBack);
  if(lastScene!==s.scene){
   lastScene=s.scene;controls.reset();keys.clear();setText($('srStatus'),'');
   show($('monitorControl'),s.scene==='monitor');
@@ -285,7 +297,7 @@ function menu(){
  openDialog(tr("text074", [icon('arrow'), book.subtitles?'checked':'', book.reduceMotion?'checked':'', storageAvailable?tr("text075"):tr("text076"), voiceUnavailable?tr("text077"):tr("text078")]));
  const switchButton=document.createElement('button');switchButton.className='text-button';switchButton.textContent=t('chooseNav');switchButton.onclick=switchAdventure;$('dialogBody').querySelector('.menu-actions').prepend(switchButton);if(['connect','power'].includes(state.scene)){const help=document.createElement('p');help.textContent=t('upgradeWiringHelp');$('dialogBody').append(help);}const oldTraining=$('dialogBody').querySelector('a[href="./classic/"]');if(oldTraining)oldTraining.textContent=t('practiceChallenges');
  $('resumeButton').addEventListener('click',()=>$('menuDialog').close());
- $('chapterRestart').addEventListener('click',()=>{const patches=[...state.patches];if(state.scene==='connect')enter(state,'connect');else state=createGame(state.scene,patches,newWiringSeed());lastScene='';lastSpeech=-1;lastCheckpoint=-1;$('menuDialog').close();sync();});
+ $('chapterRestart').className='chapter-restart-button';$('chapterRestart').addEventListener('click',()=>{const patches=[...state.patches];if(state.scene==='connect')enter(state,'connect');else state=createGame(state.scene,patches,newWiringSeed());lastScene='';lastSpeech=-1;lastCheckpoint=-1;$('menuDialog').close();sync();});
  $('menuNotebook').addEventListener('click',notebook);
  $('captionsToggle').addEventListener('change',e=>{book.subtitles=e.target.checked;save();saveSharedSettings({captions:book.subtitles});show($('subtitle'),book.subtitles||!book.voice||voiceUnavailable);});
  $('motionToggle').addEventListener('change',e=>{book.reduceMotion=e.target.checked;document.body.classList.toggle('reduce-motion',book.reduceMotion);save();saveSharedSettings({reduceMotion:book.reduceMotion});});
@@ -295,6 +307,7 @@ function notebook(){
  $('dialogBody').insertAdjacentHTML('beforeend',Object.values(copy('trainingScience')).map(f=>`<article class="story-fact">${truthBadge('real')}<p>${t(f.textKey)}</p><a href="${f.url}" target="_blank" rel="noopener">${t('source')}</a></article>`).join(''));
  $('notebookBack').addEventListener('click',()=>$('menuDialog').close());
 }
+$('trainingBack').addEventListener('click',()=>{if(!state)return;const previous=previousTrainingStage(state.scene);if(previous){stopVoice();clearInput();startStory(previous);}});
 $('pauseButton').addEventListener('click',menu);$('closeDialog').addEventListener('click',()=>$('menuDialog').close());
 $('menuDialog').addEventListener('close',()=>{paused=false;lastFrame=0;clearInput();if(simulator.active){simulator.repeat();simulator.focus();}else if(state&&state.scene!=='complete'){speak(state.speech);canvas.focus({preventScroll:true});}});
 function flushMovement(){
@@ -373,7 +386,7 @@ window.addEventListener('resize',()=>controls.render());
 const frameSamples=[],frameIntervals=[];let lastTelemetry=0;
 function frame(now){
 
- if(document.hidden){lastFrame=0;requestAnimationFrame(frame);return;}
+ if(document.hidden||document.body.classList.contains('mission-film-open')){lastFrame=0;requestAnimationFrame(frame);return;}
  const renderStarted=performance.now(),rawFrameMs=lastFrame?now-lastFrame:0;const dt=rawFrameMs?Math.min(rawFrameMs/1000,1):0;lastFrame=now;
  if(simulator.active){
   simulator.tick(dt,paused);
@@ -407,5 +420,18 @@ localizeStatic();
 
 const homeCredit=document.createElement('div');homeCredit.id='homeCredit';homeCredit.innerHTML=teamCreditHTML();(document.getElementById('creditSlot')||document.getElementById('titleScreen')).append(homeCredit);{const r=document.createElement('div');r.innerHTML=resourcesHTML();(document.getElementById('creditSlot')||document.getElementById('titleScreen')).append(r);}
 
-for(const el of document.querySelectorAll('[data-story-copy]'))el.textContent=t(el.dataset.storyCopy);$('beginButton').textContent=t(book.introSeen&&book.scene&&book.scene!=='complete'?'continueAdventure':'beginAdventure');
-const routeParams=new URL(location.href).searchParams;if(routeParams.has('choose'))switchAdventure();else if(routeParams.has('training')&&book.introSeen){state=createGame(book.trainingScene&&book.trainingScene!=='complete'?book.trainingScene:'walk',book.patches,newWiringSeed());paused=false;show($('titleScreen'),false);show($('episodeLabel'),false);show($('pauseButton'));show($('chapter'));sync();}
+for(const el of document.querySelectorAll('[data-story-copy]'))el.textContent=t(el.dataset.storyCopy);$('beginButton').textContent=book.introSeen&&book.scene&&book.scene!=='complete'?'Continue story':t('beginAdventure');
+const routeParams=new URL(location.href).searchParams;if(routeParams.has('choose'))switchAdventure();else if(routeParams.has('training')){beginTraining();}
+
+if(new URL(location.href).searchParams.get('academy')==='launch'){startSimulator(false);}else if(!book.introSeen){$('beginButton').textContent='Begin on Earth →';}
+
+$('crewPractice').onclick=async()=>{stopVoice();paused=true;await playCruise({reduced:isReduced(),speak:speakOverlay,stopVoice,onSound:onAdventureSound,homePractice:true});paused=false;};
+
+$('playAgainButton').onclick=()=>{
+ stopVoice();clearInput();book=freshAdventure(book);save();
+ try{
+  const academy=readAcademySave(localStorage);localStorage.setItem(ACADEMY_SAVE,JSON.stringify({done:[],motion:academy.motion}));
+  for(const key of ['astro-kitty-rounds-v3','astro-kitty-flight-round','astro-kitty-outpost-v1'])localStorage.removeItem(key);
+ }catch{storageAvailable=false;}
+ location.href='./academy.html';
+};

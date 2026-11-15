@@ -26,7 +26,7 @@ export function containPoint(clientX,clientY,rect,width,height){
 }
 export async function registerOffline(){
   if(!('serviceWorker'in navigator))return false;
-  try{const r=await navigator.serviceWorker.register(new URL('./sw.js',import.meta.url),{scope:new URL('./',import.meta.url).pathname});let timer;const ready=await Promise.race([navigator.serviceWorker.ready,new Promise(resolve=>{timer=setTimeout(()=>resolve(null),8000);})]);clearTimeout(timer);return !!(r&&ready);}catch{return false;}
+  try{const r=await navigator.serviceWorker.register(new URL('./sw.js?v=10',import.meta.url),{scope:new URL('./',import.meta.url).pathname});let timer;const ready=await Promise.race([navigator.serviceWorker.ready,new Promise(resolve=>{timer=setTimeout(()=>resolve(null),8000);})]);clearTimeout(timer);return !!(r&&ready);}catch{return false;}
 }
 export function readyVoices(synth=globalThis.speechSynthesis){
   if(!synth)return Promise.resolve([]);const existing=synth.getVoices();if(existing.length)return Promise.resolve(existing);

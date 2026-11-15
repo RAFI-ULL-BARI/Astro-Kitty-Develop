@@ -1,5 +1,5 @@
 // @ts-ignore Translation source is shared with the browser modules.
-import { copy } from './strings.js';
+import { copy } from './strings.js?v=10';
 export const clamp01 = (value) => Math.max(0, Math.min(1, value));
 export const easeInOut = (value) => { const p = clamp01(value); return p * p * (3 - 2 * p); };
 export const easeOut = (value) => 1 - (1 - clamp01(value)) ** 3;
@@ -25,7 +25,7 @@ export function prepareCanvas(canvas, width, height) {
             current.observer.observe(canvas);
         }
     }
-    const ratio = Math.min(3, Math.max(1.5, globalThis.devicePixelRatio || record.ratio));
+    const ratio = Math.min(2,Math.max(1, globalThis.devicePixelRatio || record.ratio));
     const visibleWidth = canvas.dataset?.fit === 'cover' ? Math.max(record.cssWidth, record.cssHeight * width / height) : record.cssWidth;
     const proposed = Math.max(1, Math.round(visibleWidth * ratio));
     const pixelWidth = Math.min(proposed, Math.round(Math.sqrt(4_200_000 * width / height)));

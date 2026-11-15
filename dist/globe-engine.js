@@ -1,0 +1,7 @@
+export const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const rad=Math.PI/180;
+export function rotatePoint(lat,lon,yaw=0,pitch=0){const a=lat*rad,b=lon*rad,x=Math.cos(a)*Math.sin(b),y=Math.sin(a),z=Math.cos(a)*Math.cos(b),xx=x*Math.cos(yaw)+z*Math.sin(yaw),zz=-x*Math.sin(yaw)+z*Math.cos(yaw);return {x:xx,y:y*Math.cos(pitch)-zz*Math.sin(pitch),z:y*Math.sin(pitch)+zz*Math.cos(pitch)};}
+export function pickGlobe(x,y,yaw,pitch){if(x*x+y*y>1)return null;const z=Math.sqrt(1-x*x-y*y),yy=y*Math.cos(pitch)+z*Math.sin(pitch),zz=-y*Math.sin(pitch)+z*Math.cos(pitch),xx=x*Math.cos(yaw)-zz*Math.sin(yaw),zzz=x*Math.sin(yaw)+zz*Math.cos(yaw);return {lat:Math.asin(clamp(yy,-1,1))/rad,lon:((Math.atan2(xx,zzz)/rad)%360+360)%360};}
+export function sphereMesh(cols=96,rows=48){const positions=[],uv=[],indices=[];for(let y=0;y<=rows;y++)for(let x=0;x<=cols;x++){const lat=-90+y/rows*180,lon=-180+x/cols*360,p=rotatePoint(lat,lon);positions.push(p.x,p.y,p.z);uv.push(x/cols,y/rows);}for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){const a=y*(cols+1)+x,b=a+cols+1;indices.push(a,b,a+1,b,b+1,a+1);}return{positions:new Float32Array(positions),uv:new Float32Array(uv),indices:new Uint16Array(indices)};}
+export function terrainHeight(x,z,seed=0){return .9*Math.sin(x*.065+seed)*Math.cos(z*.07)+.4*Math.sin((x+z)*.16)-1.7*Math.exp(-((x-18)**2+(z+14)**2)/90);}
+export const landingSeed=({lat,lon})=>Math.round(lat*100)*31+Math.round(lon*100);

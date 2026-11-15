@@ -1,3 +1,4 @@
+import {dhruboNarrator} from '../narration.js';
 import {t,copy} from '../strings.js';
 import {truthBadge,esc} from '../outpost-presentation.js';
 import {accessPreferences,readyVoices,containPoint,makeUtterances} from '../compat.js';
@@ -10,9 +11,9 @@ export function openFieldTraining(id,{onFinish=()=>{},onClose=()=>{}}={}){
  const state=id==='commands'?createCommands():createGeology(),prefs=accessPreferences();let voice=prefs.voice!==false,view='intro',previousView='play',closed=false,frame=0,last=0,lastLine='',spokenToken=0,awarded=false,saveOK=true;
  const dialog=document.createElement('dialog');dialog.className='extra-training';dialog.classList.toggle('big-text',!!prefs.bigText);dialog.classList.toggle('reduce-motion',!!prefs.reduceMotion);dialog.setAttribute('aria-label',t(id+'Name'));document.body.append(dialog);document.body.classList.add('field-training-open');
  const factsHTML=ids=>ids.map(key=>{const f=copy('facts')[key];return `<article class="field-fact">${truthBadge('real')}<p>${esc(f.text)}</p><a href="${esc(f.url)}" target="_blank" rel="noopener">${t('source')}</a></article>`;}).join('');
- const clips=createVoiceClips();globalThis.astroVoiceHeard=clips.heard;
+ const clips=dhruboNarrator();globalThis.astroVoiceHeard=clips.heard;
  function stopVoice(){spokenToken++;clips.stop();try{speechSynthesis.cancel();}catch{}}
- async function speak(line){lastLine=line;stopVoice();const token=spokenToken;if(!voice)return;if(await clips.play(line)||closed||token!==spokenToken)return;if(!globalThis.speechSynthesis)return;const voices=await readyVoices();if(closed||token!==spokenToken)return;try{for(const u of makeUtterances(line,voices))speechSynthesis.speak(u);}catch{}}
+ async function speak(line){lastLine=line;stopVoice();if(!voice||closed)return;await clips.play(line);}
  function close(){if(closed)return;closed=true;stopVoice();cancelAnimationFrame(frame);document.removeEventListener('visibilitychange',hidden);window.removeEventListener('blur',blur);dialog.close();dialog.remove();document.body.classList.remove('field-training-open');onClose();}
  function button(action,label,disabled=false,extra=''){return `<button type="button" class="field-button" data-field-action="${action}" ${disabled?'disabled':''} ${extra}>${t(label)}</button>`;}
  function shell(body,phase='play'){const progress=id==='commands'?t('trainingLevel',{n:state.level+1}):t('trainingRound',{n:state.round+1});dialog.dataset.activity=id;dialog.dataset.view=phase;dialog.innerHTML=`<header class="field-header"><div><h1>${t(id+'Name')}</h1><small>${progress}</small></div><nav><button class="field-icon" data-field-action="repeat" aria-label="${t('trainingRepeat')}">↻</button><button class="field-icon" data-field-action="voice" aria-label="${t('trainingVoice')}" aria-pressed="${voice}">${voice?'🔊':'🔇'}</button><button class="field-icon" data-field-action="help" aria-label="${t('trainingHelp')}">?</button><button class="field-icon" data-field-action="close" aria-label="${t('close')}">×</button></nav></header>${body}`;}

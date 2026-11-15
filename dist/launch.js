@@ -1,10 +1,13 @@
-import {copy,t} from './strings.js';
-import {truthBadge} from './outpost-presentation.js';
+import {robotPortrait} from './dhrubo-guide.js?v=10';
+import {createSceneDissolve,filmCopyOpacity} from './visual-core.js?v=10';
+import {gradient as sceneGradient,MARS_LIGHT,marsSky} from './scene-kit.js?v=10';
+import {copy,t} from './strings.js?v=10';
+import {truthBadge} from './outpost-presentation.js?v=10';
 import {
   PLAN_STEPS,PUSHES,PATHS,GEAR,INTRO_SECONDS,REPLAY_SECONDS,FLIGHT_SPEED,
-  launchWindow,launchAngles,emptyPlan,stepReady,planReady,flightFor,flightFrame,
+  launchWindow,launchAngles,launchAltitude,emptyPlan,stepReady,planReady,flightFor,flightFrame,
   recordFailure,retryPlan,hintChoices
-} from './launch-engine.js';
+} from './launch-engine.js?v=10';
 
 const WORDS=copy('launch');
 const DAY_IDS=[0,1,2];
@@ -37,6 +40,7 @@ export function createLaunchSimulator(root,{speak,stopVoice,unlock,celebrate,arr
   let active=false,mode='intro',step='day',plan,window,failures,flight,clock=0,preview=0;
   let viewedDay=1,mapDay=1,mapGoal=1,speed=1,factIndex=0,line='',spoken='',finishedFrame=null;
   const byId=id=>root.querySelector('#'+id);
+  const dissolve=createSceneDissolve();
   const say=(key)=>{
     line=WORDS.pip[key];
     spoken=key;
@@ -68,11 +72,12 @@ export function createLaunchSimulator(root,{speak,stopVoice,unlock,celebrate,arr
     const needed=hintChoices(failures,step,window);
     const action=done?WORDS.continue:result?WORDS.retry:picking&&planReady(plan)?WORDS.launch:WORDS.next;
     root.dataset.mode=mode;
+    root.classList.toggle('launch-movie',mode==='intro'||running);
     root.dataset.step=picking?step:'';
     root.dataset.outcome=result?flight.outcome:'';
     root.innerHTML=`
       <header class="launch-head"><h1 tabindex="-1">${title}</h1>
-        ${picking?`<button class="launch-icon" data-act="fact" aria-label="${WORDS.about}" aria-haspopup="dialog">ⓘ</button>`:''}
+        ${picking?`<button class="launch-icon" data-act="fact" aria-label="${WORDS.about}" aria-haspopup="dialog">${truthBadge('real')}</button>`:''}
       </header>
       <div class="launch-art"><canvas id="launchCanvas" role="img"></canvas>
         <div class="launch-art-tools"><span id="launchClock" class="launch-clock hidden" aria-hidden="true"></span>
@@ -92,7 +97,7 @@ export function createLaunchSimulator(root,{speak,stopVoice,unlock,celebrate,arr
        ${result?`<div class="launch-result">${done?`<div class="launch-result-fact" id="launchResultFact">${factMarkup(WORDS.facts[factIndex].line,WORDS.facts[factIndex].url)}<button class="launch-icon" data-act="next-fact" aria-label="${WORDS.fact}">↻</button></div>`:`<p>${WORDS.safe}</p>`}</div>`:''}
        <p id="launchGame" class="launch-note hidden">${WORDS.game}</p>
       </div>
-      <div class="launch-pip-row"><span class="launch-bot" aria-hidden="true"><i></i><i></i></span><p id="launchPip" class="launch-pip" aria-live="polite"></p></div>
+      <div class="launch-pip-row"><span class="launch-bot" aria-hidden="true">${robotPortrait}</span><p id="launchPip" class="launch-pip" aria-live="polite"></p></div>
       <div class="launch-plan" role="group" aria-label="${WORDS.plan}">
        ${PLAN_STEPS.map(id=>`<button class="launch-step" data-step="${id}" data-ready="${stepReady(plan,id)}" data-mistake="${result&&flight.mistake===id}" ${picking&&step===id?'aria-current="step"':''} ${picking||result&&!done?'':'disabled'} aria-label="${format(stepReady(plan,id)?WORDS.chosen:WORDS.unchosen,{step:WORDS.steps[id],choice:currentValue(id)})}"><span class="step-glyph" aria-hidden="true">${stepReady(plan,id)?'✓':STEP_ICONS[id]}</span><small aria-hidden="true">${(WORDS.stepShort??WORDS.steps)[id]}</small></button>`).join('')}
        ${picking||result?`<button class="primary" data-act="advance" ${picking&&!planReady(plan)&&!stepReady(plan,step)?'disabled':''}>${action}</button>`:'<span></span>'}
@@ -103,6 +108,17 @@ export function createLaunchSimulator(root,{speak,stopVoice,unlock,celebrate,arr
     byId('launchPip').textContent=line;
     if(picking&&step==='day')setViewedDay(viewedDay);
     if(focus)root.querySelector(focus)?.focus({preventScroll:true});
+  }
+  function syncPlanControls(){
+    for(const button of root.querySelectorAll('.launch-step')){
+      const id=button.dataset.step,ready=stepReady(plan,id);
+      button.dataset.ready=String(ready);
+      button.setAttribute('aria-label',format(ready?WORDS.chosen:WORDS.unchosen,{step:WORDS.steps[id],choice:currentValue(id)}));
+      button.querySelector('.step-glyph').textContent=ready?'✓':STEP_ICONS[id];
+    }
+    const advance=root.querySelector('[data-act="advance"]'),ready=planReady(plan);
+    advance.disabled=!ready&&!stepReady(plan,step);
+    advance.textContent=ready?WORDS.launch:WORDS.next;
   }
   function selectStep(next){
     mode='plan';step=next;clock=0;preview=0;
@@ -115,7 +131,7 @@ export function createLaunchSimulator(root,{speak,stopVoice,unlock,celebrate,arr
   function openFlight(){
     flight=flightFor(plan,window);
     if(!flight)return;
-    mode='flight';clock=0;speed=1;finishedFrame=null;
+    mode='flight';clock=0;speed=1;finishedFrame=null;dissolve.reset();
     render({focus:'[data-act="speed"]'});
     describe('liftoff');say('liftoff');
   }
@@ -149,7 +165,15 @@ export function createLaunchSimulator(root,{speak,stopVoice,unlock,celebrate,arr
       plan[step]=id;preview=0;
       if(step==='day'){viewedDay=id;mapGoal=id;}
     }
-    render({focus:`[data-choice="${id}"]`});describe(step);
+    if(step==='day'){
+      byId('launchDial').value=id;
+      setViewedDay(id);
+    }
+    for(const card of root.querySelectorAll('[data-choice]')){
+      const selected=step==='gear'?plan.gear.includes(card.dataset.choice):String(plan[step])===card.dataset.choice;
+      card.setAttribute('aria-pressed',String(selected));
+    }
+    syncPlanControls();
     if(step==='gear')byId('launchSelection').textContent=format(WORDS.gearCount,{n:plan.gear.length});
   }
   root.addEventListener('input',event=>{
@@ -219,6 +243,7 @@ export function createLaunchSimulator(root,{speak,stopVoice,unlock,celebrate,arr
     const reduced=isReduced(),frame=mode==='flight'?flightFrame(flight,clock):mode==='replay'?
       flightFrame(flight,flight.seconds-REPLAY_SECONDS+clock):mode==='result'?finishedFrame:null;
     if(frame&&mode==='flight'&&spoken!==frame.id){
+      dissolve.capture(byId('launchCanvas'),clock-frame.elapsed,reduced);
       say(frame.id);describe(frame.id);
     }
     const month=mode==='flight'&&frame?.id==='cruise'?Math.min(7,1+Math.floor(frame.progress*7)):0;
@@ -230,7 +255,10 @@ export function createLaunchSimulator(root,{speak,stopVoice,unlock,celebrate,arr
     status.classList.toggle('hidden',!label);
     byId('launchGame').classList.toggle('hidden',!month);
     byId('launchPip').classList.toggle('hidden',!showCaptions());
-    drawLaunch(byId('launchCanvas'),{mode,step,plan,window,mapDay:reduced?mapGoal:mapDay,clock,preview,flight,frame,reduced});
+    const canvas=byId('launchCanvas');
+    const view=drawLaunch(canvas,{mode,step,plan,window,mapDay:reduced?mapGoal:mapDay,clock,preview,flight,frame,reduced});
+    if(mode==='flight'&&view)dissolve.paint(view.ctx,view.width,view.height,clock,reduced);
+    root.style.setProperty('--scene-copy-opacity',mode==='flight'?filmCopyOpacity(frame?.elapsed??0,reduced).toFixed(2):'1');
   }
   return {
     get active(){return active;},
@@ -341,7 +369,8 @@ function parachute(ctx,x,y,size){
 }
 function orbitArt(ctx,w,h,s){
   gradient(ctx,w,h,'#172c48','#3b3754');stars(ctx,w,h,.65);
-  const cx=w*.5,cy=h*.52,outer=Math.min(w*.32,h*.41),inner=outer*.65;
+  const cinematic=s.mode==='intro'||s.mode==='flight'||s.mode==='replay';
+  const cx=w*.5,cy=h*(cinematic ? .42 : .52),outer=Math.min(w*.32,h*(cinematic ? .32 : .41)),inner=outer*.65;
   const point=(a,r)=>[cx+Math.cos(a)*r,cy-Math.sin(a)*r];
   ellipse(ctx,cx,cy,outer,outer,null,'#c78e8d81');
   ellipse(ctx,cx,cy,inner,inner,null,'#9bc8d392');
@@ -399,12 +428,30 @@ function orbitArt(ctx,w,h,s){
   }
 }
 function landscape(ctx,w,h,mars=false,night=0){
-  gradient(ctx,w,h,mars?'#523f65':night>.55?'#10213b':'#41698d',mars?'#deab8c':night>.55?'#36516b':'#afced5');
+  if(mars)marsSky(ctx,w,h,h*.7);
+  else gradient(ctx,w,h,night>.55?'#222740':'#555a80',night>.55?'#4b435f':'#ddadab');
   if(night>.28)stars(ctx,w,h,Math.min(1,night));
   const ground=h*.80;
-  polygon(ctx,[[0,ground],[0,h*.63],[w*.17,h*.49],[w*.34,h*.67],[w*.53,h*.59],[w*.70,h*.47],[w,h*.66],[w,ground]],mars?'#9d7082':'#647e91');
-  polygon(ctx,[[0,ground],[w*.27,h*.69],[w*.51,h*.74],[w*.75,h*.65],[w,ground],[w,h],[0,h]],mars?'#b5847c':'#769d9a');
-  ctx.fillStyle=mars?'#bf8d7f':'#8aa99d';ctx.fillRect(0,ground,w,h-ground);
+  const light=ctx.createRadialGradient(w*.76,h*.36,0,w*.76,h*.36,h*.62);
+  light.addColorStop(0,mars?'#f7c68d65':'#ffddb35e');
+  light.addColorStop(1,'#f7c68d00');
+  ctx.fillStyle=light;ctx.fillRect(0,0,w,h);
+  if(!mars&&night<.55){
+    for(let i=0;i<4;i++){
+      const x=w*(.14+i*.23),y=h*(.26+.045*(i%2));
+      ellipse(ctx,x,y,w*.08,h*.021,'#eee7ed44');
+      ellipse(ctx,x+w*.038,y+h*.008,w*.056,h*.013,'#eee7ed3b');
+    }
+  }
+  polygon(ctx,[[0,ground],[0,h*.63],[w*.17,h*.49],[w*.34,h*.67],[w*.53,h*.59],[w*.70,h*.47],[w,h*.66],[w,ground]],mars?MARS_LIGHT.far:'#77748e');
+  polygon(ctx,[[0,ground],[w*.27,h*.69],[w*.51,h*.74],[w*.75,h*.65],[w,ground],[w,h],[0,h]],mars?MARS_LIGHT.near:'#829998');
+  ctx.fillStyle=mars?sceneGradient(ctx,0,ground,0,h,...MARS_LIGHT.soil):
+    sceneGradient(ctx,0,ground,0,h,'#95aaa5','#637d86');
+  ctx.fillRect(0,ground,w,h-ground);
+  for(let i=0;i<29;i++){
+    const x=(i*59)%w,y=ground+((i*21)%Math.max(1,h-ground));
+    ellipse(ctx,x,y,2+i%5,.8+i%2,mars?'#764d6833':'#334f6240');
+  }
   return ground;
 }
 function dust(ctx,x,y,progress,colour){
@@ -426,15 +473,22 @@ function launchPad(ctx,w,h,s){
   const scale=Math.min(1.25,h/210);
   const x=w*.47,y0=ground-23*scale;
   const height=frame?(falling?h*.39:h*.66):({little:h*.13,right:h*.35,extra:h*.58})[s.plan.push]??0;
-  let y=y0-rise*height,shipX=x;
+  let y=y0-(frame?launchAltitude(phase,Boolean(falling)):rise)*height,shipX=x;
   const fall=falling?smooth((phase-6)/6):0;
   if(falling){
     ctx.fillStyle='#527f9c';ctx.fillRect(w*.55,ground,w*.45,h-ground);
     for(let i=0;i<6;i++)path(ctx,[[w*.59+i*18,ground+12+i%2*9],[w*.62+i*18,ground+12+i%2*9]],'#afd7df',1.5);
-    y=mix(y,y0,fall);shipX=mix(x,w*.73,fall);
+    shipX=mix(x,w*.73,fall);
   }
   if(frame&&elapsed>3&&!s.reduced&&elapsed<4.2)ctx.translate(Math.sin(elapsed*48)*3,Math.sin(elapsed*58)*2);
-  ctx.fillStyle='#53677f';ctx.fillRect(x-46,ground,92,8);
+  const pad=Math.min(w*.14,58),towerX=x-pad*.88,towerY=ground-Math.min(h*.26,pad*1.55);
+  path(ctx,[[towerX-5,ground],[towerX-5,towerY],[towerX+8,towerY],[towerX+8,ground]],'#8e9aad',2);
+  for(let i=0;i<4;i++){
+    const y=towerY+(ground-towerY)*i/4;
+    path(ctx,[[towerX-5,y],[towerX+8,y],[towerX-5,y+(ground-towerY)/4]],'#bdc4d48c',1);
+  }
+  ellipse(ctx,x,ground+6,pad*1.2,8,'#493f5e40');
+  ctx.fillStyle='#53677f';ctx.fillRect(x-pad,ground,pad*2,8);
   if(!s.reduced&&rise>0&&rise<.95&&!fall)dust(ctx,x,ground,rise,'#ebe1cc');
   if(fall>.1)parachute(ctx,shipX,y,scale);
   rocket(ctx,shipX,y,scale,{flame:falling&&fall>0?0:rise>0?.7:0});
@@ -502,4 +556,5 @@ function drawLaunch(canvas,state){
   if(state.frame?.id==='landing'||(state.mode==='plan'&&state.step==='gear'))landingArt(ctx,w,h,state);
   else if(state.frame?.id==='liftoff'||(state.mode==='plan'&&state.step==='push'))launchPad(ctx,w,h,state);
   else orbitArt(ctx,w,h,state);
+  return {ctx,width:w,height:h};
 }
