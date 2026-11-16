@@ -357,3 +357,6 @@
 }
 #gemCount{color:#bff5e6;font-weight:800;margin-left:6px;white-space:nowrap}
 @media(max-height:500px){.walking:has(.expedition-toolbar) .walk-location h1{display:none}}
+
+button,[role=button],summary,canvas,.walk-stage,.walk-action,.surface-controls,.field-dock,.field-work{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+.walk-stage,.walk-stage *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}

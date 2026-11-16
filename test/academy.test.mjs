@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {LABS,NODES,routeResult,plantApply,dropDistance,readProgress} from '../../dist/world/academy-model.js';
+import {LABS,NODES,routeResult,plantApply,dropDistance,readProgress} from '../dist/academy-model.js';
 test('five requested labs, no removed workshops',()=>assert.deepEqual(LABS.map(l=>l.id),['float','rover','garden','gravity','chemistry']));
 test('rover route reaches both flags and habitat',()=>assert.equal(routeResult([0,1,3,4,6,7]).ok,true));
 test('rover detects continuous segment collisions, not only end points',()=>{const r=routeResult([0,1,2,7]);assert.equal(r.ok,false);assert.ok(r.segments.at(-1).hit<1);assert.equal(routeResult([0,1]).ok,false);});

@@ -80,3 +80,18 @@ test('simulator Pip lines are recorded and the new text meets the reading target
   for(const line of Object.values(EN.launch.pip))assert.ok(script.includes(line));
   assert.ok(readingReport().launchSimulator.grade<=4);
 });
+
+ test('practice launch height rises smoothly and a low-power rocket returns to ground',async()=>{
+  const {launchAltitude}=await import('../dist/launch-engine.js');
+  assert.equal(launchAltitude(0),0);
+  assert.equal(launchAltitude(3),0);
+  assert.ok(launchAltitude(6,true)>0.5);
+  assert.equal(launchAltitude(12,true),0);
+  assert.equal(launchAltitude(20,true),0);
+  assert.equal(launchAltitude(8),1);
+  for(let t=0;t<14;t+=.01){
+   const height=launchAltitude(t,true);
+   assert.ok(height>=0&&height<=1);
+   assert.ok(Math.abs(height-launchAltitude(t+.01,true))<.01);
+  }
+ });

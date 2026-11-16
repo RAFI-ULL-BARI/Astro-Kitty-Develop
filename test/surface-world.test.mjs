@@ -49,7 +49,11 @@ test('outpost scenery follows the layout and rocks can be reached on free ground
   })];
   for(const layout of layouts){
     const obstacles=surfaceObstacles({layout});
-    for(const module of visibleBaseModules(layout))assert.equal(freeGround(module,obstacles,KITTY_RADIUS),false);
+    const scenery=visibleBaseModules(layout);
+    assert.deepEqual(new Set(scenery.map(m=>m.id)),new Set(MODULES));
+    for(const module of scenery.filter(m=>m.footprint))assert.equal(freeGround(module,obstacles,KITTY_RADIUS),false);
+    // Water and the garage are background sprites, above the walkable yard.
+    for(const module of scenery.filter(m=>!m.footprint))assert.ok(module.ground<module.y);
     const start=nearestFreeGround(OUTPOST_START,obstacles,KITTY_RADIUS,300);
     const outpost=createOutpost({code:'DUST-42',layout});
     for(const rock of outpost.rocks){
@@ -59,3 +63,10 @@ test('outpost scenery follows the layout and rocks can be reached on free ground
     }
   }
 });
+
+ test('the return-to-airlock objective is reachable around every surface obstacle',()=>{
+  const s=createGame('return');
+  setTarget(s,1156,460);
+  for(let i=0;i<1600&&s.scene==='return';i++)tick(s,1/60);
+  assert.equal(s.scene,'airlock');
+ });

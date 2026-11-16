@@ -1,5 +1,6 @@
 import {startExpedition} from './expedition.js?v=10';
 import {startMusic} from './music.js?v=10';
+document.addEventListener('contextmenu',event=>{if(event.target.closest?.('.walk-stage'))event.preventDefault();});
 startMusic('space');
 const adventureMode=new URLSearchParams(location.search).has('play');
 let expedition=null;

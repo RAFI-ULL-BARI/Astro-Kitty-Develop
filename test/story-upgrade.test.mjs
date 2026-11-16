@@ -21,7 +21,7 @@ test('manifest-listed recordings play locally; pause and mute stop them',async()
 test('every story scene renders with valid Canvas calls at all three sizes',async()=>{
  const {drawScene}=await import('../dist/art.js'),{SCENES}=await import('../dist/story.js');const previous=globalThis.window;globalThis.window={devicePixelRatio:1};
  try{for(const [width,height]of [[1366,860],[375,760],[360,640]])for(const scene of Object.keys(SCENES)){
-  const methods={scale:(x,y)=>{assert.equal(typeof x,'number');assert.equal(typeof y,'number');assert.ok(Number.isFinite(x)&&Number.isFinite(y));},createLinearGradient:()=>({addColorStop(){}}),createRadialGradient:()=>({addColorStop(){}})};
+  const methods={measureText:text=>({width:String(text).length*8}),scale:(x,y)=>{assert.equal(typeof x,'number');assert.equal(typeof y,'number');assert.ok(Number.isFinite(x)&&Number.isFinite(y));},createLinearGradient:()=>({addColorStop(){}}),createRadialGradient:()=>({addColorStop(){}})};
   const ctx=new Proxy(methods,{get:(o,k)=>o[k]??(()=>{}),set:(o,k,v)=>(o[k]=v,true)}),canvas={width,height,getContext:()=>ctx,getBoundingClientRect:()=>({width,height})};
   for(const reduceMotion of [false,true])assert.doesNotThrow(()=>drawScene(canvas,createGame(scene),{visualTime:2,reduceMotion}),scene+' '+width);
  }}finally{globalThis.window=previous;}

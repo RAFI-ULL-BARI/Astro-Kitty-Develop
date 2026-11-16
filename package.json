@@ -4,15 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "npm run build && node --test test/*.test.mjs test/world/*.test.mjs",
-    "build": "tsc && esbuild src/mars-walk/surface.js --bundle --format=esm --target=es2022 --minify --legal-comments=inline --outfile=dist/world/mars-surface.js && node scripts/world/finish-build.mjs",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "build": "tsc && node scripts/finish-build.mjs",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "esbuild": "0.28.2",
     "typescript": "^7.0.2"
-  },
-  "dependencies": {
-    "three": "0.187.0"
   }
 }

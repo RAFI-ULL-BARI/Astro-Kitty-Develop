@@ -1,42 +1,18 @@
-# Adding Dhrubo's voice with ElevenLabs
+# One Dhrubo voice
 
-The game plays a recorded MP3 for a line when one exists. Any line without a recording uses the browser voice, so you can add recordings a few at a time.
+All movies, story prompts, Academy lessons, field training and Mars Base use `dist/narration.js`. It picks one device voice and keeps it for the session. The preferred voice URI is saved on this device, independently of game progress. Captions remain available if the device has no speech engine.
 
-`voice-lines.csv` lists every line. Each row has:
+The supplied project only contains six gameplay samples and older movie demos made with two other voices. Those demos are retained as source assets but are **not used by the current narrator**. A partial recording folder must not make Dhrubo switch voices mid-game.
 
-- **part**: which part of the game it belongs to
-- **file**: the exact file name the game looks for
-- **caption**: the line as shown on screen (do not change it; the file name comes from it)
-- **say**: what ElevenLabs reads aloud. Change this freely to fix pronunciation, for example `Shabaash!` or `Dhroobo`.
+## Use your own complete voice pack
 
-## Way 1: make every file at once (recommended)
+1. Review `CURRENT_SCRIPT.md`. It contains the revised movie and training lines. `voice-lines.csv` is the generation list; its `caption` is the spoken text as well as the displayed caption.
+2. Set `ELEVENLABS_API_KEY` and `ELEVENLABS_VOICE_ID` privately in your terminal environment. Existing `ELEVEN_API_KEY` / `ELEVEN_VOICE_ID` variables still work. Do not put a key in `dist` or commit it.
+3. From the project folder, run `node voice/make-voice.mjs`.
+4. The generator uses the same voice, model, stability, speed defaults and style for every line. It records verified provenance in the manifest, so it does not silently reuse older samples from a different voice. Interrupted runs can resume safely.
+5. When all rows are verified, the manifest has `complete: true`. Reload the page: all scenes then use that recorded pack. Missing dynamic lines display their captions; they never switch to a different speaker.
+6. Run `npm test`, then redeploy `dist/`. The service worker caches all listed recordings for offline play.
 
-You need Node.js 18 or newer (https://nodejs.org).
+Existing MP3s without a provenance manifest cannot be verified as your voice automatically. Keep your 280 original recordings backed up before running the generator; it regenerates unverified paths. No API key is needed to play the game.
 
-1. On elevenlabs.io, pick a voice for Dhrubo. In **Voices**, open its menu and copy its **Voice ID**.
-2. Open your profile, then **API Keys**, and create a key. Keep it private.
-3. Open a terminal in the `Astro_Kitty` folder and run:
-
-   Mac or Linux:
-   ```
-   ELEVEN_API_KEY=your_key ELEVEN_VOICE_ID=your_voice_id node voice/make-voice.mjs
-   ```
-   Windows (PowerShell):
-   ```
-   $env:ELEVEN_API_KEY="your_key"; $env:ELEVEN_VOICE_ID="your_voice_id"; node voice/make-voice.mjs
-   ```
-
-The script saves the MP3s in `dist/audio/voice/` and updates `dist/audio/voice/manifest.json`. If it stops (for example, you run out of credits), run it again later. It skips files it already made.
-
-To redo one line, delete its MP3, edit its **say** text, and run the script again.
-
-## Way 2: by hand on the website
-
-1. Paste a line's **say** text into ElevenLabs Text to Speech and download the MP3.
-2. Rename it to that row's **file** name, for example `v_b955b27e.mp3`.
-3. Put it in `dist/audio/voice/`.
-4. Run `node voice/make-voice.mjs --manifest-only` to list the new files in the manifest.
-
-## After adding files
-
-Upload the `dist/audio/voice` folder to GitHub. Vercel will redeploy the game with the new voice.
+This update did not generate a replacement clone or spend ElevenLabs credits. Device speech availability and the available voices vary by browser, especially offline. A complete recorded pack is the portable, consistent-voice option.

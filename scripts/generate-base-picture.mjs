@@ -1,7 +1,7 @@
 import {writeFile} from 'node:fs/promises';
-import {decodeLayout} from '../../dist/world/base-design.js';
-import {validSite} from '../../dist/world/landing-sites.js';
-import {basePrompt} from '../../dist/world/base-picture-prompt.js';
+import {decodeLayout} from '../dist/base-design.js';
+import {validSite} from '../dist/landing-sites.js';
+import {basePrompt} from '../dist/base-picture-prompt.js';
 
 const [site,code]=process.argv.slice(2);
 const layout=decodeLayout(code);

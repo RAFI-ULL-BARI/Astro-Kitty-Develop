@@ -274,3 +274,6 @@ body,h1,h2,h3,button,input,select,textarea{font-family:var(--mission-rounded, Nu
 
 @media(orientation:landscape) and (max-height:500px){.game[data-scene=power] .subtitle{max-height:98px;bottom:8px;padding:10px 16px}.game[data-scene=power] .subtitle p{font-size:12px;line-height:1.35}.game[data-scene=power] .training-port.device-target{width:60px;height:60px}}
 .home-replay.home-3d{border-color:#f7c87399;background:#3a2f4acc}
+
+button,[role=button],summary,canvas,.walk-stage,.walk-action,.surface-controls,.field-dock,.field-work{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+.walk-stage,.walk-stage *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}

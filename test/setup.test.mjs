@@ -70,3 +70,21 @@ test('complete layouts keep their exact gameplay effects while invalid missions 
  assert.equal(placementEffects({greenhouse:-1,water:0,solar1:20}).foodBonus,0);
  assert.deepEqual(layoutEffects({shelter:0}),layoutEffects(PIP_LAYOUT));
 });
+
+test('workshop highlights only usable spots beside the right building', async ()=>{
+ const {designTargets}=await import('../dist/outpost-setup.js');
+ const layout={shelter:11,greenhouse:7,water:6,solar1:8};
+ assert.deepEqual(designTargets(layout,'shelter').filter(t=>t.suggested).map(t=>t.tile),[11,13,17]);
+ assert.equal(designTargets(layout,'shelter')[12].open,false);
+ assert.equal(designTargets(layout,'shelter')[7].suggested,false);
+ assert.deepEqual(designTargets(layout,'greenhouse').filter(t=>t.suggested).map(t=>t.tile),[1,5,7]);
+ assert.equal(designTargets(layout,'greenhouse')[6].anchor,true);
+ assert.ok(designTargets({},'water').every(t=>!t.suggested));
+});
+
+test('the picture brief preserves the landing site and every tile in the chosen base', async ()=>{
+ const {basePrompt}=await import('../dist/base-picture-prompt.js');
+ const text=basePrompt('gale',{shelter:11,greenhouse:7,solar1:4,solar2:13,water:6,garage:17});
+ assert.match(text,/Gale Crater/);
+ assert.match(text,/\. \. \. \. 1\n\. W G \. \.\n\. S H 2 \.\n\. \. R \. \./);
+});

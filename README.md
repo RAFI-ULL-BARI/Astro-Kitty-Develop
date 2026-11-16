@@ -25,19 +25,20 @@ A playful web game for kids aged 7–12, built on real NASA space data.
 
 Astro Kitty is our answer to the NASA Space Apps Challenge **“Build a Junior Astronaut Mission Trainer.”**
 
-Kids pick a kitty astronaut and, with **Dhrubo** (ধ্রুব, “pole star”), a friendly robot buddy, fly to Mars, train as astronauts and run a Mars base.
+Kids pick a kitty astronaut and, with **Dhrubo** (ধ্রুব, “pole star”), a friendly robot buddy, go from a space center in Khulna, Bangladesh, all the way to a home on Mars.
 
 <table>
 <tr>
-<td align="center" width="33%"><b>1 · Fly to Mars 🚀</b><br><sub>Plan the trip, then watch it fly</sub></td>
-<td align="center" width="33%"><b>2 · Astronaut training 🐾</b><br><sub>Power, shelter, rover</sub></td>
-<td align="center" width="33%"><b>3 · Mars base 🏠</b><br><sub>Five Mars days, real choices</sub></td>
+<td align="center" width="25%"><b>1 · Earth Academy 🌍</b><br><sub>Five hands-on science labs</sub></td>
+<td align="center" width="25%"><b>2 · Fly to Mars 🚀</b><br><sub>Plan the trip, then watch it fly</sub></td>
+<td align="center" width="25%"><b>3 · Astronaut training 🐾</b><br><sub>Power, shelter, rover</sub></td>
+<td align="center" width="25%"><b>4 · Mars base 🏠</b><br><sub>Five Mars days, real choices</sub></td>
 </tr>
 </table>
 
-Then the whole planet opens up in **3D**, and **Earth Academy** adds five hands-on science labs.
+Then the whole planet opens up in **3D**.
 
-Kids learn by **doing and watching**, not by reading. Every right move earns a cheer: **“Shabbash!”** (Good job!), **“Oshadharon!”** (Amazing!), a happy meow, a jump or confetti.
+Kids learn by **doing and watching**, not by reading. Every right move earns a cheer: **“Shabbash!”** (Good job!), **“Oshadharon!”** (Amazing!), a happy jump and confetti.
 
 ---
 
@@ -68,13 +69,13 @@ It runs smoothly on phones too: the game lowers its own picture detail when a de
 
 ---
 
-## 🌍 Earth Academy
+## 🌍 Step 1 · Earth Academy
 
 Five labs at the fictional **National Kitty Space Center** in Khulna: floating, rover testing, growing food, gravity and making air.
 
 <p align="center"><img src="docs/screenshots/earth-academy-center.png" alt="The National Kitty Space Center lab hall" width="70%"></p>
 
-## 🚀 Step 1 · Fly to Mars
+## 🚀 Step 2 · Fly to Mars
 
 Kids plan the trip in four picture choices: **launch day**, **push**, **path** and **landing gear**. Then they watch their own plan fly. Every mistake plays its own animation, so kids *see* why it failed.
 
@@ -85,20 +86,20 @@ Kids plan the trip in four picture choices: **launch day**, **push**, **path** a
 </tr>
 </table>
 
-## 🐾 Step 2 · Astronaut training
+## 🐾 Step 3 · Astronaut training
 
 A walk-and-tap story inside the base: match solar-panel plugs by shape and colour, hide from a solar storm behind a water wall, share two battery cells between the air machine and the radio, and drive the rover.
 
 <p align="center"><img src="docs/screenshots/solar-storm.gif" alt="Animated solar storm over the Mars base" width="62%"></p>
 
-## 🏠 Step 3 · Run the Mars base
+## 🏠 Step 4 · Run the Mars base
 
-Choose a **real landing site**, then keep the crew safe for **five Mars days**. Every day brings a surprise: a leak, a dust devil, a chilly night, or a **real solar storm from NASA’s records**.
+Choose a **real landing site**, design the base, then keep the crew safe for **five Mars days**. Every day brings a surprise: a leak, a dust devil, a chilly night, or a **real solar storm from NASA’s records**.
 
 <table>
 <tr>
 <td width="50%"><img src="docs/screenshots/10-landing-site.jpg" alt="Choosing a landing site on a real map of Mars"></td>
-<td width="50%"><img src="docs/screenshots/11-storm-decision.jpg" alt="A real solar storm alert with three choices"></td>
+<td width="50%"><img src="docs/screenshots/Astro_Kitty_Visual_Designer.jpg" alt="Designing the Mars base"></td>
 </tr>
 </table>
 
@@ -127,7 +128,7 @@ Every fact carries a **🛰️ Real** badge and every made-up game rule carries 
 - **Praise in Bangla and English.** Shabbash! Oshadharon! Purr-fect!
 - **Four kitties to choose from:** Mishti, Megh, Neel and Tara.
 - **Safe to fail.** Wrong answers cost nothing, and the crew is always safe.
-- **Soft sounds made in code,** with calm background music in the 3D world and Earth Academy. One button turns sound off.
+- **Calm background music** and soft sounds, all made in code. One button turns sound off.
 - **Accessible.** Keyboard and touch controls, captions and a reduced-motion mode.
 - **Works anywhere.** Phones, tablets and laptops, and offline after the first visit.
 - **Teacher page** with ideas for using the game in class.
@@ -154,8 +155,8 @@ npm test
 
 ```
 dist/        the finished game (this is what gets hosted)
-dist/world/  the 3D Mars world and Earth Academy
-src/         source for the 3D Mars world
+dist/world/  the 24-mission Mars Adventure 3D (prebuilt)
+src/         source for the 2D art and the Mars globe
 test/        automated tests
 voice/       script and tool for Dhrubo's recorded voice
 docs/        screenshots and notes

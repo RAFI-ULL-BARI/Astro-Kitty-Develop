@@ -236,3 +236,6 @@
 .pip-caption:has(.outpost-guide) strong,.pip-caption:has(.outpost-guide) #pipLine{grid-column:2}
 .pip-caption:has(.outpost-guide) button{grid-column:3}
 @media(max-width:480px){.pip-caption:has(.outpost-guide){grid-template-columns:36px 1fr 44px;column-gap:8px}.outpost-guide{width:36px}}
+
+button,[role=button],summary,canvas,.walk-stage,.walk-action,.surface-controls,.field-dock,.field-work{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+.walk-stage,.walk-stage *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}

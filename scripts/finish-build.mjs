@@ -1,5 +1,5 @@
 import {readFile,writeFile,readdir} from 'node:fs/promises';
-const root=new URL('../../dist/world/',import.meta.url),version='10';
+const root=new URL('../dist/',import.meta.url),version='10';
 for(const name of await readdir(root)){
  if(!/\.(js|html)$/.test(name))continue;
  const path=new URL(name,root);let content=await readFile(path,'utf8');

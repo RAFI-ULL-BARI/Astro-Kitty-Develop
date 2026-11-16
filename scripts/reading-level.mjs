@@ -4,10 +4,12 @@ export function syllables(word){const w=word.toLowerCase();if(exceptions[w])retu
 const clean=text=>String(text).replace(/https?:\S+/g,'').replace(/\{\w+\}/g,'').replace(/<[^>]*>/g,'').replace(/\b\d+(?:\.\d+)?\b/g,'');
 export function measure(texts){const text=texts.map(clean).join('\n'),words=text.match(/[A-Za-z]+(?:['’][a-z]+)?/g)||[],sentences=text.split(/[.!?]+|\n/).filter(s=>/[A-Za-z]/.test(s)).length,syllableCount=words.reduce((n,w)=>n+syllables(w),0);return {words:words.length,sentences,syllables:syllableCount,grade:Number((.39*words.length/sentences+11.8*syllableCount/words.length-15.59).toFixed(2))};}
 export function readingReport(copy=EN){return Object.fromEntries(Object.entries({
+ unifiedStory:[...Object.values(copy.films).flatMap(shots=>shots.map(([,line])=>line)),...Array.from({length:5},(_,i)=>copy.ui['solRoomLine'+(i+1)]),copy.ui.upgradePowerAir,copy.ui.upgradePowerRadio,copy.ui.upgradePowerDone],
  ui:Object.values(copy.ui).filter(x=>typeof x==='string'&&!/https?:|<[^>]*>/.test(x)&&(x.match(/[A-Za-z]+/g)||[]).length>=6),
  cards:Object.values(copy.cards).flatMap(c=>[c.question,...c.choices.map(x=>x.outcome)]),
  facts:Object.values(copy.facts).map(f=>f.text),
  sites:Object.values(copy.sites).flatMap(s=>[s.story,s.fact]),
+ marsExplorer:Object.entries(copy.ui).filter(([k,v])=>k.startsWith('explorer')&&(v.match(/[A-Za-z]+/g)||[]).length>=6).map(([,v])=>v),
  storyExtras:[...Object.values(copy.eventScenes).map(s=>s.line),...copy.rocks,...copy.jokes],
  storyUpgrade:Object.entries(copy.ui).filter(([k,v])=>k.startsWith('upgrade')&&(v.match(/[A-Za-z]+/g)||[]).length>=6).map(([,v])=>v).concat(copy.trainingCheers),
  launchSimulator:[...Object.values(copy.launch.pip),...Object.values(copy.launch.descriptions),...Object.values(copy.launch.terms),...copy.launch.facts.map(f=>f.line)],
