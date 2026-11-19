@@ -136,6 +136,27 @@ Every fact carries a **🛰️ Real** badge and every made-up game rule carries 
 
 ---
 
+## 🚀 Mission Hub: code, quizzes and crews
+
+Open **Mission Hub** from the home screen's menu (`hub.html`).
+
+| Feature | What kids do |
+| --- | --- |
+| **🧩 Kitty Code** | Drive a rover with simple code words: `MOVE 2`, `TURN LEFT`, `REPEAT 3 TIMES`, `IF ROCK AHEAD`, `DEFINE HOP`. It works in Bangla too (`এগোও ২`). 6 worlds and 60 levels, each with 1 to 3 stars: reach the base, write short code, collect every sample. |
+| **☀️ Daily Challenge** | One new level every day, the same for every player, with a global leaderboard. |
+| **❓ Space quizzes** | A 5-question quiz after each part of the story, in English and Bangla. Questions use pictures, true/false and put-in-order. Dhrubo reads every question aloud. A wrong answer gets a short explanation and another try. Every fact has a NASA source. |
+| **🏆 Leaderboards** | Three boards: this device, your class (6-letter class code) and the Daily Challenge. Kids appear only by generated kitty names. |
+| **🤖 Ask Dhrubo** | Type or speak any space question. Dhrubo answers with Claude when online and from NASA facts when offline. |
+| **🔭 Sky tonight** | Where Mars is in your sky right now, the next real launch windows to Mars, when the space station flies over your city, and NASA's picture of the day. |
+| **👩‍🚀 Crew mission** | 1 to 4 classmates run a Mars base for 5 sols, each with a job. They chat only with preset messages. A call to Earth waits for the real light-speed delay (sped up). |
+| **📔 My Mars Diary** | A printable PDF certificate showing everything the kid learned. |
+| **🏫 Class dashboard** | On the teacher page: create a class code and see which topics and questions the class finds hardest. |
+| **🤖 Classroom robot** | Run the same Kitty Code on a real micro:bit rover. |
+
+Everything above runs on a **Python backend** (FastAPI) in [`backend/`](backend/README.md). It replays every program and quiz answer before a score counts, and it builds all 60 levels and checks that each one can be won. Without the backend, the game still works offline as before.
+
+---
+
 ## 💻 Run it yourself
 
 The game is plain HTML, CSS and JavaScript. The 3D world uses [Three.js](https://threejs.org/).
@@ -154,7 +175,17 @@ npm ci
 npm test
 ```
 
+To run everything, including the online features (Python 3.11+):
+
+```bash
+cd backend
+pip install -r requirements-dev.txt
+uvicorn astrokitty.api:app --reload
+# open http://localhost:8000
 ```
+
+```
+backend/     Python backend: Kitty Code engine, levels, quizzes, API, AI Dhrubo, robot
 dist/        the game itself: hand-written HTML, CSS and JavaScript, served as-is
 dist/world/  the 24-mission Mars Adventure 3D (prebuilt)
 src/         TypeScript modules that compile into dist/ (flight model, narrator, visuals)

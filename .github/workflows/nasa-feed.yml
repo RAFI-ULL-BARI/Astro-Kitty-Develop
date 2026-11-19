@@ -1,0 +1,30 @@
+name: Daily NASA feed
+
+on:
+  schedule:
+    - cron: "17 2 * * *"   # every day, 08:17 in Bangladesh
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  feed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch APOD, Mars images and solar flares
+        working-directory: backend
+        env:
+          NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
+        run: python -m astrokitty.nasa_feed
+      - name: Commit the new feed
+        run: |
+          git config user.name "astro-kitty-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist/data/nasa-feed.json
+          git diff --cached --quiet || git commit -m "Update daily NASA feed"
+          git push
