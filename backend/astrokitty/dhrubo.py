@@ -113,8 +113,8 @@ async def ask(question: str, history: list[dict] | None = None, mastery_summary:
         # Mid-conversation operator note: keeps the cached system prompt unchanged.
         messages.append({"role": "system", "content": note})
 
-    client = client or anthropic.AsyncAnthropic()
     try:
+        client = client or anthropic.AsyncAnthropic()
         response = await client.beta.messages.create(
             model=MODEL,
             max_tokens=4000,
