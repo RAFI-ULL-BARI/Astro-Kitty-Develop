@@ -1,0 +1,1342 @@
+{
+ "levels": [
+  {
+   "hint": {
+    "bn": "এগিয়ে ঘাঁটিতে যাও।",
+    "en": "Drive to the base."
+   },
+   "id": "w1-1",
+   "index": 1,
+   "map": [
+    ">..B"
+   ],
+   "par": 1,
+   "title": "First drive",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "নমুনার ওপর থেমে খনন করো।",
+    "en": "Stop on the sample and DRILL it."
+   },
+   "id": "w1-2",
+   "index": 2,
+   "map": [
+    ">.*..B"
+   ],
+   "par": 3,
+   "title": "Grab a sample",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "এগিয়ে যাও, তারপর ডানে ঘোরো।",
+    "en": "Go along, then TURN RIGHT."
+   },
+   "id": "w1-3",
+   "index": 3,
+   "map": [
+    ">..#",
+    "##.#",
+    "##B#"
+   ],
+   "par": 3,
+   "title": "Turn right",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "ওপরে যাও, তারপর বামে ঘোরো।",
+    "en": "Go up, then TURN LEFT."
+   },
+   "id": "w1-4",
+   "index": 4,
+   "map": [
+    "B..#",
+    "##.#",
+    "##^#"
+   ],
+   "par": 3,
+   "title": "Turn left",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "বড় পাথর! পাশ দিয়ে ঘুরে যাও।",
+    "en": "A big rock! Drive around it."
+   },
+   "id": "w1-5",
+   "index": 5,
+   "map": [
+    ">.#..",
+    "#....",
+    "####B"
+   ],
+   "par": 7,
+   "title": "Around the rock",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "পথে দুটো নমুনাই তোলো।",
+    "en": "Collect both samples on the way."
+   },
+   "id": "w1-6",
+   "index": 6,
+   "map": [
+    ">*.*B"
+   ],
+   "par": 5,
+   "title": "Two samples",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "ডানে, বামে, ডানে... পথ ধরে চলো।",
+    "en": "Right, left, right... follow the path."
+   },
+   "id": "w1-7",
+   "index": 7,
+   "map": [
+    ">.###",
+    "#..##",
+    "##..#",
+    "###.B"
+   ],
+   "par": 13,
+   "title": "Zig and zag",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "স্ক্যান বলে সামনে কী আছে। তারপর ঘাঁটিতে যাও।",
+    "en": "SCAN tells you what is ahead. Then drive home."
+   },
+   "id": "w1-8",
+   "index": 8,
+   "map": [
+    "v###",
+    ".###",
+    "*..B"
+   ],
+   "par": 5,
+   "title": "Scan first",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "দেয়ালের পেছনে ঘাঁটি। ঘুরে যাও!",
+    "en": "The base is behind a wall. Go around!"
+   },
+   "id": "w1-9",
+   "index": 9,
+   "map": [
+    "...",
+    ".#.",
+    "^#B"
+   ],
+   "par": 5,
+   "title": "U-turn",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "নমুনাসহ লম্বা পথ। প্রতিটি ধাপ ভাবো!",
+    "en": "A long trip with a sample. Plan every step!"
+   },
+   "id": "w1-10",
+   "index": 10,
+   "map": [
+    ">...#",
+    "###.#",
+    "#*..#",
+    "#.###",
+    "#..*B"
+   ],
+   "par": 12,
+   "title": "Long road",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "w2-1",
+   "index": 1,
+   "map": [
+    ">...###",
+    "###.###",
+    "###....",
+    "######.",
+    "######B"
+   ],
+   "par": 5,
+   "title": "Crater steps",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "w2-2",
+   "index": 2,
+   "map": [
+    ">..##",
+    "##.##",
+    "##...",
+    "####.",
+    "####B"
+   ],
+   "par": 5,
+   "title": "Delta hop",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "w2-3",
+   "index": 3,
+   "map": [
+    "##B",
+    "##.",
+    "#..",
+    "#.#",
+    ">.#"
+   ],
+   "par": 5,
+   "title": "Lake bed",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "w2-4",
+   "index": 4,
+   "map": [
+    "######B",
+    "######.",
+    "####...",
+    "####.##",
+    "##...##",
+    "##.####",
+    ">..####"
+   ],
+   "par": 5,
+   "title": "River stairs",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "w2-5",
+   "index": 5,
+   "map": [
+    "#########B",
+    "#########.",
+    "######*...",
+    "######.###",
+    "###*...###",
+    "###.######",
+    ">...######"
+   ],
+   "par": 7,
+   "title": "Sample stairs",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "w2-6",
+   "index": 6,
+   "map": [
+    ">..####",
+    "##.####",
+    "##*..##",
+    "####.##",
+    "####*..",
+    "######.",
+    "######B"
+   ],
+   "par": 7,
+   "title": "Rocky steps",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "w2-7",
+   "index": 7,
+   "map": [
+    ">...#########",
+    "###*...######",
+    "######*...###",
+    "#########*...",
+    "############B"
+   ],
+   "par": 7,
+   "title": "Old shoreline",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "w2-8",
+   "index": 8,
+   "map": [
+    "####B",
+    "####.",
+    "###*.",
+    "###.#",
+    "##*.#",
+    "##.##",
+    "#*.##",
+    "#.###",
+    ">.###"
+   ],
+   "par": 7,
+   "title": "Mudstone march",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "w2-9",
+   "index": 9,
+   "map": [
+    "########B",
+    "######*..",
+    "####*..##",
+    "##*..####",
+    ">..######"
+   ],
+   "par": 7,
+   "title": "Big staircase",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "w2-10",
+   "index": 10,
+   "map": [
+    ">..########",
+    "##.########",
+    "##*..######",
+    "####.######",
+    "####*..####",
+    "######.####",
+    "######*..##",
+    "########.##",
+    "########*..",
+    "##########.",
+    "##########B"
+   ],
+   "par": 7,
+   "title": "Crater rim",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "w3-1",
+   "index": 1,
+   "map": [
+    "#####",
+    "#v###",
+    "#.###",
+    "#...#",
+    "###.#",
+    "##B.#",
+    "#####"
+   ],
+   "par": 6,
+   "title": "First tunnel",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "w3-2",
+   "index": 2,
+   "map": [
+    "#######",
+    "#v#...#",
+    "#.#.#B#",
+    "#...###",
+    "#######"
+   ],
+   "par": 6,
+   "title": "Twisty cave",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "w3-3",
+   "index": 3,
+   "map": [
+    "#########",
+    "#>..#...#",
+    "###.#.#B#",
+    "###...###",
+    "#########"
+   ],
+   "par": 6,
+   "title": "Smart rover",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "w3-4",
+   "index": 4,
+   "map": [
+    "#######",
+    "#v#####",
+    "#.#####",
+    "#...###",
+    "###.###",
+    "##..###",
+    "##.#.B#",
+    "##...##",
+    "#######"
+   ],
+   "par": 6,
+   "title": "Lava tube",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "w3-5",
+   "index": 5,
+   "map": [
+    "#####",
+    "#>..#",
+    "###.#",
+    "#...#",
+    "#*###",
+    "#...#",
+    "###.#",
+    "#*..#",
+    "#B###",
+    "#####"
+   ],
+   "par": 8,
+   "title": "Sample tunnel",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "w3-6",
+   "index": 6,
+   "map": [
+    "#########",
+    "#v#...###",
+    "#.#.#*###",
+    "#...#...#",
+    "#######*#",
+    "#####...#",
+    "#####B###",
+    "#########"
+   ],
+   "par": 8,
+   "title": "Deep cave",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "w3-7",
+   "index": 7,
+   "map": [
+    "#########",
+    "#>..#####",
+    "###.#####",
+    "#...#####",
+    "#.#####B#",
+    "#.**#...#",
+    "###.#.###",
+    "###...###",
+    "#########"
+   ],
+   "par": 8,
+   "title": "Crystal path",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "w3-8",
+   "index": 8,
+   "map": [
+    "#########",
+    "#v#######",
+    "#*#######",
+    "#...#####",
+    "###*#####",
+    "#...#####",
+    "#.#######",
+    "#...#...#",
+    "###.#.#B#",
+    "###...###",
+    "#########"
+   ],
+   "par": 8,
+   "title": "Mount Sharp trail",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "w3-9",
+   "index": 9,
+   "map": [
+    "###########",
+    "#>..#######",
+    "###*#######",
+    "#.*.#######",
+    "#.#########",
+    "#...#######",
+    "###.#####B#",
+    "###...#...#",
+    "#####.#.###",
+    "#####*..###",
+    "###########"
+   ],
+   "par": 8,
+   "title": "Long tunnel",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "w3-10",
+   "index": 10,
+   "map": [
+    "#########",
+    "#>..#.B##",
+    "###.#.###",
+    "#...#...#",
+    "#*#####.#",
+    "#*..#...#",
+    "###.#*###",
+    "###...###",
+    "#########"
+   ],
+   "par": 8,
+   "title": "Gale maze",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "w4-1",
+   "index": 1,
+   "map": [
+    ">..######",
+    "##......#",
+    "#######.B"
+   ],
+   "par": 9,
+   "title": "Canyon hop",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "w4-2",
+   "index": 2,
+   "map": [
+    "######.B",
+    "#......#",
+    ">.######"
+   ],
+   "par": 9,
+   "title": "Hop again",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "w4-3",
+   "index": 3,
+   "map": [
+    ">.#####",
+    "#.#####",
+    "#.....#",
+    "#####.#",
+    "#####.B"
+   ],
+   "par": 9,
+   "title": "Cliff jumps",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "w4-4",
+   "index": 4,
+   "map": [
+    "##########.B",
+    "##########.#",
+    "#####......#",
+    "#####.######",
+    "#.....######",
+    "#.##########",
+    ">.##########"
+   ],
+   "par": 11,
+   "title": "Canyon steps",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "w4-5",
+   "index": 5,
+   "map": [
+    ">.########",
+    "#.....####",
+    "#####....#",
+    "########.B"
+   ],
+   "par": 11,
+   "title": "Rift run",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "w4-6",
+   "index": 6,
+   "map": [
+    ">..#############",
+    "##.......#######",
+    "########.......#",
+    "##############.B"
+   ],
+   "par": 11,
+   "title": "Hop marathon",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "w4-7",
+   "index": 7,
+   "map": [
+    ">..################",
+    "##.......##########",
+    "########......#####",
+    "#############.....#",
+    "#################.B"
+   ],
+   "par": 13,
+   "title": "Grand canyon",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "w4-8",
+   "index": 8,
+   "map": [
+    "################.B",
+    "############.....#",
+    "########.....#####",
+    "##.......#########",
+    ">..###############"
+   ],
+   "par": 13,
+   "title": "Ledge dance",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "w4-9",
+   "index": 9,
+   "map": [
+    ">.##############",
+    "#.##############",
+    "#......#########",
+    "######.#########",
+    "######......####",
+    "###########.####",
+    "###########....#",
+    "##############.#",
+    "##############.B"
+   ],
+   "par": 13,
+   "title": "Mega hops",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "w4-10",
+   "index": 10,
+   "map": [
+    ">.##################",
+    "#......#############",
+    "######....##########",
+    "#########......#####",
+    "##############.....#",
+    "##################.B"
+   ],
+   "par": 15,
+   "title": "Canyon master",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "w5-1",
+   "index": 1,
+   "map": [
+    "#####",
+    "#v###",
+    "#*###",
+    "#...#",
+    "###.#",
+    "#..*#",
+    "#.###",
+    "#...#",
+    "###B#",
+    "#####"
+   ],
+   "par": 8,
+   "title": "Storm warning",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "w5-2",
+   "index": 2,
+   "map": [
+    ">.##",
+    "#*.#",
+    "##*.",
+    "###B"
+   ],
+   "par": 7,
+   "title": "Dusty tunnel",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "w5-3",
+   "index": 3,
+   "map": [
+    ">.########",
+    "#....#####",
+    "####.....#",
+    "########.B"
+   ],
+   "par": 11,
+   "title": "Race the storm",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "w5-4",
+   "index": 4,
+   "map": [
+    "###########",
+    "#v#*..#####",
+    "#*#.#*#####",
+    "#...#...###",
+    "#######.###",
+    "#######...#",
+    "#########.#",
+    "########B.#",
+    "###########"
+   ],
+   "par": 8,
+   "title": "Sand stairs",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "w5-5",
+   "index": 5,
+   "map": [
+    "####B",
+    "####.",
+    "###*.",
+    "###.#",
+    "##*.#",
+    "##.##",
+    "#*.##",
+    "#.###",
+    ">.###"
+   ],
+   "par": 7,
+   "title": "Dust devils",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "w5-6",
+   "index": 6,
+   "map": [
+    ">.##############",
+    "#.##############",
+    "#.....##########",
+    "#####.##########",
+    "#####.....######",
+    "#########.######",
+    "#########......#",
+    "##############.#",
+    "##############.B"
+   ],
+   "par": 13,
+   "title": "Hidden samples",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "w5-7",
+   "index": 7,
+   "map": [
+    "############",
+    "#>..#####.B#",
+    "###.#####.##",
+    "#..*###...##",
+    "#.#####.####",
+    "#...#..*####",
+    "###*#.######",
+    "###.*.######",
+    "############"
+   ],
+   "par": 8,
+   "title": "Storm maze",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "w5-8",
+   "index": 8,
+   "map": [
+    ">.####",
+    "#.####",
+    "#*.###",
+    "##.###",
+    "##*.##",
+    "###.##",
+    "###*.#",
+    "####.#",
+    "####*.",
+    "#####.",
+    "#####B"
+   ],
+   "par": 7,
+   "title": "Gusty steps",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "w5-9",
+   "index": 9,
+   "map": [
+    ">..###################",
+    "##.....###############",
+    "######......##########",
+    "###########.....######",
+    "###############......#",
+    "####################.B"
+   ],
+   "par": 15,
+   "title": "Whiteout",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "w5-10",
+   "index": 10,
+   "map": [
+    "#############",
+    "#v#####...###",
+    "#.#####.#.###",
+    "#...#.*.#..*#",
+    "###.#*#####.#",
+    "###...###*..#",
+    "#########.###",
+    "#########.*.#",
+    "###########.#",
+    "##########B.#",
+    "#############"
+   ],
+   "par": 8,
+   "title": "Storm survivor",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "w6-1",
+   "index": 1,
+   "map": [
+    "#############",
+    "#>..#########",
+    "###.#####...#",
+    "###...#.*.#*#",
+    "#####*#.##..#",
+    "#####...##.##",
+    "#########B.##",
+    "#############"
+   ],
+   "par": 8,
+   "title": "Volcano foot",
+   "world": 6
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "w6-2",
+   "index": 2,
+   "map": [
+    ">.###",
+    "#*.##",
+    "##*.#",
+    "###*.",
+    "####B"
+   ],
+   "par": 7,
+   "title": "Lava field",
+   "world": 6
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "w6-3",
+   "index": 3,
+   "map": [
+    "###############.B",
+    "##########......#",
+    "#####......######",
+    "#.....###########",
+    ">.###############"
+   ],
+   "par": 13,
+   "title": "Steep stairs",
+   "world": 6
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "w6-4",
+   "index": 4,
+   "map": [
+    "#############",
+    "#v#...#...###",
+    "#.#.#*#.#.###",
+    "#.*.#...#.**#",
+    "###########.#",
+    "#########...#",
+    "#######B#.###",
+    "#######...###",
+    "#############"
+   ],
+   "par": 8,
+   "title": "Caldera cave",
+   "world": 6
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "w6-5",
+   "index": 5,
+   "map": [
+    ">...############",
+    "###.############",
+    "###*...#########",
+    "######.#########",
+    "######*...######",
+    "#########.######",
+    "#########*...###",
+    "############.###",
+    "############*...",
+    "###############.",
+    "###############B"
+   ],
+   "par": 7,
+   "title": "Summit samples",
+   "world": 6
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "w6-6",
+   "index": 6,
+   "map": [
+    ">.#################",
+    "#....##############",
+    "####......#########",
+    "#########....######",
+    "############......#",
+    "#################.B"
+   ],
+   "par": 15,
+   "title": "Cloud tunnel",
+   "world": 6
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "w6-7",
+   "index": 7,
+   "map": [
+    "############",
+    "#v##########",
+    "#.##########",
+    "#.*.####B###",
+    "###.####...#",
+    "#*..######.#",
+    "#.######...#",
+    "#...####.###",
+    "###.##*.*###",
+    "##..##*#####",
+    "##.#...#####",
+    "##...#######",
+    "############"
+   ],
+   "par": 8,
+   "title": "Giant steps",
+   "world": 6
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "w6-8",
+   "index": 8,
+   "map": [
+    "############B",
+    "##########*..",
+    "########*..##",
+    "######*..####",
+    "####*..######",
+    "##*..########",
+    ">..##########"
+   ],
+   "par": 7,
+   "title": "Boss maze",
+   "world": 6
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "w6-9",
+   "index": 9,
+   "map": [
+    "#####################.B",
+    "#################.....#",
+    "##############....#####",
+    "###########....########",
+    "######......###########",
+    "#......################",
+    ">.#####################"
+   ],
+   "par": 17,
+   "title": "Peak routine",
+   "world": 6
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "w6-10",
+   "index": 10,
+   "map": [
+    "#########",
+    "#v#...###",
+    "#.#.#.###",
+    "#...#..*#",
+    "#######*#",
+    "#*..#...#",
+    "#B#.#.###",
+    "##..#...#",
+    "#..####.#",
+    "#*###..*#",
+    "#...#*###",
+    "###...###",
+    "#########"
+   ],
+   "par": 8,
+   "title": "Top of the world",
+   "world": 6
+  }
+ ],
+ "worlds": [
+  {
+   "concept": "sequence",
+   "id": 1,
+   "learn": {
+    "bn": "একটার পর একটা নির্দেশ দাও",
+    "en": "Give orders one step at a time"
+   },
+   "place": {
+    "bn": "অবতরণ স্থান",
+    "en": "Landing Site"
+   },
+   "toolbox": [
+    "move",
+    "turn left",
+    "turn right",
+    "drill",
+    "scan"
+   ]
+  },
+  {
+   "concept": "loops",
+   "id": 2,
+   "learn": {
+    "bn": "পুনরাবৃত্তি দিয়ে একই কাজ বারবার করো",
+    "en": "REPEAT does the same thing again and again"
+   },
+   "place": {
+    "bn": "জেজেরো খাদ",
+    "en": "Jezero Crater"
+   },
+   "toolbox": [
+    "move",
+    "turn left",
+    "turn right",
+    "drill",
+    "scan",
+    "repeat"
+   ]
+  },
+  {
+   "concept": "conditions",
+   "id": 3,
+   "learn": {
+    "bn": "যদি দিয়ে রোভার নিজেই সিদ্ধান্ত নেয়",
+    "en": "IF lets the rover decide by itself"
+   },
+   "place": {
+    "bn": "গেল খাদ",
+    "en": "Gale Crater"
+   },
+   "toolbox": [
+    "move",
+    "turn left",
+    "turn right",
+    "drill",
+    "scan",
+    "repeat",
+    "repeat until",
+    "if",
+    "else",
+    "rock ahead",
+    "path ahead",
+    "path left",
+    "path right",
+    "sample here",
+    "at base",
+    "not"
+   ]
+  },
+  {
+   "concept": "routines",
+   "id": 4,
+   "learn": {
+    "bn": "নিজের কমান্ড বানাও, বারবার ব্যবহার করো",
+    "en": "DEFINE your own command and reuse it"
+   },
+   "place": {
+    "bn": "ভ্যালেস মেরিনারিস",
+    "en": "Valles Marineris"
+   },
+   "toolbox": [
+    "move",
+    "turn left",
+    "turn right",
+    "drill",
+    "scan",
+    "repeat",
+    "repeat until",
+    "if",
+    "else",
+    "rock ahead",
+    "path ahead",
+    "path left",
+    "path right",
+    "sample here",
+    "at base",
+    "not",
+    "define"
+   ]
+  },
+  {
+   "concept": "combine",
+   "id": 5,
+   "learn": {
+    "bn": "লুপ আর সিদ্ধান্ত মিলিয়ে ঝড়কে হারাও",
+    "en": "Mix loops and decisions to beat the storm"
+   },
+   "place": {
+    "bn": "ধুলিঝড়ের সমভূমি",
+    "en": "Dust Storm Plains"
+   },
+   "toolbox": [
+    "move",
+    "turn left",
+    "turn right",
+    "drill",
+    "scan",
+    "repeat",
+    "repeat until",
+    "if",
+    "else",
+    "rock ahead",
+    "path ahead",
+    "path left",
+    "path right",
+    "sample here",
+    "at base",
+    "not",
+    "define"
+   ]
+  },
+  {
+   "concept": "boss",
+   "id": 6,
+   "learn": {
+    "bn": "সবচেয়ে উঁচু আগ্নেয়গিরিতে বস মিশন",
+    "en": "Boss missions on the tallest volcano"
+   },
+   "place": {
+    "bn": "অলিম্পাস মনস",
+    "en": "Olympus Mons"
+   },
+   "toolbox": [
+    "move",
+    "turn left",
+    "turn right",
+    "drill",
+    "scan",
+    "repeat",
+    "repeat until",
+    "if",
+    "else",
+    "rock ahead",
+    "path ahead",
+    "path left",
+    "path right",
+    "sample here",
+    "at base",
+    "not",
+    "define"
+   ]
+  }
+ ]
+}

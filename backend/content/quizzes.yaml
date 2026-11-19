@@ -1,0 +1,549 @@
+# Astro Kitty quiz bank.
+# Each part of the game has its own quiz. A quiz shows 5 questions, chosen to
+# revisit the skills a kid finds hard (see astrokitty/adaptive.py).
+#
+# type: choice    -> options + answer (index of the right option, from 0)
+# type: truefalse -> answer: true / false
+# type: order     -> options listed in the RIGHT order; the game shuffles them
+# Every question needs English + Bangla text, an explanation and a NASA source.
+# `python -m astrokitty.build --check` rejects anything missing.
+
+parts:
+  academy:
+    title: {en: "Earth Academy quiz", bn: "আর্থ একাডেমি কুইজ"}
+    after: {en: "You finished the five science labs!", bn: "তুমি পাঁচটা বিজ্ঞান ল্যাব শেষ করেছ!"}
+  flight:
+    title: {en: "Fly to Mars quiz", bn: "মঙ্গলে উড়াল কুইজ"}
+    after: {en: "You flew all the way to Mars!", bn: "তুমি মঙ্গল পর্যন্ত উড়ে গেছ!"}
+  training:
+    title: {en: "Astronaut training quiz", bn: "নভোচারী প্রশিক্ষণ কুইজ"}
+    after: {en: "You finished astronaut training!", bn: "তুমি নভোচারী প্রশিক্ষণ শেষ করেছ!"}
+  base:
+    title: {en: "Mars base quiz", bn: "মঙ্গল ঘাঁটি কুইজ"}
+    after: {en: "You kept the Mars base alive!", bn: "তুমি মঙ্গল ঘাঁটি বাঁচিয়ে রেখেছ!"}
+  kittycode:
+    title: {en: "Kitty Code quiz", bn: "কিটি কোড কুইজ"}
+    after: {en: "You drove the rover with code!", bn: "তুমি কোড দিয়ে রোভার চালিয়েছ!"}
+  mars3d:
+    title: {en: "Mars explorer quiz", bn: "মঙ্গল অভিযাত্রী কুইজ"}
+    after: {en: "You explored Mars in 3D!", bn: "তুমি থ্রিডিতে মঙ্গল ঘুরে দেখেছ!"}
+
+questions:
+  # ---------------- Earth Academy ----------------
+  - id: ac-gravity-1
+    part: academy
+    skill: gravity
+    level: 1
+    type: choice
+    q: {en: "On Mars, you would feel…", bn: "মঙ্গলে তোমার মনে হবে তুমি…"}
+    options:
+      - {en: "Lighter than on Earth", bn: "পৃথিবীর চেয়ে হালকা", emoji: "🪶"}
+      - {en: "Heavier than on Earth", bn: "পৃথিবীর চেয়ে ভারী", emoji: "🪨"}
+      - {en: "Exactly the same", bn: "একদম একই রকম", emoji: "⚖️"}
+    answer: 0
+    explain: {en: "Mars gravity is only about 38% of Earth's. You could jump almost three times higher!", bn: "মঙ্গলের মাধ্যাকর্ষণ পৃথিবীর মাত্র ৩৮%। তুমি প্রায় তিন গুণ উঁচুতে লাফাতে পারবে!"}
+    source: https://science.nasa.gov/mars/facts/
+  - id: ac-gravity-2
+    part: academy
+    skill: gravity
+    level: 2
+    type: truefalse
+    q: {en: "With no air, a feather and a hammer dropped together land at the same time.", bn: "বাতাস না থাকলে, একসাথে ফেলা পালক আর হাতুড়ি একই সময়ে মাটিতে পড়ে।"}
+    answer: true
+    explain: {en: "Air slows the feather. With no air, gravity pulls both the same. Astronaut Dave Scott showed this on the Moon in 1971!", bn: "বাতাস পালককে ধীর করে। বাতাস না থাকলে মাধ্যাকর্ষণ দুটোকেই সমান টানে। ১৯৭১ সালে নভোচারী ডেভ স্কট চাঁদে এটা দেখিয়েছিলেন!"}
+    source: https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_15_feather_drop.html
+  - id: ac-float-1
+    part: academy
+    skill: training
+    level: 1
+    type: choice
+    q: {en: "Where on Earth do astronauts practise space walks?", bn: "নভোচারীরা পৃথিবীতে মহাকাশে হাঁটার অনুশীলন কোথায় করেন?"}
+    options:
+      - {en: "In a giant swimming pool", bn: "বিশাল একটা সুইমিং পুলে", emoji: "🏊"}
+      - {en: "On a tall mountain", bn: "উঁচু পাহাড়ে", emoji: "🏔️"}
+      - {en: "In a freezer", bn: "ফ্রিজের ভেতরে", emoji: "🧊"}
+    answer: 0
+    explain: {en: "Floating in water feels a bit like being weightless, so NASA trains astronauts in a huge pool.", bn: "পানিতে ভাসলে কিছুটা ওজনহীন মনে হয়, তাই নাসা বিশাল পুলে নভোচারীদের প্রশিক্ষণ দেয়।"}
+    source: https://www.nasa.gov/johnson/neutral-buoyancy-laboratory/
+  - id: ac-plants-1
+    part: academy
+    skill: life-support
+    level: 1
+    type: choice
+    q: {en: "What do plants need to grow in a space garden?", bn: "মহাকাশ বাগানে গাছ বড় হতে কী লাগে?"}
+    options:
+      - {en: "Water, light and nutrients", bn: "পানি, আলো আর পুষ্টি", emoji: "🌱"}
+      - {en: "Only darkness", bn: "শুধু অন্ধকার", emoji: "🌑"}
+      - {en: "Rocket fuel", bn: "রকেটের জ্বালানি", emoji: "⛽"}
+    answer: 0
+    explain: {en: "Plants need water, light and nutrients. In space, LED lights often take the place of sunlight.", bn: "গাছের পানি, আলো আর পুষ্টি লাগে। মহাকাশে প্রায়ই সূর্যের আলোর বদলে এলইডি আলো ব্যবহার হয়।"}
+    source: https://www.nasa.gov/exploration-research-and-technology/growing-plants-in-space/
+  - id: ac-air-1
+    part: academy
+    skill: life-support
+    level: 2
+    type: choice
+    q: {en: "Electricity can split water into two gases. Which one do we breathe?", bn: "বিদ্যুৎ পানিকে দুটো গ্যাসে ভাগ করতে পারে। কোনটা আমরা শ্বাসে নিই?"}
+    options:
+      - {en: "Oxygen", bn: "অক্সিজেন", emoji: "🫁"}
+      - {en: "Hydrogen", bn: "হাইড্রোজেন", emoji: "🎈"}
+    answer: 0
+    explain: {en: "Water is made of hydrogen and oxygen. The space station splits water to make oxygen for the crew.", bn: "পানি হাইড্রোজেন আর অক্সিজেন দিয়ে তৈরি। মহাকাশ স্টেশন পানি ভেঙে নভোচারীদের জন্য অক্সিজেন বানায়।"}
+    source: https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/
+  - id: ac-air-2
+    part: academy
+    skill: life-support
+    level: 2
+    type: truefalse
+    q: {en: "A carbon dioxide filter makes new oxygen.", bn: "কার্বন ডাই-অক্সাইড ফিল্টার নতুন অক্সিজেন বানায়।"}
+    answer: false
+    explain: {en: "A CO₂ filter cleans the air by removing carbon dioxide. Making oxygen needs a different machine.", bn: "CO₂ ফিল্টার কার্বন ডাই-অক্সাইড সরিয়ে বাতাস পরিষ্কার করে। অক্সিজেন বানাতে আলাদা যন্ত্র লাগে।"}
+    source: https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/
+  - id: ac-rover-1
+    part: academy
+    skill: rovers
+    level: 1
+    type: choice
+    q: {en: "Why do rover drivers plan the route before driving?", bn: "রোভার চালানোর আগে চালকেরা কেন পথ পরিকল্পনা করেন?"}
+    options:
+      - {en: "To avoid rocks and stay safe", bn: "পাথর এড়িয়ে নিরাপদ থাকতে", emoji: "🪨"}
+      - {en: "To go as fast as possible", bn: "যত দ্রুত সম্ভব যেতে", emoji: "🏎️"}
+      - {en: "Because rovers like music", bn: "কারণ রোভার গান পছন্দ করে", emoji: "🎵"}
+    answer: 0
+    explain: {en: "There is no mechanic on Mars! Drivers check every step so the rover does not get stuck or hurt.", bn: "মঙ্গলে কোনো মেকানিক নেই! রোভার যেন আটকে না যায় বা ভেঙে না যায়, তাই চালকেরা প্রতিটি ধাপ পরীক্ষা করেন।"}
+    source: https://science.nasa.gov/mission/mars-2020-perseverance/
+  - id: ac-order-1
+    part: academy
+    skill: life-support
+    level: 3
+    type: order
+    q: {en: "Put the space garden steps in order.", bn: "মহাকাশ বাগানের ধাপগুলো সাজাও।"}
+    options:
+      - {en: "Plant the seed", bn: "বীজ লাগাও", emoji: "🌰"}
+      - {en: "Give water and light", bn: "পানি আর আলো দাও", emoji: "💧"}
+      - {en: "The plant grows", bn: "গাছ বড় হয়", emoji: "🌿"}
+      - {en: "Eat a fresh lunch", bn: "তাজা দুপুরের খাবার খাও", emoji: "🥗"}
+    explain: {en: "Seed, care, growth, food! Astronauts on the space station have eaten lettuce they grew themselves.", bn: "বীজ, যত্ন, বেড়ে ওঠা, খাবার! মহাকাশ স্টেশনের নভোচারীরা নিজেদের ফলানো লেটুস খেয়েছেন।"}
+    source: https://www.nasa.gov/exploration-research-and-technology/growing-plants-in-space/
+
+  # ---------------- Fly to Mars ----------------
+  - id: fl-time-1
+    part: flight
+    skill: orbits
+    level: 1
+    type: choice
+    q: {en: "About how long does a trip to Mars take?", bn: "মঙ্গলে যেতে মোটামুটি কত সময় লাগে?"}
+    options:
+      - {en: "About 7 months", bn: "প্রায় ৭ মাস", emoji: "📅"}
+      - {en: "About 7 days", bn: "প্রায় ৭ দিন", emoji: "🗓️"}
+      - {en: "About 7 hours", bn: "প্রায় ৭ ঘণ্টা", emoji: "⏰"}
+    answer: 0
+    explain: {en: "Perseverance launched in July 2020 and landed in February 2021: about 7 months.", bn: "পারসিভিয়ারেন্স ২০২০ সালের জুলাইয়ে রওনা দিয়ে ২০২১ সালের ফেব্রুয়ারিতে নামে: প্রায় ৭ মাস।"}
+    source: https://www.jpl.nasa.gov/news/press_kits/mars_2020/landing/mission/
+  - id: fl-window-1
+    part: flight
+    skill: orbits
+    level: 2
+    type: choice
+    q: {en: "How often does the best launch window to Mars come?", bn: "মঙ্গলে যাওয়ার সবচেয়ে ভালো সুযোগ কত দিন পরপর আসে?"}
+    options:
+      - {en: "About every 26 months", bn: "প্রায় প্রতি ২৬ মাসে", emoji: "🪐"}
+      - {en: "Every week", bn: "প্রতি সপ্তাহে", emoji: "📆"}
+      - {en: "Every 100 years", bn: "প্রতি ১০০ বছরে", emoji: "⌛"}
+    answer: 0
+    explain: {en: "Earth and Mars line up well about every 26 months. That is when rockets leave for Mars.", bn: "পৃথিবী আর মঙ্গল প্রায় প্রতি ২৬ মাসে ভালোভাবে সারিতে আসে। তখনই রকেট মঙ্গলে রওনা দেয়।"}
+    source: https://science.nasa.gov/mars/facts/
+  - id: fl-aim-1
+    part: flight
+    skill: orbits
+    level: 3
+    type: truefalse
+    q: {en: "A rocket aims at where Mars WILL BE when it arrives, not where Mars is at launch.", bn: "রকেট মঙ্গলের দিকে নয়, বরং পৌঁছানোর সময় মঙ্গল যেখানে থাকবে সেদিকে তাক করে।"}
+    answer: true
+    explain: {en: "Mars keeps moving around the Sun, so the spacecraft heads to where Mars will be months later.", bn: "মঙ্গল সূর্যের চারপাশে ঘুরতেই থাকে, তাই মহাকাশযান যায় মাসখানেক পরে মঙ্গল যেখানে থাকবে সেখানে।"}
+    source: https://www.jpl.nasa.gov/news/press_kits/mars_2020/landing/mission/
+  - id: fl-red-1
+    part: flight
+    skill: mars-facts
+    level: 1
+    type: choice
+    q: {en: "Why is Mars red?", bn: "মঙ্গল লাল কেন?"}
+    options:
+      - {en: "Rusty dust", bn: "মরিচা ধরা ধুলো", emoji: "🟤"}
+      - {en: "It is very hot", bn: "এটা খুব গরম", emoji: "🔥"}
+      - {en: "Red paint", bn: "লাল রং", emoji: "🎨"}
+    answer: 0
+    explain: {en: "Mars dust has iron in it that has rusted. That rusty dust makes the whole planet look red.", bn: "মঙ্গলের ধুলোয় লোহা আছে, যাতে মরিচা ধরেছে। এই মরিচা ধরা ধুলোর জন্য পুরো গ্রহটা লাল দেখায়।"}
+    source: https://science.nasa.gov/mars/facts/
+  - id: fl-moons-1
+    part: flight
+    skill: mars-facts
+    level: 2
+    type: choice
+    q: {en: "How many moons does Mars have?", bn: "মঙ্গলের কয়টা চাঁদ আছে?"}
+    options:
+      - {en: "Two", bn: "দুটো", emoji: "🌘"}
+      - {en: "One", bn: "একটা", emoji: "🌕"}
+      - {en: "None", bn: "একটাও না", emoji: "🚫"}
+    answer: 0
+    explain: {en: "Mars has two small moons called Phobos and Deimos.", bn: "মঙ্গলের দুটো ছোট চাঁদ আছে: ফোবোস আর ডেইমোস।"}
+    source: https://science.nasa.gov/mars/facts/
+  - id: fl-delay-1
+    part: flight
+    skill: orbits
+    level: 2
+    type: truefalse
+    q: {en: "A radio message from Mars reaches Earth instantly.", bn: "মঙ্গল থেকে রেডিও বার্তা সাথে সাথে পৃথিবীতে পৌঁছে যায়।"}
+    answer: false
+    explain: {en: "Even at the speed of light, a message takes from about 3 to 22 minutes, depending on where the planets are.", bn: "আলোর গতিতেও একটা বার্তা পৌঁছাতে ৩ থেকে ২২ মিনিট লাগে, গ্রহগুলো কোথায় আছে তার ওপর নির্ভর করে।"}
+    source: https://science.nasa.gov/mars/facts/
+  - id: fl-order-1
+    part: flight
+    skill: orbits
+    level: 1
+    type: order
+    q: {en: "Put the trip to Mars in order.", bn: "মঙ্গল যাত্রার ধাপগুলো সাজাও।"}
+    options:
+      - {en: "Launch", bn: "উৎক্ষেপণ", emoji: "🚀"}
+      - {en: "Cruise through space", bn: "মহাকাশে ভ্রমণ", emoji: "✨"}
+      - {en: "Enter the atmosphere", bn: "বায়ুমণ্ডলে প্রবেশ", emoji: "🔥"}
+      - {en: "Land on Mars", bn: "মঙ্গলে অবতরণ", emoji: "🪂"}
+    explain: {en: "Launch, cruise, entry, landing! The landing part is so fast it is called 'seven minutes of terror'.", bn: "উৎক্ষেপণ, ভ্রমণ, প্রবেশ, অবতরণ! অবতরণ এত দ্রুত হয় যে একে বলে 'সাত মিনিটের আতঙ্ক'।"}
+    source: https://www.jpl.nasa.gov/news/press_kits/mars_2020/landing/mission/
+
+  # ---------------- Astronaut training ----------------
+  - id: tr-dust-1
+    part: training
+    skill: power
+    level: 1
+    type: choice
+    q: {en: "Why did we brush the solar panels?", bn: "আমরা সোলার প্যানেল কেন ব্রাশ করেছিলাম?"}
+    options:
+      - {en: "Dust blocks the sunlight", bn: "ধুলো সূর্যের আলো আটকে দেয়", emoji: "☀️"}
+      - {en: "To make them shiny for photos", bn: "ছবির জন্য চকচকে করতে", emoji: "📸"}
+      - {en: "Panels like being tickled", bn: "প্যানেল সুড়সুড়ি পছন্দ করে", emoji: "🪶"}
+    answer: 0
+    explain: {en: "Dust covers solar panels and makes less electricity. NASA's InSight lander slowly lost power because of dust.", bn: "ধুলো সোলার প্যানেল ঢেকে দেয়, ফলে বিদ্যুৎ কম তৈরি হয়। নাসার ইনসাইট ল্যান্ডার ধুলোর জন্য ধীরে ধীরে শক্তি হারিয়েছিল।"}
+    source: https://science.nasa.gov/resource/insights-power-generation-after-landing-and-spring-2022/
+  - id: tr-storm-1
+    part: training
+    skill: weather
+    level: 2
+    type: truefalse
+    q: {en: "Some dust storms on Mars can cover the whole planet.", bn: "মঙ্গলের কিছু ধুলিঝড় পুরো গ্রহ ঢেকে ফেলতে পারে।"}
+    answer: true
+    explain: {en: "Yes! Most storms are small, but every few years one grows big enough to wrap around all of Mars.", bn: "হ্যাঁ! বেশিরভাগ ঝড় ছোট, কিন্তু কয়েক বছর পরপর একটা ঝড় এত বড় হয় যে পুরো মঙ্গল ঢেকে ফেলে।"}
+    source: https://science.nasa.gov/mars/facts/
+  - id: tr-shelter-1
+    part: training
+    skill: weather
+    level: 2
+    type: choice
+    q: {en: "During a big solar storm, where should the crew go?", bn: "বড় সৌরঝড়ের সময় নভোচারীদের কোথায় যাওয়া উচিত?"}
+    options:
+      - {en: "Into the shielded shelter", bn: "সুরক্ষিত আশ্রয়ে", emoji: "🛡️"}
+      - {en: "Outside to watch", bn: "বাইরে দেখতে", emoji: "👀"}
+      - {en: "Onto the roof", bn: "ছাদে", emoji: "🏠"}
+    answer: 0
+    explain: {en: "Mars has thin air and no global magnetic field, so crews hide behind thick walls when the Sun sends a burst of radiation.", bn: "মঙ্গলের বাতাস পাতলা আর কোনো বৈশ্বিক চৌম্বকক্ষেত্র নেই, তাই সূর্য থেকে বিকিরণ এলে নভোচারীরা মোটা দেয়ালের আড়ালে থাকে।"}
+    source: https://www.nasa.gov/solar-system/planets/mars/nasa-watches-mars-light-up-during-epic-solar-storm/
+  - id: tr-rover-1
+    part: training
+    skill: rovers
+    level: 1
+    type: choice
+    q: {en: "How many wheels does the Perseverance rover have?", bn: "পারসিভিয়ারেন্স রোভারের কয়টা চাকা?"}
+    options:
+      - {en: "6", bn: "৬", emoji: "🛞"}
+      - {en: "4", bn: "৪", emoji: "🚗"}
+      - {en: "2", bn: "২", emoji: "🚲"}
+    answer: 0
+    explain: {en: "Six wheels help the rover climb over rocks and keep its balance on bumpy ground.", bn: "ছয়টা চাকা রোভারকে পাথরের ওপর দিয়ে উঠতে আর উঁচুনিচু মাটিতে ভারসাম্য রাখতে সাহায্য করে।"}
+    source: https://science.nasa.gov/mission/mars-2020-perseverance/
+  - id: tr-sol-1
+    part: training
+    skill: mars-facts
+    level: 2
+    type: choice
+    q: {en: "A day on Mars is called a 'sol'. How long is it?", bn: "মঙ্গলের এক দিনকে 'সল' বলে। এটা কত লম্বা?"}
+    options:
+      - {en: "A little longer than an Earth day", bn: "পৃথিবীর দিনের চেয়ে একটু লম্বা", emoji: "🕐"}
+      - {en: "Half an Earth day", bn: "পৃথিবীর অর্ধেক দিন", emoji: "🌓"}
+      - {en: "One whole Earth year", bn: "পৃথিবীর পুরো এক বছর", emoji: "📅"}
+    answer: 0
+    explain: {en: "A sol is about 24 hours and 37 minutes, just a bit longer than a day on Earth.", bn: "এক সল প্রায় ২৪ ঘণ্টা ৩৭ মিনিট, পৃথিবীর দিনের চেয়ে একটু বেশি।"}
+    source: https://science.nasa.gov/mars/facts/
+  - id: tr-airlock-1
+    part: training
+    skill: life-support
+    level: 3
+    type: order
+    q: {en: "Put the airlock steps in order to go back inside.", bn: "ভেতরে ফেরার জন্য এয়ারলকের ধাপগুলো সাজাও।"}
+    options:
+      - {en: "Close the outer door", bn: "বাইরের দরজা বন্ধ করো", emoji: "🚪"}
+      - {en: "Fill the room with air", bn: "ঘরে বাতাস ভরো", emoji: "💨"}
+      - {en: "Open the inner door", bn: "ভেতরের দরজা খোলো", emoji: "🏠"}
+    explain: {en: "Only one door opens at a time, so the air inside the base never escapes.", bn: "একসাথে শুধু একটা দরজা খোলে, তাই ঘাঁটির ভেতরের বাতাস কখনো বেরিয়ে যায় না।"}
+    source: https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/
+  - id: tr-instrument-1
+    part: training
+    skill: rovers
+    level: 3
+    type: truefalse
+    q: {en: "Curiosity can zap rocks with a laser to find out what they are made of.", bn: "কিউরিওসিটি লেজার দিয়ে পাথরে আঘাত করে জানতে পারে সেগুলো কী দিয়ে তৈরি।"}
+    answer: true
+    explain: {en: "Its ChemCam laser makes a tiny spark on a rock, and a camera reads the light to learn which elements are inside.", bn: "এর কেমক্যাম লেজার পাথরে ছোট স্ফুলিঙ্গ তৈরি করে, আর একটা ক্যামেরা সেই আলো দেখে ভেতরে কোন উপাদান আছে বোঝে।"}
+    source: https://science.nasa.gov/mission/msl-curiosity/science-instruments/
+
+  # ---------------- Mars base ----------------
+  - id: ba-air-1
+    part: base
+    skill: mars-facts
+    level: 1
+    type: choice
+    q: {en: "What is the air on Mars mostly made of?", bn: "মঙ্গলের বাতাস বেশিরভাগ কী দিয়ে তৈরি?"}
+    options:
+      - {en: "Carbon dioxide", bn: "কার্বন ডাই-অক্সাইড", emoji: "☁️"}
+      - {en: "Oxygen", bn: "অক্সিজেন", emoji: "🫁"}
+      - {en: "Water vapour", bn: "জলীয় বাষ্প", emoji: "💧"}
+    answer: 0
+    explain: {en: "Mars air is about 95% carbon dioxide and very thin. Astronauts need helmets and oxygen to breathe.", bn: "মঙ্গলের বাতাস প্রায় ৯৫% কার্বন ডাই-অক্সাইড আর খুব পাতলা। নভোচারীদের শ্বাস নিতে হেলমেট আর অক্সিজেন লাগে।"}
+    source: https://science.nasa.gov/mars/facts/
+  - id: ba-moxie-1
+    part: base
+    skill: life-support
+    level: 2
+    type: truefalse
+    q: {en: "A machine on the Perseverance rover made oxygen from Mars air.", bn: "পারসিভিয়ারেন্স রোভারের একটা যন্ত্র মঙ্গলের বাতাস থেকে অক্সিজেন বানিয়েছিল।"}
+    answer: true
+    explain: {en: "MOXIE, about the size of a lunchbox, turned carbon dioxide into oxygen on Mars. Future bases could do this too!", bn: "টিফিন বক্সের মতো ছোট মক্সি মঙ্গলে কার্বন ডাই-অক্সাইড থেকে অক্সিজেন বানিয়েছিল। ভবিষ্যতের ঘাঁটিও এটা করতে পারবে!"}
+    source: https://www.nasa.gov/solar-system/nasas-oxygen-generating-experiment-moxie-completes-mars-mission/
+  - id: ba-cold-1
+    part: base
+    skill: weather
+    level: 1
+    type: choice
+    q: {en: "What is the weather on Mars usually like?", bn: "মঙ্গলের আবহাওয়া সাধারণত কেমন?"}
+    options:
+      - {en: "Very, very cold", bn: "খুব খুব ঠান্ডা", emoji: "🥶"}
+      - {en: "Hot like a desert in summer", bn: "গরমকালের মরুভূমির মতো গরম", emoji: "🥵"}
+      - {en: "Rainy every day", bn: "প্রতিদিন বৃষ্টি", emoji: "🌧️"}
+    answer: 0
+    explain: {en: "The average temperature on Mars is about −63 °C, much colder than any winter in Bangladesh!", bn: "মঙ্গলের গড় তাপমাত্রা প্রায় −৬৩° সেলসিয়াস, বাংলাদেশের যেকোনো শীতের চেয়ে অনেক বেশি ঠান্ডা!"}
+    source: https://science.nasa.gov/mars/facts/
+  - id: ba-water-1
+    part: base
+    skill: life-support
+    level: 2
+    type: choice
+    q: {en: "Where can a Mars base find water?", bn: "মঙ্গল ঘাঁটি কোথায় পানি পেতে পারে?"}
+    options:
+      - {en: "Frozen ice under the ground", bn: "মাটির নিচে জমাট বরফে", emoji: "🧊"}
+      - {en: "Big rivers", bn: "বড় নদীতে", emoji: "🏞️"}
+      - {en: "Rain clouds", bn: "বৃষ্টির মেঘে", emoji: "🌧️"}
+    answer: 0
+    explain: {en: "Mars has no rivers today, but it has lots of frozen water ice at its poles and under the ground.", bn: "মঙ্গলে এখন কোনো নদী নেই, কিন্তু মেরুতে আর মাটির নিচে প্রচুর জমাট বরফ আছে।"}
+    source: https://science.nasa.gov/mars/facts/
+  - id: ba-year-1
+    part: base
+    skill: mars-facts
+    level: 3
+    type: choice
+    q: {en: "How long is one year on Mars?", bn: "মঙ্গলের এক বছর কত লম্বা?"}
+    options:
+      - {en: "687 Earth days", bn: "পৃথিবীর ৬৮৭ দিন", emoji: "🗓️"}
+      - {en: "365 Earth days", bn: "পৃথিবীর ৩৬৫ দিন", emoji: "📅"}
+      - {en: "30 Earth days", bn: "পৃথিবীর ৩০ দিন", emoji: "🌙"}
+    answer: 0
+    explain: {en: "Mars is farther from the Sun, so one trip around it takes 687 Earth days. Your birthday would come less often!", bn: "মঙ্গল সূর্য থেকে বেশি দূরে, তাই একবার ঘুরতে পৃথিবীর ৬৮৭ দিন লাগে। তোমার জন্মদিন কম আসত!"}
+    source: https://science.nasa.gov/mars/facts/
+  - id: ba-power-1
+    part: base
+    skill: power
+    level: 2
+    type: truefalse
+    q: {en: "During a dust storm, solar panels make MORE electricity.", bn: "ধুলিঝড়ের সময় সোলার প্যানেল বেশি বিদ্যুৎ বানায়।"}
+    answer: false
+    explain: {en: "Dust in the sky blocks sunlight, so panels make less power. Save energy during storms!", bn: "আকাশের ধুলো সূর্যের আলো আটকায়, তাই প্যানেল কম বিদ্যুৎ বানায়। ঝড়ের সময় শক্তি বাঁচাও!"}
+    source: https://science.nasa.gov/resource/insights-power-generation-after-landing-and-spring-2022/
+  - id: ba-order-1
+    part: base
+    skill: power
+    level: 3
+    type: order
+    q: {en: "A dust storm is coming! Put the safety steps in order.", bn: "ধুলিঝড় আসছে! নিরাপত্তার ধাপগুলো সাজাও।"}
+    options:
+      - {en: "Hear the storm warning", bn: "ঝড়ের সতর্কবার্তা শোনো", emoji: "📢"}
+      - {en: "Go inside the base", bn: "ঘাঁটির ভেতরে যাও", emoji: "🏠"}
+      - {en: "Turn off things you don't need", bn: "অপ্রয়োজনীয় জিনিস বন্ধ করো", emoji: "🔌"}
+      - {en: "Clean panels after the storm", bn: "ঝড়ের পরে প্যানেল পরিষ্কার করো", emoji: "🧹"}
+    explain: {en: "Listen, shelter, save power, then clean up. That is how a crew stays safe.", bn: "শোনো, আশ্রয় নাও, শক্তি বাঁচাও, তারপর পরিষ্কার করো। এভাবেই দল নিরাপদ থাকে।"}
+    source: https://science.nasa.gov/mars/facts/
+
+  # ---------------- Kitty Code ----------------
+  - id: kc-seq-1
+    part: kittycode
+    skill: sequence
+    level: 1
+    type: truefalse
+    q: {en: "The rover does your commands in order, from the top line down.", bn: "রোভার তোমার কমান্ডগুলো ক্রম অনুযায়ী, ওপরের লাইন থেকে নিচে করে।"}
+    answer: true
+    explain: {en: "Order matters! TURN then MOVE takes the rover to a new spot, not the same one as MOVE then TURN.", bn: "ক্রম গুরুত্বপূর্ণ! আগে ঘোরো তারপর এগোও, আর আগে এগোও তারপর ঘোরো, দুটো আলাদা জায়গায় নেয়।"}
+    source: https://science.nasa.gov/mission/mars-2020-perseverance/
+  - id: kc-loop-1
+    part: kittycode
+    skill: loops
+    level: 1
+    type: choice
+    q: {en: "Which code moves the rover 6 steps?", bn: "কোন কোড রোভারকে ৬ ধাপ এগিয়ে নেয়?"}
+    options:
+      - {en: "REPEAT 3 TIMES · MOVE 2 · END", bn: "পুনরাবৃত্তি ৩ বার · এগোও ২ · শেষ", emoji: "🔁"}
+      - {en: "REPEAT 2 TIMES · MOVE 2 · END", bn: "পুনরাবৃত্তি ২ বার · এগোও ২ · শেষ", emoji: "🔂"}
+      - {en: "MOVE 3", bn: "এগোও ৩", emoji: "➡️"}
+    answer: 0
+    explain: {en: "3 times 2 steps = 6 steps. A loop saves you writing the same line again and again.", bn: "৩ বার ২ ধাপ = ৬ ধাপ। লুপ থাকলে একই লাইন বারবার লিখতে হয় না।"}
+    source: https://science.nasa.gov/mission/mars-2020-perseverance/
+  - id: kc-if-1
+    part: kittycode
+    skill: conditions
+    level: 2
+    type: choice
+    q: {en: "What does 'IF ROCK AHEAD · TURN LEFT · END' do when there is NO rock?", bn: "সামনে পাথর না থাকলে 'যদি পাথর সামনে · বামে ঘোরো · শেষ' কী করে?"}
+    options:
+      - {en: "Nothing, it skips the turn", bn: "কিছুই না, ঘোরা বাদ দেয়", emoji: "⏭️"}
+      - {en: "It turns left anyway", bn: "তবুও বামে ঘোরে", emoji: "↩️"}
+      - {en: "The rover stops forever", bn: "রোভার চিরদিনের জন্য থেমে যায়", emoji: "🛑"}
+    answer: 0
+    explain: {en: "IF only runs its lines when the check is true. Real rovers use checks like this to avoid danger by themselves.", bn: "যদি-এর লাইনগুলো তখনই চলে যখন পরীক্ষাটা সত্য। আসল রোভারও এভাবে নিজে নিজে বিপদ এড়ায়।"}
+    source: https://science.nasa.gov/mission/mars-2020-perseverance/
+  - id: kc-auto-1
+    part: kittycode
+    skill: conditions
+    level: 3
+    type: truefalse
+    q: {en: "Perseverance can drive some of the way by itself, choosing a safe path.", bn: "পারসিভিয়ারেন্স কিছুটা পথ নিজেই নিরাপদ রাস্তা বেছে চালাতে পারে।"}
+    answer: true
+    explain: {en: "Its self-driving 'AutoNav' looks at the ground and picks a path around rocks, just like your IF code.", bn: "এর স্বয়ংক্রিয় 'অটোন্যাভ' মাটি দেখে পাথরের পাশ দিয়ে পথ বেছে নেয়, ঠিক তোমার যদি-কোডের মতো।"}
+    source: https://science.nasa.gov/mission/mars-2020-perseverance/
+  - id: kc-define-1
+    part: kittycode
+    skill: routines
+    level: 2
+    type: choice
+    q: {en: "Why make your own command with DEFINE?", bn: "নাম দিয়ে নিজের কমান্ড কেন বানাবে?"}
+    options:
+      - {en: "To reuse steps without rewriting them", bn: "ধাপগুলো আবার না লিখে বারবার ব্যবহার করতে", emoji: "♻️"}
+      - {en: "To make the rover faster", bn: "রোভারকে দ্রুত করতে", emoji: "⚡"}
+      - {en: "To change the rover's colour", bn: "রোভারের রং বদলাতে", emoji: "🎨"}
+    answer: 0
+    explain: {en: "Write it once, use it many times. Real engineers build big programs from small named pieces.", bn: "একবার লেখো, বহুবার ব্যবহার করো। আসল প্রকৌশলীরা ছোট ছোট নামের অংশ দিয়ে বড় প্রোগ্রাম বানান।"}
+    source: https://science.nasa.gov/mission/mars-2020-perseverance/
+  - id: kc-debug-1
+    part: kittycode
+    skill: sequence
+    level: 2
+    type: choice
+    q: {en: "Your rover went BONK into a rock. What should you do?", bn: "তোমার রোভার পাথরে ধাক্কা খেয়েছে। কী করবে?"}
+    options:
+      - {en: "Find the line that went wrong and fix it", bn: "যে লাইনে ভুল হয়েছে খুঁজে ঠিক করো", emoji: "🔍"}
+      - {en: "Give up", bn: "হাল ছেড়ে দাও", emoji: "😿"}
+      - {en: "Delete everything", bn: "সব মুছে ফেলো", emoji: "🗑️"}
+    answer: 0
+    explain: {en: "Fixing mistakes is called debugging. Every programmer does it, even at NASA!", bn: "ভুল ঠিক করাকে বলে ডিবাগিং। প্রত্যেক প্রোগ্রামার এটা করেন, নাসাতেও!"}
+    source: https://science.nasa.gov/mission/mars-2020-perseverance/
+  - id: kc-order-1
+    part: kittycode
+    skill: sequence
+    level: 1
+    type: order
+    q: {en: "Order the commands: drive 2, grab the sample, turn right.", bn: "কমান্ডগুলো সাজাও: ২ ধাপ এগোও, নমুনা তোলো, ডানে ঘোরো।"}
+    options:
+      - {en: "MOVE 2", bn: "এগোও ২", emoji: "➡️"}
+      - {en: "DRILL", bn: "খনন", emoji: "⛏️"}
+      - {en: "TURN RIGHT", bn: "ডানে ঘোরো", emoji: "↪️"}
+    explain: {en: "Commands run in the order you write them.", bn: "তুমি যে ক্রমে লেখো, কমান্ড সেই ক্রমেই চলে।"}
+    source: https://science.nasa.gov/mission/mars-2020-perseverance/
+
+  # ---------------- Mars in 3D ----------------
+  - id: m3-olympus-1
+    part: mars3d
+    skill: mars-places
+    level: 1
+    type: choice
+    q: {en: "Olympus Mons on Mars is…", bn: "মঙ্গলের অলিম্পাস মনস হলো…"}
+    options:
+      - {en: "The tallest volcano in the solar system", bn: "সৌরজগতের সবচেয়ে উঁচু আগ্নেয়গিরি", emoji: "🌋"}
+      - {en: "A deep ocean", bn: "একটা গভীর সমুদ্র", emoji: "🌊"}
+      - {en: "A space station", bn: "একটা মহাকাশ স্টেশন", emoji: "🛰️"}
+    answer: 0
+    explain: {en: "Olympus Mons is about 22 km high, around two and a half times taller than Mount Everest!", bn: "অলিম্পাস মনস প্রায় ২২ কিলোমিটার উঁচু, মাউন্ট এভারেস্টের প্রায় আড়াই গুণ!"}
+    source: https://science.nasa.gov/mars/facts/
+  - id: m3-valles-1
+    part: mars3d
+    skill: mars-places
+    level: 2
+    type: truefalse
+    q: {en: "Valles Marineris is a giant canyon, much longer than the Grand Canyon on Earth.", bn: "ভ্যালেস মেরিনারিস একটা বিশাল গিরিখাত, পৃথিবীর গ্র্যান্ড ক্যানিয়নের চেয়ে অনেক লম্বা।"}
+    answer: true
+    explain: {en: "It stretches about 4,000 km, roughly the width of the whole United States.", bn: "এটা প্রায় ৪,০০০ কিলোমিটার লম্বা, মোটামুটি পুরো যুক্তরাষ্ট্রের প্রস্থের সমান।"}
+    source: https://science.nasa.gov/mars/facts/
+  - id: m3-jezero-1
+    part: mars3d
+    skill: mars-places
+    level: 2
+    type: choice
+    q: {en: "Why did Perseverance land in Jezero Crater?", bn: "পারসিভিয়ারেন্স কেন জেজেরো খাদে নেমেছিল?"}
+    options:
+      - {en: "Long ago it held a lake", bn: "অনেক আগে সেখানে একটা হ্রদ ছিল", emoji: "🏞️"}
+      - {en: "It is the hottest place", bn: "এটা সবচেয়ে গরম জায়গা", emoji: "🔥"}
+      - {en: "Aliens live there", bn: "সেখানে এলিয়েন থাকে", emoji: "👽"}
+    answer: 0
+    explain: {en: "Billions of years ago Jezero was a lake with a river delta, a great place to look for signs of ancient life.", bn: "শত কোটি বছর আগে জেজেরো ছিল নদীর বদ্বীপসহ একটা হ্রদ, প্রাচীন জীবনের চিহ্ন খোঁজার দারুণ জায়গা।"}
+    source: https://science.nasa.gov/mission/mars-2020-perseverance/
+  - id: m3-ingenuity-1
+    part: mars3d
+    skill: rovers
+    level: 2
+    type: choice
+    q: {en: "What was Ingenuity?", bn: "ইনজেনুইটি কী ছিল?"}
+    options:
+      - {en: "The first helicopter to fly on another planet", bn: "অন্য গ্রহে ওড়া প্রথম হেলিকপ্টার", emoji: "🚁"}
+      - {en: "A Mars boat", bn: "মঙ্গলের একটা নৌকা", emoji: "⛵"}
+      - {en: "A space cat", bn: "একটা মহাকাশ বিড়াল", emoji: "🐱"}
+    answer: 0
+    explain: {en: "In April 2021, Ingenuity made the first powered flight on another planet, and it flew 72 times in all!", bn: "২০২১ সালের এপ্রিলে ইনজেনুইটি অন্য গ্রহে প্রথম যান্ত্রিক উড্ডয়ন করে, আর মোট ৭২ বার উড়েছিল!"}
+    source: https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/
+  - id: m3-gale-1
+    part: mars3d
+    skill: mars-places
+    level: 3
+    type: choice
+    q: {en: "Which rover is climbing Mount Sharp in Gale Crater?", bn: "গেল খাদের মাউন্ট শার্পে কোন রোভার উঠছে?"}
+    options:
+      - {en: "Curiosity", bn: "কিউরিওসিটি", emoji: "🤖"}
+      - {en: "Perseverance", bn: "পারসিভিয়ারেন্স", emoji: "🛞"}
+      - {en: "Ingenuity", bn: "ইনজেনুইটি", emoji: "🚁"}
+    answer: 0
+    explain: {en: "Curiosity landed in Gale Crater in 2012 and has been climbing Mount Sharp, reading its rock layers like a history book.", bn: "কিউরিওসিটি ২০১২ সালে গেল খাদে নামে আর মাউন্ট শার্পে উঠছে, পাথরের স্তরগুলো ইতিহাসের বইয়ের মতো পড়ছে।"}
+    source: https://science.nasa.gov/mission/msl-curiosity/
+  - id: m3-ice-1
+    part: mars3d
+    skill: mars-places
+    level: 1
+    type: truefalse
+    q: {en: "Mars has ice caps at its north and south poles.", bn: "মঙ্গলের উত্তর আর দক্ষিণ মেরুতে বরফের টুপি আছে।"}
+    answer: true
+    explain: {en: "Mars has polar ice caps made of water ice, with a frosty layer of frozen carbon dioxide in winter.", bn: "মঙ্গলের মেরুতে পানির বরফের টুপি আছে, শীতে তার ওপর জমাট কার্বন ডাই-অক্সাইডের স্তর পড়ে।"}
+    source: https://science.nasa.gov/mars/facts/
+  - id: m3-order-1
+    part: mars3d
+    skill: mars-places
+    level: 3
+    type: order
+    q: {en: "Order these Mars missions from first landing to latest.", bn: "এই মঙ্গল মিশনগুলো প্রথম অবতরণ থেকে সর্বশেষ পর্যন্ত সাজাও।"}
+    options:
+      - {en: "Viking 1 (1976)", bn: "ভাইকিং ১ (১৯৭৬)", emoji: "🛰️"}
+      - {en: "Curiosity (2012)", bn: "কিউরিওসিটি (২০১২)", emoji: "🤖"}
+      - {en: "Perseverance (2021)", bn: "পারসিভিয়ারেন্স (২০২১)", emoji: "🛞"}
+    explain: {en: "Viking 1 sent the first pictures from the surface of Mars in 1976. Rovers have been exploring ever since.", bn: "ভাইকিং ১ ১৯৭৬ সালে মঙ্গলের মাটি থেকে প্রথম ছবি পাঠায়। তখন থেকেই রোভারগুলো অনুসন্ধান করছে।"}
+    source: https://science.nasa.gov/mars/facts/
