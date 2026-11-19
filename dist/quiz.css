@@ -1,0 +1,25 @@
+.quiz{max-width:720px;margin:0 auto}
+.progress-dots{display:flex;gap:8px;margin:8px 0 18px}
+.progress-dots span{flex:1;height:8px;border-radius:9px;background:#ffffff1f}
+.progress-dots span.done{background:var(--mint)}
+.progress-dots span.now{background:var(--gold)}
+.question{font-size:clamp(22px,4vw,30px);line-height:1.25;margin:4px 0 18px;font-weight:800}
+.answers{display:grid;gap:12px}
+.answers.two{grid-template-columns:1fr 1fr}
+.answer{display:flex;align-items:center;gap:14px;text-align:left;border:2px solid var(--line);background:var(--panel);border-radius:18px;padding:14px 16px;min-height:64px;color:var(--cream);font-size:19px}
+.answer .emo{font-size:34px;line-height:1}
+.answer.right{border-color:var(--mint);background:#235447}
+.answer.wrong{border-color:var(--bad);background:#5a2f3a}
+.answer[disabled]{cursor:default}
+.order-list{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.order-list li{display:flex;align-items:center;gap:12px;background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:10px 12px;font-size:18px;touch-action:none}
+.order-list li .emo{font-size:28px}
+.order-list li .moves{margin-left:auto;display:flex;gap:6px}
+.order-list li .moves button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--panel2)}
+.order-list li.dragging{opacity:.6;border-color:var(--gold)}
+.explain{margin-top:16px;padding:14px 16px;border-radius:16px;background:#2b3a5c}
+.explain.good{background:#235447}
+.explain a{font-size:14px}
+.quiz-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.badge{font-size:84px;line-height:1;margin:10px 0}
+.part-list{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
