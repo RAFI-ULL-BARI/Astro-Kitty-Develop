@@ -1,0 +1,8 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+sqlalchemy>=2.0
+pyyaml>=6.0
+reportlab>=4.0
+skyfield>=1.48
+anthropic>=2.0
+psycopg[binary]>=3.1  # only used when DATABASE_URL points to Postgres

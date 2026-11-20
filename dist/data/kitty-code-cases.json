@@ -1,0 +1,8639 @@
+[
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 1,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 3
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 1,
+  "source": "MOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 0,
+    "y": 0
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 0
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 1,
+  "source": ""
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 2,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 4
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 1,
+  "source": "MOVE 9\nMOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 1,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 3
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 1,
+  "source": "MOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 3,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 5,
+    "y": 0
+   },
+   "message": "",
+   "samples": 1,
+   "stars": 3,
+   "status": "success",
+   "steps": 6
+  },
+  "map": [
+   ">.*..B"
+  ],
+  "par": 3,
+  "source": "MOVE 2\nDRILL\nMOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 2,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 0
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 1,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 3
+  },
+  "map": [
+   ">.*..B"
+  ],
+  "par": 3,
+  "source": "MOVE 2\nDRILL"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 4,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 5,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 1,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 6
+  },
+  "map": [
+   ">.*..B"
+  ],
+  "par": 3,
+  "source": "MOVE 9\nMOVE 2\nDRILL\nMOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 3,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 5,
+    "y": 0
+   },
+   "message": "",
+   "samples": 1,
+   "stars": 3,
+   "status": "success",
+   "steps": 6
+  },
+  "map": [
+   ">.*..B"
+  ],
+  "par": 3,
+  "source": "MOVE 2\nDRILL\nMOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 3,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 2,
+    "y": 2
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 5
+  },
+  "map": [
+   ">..#",
+   "##.#",
+   "##B#"
+  ],
+  "par": 3,
+  "source": "MOVE 2\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 2,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 2,
+    "y": 0
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 3
+  },
+  "map": [
+   ">..#",
+   "##.#",
+   "##B#"
+  ],
+  "par": 3,
+  "source": "MOVE 2\nTURN RIGHT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 4,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   ">..#",
+   "##.#",
+   "##B#"
+  ],
+  "par": 3,
+  "source": "MOVE 9\nMOVE 2\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 3,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 2,
+    "y": 2
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 5
+  },
+  "map": [
+   ">..#",
+   "##.#",
+   "##B#"
+  ],
+  "par": 3,
+  "source": "MOVE 2\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 3,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 0,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 5
+  },
+  "map": [
+   "B..#",
+   "##.#",
+   "##^#"
+  ],
+  "par": 3,
+  "source": "MOVE 2\nTURN LEFT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 2,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 2,
+    "y": 0
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 3
+  },
+  "map": [
+   "B..#",
+   "##.#",
+   "##^#"
+  ],
+  "par": 3,
+  "source": "MOVE 2\nTURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 4,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 2,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "B..#",
+   "##.#",
+   "##^#"
+  ],
+  "par": 3,
+  "source": "MOVE 9\nMOVE 2\nTURN LEFT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 3,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 0
+   },
+   "line": 3,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 4
+  },
+  "map": [
+   "B..#",
+   "##.#",
+   "##^#"
+  ],
+  "par": 3,
+  "source": "MOVE 2\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 4,
+    "y": 2
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 9
+  },
+  "map": [
+   ">.#..",
+   "#....",
+   "####B"
+  ],
+  "par": 7,
+  "source": "MOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE 3\nTURN RIGHT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 4,
+    "y": 1
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 8
+  },
+  "map": [
+   ">.#..",
+   "#....",
+   "####B"
+  ],
+  "par": 7,
+  "source": "MOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE 3\nTURN RIGHT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   ">.#..",
+   "#....",
+   "####B"
+  ],
+  "par": 7,
+  "source": "MOVE 9\nMOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE 3\nTURN RIGHT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 1,
+    "y": 1
+   },
+   "line": 5,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 5
+  },
+  "map": [
+   ">.#..",
+   "#....",
+   "####B"
+  ],
+  "par": 7,
+  "source": "MOVE\nTURN RIGHT\nMOVE\nTURN RIGHT\nMOVE 3\nTURN RIGHT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 5,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 4,
+    "y": 0
+   },
+   "message": "",
+   "samples": 2,
+   "stars": 3,
+   "status": "success",
+   "steps": 6
+  },
+  "map": [
+   ">*.*B"
+  ],
+  "par": 5,
+  "source": "MOVE\nDRILL\nMOVE 2\nDRILL\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 4,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 2,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 5
+  },
+  "map": [
+   ">*.*B"
+  ],
+  "par": 5,
+  "source": "MOVE\nDRILL\nMOVE 2\nDRILL"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 4,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 5
+  },
+  "map": [
+   ">*.*B"
+  ],
+  "par": 5,
+  "source": "MOVE 9\nMOVE\nDRILL\nMOVE 2\nDRILL\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 5,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 4,
+    "y": 0
+   },
+   "message": "",
+   "samples": 2,
+   "stars": 3,
+   "status": "success",
+   "steps": 6
+  },
+  "map": [
+   ">*.*B"
+  ],
+  "par": 5,
+  "source": "MOVE\nDRILL\nMOVE 2\nDRILL\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 4,
+    "y": 3
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 13
+  },
+  "map": [
+   ">.###",
+   "#..##",
+   "##..#",
+   "###.B"
+  ],
+  "par": 13,
+  "source": "MOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 3
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 12
+  },
+  "map": [
+   ">.###",
+   "#..##",
+   "##..#",
+   "###.B"
+  ],
+  "par": 13,
+  "source": "MOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE\nTURN RIGHT\nMOVE\nTURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 14,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   ">.###",
+   "#..##",
+   "##..#",
+   "###.B"
+  ],
+  "par": 13,
+  "source": "MOVE 9\nMOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 1,
+    "y": 1
+   },
+   "line": 5,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 5
+  },
+  "map": [
+   ">.###",
+   "#..##",
+   "##..#",
+   "###.B"
+  ],
+  "par": 13,
+  "source": "MOVE\nTURN RIGHT\nMOVE\nTURN RIGHT\nMOVE\nTURN RIGHT\nMOVE\nTURN RIGHT\nMOVE\nTURN RIGHT\nMOVE\nTURN RIGHT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 5,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 2
+   },
+   "message": "",
+   "samples": 1,
+   "stars": 3,
+   "status": "success",
+   "steps": 8
+  },
+  "map": [
+   "v###",
+   ".###",
+   "*..B"
+  ],
+  "par": 5,
+  "source": "SCAN\nMOVE 2\nDRILL\nTURN LEFT\nMOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 4,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 0,
+    "y": 2
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 1,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 5
+  },
+  "map": [
+   "v###",
+   ".###",
+   "*..B"
+  ],
+  "par": 5,
+  "source": "SCAN\nMOVE 2\nDRILL\nTURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 0,
+    "y": 2
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 1,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "v###",
+   ".###",
+   "*..B"
+  ],
+  "par": 5,
+  "source": "MOVE 9\nSCAN\nMOVE 2\nDRILL\nTURN LEFT\nMOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 5,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 0,
+    "y": 2
+   },
+   "line": 5,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 1,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 6
+  },
+  "map": [
+   "v###",
+   ".###",
+   "*..B"
+  ],
+  "par": 5,
+  "source": "SCAN\nMOVE 2\nDRILL\nTURN RIGHT\nMOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 5,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 2,
+    "y": 2
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 8
+  },
+  "map": [
+   "...",
+   ".#.",
+   "^#B"
+  ],
+  "par": 5,
+  "source": "MOVE 2\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 4,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 2,
+    "y": 0
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 6
+  },
+  "map": [
+   "...",
+   ".#.",
+   "^#B"
+  ],
+  "par": 5,
+  "source": "MOVE 2\nTURN RIGHT\nMOVE 2\nTURN RIGHT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 0,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "...",
+   ".#.",
+   "^#B"
+  ],
+  "par": 5,
+  "source": "MOVE 9\nMOVE 2\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 5,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 2,
+    "y": 2
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 8
+  },
+  "map": [
+   "...",
+   ".#.",
+   "^#B"
+  ],
+  "par": 5,
+  "source": "MOVE 2\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 4,
+    "y": 4
+   },
+   "message": "",
+   "samples": 2,
+   "stars": 3,
+   "status": "success",
+   "steps": 18
+  },
+  "map": [
+   ">...#",
+   "###.#",
+   "#*..#",
+   "#.###",
+   "#..*B"
+  ],
+  "par": 12,
+  "source": "MOVE 3\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE 2\nDRILL\nTURN LEFT\nMOVE 2\nTURN LEFT\nMOVE 2\nDRILL\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 11,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 4
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 2,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 17
+  },
+  "map": [
+   ">...#",
+   "###.#",
+   "#*..#",
+   "#.###",
+   "#..*B"
+  ],
+  "par": 12,
+  "source": "MOVE 3\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE 2\nDRILL\nTURN LEFT\nMOVE 2\nTURN LEFT\nMOVE 2\nDRILL"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 4
+  },
+  "map": [
+   ">...#",
+   "###.#",
+   "#*..#",
+   "#.###",
+   "#..*B"
+  ],
+  "par": 12,
+  "source": "MOVE 9\nMOVE 3\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE 2\nDRILL\nTURN LEFT\nMOVE 2\nTURN LEFT\nMOVE 2\nDRILL\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 1,
+    "y": 2
+   },
+   "line": 8,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 12
+  },
+  "map": [
+   ">...#",
+   "###.#",
+   "#*..#",
+   "#.###",
+   "#..*B"
+  ],
+  "par": 12,
+  "source": "MOVE 3\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE 2\nDRILL\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE 2\nDRILL\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 5,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 6,
+    "y": 4
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 14
+  },
+  "map": [
+   ">...###",
+   "###.###",
+   "###....",
+   "######.",
+   "######B"
+  ],
+  "par": 5,
+  "source": "REPEAT 2 TIMES\n  MOVE 3\n  TURN RIGHT\n  MOVE 2\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">...###",
+   "###.###",
+   "###....",
+   "######.",
+   "######B"
+  ],
+  "par": 5,
+  "source": "REPEAT 2 TIMES\n  MOVE 3\n  TURN RIGHT\n  MOVE 2\n  TURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 4
+  },
+  "map": [
+   ">...###",
+   "###.###",
+   "###....",
+   "######.",
+   "######B"
+  ],
+  "par": 5,
+  "source": "MOVE 9\nREPEAT 2 TIMES\n  MOVE 3\n  TURN RIGHT\n  MOVE 2\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 5,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 3,
+    "y": 2
+   },
+   "line": 2,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 8
+  },
+  "map": [
+   ">...###",
+   "###.###",
+   "###....",
+   "######.",
+   "######B"
+  ],
+  "par": 5,
+  "source": "REPEAT 2 TIMES\n  MOVE 3\n  TURN RIGHT\n  MOVE 2\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 5,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 4,
+    "y": 4
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 12
+  },
+  "map": [
+   ">..##",
+   "##.##",
+   "##...",
+   "####.",
+   "####B"
+  ],
+  "par": 5,
+  "source": "REPEAT 2 TIMES\n  MOVE 2\n  TURN RIGHT\n  MOVE 2\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">..##",
+   "##.##",
+   "##...",
+   "####.",
+   "####B"
+  ],
+  "par": 5,
+  "source": "REPEAT 2 TIMES\n  MOVE 2\n  TURN RIGHT\n  MOVE 2\n  TURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   ">..##",
+   "##.##",
+   "##...",
+   "####.",
+   "####B"
+  ],
+  "par": 5,
+  "source": "MOVE 9\nREPEAT 2 TIMES\n  MOVE 2\n  TURN RIGHT\n  MOVE 2\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 5,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 2,
+    "y": 2
+   },
+   "line": 2,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 7
+  },
+  "map": [
+   ">..##",
+   "##.##",
+   "##...",
+   "####.",
+   "####B"
+  ],
+  "par": 5,
+  "source": "REPEAT 2 TIMES\n  MOVE 2\n  TURN RIGHT\n  MOVE 2\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 5,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 10
+  },
+  "map": [
+   "##B",
+   "##.",
+   "#..",
+   "#.#",
+   ">.#"
+  ],
+  "par": 5,
+  "source": "REPEAT 2 TIMES\n  MOVE\n  TURN LEFT\n  MOVE 2\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "##B",
+   "##.",
+   "#..",
+   "#.#",
+   ">.#"
+  ],
+  "par": 5,
+  "source": "REPEAT 2 TIMES\n  MOVE\n  TURN LEFT\n  MOVE 2\n  TURN RIGHT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 4
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   "##B",
+   "##.",
+   "#..",
+   "#.#",
+   ">.#"
+  ],
+  "par": 5,
+  "source": "MOVE 9\nREPEAT 2 TIMES\n  MOVE\n  TURN LEFT\n  MOVE 2\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 5,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 4
+   },
+   "line": 4,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "##B",
+   "##.",
+   "#..",
+   "#.#",
+   ">.#"
+  ],
+  "par": 5,
+  "source": "REPEAT 2 TIMES\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 5,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 6,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 18
+  },
+  "map": [
+   "######B",
+   "######.",
+   "####...",
+   "####.##",
+   "##...##",
+   "##.####",
+   ">..####"
+  ],
+  "par": 5,
+  "source": "REPEAT 3 TIMES\n  MOVE 2\n  TURN LEFT\n  MOVE 2\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "######B",
+   "######.",
+   "####...",
+   "####.##",
+   "##...##",
+   "##.####",
+   ">..####"
+  ],
+  "par": 5,
+  "source": "REPEAT 3 TIMES\n  MOVE 2\n  TURN LEFT\n  MOVE 2\n  TURN RIGHT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 6
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "######B",
+   "######.",
+   "####...",
+   "####.##",
+   "##...##",
+   "##.####",
+   ">..####"
+  ],
+  "par": 5,
+  "source": "MOVE 9\nREPEAT 3 TIMES\n  MOVE 2\n  TURN LEFT\n  MOVE 2\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 5,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 2,
+    "y": 6
+   },
+   "line": 4,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 4
+  },
+  "map": [
+   "######B",
+   "######.",
+   "####...",
+   "####.##",
+   "##...##",
+   "##.####",
+   ">..####"
+  ],
+  "par": 5,
+  "source": "REPEAT 3 TIMES\n  MOVE 2\n  TURN RIGHT\n  MOVE 2\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 9,
+    "y": 0
+   },
+   "message": "",
+   "samples": 2,
+   "stars": 3,
+   "status": "success",
+   "steps": 23
+  },
+  "map": [
+   "#########B",
+   "#########.",
+   "######*...",
+   "######.###",
+   "###*...###",
+   "###.######",
+   ">...######"
+  ],
+  "par": 7,
+  "source": "REPEAT 3 TIMES\n  MOVE 3\n  TURN LEFT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "#########B",
+   "#########.",
+   "######*...",
+   "######.###",
+   "###*...###",
+   "###.######",
+   ">...######"
+  ],
+  "par": 7,
+  "source": "REPEAT 3 TIMES\n  MOVE 3\n  TURN LEFT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 6
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 4
+  },
+  "map": [
+   "#########B",
+   "#########.",
+   "######*...",
+   "######.###",
+   "###*...###",
+   "###.######",
+   ">...######"
+  ],
+  "par": 7,
+  "source": "MOVE 9\nREPEAT 3 TIMES\n  MOVE 3\n  TURN LEFT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 3,
+    "y": 6
+   },
+   "line": 4,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 5
+  },
+  "map": [
+   "#########B",
+   "#########.",
+   "######*...",
+   "######.###",
+   "###*...###",
+   "###.######",
+   ">...######"
+  ],
+  "par": 7,
+  "source": "REPEAT 3 TIMES\n  MOVE 3\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 6,
+    "y": 6
+   },
+   "message": "",
+   "samples": 2,
+   "stars": 3,
+   "status": "success",
+   "steps": 20
+  },
+  "map": [
+   ">..####",
+   "##.####",
+   "##*..##",
+   "####.##",
+   "####*..",
+   "######.",
+   "######B"
+  ],
+  "par": 7,
+  "source": "REPEAT 3 TIMES\n  MOVE 2\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">..####",
+   "##.####",
+   "##*..##",
+   "####.##",
+   "####*..",
+   "######.",
+   "######B"
+  ],
+  "par": 7,
+  "source": "REPEAT 3 TIMES\n  MOVE 2\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   ">..####",
+   "##.####",
+   "##*..##",
+   "####.##",
+   "####*..",
+   "######.",
+   "######B"
+  ],
+  "par": 7,
+  "source": "MOVE 9\nREPEAT 3 TIMES\n  MOVE 2\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 2,
+    "y": 2
+   },
+   "line": 2,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 8
+  },
+  "map": [
+   ">..####",
+   "##.####",
+   "##*..##",
+   "####.##",
+   "####*..",
+   "######.",
+   "######B"
+  ],
+  "par": 7,
+  "source": "REPEAT 3 TIMES\n  MOVE 2\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 3,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 12,
+    "y": 4
+   },
+   "message": "",
+   "samples": 3,
+   "stars": 3,
+   "status": "success",
+   "steps": 27
+  },
+  "map": [
+   ">...#########",
+   "###*...######",
+   "######*...###",
+   "#########*...",
+   "############B"
+  ],
+  "par": 7,
+  "source": "REPEAT 4 TIMES\n  MOVE 3\n  TURN RIGHT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">...#########",
+   "###*...######",
+   "######*...###",
+   "#########*...",
+   "############B"
+  ],
+  "par": 7,
+  "source": "REPEAT 4 TIMES\n  MOVE 3\n  TURN RIGHT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 3,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 4
+  },
+  "map": [
+   ">...#########",
+   "###*...######",
+   "######*...###",
+   "#########*...",
+   "############B"
+  ],
+  "par": 7,
+  "source": "MOVE 9\nREPEAT 4 TIMES\n  MOVE 3\n  TURN RIGHT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 3,
+    "y": 1
+   },
+   "line": 2,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 3,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 8
+  },
+  "map": [
+   ">...#########",
+   "###*...######",
+   "######*...###",
+   "#########*...",
+   "############B"
+  ],
+  "par": 7,
+  "source": "REPEAT 4 TIMES\n  MOVE 3\n  TURN RIGHT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 3,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 4,
+    "y": 0
+   },
+   "message": "",
+   "samples": 3,
+   "stars": 3,
+   "status": "success",
+   "steps": 23
+  },
+  "map": [
+   "####B",
+   "####.",
+   "###*.",
+   "###.#",
+   "##*.#",
+   "##.##",
+   "#*.##",
+   "#.###",
+   ">.###"
+  ],
+  "par": 7,
+  "source": "REPEAT 4 TIMES\n  MOVE\n  TURN LEFT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "####B",
+   "####.",
+   "###*.",
+   "###.#",
+   "##*.#",
+   "##.##",
+   "#*.##",
+   "#.###",
+   ">.###"
+  ],
+  "par": 7,
+  "source": "REPEAT 4 TIMES\n  MOVE\n  TURN LEFT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 8
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 3,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   "####B",
+   "####.",
+   "###*.",
+   "###.#",
+   "##*.#",
+   "##.##",
+   "#*.##",
+   "#.###",
+   ">.###"
+  ],
+  "par": 7,
+  "source": "MOVE 9\nREPEAT 4 TIMES\n  MOVE\n  TURN LEFT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 8
+   },
+   "line": 4,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 3,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "####B",
+   "####.",
+   "###*.",
+   "###.#",
+   "##*.#",
+   "##.##",
+   "#*.##",
+   "#.###",
+   ">.###"
+  ],
+  "par": 7,
+  "source": "REPEAT 4 TIMES\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 3,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 8,
+    "y": 0
+   },
+   "message": "",
+   "samples": 3,
+   "stars": 3,
+   "status": "success",
+   "steps": 23
+  },
+  "map": [
+   "########B",
+   "######*..",
+   "####*..##",
+   "##*..####",
+   ">..######"
+  ],
+  "par": 7,
+  "source": "REPEAT 4 TIMES\n  MOVE 2\n  TURN LEFT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "########B",
+   "######*..",
+   "####*..##",
+   "##*..####",
+   ">..######"
+  ],
+  "par": 7,
+  "source": "REPEAT 4 TIMES\n  MOVE 2\n  TURN LEFT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 4
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 3,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "########B",
+   "######*..",
+   "####*..##",
+   "##*..####",
+   ">..######"
+  ],
+  "par": 7,
+  "source": "MOVE 9\nREPEAT 4 TIMES\n  MOVE 2\n  TURN LEFT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 2,
+    "y": 4
+   },
+   "line": 4,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 3,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 4
+  },
+  "map": [
+   "########B",
+   "######*..",
+   "####*..##",
+   "##*..####",
+   ">..######"
+  ],
+  "par": 7,
+  "source": "REPEAT 4 TIMES\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 4,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 10,
+    "y": 10
+   },
+   "message": "",
+   "samples": 4,
+   "stars": 3,
+   "status": "success",
+   "steps": 34
+  },
+  "map": [
+   ">..########",
+   "##.########",
+   "##*..######",
+   "####.######",
+   "####*..####",
+   "######.####",
+   "######*..##",
+   "########.##",
+   "########*..",
+   "##########.",
+   "##########B"
+  ],
+  "par": 7,
+  "source": "REPEAT 5 TIMES\n  MOVE 2\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">..########",
+   "##.########",
+   "##*..######",
+   "####.######",
+   "####*..####",
+   "######.####",
+   "######*..##",
+   "########.##",
+   "########*..",
+   "##########.",
+   "##########B"
+  ],
+  "par": 7,
+  "source": "REPEAT 5 TIMES\n  MOVE 2\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 4,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   ">..########",
+   "##.########",
+   "##*..######",
+   "####.######",
+   "####*..####",
+   "######.####",
+   "######*..##",
+   "########.##",
+   "########*..",
+   "##########.",
+   "##########B"
+  ],
+  "par": 7,
+  "source": "MOVE 9\nREPEAT 5 TIMES\n  MOVE 2\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 2,
+    "y": 2
+   },
+   "line": 2,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 4,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 8
+  },
+  "map": [
+   ">..########",
+   "##.########",
+   "##*..######",
+   "####.######",
+   "####*..####",
+   "######.####",
+   "######*..##",
+   "########.##",
+   "########*..",
+   "##########.",
+   "##########B"
+  ],
+  "par": 7,
+  "source": "REPEAT 5 TIMES\n  MOVE 2\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 2,
+    "y": 5
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 10
+  },
+  "map": [
+   "#####",
+   "#v###",
+   "#.###",
+   "#...#",
+   "###.#",
+   "##B.#",
+   "#####"
+  ],
+  "par": 6,
+  "source": "REPEAT UNTIL AT BASE\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "#####",
+   "#v###",
+   "#.###",
+   "#...#",
+   "###.#",
+   "##B.#",
+   "#####"
+  ],
+  "par": 6,
+  "source": "REPEAT UNTIL AT BASE\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 3
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "#####",
+   "#v###",
+   "#.###",
+   "#...#",
+   "###.#",
+   "##B.#",
+   "#####"
+  ],
+  "par": 6,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 1
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 0,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "#####",
+   "#v###",
+   "#.###",
+   "#...#",
+   "###.#",
+   "##B.#",
+   "#####"
+  ],
+  "par": 6,
+  "source": "REPEAT UNTIL AT BASE\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 5,
+    "y": 2
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 13
+  },
+  "map": [
+   "#######",
+   "#v#...#",
+   "#.#.#B#",
+   "#...###",
+   "#######"
+  ],
+  "par": 6,
+  "source": "REPEAT UNTIL AT BASE\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "#######",
+   "#v#...#",
+   "#.#.#B#",
+   "#...###",
+   "#######"
+  ],
+  "par": 6,
+  "source": "REPEAT UNTIL AT BASE\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 3
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "#######",
+   "#v#...#",
+   "#.#.#B#",
+   "#...###",
+   "#######"
+  ],
+  "par": 6,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 1
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 0,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "#######",
+   "#v#...#",
+   "#.#.#B#",
+   "#...###",
+   "#######"
+  ],
+  "par": 6,
+  "source": "REPEAT UNTIL AT BASE\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 7,
+    "y": 2
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 16
+  },
+  "map": [
+   "#########",
+   "#>..#...#",
+   "###.#.#B#",
+   "###...###",
+   "#########"
+  ],
+  "par": 6,
+  "source": "REPEAT UNTIL AT BASE\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "#########",
+   "#>..#...#",
+   "###.#.#B#",
+   "###...###",
+   "#########"
+  ],
+  "par": 6,
+  "source": "REPEAT UNTIL AT BASE\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 1
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "#########",
+   "#>..#...#",
+   "###.#.#B#",
+   "###...###",
+   "#########"
+  ],
+  "par": 6,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 3,
+    "y": 2
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 0,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "#########",
+   "#>..#...#",
+   "###.#.#B#",
+   "###...###",
+   "#########"
+  ],
+  "par": 6,
+  "source": "REPEAT UNTIL AT BASE\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 5,
+    "y": 6
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 20
+  },
+  "map": [
+   "#######",
+   "#v#####",
+   "#.#####",
+   "#...###",
+   "###.###",
+   "##..###",
+   "##.#.B#",
+   "##...##",
+   "#######"
+  ],
+  "par": 6,
+  "source": "REPEAT UNTIL AT BASE\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "#######",
+   "#v#####",
+   "#.#####",
+   "#...###",
+   "###.###",
+   "##..###",
+   "##.#.B#",
+   "##...##",
+   "#######"
+  ],
+  "par": 6,
+  "source": "REPEAT UNTIL AT BASE\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 3
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "#######",
+   "#v#####",
+   "#.#####",
+   "#...###",
+   "###.###",
+   "##..###",
+   "##.#.B#",
+   "##...##",
+   "#######"
+  ],
+  "par": 6,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 1
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 0,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "#######",
+   "#v#####",
+   "#.#####",
+   "#...###",
+   "###.###",
+   "##..###",
+   "##.#.B#",
+   "##...##",
+   "#######"
+  ],
+  "par": 6,
+  "source": "REPEAT UNTIL AT BASE\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 8
+   },
+   "message": "",
+   "samples": 2,
+   "stars": 3,
+   "status": "success",
+   "steps": 24
+  },
+  "map": [
+   "#####",
+   "#>..#",
+   "###.#",
+   "#...#",
+   "#*###",
+   "#...#",
+   "###.#",
+   "#*..#",
+   "#B###",
+   "#####"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "#####",
+   "#>..#",
+   "###.#",
+   "#...#",
+   "#*###",
+   "#...#",
+   "###.#",
+   "#*..#",
+   "#B###",
+   "#####"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 1
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "#####",
+   "#>..#",
+   "###.#",
+   "#...#",
+   "#*###",
+   "#...#",
+   "###.#",
+   "#*..#",
+   "#B###",
+   "#####"
+  ],
+  "par": 8,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 1,
+    "y": 3
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 2,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "#####",
+   "#>..#",
+   "###.#",
+   "#...#",
+   "#*###",
+   "#...#",
+   "###.#",
+   "#*..#",
+   "#B###",
+   "#####"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 5,
+    "y": 6
+   },
+   "message": "",
+   "samples": 2,
+   "stars": 3,
+   "status": "success",
+   "steps": 27
+  },
+  "map": [
+   "#########",
+   "#v#...###",
+   "#.#.#*###",
+   "#...#...#",
+   "#######*#",
+   "#####...#",
+   "#####B###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "#########",
+   "#v#...###",
+   "#.#.#*###",
+   "#...#...#",
+   "#######*#",
+   "#####...#",
+   "#####B###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 3
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "#########",
+   "#v#...###",
+   "#.#.#*###",
+   "#...#...#",
+   "#######*#",
+   "#####...#",
+   "#####B###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 1
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 2,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "#########",
+   "#v#...###",
+   "#.#.#*###",
+   "#...#...#",
+   "#######*#",
+   "#####...#",
+   "#####B###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 7,
+    "y": 4
+   },
+   "message": "",
+   "samples": 2,
+   "stars": 3,
+   "status": "success",
+   "steps": 30
+  },
+  "map": [
+   "#########",
+   "#>..#####",
+   "###.#####",
+   "#...#####",
+   "#.#####B#",
+   "#.**#...#",
+   "###.#.###",
+   "###...###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "#########",
+   "#>..#####",
+   "###.#####",
+   "#...#####",
+   "#.#####B#",
+   "#.**#...#",
+   "###.#.###",
+   "###...###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 1
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "#########",
+   "#>..#####",
+   "###.#####",
+   "#...#####",
+   "#.#####B#",
+   "#.**#...#",
+   "###.#.###",
+   "###...###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 1,
+    "y": 3
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 2,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "#########",
+   "#>..#####",
+   "###.#####",
+   "#...#####",
+   "#.#####B#",
+   "#.**#...#",
+   "###.#.###",
+   "###...###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 7,
+    "y": 8
+   },
+   "message": "",
+   "samples": 2,
+   "stars": 3,
+   "status": "success",
+   "steps": 33
+  },
+  "map": [
+   "#########",
+   "#v#######",
+   "#*#######",
+   "#...#####",
+   "###*#####",
+   "#...#####",
+   "#.#######",
+   "#...#...#",
+   "###.#.#B#",
+   "###...###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "#########",
+   "#v#######",
+   "#*#######",
+   "#...#####",
+   "###*#####",
+   "#...#####",
+   "#.#######",
+   "#...#...#",
+   "###.#.#B#",
+   "###...###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 3
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "#########",
+   "#v#######",
+   "#*#######",
+   "#...#####",
+   "###*#####",
+   "#...#####",
+   "#.#######",
+   "#...#...#",
+   "###.#.#B#",
+   "###...###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 1
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 2,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "#########",
+   "#v#######",
+   "#*#######",
+   "#...#####",
+   "###*#####",
+   "#...#####",
+   "#.#######",
+   "#...#...#",
+   "###.#.#B#",
+   "###...###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 3,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 9,
+    "y": 6
+   },
+   "message": "",
+   "samples": 3,
+   "stars": 3,
+   "status": "success",
+   "steps": 37
+  },
+  "map": [
+   "###########",
+   "#>..#######",
+   "###*#######",
+   "#.*.#######",
+   "#.#########",
+   "#...#######",
+   "###.#####B#",
+   "###...#...#",
+   "#####.#.###",
+   "#####*..###",
+   "###########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "###########",
+   "#>..#######",
+   "###*#######",
+   "#.*.#######",
+   "#.#########",
+   "#...#######",
+   "###.#####B#",
+   "###...#...#",
+   "#####.#.###",
+   "#####*..###",
+   "###########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 1
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 3,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "###########",
+   "#>..#######",
+   "###*#######",
+   "#.*.#######",
+   "#.#########",
+   "#...#######",
+   "###.#####B#",
+   "###...#...#",
+   "#####.#.###",
+   "#####*..###",
+   "###########"
+  ],
+  "par": 8,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 3,
+    "y": 3
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 3,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "###########",
+   "#>..#######",
+   "###*#######",
+   "#.*.#######",
+   "#.#########",
+   "#...#######",
+   "###.#####B#",
+   "###...#...#",
+   "#####.#.###",
+   "#####*..###",
+   "###########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 3,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 6,
+    "y": 1
+   },
+   "message": "",
+   "samples": 3,
+   "stars": 3,
+   "status": "success",
+   "steps": 40
+  },
+  "map": [
+   "#########",
+   "#>..#.B##",
+   "###.#.###",
+   "#...#...#",
+   "#*#####.#",
+   "#*..#...#",
+   "###.#*###",
+   "###...###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "#########",
+   "#>..#.B##",
+   "###.#.###",
+   "#...#...#",
+   "#*#####.#",
+   "#*..#...#",
+   "###.#*###",
+   "###...###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 1
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 3,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "#########",
+   "#>..#.B##",
+   "###.#.###",
+   "#...#...#",
+   "#*#####.#",
+   "#*..#...#",
+   "###.#*###",
+   "###...###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 1,
+    "y": 3
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 3,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "#########",
+   "#>..#.B##",
+   "###.#.###",
+   "#...#...#",
+   "#*#####.#",
+   "#*..#...#",
+   "###.#*###",
+   "###...###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 8,
+    "y": 2
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 14
+  },
+  "map": [
+   ">..######",
+   "##......#",
+   "#######.B"
+  ],
+  "par": 9,
+  "source": "DEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 5,
+    "y": 1
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 8
+  },
+  "map": [
+   ">..######",
+   "##......#",
+   "#######.B"
+  ],
+  "par": 9,
+  "source": "DEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 10,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   ">..######",
+   "##......#",
+   "#######.B"
+  ],
+  "par": 9,
+  "source": "MOVE 9\nDEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 2,
+    "y": 1
+   },
+   "line": 6,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 6
+  },
+  "map": [
+   ">..######",
+   "##......#",
+   "#######.B"
+  ],
+  "par": 9,
+  "source": "DEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 7,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 13
+  },
+  "map": [
+   "######.B",
+   "#......#",
+   ">.######"
+  ],
+  "par": 9,
+  "source": "DEFINE HOP\n  MOVE\n  TURN LEFT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 5,
+    "y": 1
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 8
+  },
+  "map": [
+   "######.B",
+   "#......#",
+   ">.######"
+  ],
+  "par": 9,
+  "source": "DEFINE HOP\n  MOVE\n  TURN LEFT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 10,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 2
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   "######.B",
+   "#......#",
+   ">.######"
+  ],
+  "par": 9,
+  "source": "MOVE 9\nDEFINE HOP\n  MOVE\n  TURN LEFT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 2
+   },
+   "line": 4,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "######.B",
+   "#......#",
+   ">.######"
+  ],
+  "par": 9,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 6,
+    "y": 4
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 14
+  },
+  "map": [
+   ">.#####",
+   "#.#####",
+   "#.....#",
+   "#####.#",
+   "#####.B"
+  ],
+  "par": 9,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 4,
+    "y": 2
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 8
+  },
+  "map": [
+   ">.#####",
+   "#.#####",
+   "#.....#",
+   "#####.#",
+   "#####.B"
+  ],
+  "par": 9,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 10,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   ">.#####",
+   "#.#####",
+   "#.....#",
+   "#####.#",
+   "#####.B"
+  ],
+  "par": 9,
+  "source": "MOVE 9\nDEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 1,
+    "y": 2
+   },
+   "line": 6,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 6
+  },
+  "map": [
+   ">.#####",
+   "#.#####",
+   "#.....#",
+   "#####.#",
+   "#####.B"
+  ],
+  "par": 9,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 11,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 11,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 23
+  },
+  "map": [
+   "##########.B",
+   "##########.#",
+   "#####......#",
+   "#####.######",
+   "#.....######",
+   "#.##########",
+   ">.##########"
+  ],
+  "par": 11,
+  "source": "DEFINE HOP\n  MOVE\n  TURN LEFT\n  MOVE 2\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 10,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 9,
+    "y": 2
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 17
+  },
+  "map": [
+   "##########.B",
+   "##########.#",
+   "#####......#",
+   "#####.######",
+   "#.....######",
+   "#.##########",
+   ">.##########"
+  ],
+  "par": 11,
+  "source": "DEFINE HOP\n  MOVE\n  TURN LEFT\n  MOVE 2\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP\nMOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 6
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   "##########.B",
+   "##########.#",
+   "#####......#",
+   "#####.######",
+   "#.....######",
+   "#.##########",
+   ">.##########"
+  ],
+  "par": 11,
+  "source": "MOVE 9\nDEFINE HOP\n  MOVE\n  TURN LEFT\n  MOVE 2\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 11,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 6
+   },
+   "line": 4,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "##########.B",
+   "##########.#",
+   "#####......#",
+   "#####.######",
+   "#.....######",
+   "#.##########",
+   ">.##########"
+  ],
+  "par": 11,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 11,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 9,
+    "y": 3
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 18
+  },
+  "map": [
+   ">.########",
+   "#.....####",
+   "#####....#",
+   "########.B"
+  ],
+  "par": 11,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP\nMOVE\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 10,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 7,
+    "y": 2
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 13
+  },
+  "map": [
+   ">.########",
+   "#.....####",
+   "#####....#",
+   "########.B"
+  ],
+  "par": 11,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   ">.########",
+   "#.....####",
+   "#####....#",
+   "########.B"
+  ],
+  "par": 11,
+  "source": "MOVE 9\nDEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP\nMOVE\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 11,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 1,
+    "y": 1
+   },
+   "line": 6,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 5
+  },
+  "map": [
+   ">.########",
+   "#.....####",
+   "#####....#",
+   "########.B"
+  ],
+  "par": 11,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP\nMOVE\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 11,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 15,
+    "y": 3
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 24
+  },
+  "map": [
+   ">..#############",
+   "##.......#######",
+   "########.......#",
+   "##############.B"
+  ],
+  "par": 11,
+  "source": "DEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 10,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 12,
+    "y": 2
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 18
+  },
+  "map": [
+   ">..#############",
+   "##.......#######",
+   "########.......#",
+   "##############.B"
+  ],
+  "par": 11,
+  "source": "DEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   ">..#############",
+   "##.......#######",
+   "########.......#",
+   "##############.B"
+  ],
+  "par": 11,
+  "source": "MOVE 9\nDEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 11,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 2,
+    "y": 1
+   },
+   "line": 6,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 6
+  },
+  "map": [
+   ">..#############",
+   "##.......#######",
+   "########.......#",
+   "##############.B"
+  ],
+  "par": 11,
+  "source": "DEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 18,
+    "y": 4
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 30
+  },
+  "map": [
+   ">..################",
+   "##.......##########",
+   "########......#####",
+   "#############.....#",
+   "#################.B"
+  ],
+  "par": 13,
+  "source": "DEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE 2\nHOP\nMOVE\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 15,
+    "y": 3
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 24
+  },
+  "map": [
+   ">..################",
+   "##.......##########",
+   "########......#####",
+   "#############.....#",
+   "#################.B"
+  ],
+  "par": 13,
+  "source": "DEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE 2\nHOP\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 14,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   ">..################",
+   "##.......##########",
+   "########......#####",
+   "#############.....#",
+   "#################.B"
+  ],
+  "par": 13,
+  "source": "MOVE 9\nDEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE 2\nHOP\nMOVE\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 2,
+    "y": 1
+   },
+   "line": 6,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 6
+  },
+  "map": [
+   ">..################",
+   "##.......##########",
+   "########......#####",
+   "#############.....#",
+   "#################.B"
+  ],
+  "par": 13,
+  "source": "DEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE 2\nHOP\nMOVE\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 17,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 29
+  },
+  "map": [
+   "################.B",
+   "############.....#",
+   "########.....#####",
+   "##.......#########",
+   ">..###############"
+  ],
+  "par": 13,
+  "source": "DEFINE HOP\n  MOVE 2\n  TURN LEFT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE\nHOP\nMOVE\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 14,
+    "y": 1
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 23
+  },
+  "map": [
+   "################.B",
+   "############.....#",
+   "########.....#####",
+   "##.......#########",
+   ">..###############"
+  ],
+  "par": 13,
+  "source": "DEFINE HOP\n  MOVE 2\n  TURN LEFT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE\nHOP\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 14,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 4
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "################.B",
+   "############.....#",
+   "########.....#####",
+   "##.......#########",
+   ">..###############"
+  ],
+  "par": 13,
+  "source": "MOVE 9\nDEFINE HOP\n  MOVE 2\n  TURN LEFT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE\nHOP\nMOVE\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 2,
+    "y": 4
+   },
+   "line": 4,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 4
+  },
+  "map": [
+   "################.B",
+   "############.....#",
+   "########.....#####",
+   "##.......#########",
+   ">..###############"
+  ],
+  "par": 13,
+  "source": "DEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE\nHOP\nMOVE\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 15,
+    "y": 8
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 31
+  },
+  "map": [
+   ">.##############",
+   "#.##############",
+   "#......#########",
+   "######.#########",
+   "######......####",
+   "###########.####",
+   "###########....#",
+   "##############.#",
+   "##############.B"
+  ],
+  "par": 13,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE 3\nHOP\nMOVE\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 13,
+    "y": 6
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 25
+  },
+  "map": [
+   ">.##############",
+   "#.##############",
+   "#......#########",
+   "######.#########",
+   "######......####",
+   "###########.####",
+   "###########....#",
+   "##############.#",
+   "##############.B"
+  ],
+  "par": 13,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE 3\nHOP\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 14,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   ">.##############",
+   "#.##############",
+   "#......#########",
+   "######.#########",
+   "######......####",
+   "###########.####",
+   "###########....#",
+   "##############.#",
+   "##############.B"
+  ],
+  "par": 13,
+  "source": "MOVE 9\nDEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE 3\nHOP\nMOVE\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 1,
+    "y": 2
+   },
+   "line": 6,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 6
+  },
+  "map": [
+   ">.##############",
+   "#.##############",
+   "#......#########",
+   "######.#########",
+   "######......####",
+   "###########.####",
+   "###########....#",
+   "##############.#",
+   "##############.B"
+  ],
+  "par": 13,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE 3\nHOP\nMOVE\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 15,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 19,
+    "y": 5
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 34
+  },
+  "map": [
+   ">.##################",
+   "#......#############",
+   "######....##########",
+   "#########......#####",
+   "##############.....#",
+   "##################.B"
+  ],
+  "par": 15,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE\nHOP\nMOVE 3\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 14,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 17,
+    "y": 4
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 29
+  },
+  "map": [
+   ">.##################",
+   "#......#############",
+   "######....##########",
+   "#########......#####",
+   "##############.....#",
+   "##################.B"
+  ],
+  "par": 15,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE\nHOP\nMOVE 3\nHOP\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 16,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   ">.##################",
+   "#......#############",
+   "######....##########",
+   "#########......#####",
+   "##############.....#",
+   "##################.B"
+  ],
+  "par": 15,
+  "source": "MOVE 9\nDEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE\nHOP\nMOVE 3\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 15,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 1,
+    "y": 1
+   },
+   "line": 6,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 5
+  },
+  "map": [
+   ">.##################",
+   "#......#############",
+   "######....##########",
+   "#########......#####",
+   "##############.....#",
+   "##################.B"
+  ],
+  "par": 15,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE\nHOP\nMOVE 3\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 3,
+    "y": 8
+   },
+   "message": "",
+   "samples": 2,
+   "stars": 3,
+   "status": "success",
+   "steps": 21
+  },
+  "map": [
+   "#####",
+   "#v###",
+   "#*###",
+   "#...#",
+   "###.#",
+   "#..*#",
+   "#.###",
+   "#...#",
+   "###B#",
+   "#####"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "#####",
+   "#v###",
+   "#*###",
+   "#...#",
+   "###.#",
+   "#..*#",
+   "#.###",
+   "#...#",
+   "###B#",
+   "#####"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 3
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "#####",
+   "#v###",
+   "#*###",
+   "#...#",
+   "###.#",
+   "#..*#",
+   "#.###",
+   "#...#",
+   "###B#",
+   "#####"
+  ],
+  "par": 8,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 1
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 2,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "#####",
+   "#v###",
+   "#*###",
+   "#...#",
+   "###.#",
+   "#..*#",
+   "#.###",
+   "#...#",
+   "###B#",
+   "#####"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 3
+   },
+   "message": "",
+   "samples": 2,
+   "stars": 3,
+   "status": "success",
+   "steps": 14
+  },
+  "map": [
+   ">.##",
+   "#*.#",
+   "##*.",
+   "###B"
+  ],
+  "par": 7,
+  "source": "REPEAT 3 TIMES\n  MOVE\n  TURN RIGHT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">.##",
+   "#*.#",
+   "##*.",
+   "###B"
+  ],
+  "par": 7,
+  "source": "REPEAT 3 TIMES\n  MOVE\n  TURN RIGHT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   ">.##",
+   "#*.#",
+   "##*.",
+   "###B"
+  ],
+  "par": 7,
+  "source": "MOVE 9\nREPEAT 3 TIMES\n  MOVE\n  TURN RIGHT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 1,
+    "y": 1
+   },
+   "line": 2,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 6
+  },
+  "map": [
+   ">.##",
+   "#*.#",
+   "##*.",
+   "###B"
+  ],
+  "par": 7,
+  "source": "REPEAT 3 TIMES\n  MOVE\n  TURN RIGHT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 11,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 9,
+    "y": 3
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 18
+  },
+  "map": [
+   ">.########",
+   "#....#####",
+   "####.....#",
+   "########.B"
+  ],
+  "par": 11,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 10,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 7,
+    "y": 2
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 13
+  },
+  "map": [
+   ">.########",
+   "#....#####",
+   "####.....#",
+   "########.B"
+  ],
+  "par": 11,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE\nHOP\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   ">.########",
+   "#....#####",
+   "####.....#",
+   "########.B"
+  ],
+  "par": 11,
+  "source": "MOVE 9\nDEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 11,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 1,
+    "y": 1
+   },
+   "line": 6,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 5
+  },
+  "map": [
+   ">.########",
+   "#....#####",
+   "####.....#",
+   "########.B"
+  ],
+  "par": 11,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 3,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 8,
+    "y": 7
+   },
+   "message": "",
+   "samples": 3,
+   "stars": 3,
+   "status": "success",
+   "steps": 31
+  },
+  "map": [
+   "###########",
+   "#v#*..#####",
+   "#*#.#*#####",
+   "#...#...###",
+   "#######.###",
+   "#######...#",
+   "#########.#",
+   "########B.#",
+   "###########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "###########",
+   "#v#*..#####",
+   "#*#.#*#####",
+   "#...#...###",
+   "#######.###",
+   "#######...#",
+   "#########.#",
+   "########B.#",
+   "###########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 3
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 3,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "###########",
+   "#v#*..#####",
+   "#*#.#*#####",
+   "#...#...###",
+   "#######.###",
+   "#######...#",
+   "#########.#",
+   "########B.#",
+   "###########"
+  ],
+  "par": 8,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 1
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 3,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "###########",
+   "#v#*..#####",
+   "#*#.#*#####",
+   "#...#...###",
+   "#######.###",
+   "#######...#",
+   "#########.#",
+   "########B.#",
+   "###########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 3,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 4,
+    "y": 0
+   },
+   "message": "",
+   "samples": 3,
+   "stars": 3,
+   "status": "success",
+   "steps": 23
+  },
+  "map": [
+   "####B",
+   "####.",
+   "###*.",
+   "###.#",
+   "##*.#",
+   "##.##",
+   "#*.##",
+   "#.###",
+   ">.###"
+  ],
+  "par": 7,
+  "source": "REPEAT 4 TIMES\n  MOVE\n  TURN LEFT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "####B",
+   "####.",
+   "###*.",
+   "###.#",
+   "##*.#",
+   "##.##",
+   "#*.##",
+   "#.###",
+   ">.###"
+  ],
+  "par": 7,
+  "source": "REPEAT 4 TIMES\n  MOVE\n  TURN LEFT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 8
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 3,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   "####B",
+   "####.",
+   "###*.",
+   "###.#",
+   "##*.#",
+   "##.##",
+   "#*.##",
+   "#.###",
+   ">.###"
+  ],
+  "par": 7,
+  "source": "MOVE 9\nREPEAT 4 TIMES\n  MOVE\n  TURN LEFT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 8
+   },
+   "line": 4,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 3,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "####B",
+   "####.",
+   "###*.",
+   "###.#",
+   "##*.#",
+   "##.##",
+   "#*.##",
+   "#.###",
+   ">.###"
+  ],
+  "par": 7,
+  "source": "REPEAT 4 TIMES\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 15,
+    "y": 8
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 31
+  },
+  "map": [
+   ">.##############",
+   "#.##############",
+   "#.....##########",
+   "#####.##########",
+   "#####.....######",
+   "#########.######",
+   "#########......#",
+   "##############.#",
+   "##############.B"
+  ],
+  "par": 13,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP\nMOVE 2\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 13,
+    "y": 6
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 25
+  },
+  "map": [
+   ">.##############",
+   "#.##############",
+   "#.....##########",
+   "#####.##########",
+   "#####.....######",
+   "#########.######",
+   "#########......#",
+   "##############.#",
+   "##############.B"
+  ],
+  "par": 13,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP\nMOVE 2\nHOP\nMOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 14,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   ">.##############",
+   "#.##############",
+   "#.....##########",
+   "#####.##########",
+   "#####.....######",
+   "#########.######",
+   "#########......#",
+   "##############.#",
+   "##############.B"
+  ],
+  "par": 13,
+  "source": "MOVE 9\nDEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP\nMOVE 2\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 1,
+    "y": 2
+   },
+   "line": 6,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 6
+  },
+  "map": [
+   ">.##############",
+   "#.##############",
+   "#.....##########",
+   "#####.##########",
+   "#####.....######",
+   "#########.######",
+   "#########......#",
+   "##############.#",
+   "##############.B"
+  ],
+  "par": 13,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP\nMOVE 2\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 4,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 10,
+    "y": 1
+   },
+   "message": "",
+   "samples": 4,
+   "stars": 3,
+   "status": "success",
+   "steps": 41
+  },
+  "map": [
+   "############",
+   "#>..#####.B#",
+   "###.#####.##",
+   "#..*###...##",
+   "#.#####.####",
+   "#...#..*####",
+   "###*#.######",
+   "###.*.######",
+   "############"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "############",
+   "#>..#####.B#",
+   "###.#####.##",
+   "#..*###...##",
+   "#.#####.####",
+   "#...#..*####",
+   "###*#.######",
+   "###.*.######",
+   "############"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 1
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 4,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "############",
+   "#>..#####.B#",
+   "###.#####.##",
+   "#..*###...##",
+   "#.#####.####",
+   "#...#..*####",
+   "###*#.######",
+   "###.*.######",
+   "############"
+  ],
+  "par": 8,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 2,
+    "y": 3
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 4,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "############",
+   "#>..#####.B#",
+   "###.#####.##",
+   "#..*###...##",
+   "#.#####.####",
+   "#...#..*####",
+   "###*#.######",
+   "###.*.######",
+   "############"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 4,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 5,
+    "y": 10
+   },
+   "message": "",
+   "samples": 4,
+   "stars": 3,
+   "status": "success",
+   "steps": 29
+  },
+  "map": [
+   ">.####",
+   "#.####",
+   "#*.###",
+   "##.###",
+   "##*.##",
+   "###.##",
+   "###*.#",
+   "####.#",
+   "####*.",
+   "#####.",
+   "#####B"
+  ],
+  "par": 7,
+  "source": "REPEAT 5 TIMES\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">.####",
+   "#.####",
+   "#*.###",
+   "##.###",
+   "##*.##",
+   "###.##",
+   "###*.#",
+   "####.#",
+   "####*.",
+   "#####.",
+   "#####B"
+  ],
+  "par": 7,
+  "source": "REPEAT 5 TIMES\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 4,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   ">.####",
+   "#.####",
+   "#*.###",
+   "##.###",
+   "##*.##",
+   "###.##",
+   "###*.#",
+   "####.#",
+   "####*.",
+   "#####.",
+   "#####B"
+  ],
+  "par": 7,
+  "source": "MOVE 9\nREPEAT 5 TIMES\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 1,
+    "y": 2
+   },
+   "line": 2,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 4,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 7
+  },
+  "map": [
+   ">.####",
+   "#.####",
+   "#*.###",
+   "##.###",
+   "##*.##",
+   "###.##",
+   "###*.#",
+   "####.#",
+   "####*.",
+   "#####.",
+   "#####B"
+  ],
+  "par": 7,
+  "source": "REPEAT 5 TIMES\n  MOVE\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 15,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 21,
+    "y": 5
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 36
+  },
+  "map": [
+   ">..###################",
+   "##.....###############",
+   "######......##########",
+   "###########.....######",
+   "###############......#",
+   "####################.B"
+  ],
+  "par": 15,
+  "source": "DEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE\nHOP\nMOVE 2\nHOP\nMOVE\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 14,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 18,
+    "y": 4
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 30
+  },
+  "map": [
+   ">..###################",
+   "##.....###############",
+   "######......##########",
+   "###########.....######",
+   "###############......#",
+   "####################.B"
+  ],
+  "par": 15,
+  "source": "DEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE\nHOP\nMOVE 2\nHOP\nMOVE\nHOP\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 16,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   ">..###################",
+   "##.....###############",
+   "######......##########",
+   "###########.....######",
+   "###############......#",
+   "####################.B"
+  ],
+  "par": 15,
+  "source": "MOVE 9\nDEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE\nHOP\nMOVE 2\nHOP\nMOVE\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 15,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 2,
+    "y": 1
+   },
+   "line": 6,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 6
+  },
+  "map": [
+   ">..###################",
+   "##.....###############",
+   "######......##########",
+   "###########.....######",
+   "###############......#",
+   "####################.B"
+  ],
+  "par": 15,
+  "source": "DEFINE HOP\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE\nHOP\nMOVE 2\nHOP\nMOVE\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 5,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 10,
+    "y": 9
+   },
+   "message": "",
+   "samples": 5,
+   "stars": 3,
+   "status": "success",
+   "steps": 51
+  },
+  "map": [
+   "#############",
+   "#v#####...###",
+   "#.#####.#.###",
+   "#...#.*.#..*#",
+   "###.#*#####.#",
+   "###...###*..#",
+   "#########.###",
+   "#########.*.#",
+   "###########.#",
+   "##########B.#",
+   "#############"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "#############",
+   "#v#####...###",
+   "#.#####.#.###",
+   "#...#.*.#..*#",
+   "###.#*#####.#",
+   "###...###*..#",
+   "#########.###",
+   "#########.*.#",
+   "###########.#",
+   "##########B.#",
+   "#############"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 3
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 5,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "#############",
+   "#v#####...###",
+   "#.#####.#.###",
+   "#...#.*.#..*#",
+   "###.#*#####.#",
+   "###...###*..#",
+   "#########.###",
+   "#########.*.#",
+   "###########.#",
+   "##########B.#",
+   "#############"
+  ],
+  "par": 8,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 1
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 5,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "#############",
+   "#v#####...###",
+   "#.#####.#.###",
+   "#...#.*.#..*#",
+   "###.#*#####.#",
+   "###...###*..#",
+   "#########.###",
+   "#########.*.#",
+   "###########.#",
+   "##########B.#",
+   "#############"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 3,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 9,
+    "y": 6
+   },
+   "message": "",
+   "samples": 3,
+   "stars": 3,
+   "status": "success",
+   "steps": 38
+  },
+  "map": [
+   "#############",
+   "#>..#########",
+   "###.#####...#",
+   "###...#.*.#*#",
+   "#####*#.##..#",
+   "#####...##.##",
+   "#########B.##",
+   "#############"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "#############",
+   "#>..#########",
+   "###.#####...#",
+   "###...#.*.#*#",
+   "#####*#.##..#",
+   "#####...##.##",
+   "#########B.##",
+   "#############"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 1
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 3,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "#############",
+   "#>..#########",
+   "###.#####...#",
+   "###...#.*.#*#",
+   "#####*#.##..#",
+   "#####...##.##",
+   "#########B.##",
+   "#############"
+  ],
+  "par": 8,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 3,
+    "y": 2
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 3,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "#############",
+   "#>..#########",
+   "###.#####...#",
+   "###...#.*.#*#",
+   "#####*#.##..#",
+   "#####...##.##",
+   "#########B.##",
+   "#############"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 3,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 4,
+    "y": 4
+   },
+   "message": "",
+   "samples": 3,
+   "stars": 3,
+   "status": "success",
+   "steps": 19
+  },
+  "map": [
+   ">.###",
+   "#*.##",
+   "##*.#",
+   "###*.",
+   "####B"
+  ],
+  "par": 7,
+  "source": "REPEAT 4 TIMES\n  MOVE\n  TURN RIGHT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">.###",
+   "#*.##",
+   "##*.#",
+   "###*.",
+   "####B"
+  ],
+  "par": 7,
+  "source": "REPEAT 4 TIMES\n  MOVE\n  TURN RIGHT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 3,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   ">.###",
+   "#*.##",
+   "##*.#",
+   "###*.",
+   "####B"
+  ],
+  "par": 7,
+  "source": "MOVE 9\nREPEAT 4 TIMES\n  MOVE\n  TURN RIGHT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 1,
+    "y": 1
+   },
+   "line": 2,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 3,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 6
+  },
+  "map": [
+   ">.###",
+   "#*.##",
+   "##*.#",
+   "###*.",
+   "####B"
+  ],
+  "par": 7,
+  "source": "REPEAT 4 TIMES\n  MOVE\n  TURN RIGHT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 16,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 28
+  },
+  "map": [
+   "###############.B",
+   "##########......#",
+   "#####......######",
+   "#.....###########",
+   ">.###############"
+  ],
+  "par": 13,
+  "source": "DEFINE HOP\n  MOVE\n  TURN LEFT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP\nMOVE 3\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 14,
+    "y": 1
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 23
+  },
+  "map": [
+   "###############.B",
+   "##########......#",
+   "#####......######",
+   "#.....###########",
+   ">.###############"
+  ],
+  "par": 13,
+  "source": "DEFINE HOP\n  MOVE\n  TURN LEFT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP\nMOVE 3\nHOP\nMOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 14,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 4
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   "###############.B",
+   "##########......#",
+   "#####......######",
+   "#.....###########",
+   ">.###############"
+  ],
+  "par": 13,
+  "source": "MOVE 9\nDEFINE HOP\n  MOVE\n  TURN LEFT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP\nMOVE 3\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 4
+   },
+   "line": 4,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "###############.B",
+   "##########......#",
+   "#####......######",
+   "#.....###########",
+   ">.###############"
+  ],
+  "par": 13,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 2\nHOP\nMOVE 3\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 4,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 7,
+    "y": 6
+   },
+   "message": "",
+   "samples": 4,
+   "stars": 3,
+   "status": "success",
+   "steps": 47
+  },
+  "map": [
+   "#############",
+   "#v#...#...###",
+   "#.#.#*#.#.###",
+   "#.*.#...#.**#",
+   "###########.#",
+   "#########...#",
+   "#######B#.###",
+   "#######...###",
+   "#############"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "#############",
+   "#v#...#...###",
+   "#.#.#*#.#.###",
+   "#.*.#...#.**#",
+   "###########.#",
+   "#########...#",
+   "#######B#.###",
+   "#######...###",
+   "#############"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 3
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 4,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "#############",
+   "#v#...#...###",
+   "#.#.#*#.#.###",
+   "#.*.#...#.**#",
+   "###########.#",
+   "#########...#",
+   "#######B#.###",
+   "#######...###",
+   "#############"
+  ],
+  "par": 8,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 1
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 4,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "#############",
+   "#v#...#...###",
+   "#.#.#*#.#.###",
+   "#.*.#...#.**#",
+   "###########.#",
+   "#########...#",
+   "#######B#.###",
+   "#######...###",
+   "#############"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 4,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 15,
+    "y": 10
+   },
+   "message": "",
+   "samples": 4,
+   "stars": 3,
+   "status": "success",
+   "steps": 39
+  },
+  "map": [
+   ">...############",
+   "###.############",
+   "###*...#########",
+   "######.#########",
+   "######*...######",
+   "#########.######",
+   "#########*...###",
+   "############.###",
+   "############*...",
+   "###############.",
+   "###############B"
+  ],
+  "par": 7,
+  "source": "REPEAT 5 TIMES\n  MOVE 3\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">...############",
+   "###.############",
+   "###*...#########",
+   "######.#########",
+   "######*...######",
+   "#########.######",
+   "#########*...###",
+   "############.###",
+   "############*...",
+   "###############.",
+   "###############B"
+  ],
+  "par": 7,
+  "source": "REPEAT 5 TIMES\n  MOVE 3\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 4,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 4
+  },
+  "map": [
+   ">...############",
+   "###.############",
+   "###*...#########",
+   "######.#########",
+   "######*...######",
+   "#########.######",
+   "#########*...###",
+   "############.###",
+   "############*...",
+   "###############.",
+   "###############B"
+  ],
+  "par": 7,
+  "source": "MOVE 9\nREPEAT 5 TIMES\n  MOVE 3\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 3,
+    "y": 2
+   },
+   "line": 2,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 4,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 9
+  },
+  "map": [
+   ">...############",
+   "###.############",
+   "###*...#########",
+   "######.#########",
+   "######*...######",
+   "#########.######",
+   "#########*...###",
+   "############.###",
+   "############*...",
+   "###############.",
+   "###############B"
+  ],
+  "par": 7,
+  "source": "REPEAT 5 TIMES\n  MOVE 3\n  TURN RIGHT\n  MOVE 2\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 15,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 18,
+    "y": 5
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 33
+  },
+  "map": [
+   ">.#################",
+   "#....##############",
+   "####......#########",
+   "#########....######",
+   "############......#",
+   "#################.B"
+  ],
+  "par": 15,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE\nHOP\nMOVE 3\nHOP\nMOVE\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 14,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 16,
+    "y": 4
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 28
+  },
+  "map": [
+   ">.#################",
+   "#....##############",
+   "####......#########",
+   "#########....######",
+   "############......#",
+   "#################.B"
+  ],
+  "par": 15,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE\nHOP\nMOVE 3\nHOP\nMOVE\nHOP\nMOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 16,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   ">.#################",
+   "#....##############",
+   "####......#########",
+   "#########....######",
+   "############......#",
+   "#################.B"
+  ],
+  "par": 15,
+  "source": "MOVE 9\nDEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN LEFT\n  MOVE\nEND\nHOP\nMOVE\nHOP\nMOVE 3\nHOP\nMOVE\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 15,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 1,
+    "y": 1
+   },
+   "line": 6,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 5
+  },
+  "map": [
+   ">.#################",
+   "#....##############",
+   "####......#########",
+   "#########....######",
+   "############......#",
+   "#################.B"
+  ],
+  "par": 15,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE\nHOP\nMOVE 3\nHOP\nMOVE\nHOP\nMOVE 3\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 5,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 8,
+    "y": 3
+   },
+   "message": "",
+   "samples": 5,
+   "stars": 3,
+   "status": "success",
+   "steps": 58
+  },
+  "map": [
+   "############",
+   "#v##########",
+   "#.##########",
+   "#.*.####B###",
+   "###.####...#",
+   "#*..######.#",
+   "#.######...#",
+   "#...####.###",
+   "###.##*.*###",
+   "##..##*#####",
+   "##.#...#####",
+   "##...#######",
+   "############"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "############",
+   "#v##########",
+   "#.##########",
+   "#.*.####B###",
+   "###.####...#",
+   "#*..######.#",
+   "#.######...#",
+   "#...####.###",
+   "###.##*.*###",
+   "##..##*#####",
+   "##.#...#####",
+   "##...#######",
+   "############"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 3
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 5,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "############",
+   "#v##########",
+   "#.##########",
+   "#.*.####B###",
+   "###.####...#",
+   "#*..######.#",
+   "#.######...#",
+   "#...####.###",
+   "###.##*.*###",
+   "##..##*#####",
+   "##.#...#####",
+   "##...#######",
+   "############"
+  ],
+  "par": 8,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 1
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 5,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "############",
+   "#v##########",
+   "#.##########",
+   "#.*.####B###",
+   "###.####...#",
+   "#*..######.#",
+   "#.######...#",
+   "#...####.###",
+   "###.##*.*###",
+   "##..##*#####",
+   "##.#...#####",
+   "##...#######",
+   "############"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 5,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 12,
+    "y": 0
+   },
+   "message": "",
+   "samples": 5,
+   "stars": 3,
+   "status": "success",
+   "steps": 35
+  },
+  "map": [
+   "############B",
+   "##########*..",
+   "########*..##",
+   "######*..####",
+   "####*..######",
+   "##*..########",
+   ">..##########"
+  ],
+  "par": 7,
+  "source": "REPEAT 6 TIMES\n  MOVE 2\n  TURN LEFT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "############B",
+   "##########*..",
+   "########*..##",
+   "######*..####",
+   "####*..######",
+   "##*..########",
+   ">..##########"
+  ],
+  "par": 7,
+  "source": "REPEAT 6 TIMES\n  MOVE 2\n  TURN LEFT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 6
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 5,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "############B",
+   "##########*..",
+   "########*..##",
+   "######*..####",
+   "####*..######",
+   "##*..########",
+   ">..##########"
+  ],
+  "par": 7,
+  "source": "MOVE 9\nREPEAT 6 TIMES\n  MOVE 2\n  TURN LEFT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 2,
+    "y": 6
+   },
+   "line": 4,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 5,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 4
+  },
+  "map": [
+   "############B",
+   "##########*..",
+   "########*..##",
+   "######*..####",
+   "####*..######",
+   "##*..########",
+   ">..##########"
+  ],
+  "par": 7,
+  "source": "REPEAT 6 TIMES\n  MOVE 2\n  TURN RIGHT\n  MOVE\n  IF SAMPLE HERE\n    DRILL\n  END\n  TURN RIGHT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 17,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 22,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 40
+  },
+  "map": [
+   "#####################.B",
+   "#################.....#",
+   "##############....#####",
+   "###########....########",
+   "######......###########",
+   "#......################",
+   ">.#####################"
+  ],
+  "par": 17,
+  "source": "DEFINE HOP\n  MOVE\n  TURN LEFT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE 3\nHOP\nMOVE\nHOP\nMOVE\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 16,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 20,
+    "y": 1
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 35
+  },
+  "map": [
+   "#####################.B",
+   "#################.....#",
+   "##############....#####",
+   "###########....########",
+   "######......###########",
+   "#......################",
+   ">.#####################"
+  ],
+  "par": 17,
+  "source": "DEFINE HOP\n  MOVE\n  TURN LEFT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE 3\nHOP\nMOVE\nHOP\nMOVE\nHOP\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 18,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 6
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   "#####################.B",
+   "#################.....#",
+   "##############....#####",
+   "###########....########",
+   "######......###########",
+   "#......################",
+   ">.#####################"
+  ],
+  "par": 17,
+  "source": "MOVE 9\nDEFINE HOP\n  MOVE\n  TURN LEFT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE 3\nHOP\nMOVE\nHOP\nMOVE\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 17,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 6
+   },
+   "line": 4,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "#####################.B",
+   "#################.....#",
+   "##############....#####",
+   "###########....########",
+   "######......###########",
+   "#......################",
+   ">.#####################"
+  ],
+  "par": 17,
+  "source": "DEFINE HOP\n  MOVE\n  TURN RIGHT\n  MOVE\n  TURN RIGHT\n  MOVE\nEND\nHOP\nMOVE 3\nHOP\nMOVE 3\nHOP\nMOVE\nHOP\nMOVE\nHOP\nMOVE 2\nHOP"
+ },
+ {
+  "expect": {
+   "collected": 6,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 6
+   },
+   "message": "",
+   "samples": 6,
+   "stars": 3,
+   "status": "success",
+   "steps": 69
+  },
+  "map": [
+   "#########",
+   "#v#...###",
+   "#.#.#.###",
+   "#...#..*#",
+   "#######*#",
+   "#*..#...#",
+   "#B#.#.###",
+   "##..#...#",
+   "#..####.#",
+   "#*###..*#",
+   "#...#*###",
+   "###...###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   "#########",
+   "#v#...###",
+   "#.#.#.###",
+   "#...#..*#",
+   "#######*#",
+   "#*..#...#",
+   "#B#.#.###",
+   "##..#...#",
+   "#..####.#",
+   "#*###..*#",
+   "#...#*###",
+   "###...###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 9,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 3
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 6,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "#########",
+   "#v#...###",
+   "#.#.#.###",
+   "#...#..*#",
+   "#######*#",
+   "#*..#...#",
+   "#B#.#.###",
+   "##..#...#",
+   "#..####.#",
+   "#*###..*#",
+   "#...#*###",
+   "###...###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "MOVE 9\nREPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH LEFT\n      TURN LEFT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 1
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 6,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   "#########",
+   "#v#...###",
+   "#.#.#.###",
+   "#...#..*#",
+   "#######*#",
+   "#*..#...#",
+   "#B#.#.###",
+   "##..#...#",
+   "#..####.#",
+   "#*###..*#",
+   "#...#*###",
+   "###...###",
+   "#########"
+  ],
+  "par": 8,
+  "source": "REPEAT UNTIL AT BASE\n  IF SAMPLE HERE\n    DRILL\n  END\n  IF PATH AHEAD\n    MOVE\n  ELSE\n    IF PATH RIGHT\n      TURN RIGHT\n    ELSE\n      TURN RIGHT\n    END\n  END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 5,
+    "y": 2
+   },
+   "message": "",
+   "samples": 1,
+   "stars": 3,
+   "status": "success",
+   "steps": 14
+  },
+  "map": [
+   "...~..",
+   ".>.~..",
+   "...~#B",
+   ".#.~.~",
+   "...~*#"
+  ],
+  "par": 12,
+  "source": "MOVE\nTURN RIGHT\nMOVE 3\nTURN LEFT\nMOVE\nTURN LEFT\nDRILL\nMOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 11,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 5,
+    "y": 3
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 1,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 13
+  },
+  "map": [
+   "...~..",
+   ".>.~..",
+   "...~#B",
+   ".#.~.~",
+   "...~*#"
+  ],
+  "par": 12,
+  "source": "MOVE\nTURN RIGHT\nMOVE 3\nTURN LEFT\nMOVE\nTURN LEFT\nDRILL\nMOVE\nTURN RIGHT\nMOVE\nTURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 5,
+    "y": 1
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 1,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 4
+  },
+  "map": [
+   "...~..",
+   ".>.~..",
+   "...~#B",
+   ".#.~.~",
+   "...~*#"
+  ],
+  "par": 12,
+  "source": "MOVE 9\nMOVE\nTURN RIGHT\nMOVE 3\nTURN LEFT\nMOVE\nTURN LEFT\nDRILL\nMOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 1,
+    "y": 4
+   },
+   "line": 8,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 1,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 10
+  },
+  "map": [
+   "...~..",
+   ".>.~..",
+   "...~#B",
+   ".#.~.~",
+   "...~*#"
+  ],
+  "par": 12,
+  "source": "MOVE\nTURN RIGHT\nMOVE 3\nTURN RIGHT\nMOVE\nTURN RIGHT\nDRILL\nMOVE\nTURN RIGHT\nMOVE\nTURN RIGHT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 11,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 0,
+    "y": 2
+   },
+   "message": "",
+   "samples": 2,
+   "stars": 3,
+   "status": "success",
+   "steps": 14
+  },
+  "map": [
+   "....v.#",
+   "..~...#",
+   "B.~~~~.",
+   "..###.#",
+   "**~~##.",
+   "...##.."
+  ],
+  "par": 11,
+  "source": "MOVE 2\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE 2\nTURN RIGHT\nDRILL\nMOVE\nTURN RIGHT\nDRILL\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 10,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 0,
+    "y": 4
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 2,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 12
+  },
+  "map": [
+   "....v.#",
+   "..~...#",
+   "B.~~~~.",
+   "..###.#",
+   "**~~##.",
+   "...##.."
+  ],
+  "par": 11,
+  "source": "MOVE 2\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE 2\nTURN RIGHT\nDRILL\nMOVE\nTURN RIGHT\nDRILL"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 4,
+    "y": 2
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "....v.#",
+   "..~...#",
+   "B.~~~~.",
+   "..###.#",
+   "**~~##.",
+   "...##.."
+  ],
+  "par": 11,
+  "source": "MOVE 9\nMOVE 2\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE 2\nTURN RIGHT\nDRILL\nMOVE\nTURN RIGHT\nDRILL\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 11,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 2,
+    "y": 2
+   },
+   "line": 11,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 14
+  },
+  "map": [
+   "....v.#",
+   "..~...#",
+   "B.~~~~.",
+   "..###.#",
+   "**~~##.",
+   "...##.."
+  ],
+  "par": 11,
+  "source": "MOVE 2\nTURN RIGHT\nMOVE\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nDRILL\nMOVE\nTURN RIGHT\nDRILL\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 4,
+    "y": 1
+   },
+   "message": "",
+   "samples": 1,
+   "stars": 3,
+   "status": "success",
+   "steps": 20
+  },
+  "map": [
+   "*......",
+   "....B#.",
+   "..+....",
+   "#.....#",
+   ".>.....",
+   "......."
+  ],
+  "par": 12,
+  "source": "MOVE\nTURN LEFT\nMOVE 4\nTURN LEFT\nMOVE 2\nTURN LEFT\nDRILL\nMOVE 2\nTURN LEFT\nMOVE 4\nTURN LEFT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 11,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 4,
+    "y": 2
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 1,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 19
+  },
+  "map": [
+   "*......",
+   "....B#.",
+   "..+....",
+   "#.....#",
+   ".>.....",
+   "......."
+  ],
+  "par": 12,
+  "source": "MOVE\nTURN LEFT\nMOVE 4\nTURN LEFT\nMOVE 2\nTURN LEFT\nDRILL\nMOVE 2\nTURN LEFT\nMOVE 4\nTURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 6,
+    "y": 4
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 1,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 6
+  },
+  "map": [
+   "*......",
+   "....B#.",
+   "..+....",
+   "#.....#",
+   ".>.....",
+   "......."
+  ],
+  "par": 12,
+  "source": "MOVE 9\nMOVE\nTURN LEFT\nMOVE 4\nTURN LEFT\nMOVE 2\nTURN LEFT\nDRILL\nMOVE 2\nTURN LEFT\nMOVE 4\nTURN LEFT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 2,
+    "y": 5
+   },
+   "line": 3,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 1,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 4
+  },
+  "map": [
+   "*......",
+   "....B#.",
+   "..+....",
+   "#.....#",
+   ".>.....",
+   "......."
+  ],
+  "par": 12,
+  "source": "MOVE\nTURN RIGHT\nMOVE 4\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nDRILL\nMOVE 2\nTURN RIGHT\nMOVE 4\nTURN RIGHT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 27,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 0,
+    "y": 0
+   },
+   "message": "",
+   "samples": 2,
+   "stars": 3,
+   "status": "success",
+   "steps": 40
+  },
+  "map": [
+   "B..##...",
+   "........",
+   ".#*...#.",
+   "#...v#.#",
+   ".##.#...",
+   ".+......",
+   ".....*.."
+  ],
+  "par": 27,
+  "source": "TURN RIGHT\nMOVE\nTURN LEFT\nMOVE 2\nTURN RIGHT\nMOVE 2\nTURN LEFT\nMOVE\nTURN LEFT\nMOVE 4\nTURN LEFT\nTURN LEFT\nDRILL\nMOVE 4\nTURN RIGHT\nMOVE\nTURN RIGHT\nMOVE 2\nTURN LEFT\nMOVE 3\nTURN LEFT\nMOVE\nTURN RIGHT\nDRILL\nMOVE 2\nTURN LEFT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 26,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 2,
+    "y": 0
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 2,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 38
+  },
+  "map": [
+   "B..##...",
+   "........",
+   ".#*...#.",
+   "#...v#.#",
+   ".##.#...",
+   ".+......",
+   ".....*.."
+  ],
+  "par": 27,
+  "source": "TURN RIGHT\nMOVE\nTURN LEFT\nMOVE 2\nTURN RIGHT\nMOVE 2\nTURN LEFT\nMOVE\nTURN LEFT\nMOVE 4\nTURN LEFT\nTURN LEFT\nDRILL\nMOVE 4\nTURN RIGHT\nMOVE\nTURN RIGHT\nMOVE 2\nTURN LEFT\nMOVE 3\nTURN LEFT\nMOVE\nTURN RIGHT\nDRILL\nMOVE 2\nTURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 28,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 4,
+    "y": 3
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 1
+  },
+  "map": [
+   "B..##...",
+   "........",
+   ".#*...#.",
+   "#...v#.#",
+   ".##.#...",
+   ".+......",
+   ".....*.."
+  ],
+  "par": 27,
+  "source": "MOVE 9\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE 2\nTURN RIGHT\nMOVE 2\nTURN LEFT\nMOVE\nTURN LEFT\nMOVE 4\nTURN LEFT\nTURN LEFT\nDRILL\nMOVE 4\nTURN RIGHT\nMOVE\nTURN RIGHT\nMOVE 2\nTURN LEFT\nMOVE 3\nTURN LEFT\nMOVE\nTURN RIGHT\nDRILL\nMOVE 2\nTURN LEFT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 27,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 2,
+    "y": 2
+   },
+   "line": 10,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 15
+  },
+  "map": [
+   "B..##...",
+   "........",
+   ".#*...#.",
+   "#...v#.#",
+   ".##.#...",
+   ".+......",
+   ".....*.."
+  ],
+  "par": 27,
+  "source": "TURN RIGHT\nMOVE\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE\nTURN RIGHT\nMOVE 4\nTURN RIGHT\nTURN RIGHT\nDRILL\nMOVE 4\nTURN RIGHT\nMOVE\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE 3\nTURN RIGHT\nMOVE\nTURN RIGHT\nDRILL\nMOVE 2\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 6,
+    "y": 4
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 9
+  },
+  "map": [
+   "...#...",
+   "#....##",
+   ".#>..#.",
+   "....#..",
+   "#...@.B"
+  ],
+  "par": 7,
+  "source": "MOVE\nTURN RIGHT\nMOVE\nWAIT\nMOVE\nTURN LEFT\nMOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 6,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 4
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 6
+  },
+  "map": [
+   "...#...",
+   "#....##",
+   ".#>..#.",
+   "....#..",
+   "#...@.B"
+  ],
+  "par": 7,
+  "source": "MOVE\nTURN RIGHT\nMOVE\nWAIT\nMOVE\nTURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 8,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 4,
+    "y": 2
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "...#...",
+   "#....##",
+   ".#>..#.",
+   "....#..",
+   "#...@.B"
+  ],
+  "par": 7,
+  "source": "MOVE 9\nMOVE\nTURN RIGHT\nMOVE\nWAIT\nMOVE\nTURN LEFT\nMOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 7,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 3,
+    "y": 4
+   },
+   "line": 7,
+   "message": "Whoosh! A dust devil blew the rover off course. Wait for it to pass!",
+   "samples": 0,
+   "stars": 0,
+   "status": "blown",
+   "steps": 7
+  },
+  "map": [
+   "...#...",
+   "#....##",
+   ".#>..#.",
+   "....#..",
+   "#...@.B"
+  ],
+  "par": 7,
+  "source": "MOVE\nTURN RIGHT\nMOVE\nWAIT\nMOVE\nTURN RIGHT\nMOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 7,
+    "y": 4
+   },
+   "message": "",
+   "samples": 1,
+   "stars": 3,
+   "status": "success",
+   "steps": 18
+  },
+  "map": [
+   "....##..",
+   ".##..#.#",
+   "...*....",
+   "#.......",
+   "..#$...B",
+   "^....#.."
+  ],
+  "par": 13,
+  "source": "MOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE 2\nTURN RIGHT\nMOVE\nWAIT\nMOVE\nDRILL\nMOVE 4\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 7,
+    "y": 2
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 1,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 16
+  },
+  "map": [
+   "....##..",
+   ".##..#.#",
+   "...*....",
+   "#.......",
+   "..#$...B",
+   "^....#.."
+  ],
+  "par": 13,
+  "source": "MOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE 2\nTURN RIGHT\nMOVE\nWAIT\nMOVE\nDRILL\nMOVE 4\nTURN RIGHT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 14,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 0,
+    "y": 4
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 1,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   "....##..",
+   ".##..#.#",
+   "...*....",
+   "#.......",
+   "..#$...B",
+   "^....#.."
+  ],
+  "par": 13,
+  "source": "MOVE 9\nMOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE 2\nTURN RIGHT\nMOVE\nWAIT\nMOVE\nDRILL\nMOVE 4\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 5
+   },
+   "line": 5,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 1,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 6
+  },
+  "map": [
+   "....##..",
+   ".##..#.#",
+   "...*....",
+   "#.......",
+   "..#$...B",
+   "^....#.."
+  ],
+  "par": 13,
+  "source": "MOVE\nTURN RIGHT\nMOVE\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE\nWAIT\nMOVE\nDRILL\nMOVE 4\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 6
+   },
+   "message": "",
+   "samples": 1,
+   "stars": 3,
+   "status": "success",
+   "steps": 21
+  },
+  "map": [
+   "#...##.*",
+   "#....>..",
+   "....#..~",
+   ".....#..",
+   "........",
+   "~.#...$.",
+   "~B#.#..."
+  ],
+  "par": 12,
+  "source": "MOVE 2\nTURN LEFT\nMOVE\nTURN LEFT\nTURN LEFT\nDRILL\nMOVE 3\nTURN RIGHT\nWAIT\nMOVE 6\nTURN LEFT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 11,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 4
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 1,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 19
+  },
+  "map": [
+   "#...##.*",
+   "#....>..",
+   "....#..~",
+   ".....#..",
+   "........",
+   "~.#...$.",
+   "~B#.#..."
+  ],
+  "par": 12,
+  "source": "MOVE 2\nTURN LEFT\nMOVE\nTURN LEFT\nTURN LEFT\nDRILL\nMOVE 3\nTURN RIGHT\nWAIT\nMOVE 6\nTURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 7,
+    "y": 1
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 1,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   "#...##.*",
+   "#....>..",
+   "....#..~",
+   ".....#..",
+   "........",
+   "~.#...$.",
+   "~B#.#..."
+  ],
+  "par": 12,
+  "source": "MOVE 9\nMOVE 2\nTURN LEFT\nMOVE\nTURN LEFT\nTURN LEFT\nDRILL\nMOVE 3\nTURN RIGHT\nWAIT\nMOVE 6\nTURN LEFT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 7,
+    "y": 0
+   },
+   "line": 7,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 1,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 10
+  },
+  "map": [
+   "#...##.*",
+   "#....>..",
+   "....#..~",
+   ".....#..",
+   "........",
+   "~.#...$.",
+   "~B#.#..."
+  ],
+  "par": 12,
+  "source": "MOVE 2\nTURN RIGHT\nMOVE\nTURN RIGHT\nTURN RIGHT\nDRILL\nMOVE 3\nTURN RIGHT\nWAIT\nMOVE 6\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 16,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 0,
+    "y": 0
+   },
+   "message": "",
+   "samples": 1,
+   "stars": 3,
+   "status": "success",
+   "steps": 21
+  },
+  "map": [
+   "B....~~.",
+   ".##.####",
+   "...#....",
+   "#.#.~...",
+   "..*.~+..",
+   "..~~#.##",
+   "..#+~v.."
+  ],
+  "par": 16,
+  "source": "TURN LEFT\nTURN LEFT\nMOVE 2\nTURN RIGHT\nMOVE\nTURN LEFT\nTURN LEFT\nMOVE 3\nDRILL\nMOVE\nTURN RIGHT\nMOVE 2\nTURN LEFT\nMOVE\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 15,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 0,
+    "y": 2
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 1,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 19
+  },
+  "map": [
+   "B....~~.",
+   ".##.####",
+   "...#....",
+   "#.#.~...",
+   "..*.~+..",
+   "..~~#.##",
+   "..#+~v.."
+  ],
+  "par": 16,
+  "source": "TURN LEFT\nTURN LEFT\nMOVE 2\nTURN RIGHT\nMOVE\nTURN LEFT\nTURN LEFT\nMOVE 3\nDRILL\nMOVE\nTURN RIGHT\nMOVE 2\nTURN LEFT\nMOVE\nTURN RIGHT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 17,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 5,
+    "y": 6
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 1,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 1
+  },
+  "map": [
+   "B....~~.",
+   ".##.####",
+   "...#....",
+   "#.#.~...",
+   "..*.~+..",
+   "..~~#.##",
+   "..#+~v.."
+  ],
+  "par": 16,
+  "source": "MOVE 9\nTURN LEFT\nTURN LEFT\nMOVE 2\nTURN RIGHT\nMOVE\nTURN LEFT\nTURN LEFT\nMOVE 3\nDRILL\nMOVE\nTURN RIGHT\nMOVE 2\nTURN LEFT\nMOVE\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 16,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 2,
+    "y": 2
+   },
+   "line": 16,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 1,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 20
+  },
+  "map": [
+   "B....~~.",
+   ".##.####",
+   "...#....",
+   "#.#.~...",
+   "..*.~+..",
+   "..~~#.##",
+   "..#+~v.."
+  ],
+  "par": 16,
+  "source": "TURN RIGHT\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE\nTURN RIGHT\nTURN RIGHT\nMOVE 3\nDRILL\nMOVE\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 0,
+    "y": 3
+   },
+   "message": "",
+   "samples": 1,
+   "stars": 3,
+   "status": "success",
+   "steps": 21
+  },
+  "map": [
+   ".#..#...",
+   "........",
+   "..+..$..",
+   "B....#.*",
+   "..#.$..+",
+   "...#..#.",
+   "...#.<..",
+   "..#...#."
+  ],
+  "par": 13,
+  "source": "TURN LEFT\nTURN LEFT\nMOVE 2\nTURN LEFT\nMOVE 3\nDRILL\nMOVE\nTURN LEFT\nMOVE\nWAIT\nMOVE 6\nTURN LEFT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 1,
+   "commands": 12,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 0,
+    "y": 2
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 1,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 20
+  },
+  "map": [
+   ".#..#...",
+   "........",
+   "..+..$..",
+   "B....#.*",
+   "..#.$..+",
+   "...#..#.",
+   "...#.<..",
+   "..#...#."
+  ],
+  "par": 13,
+  "source": "TURN LEFT\nTURN LEFT\nMOVE 2\nTURN LEFT\nMOVE 3\nDRILL\nMOVE\nTURN LEFT\nMOVE\nWAIT\nMOVE 6\nTURN LEFT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 14,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 4,
+    "y": 6
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 1,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   ".#..#...",
+   "........",
+   "..+..$..",
+   "B....#.*",
+   "..#.$..+",
+   "...#..#.",
+   "...#.<..",
+   "..#...#."
+  ],
+  "par": 13,
+  "source": "MOVE 9\nTURN LEFT\nTURN LEFT\nMOVE 2\nTURN LEFT\nMOVE 3\nDRILL\nMOVE\nTURN LEFT\nMOVE\nWAIT\nMOVE 6\nTURN LEFT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 13,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 7,
+    "y": 7
+   },
+   "line": 5,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 1,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 7
+  },
+  "map": [
+   ".#..#...",
+   "........",
+   "..+..$..",
+   "B....#.*",
+   "..#.$..+",
+   "...#..#.",
+   "...#.<..",
+   "..#...#."
+  ],
+  "par": 13,
+  "source": "TURN RIGHT\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE 3\nDRILL\nMOVE\nTURN RIGHT\nMOVE\nWAIT\nMOVE 6\nTURN RIGHT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 22,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 3,
+    "y": 1
+   },
+   "message": "",
+   "samples": 2,
+   "stars": 3,
+   "status": "success",
+   "steps": 34
+  },
+  "map": [
+   ".#....~#.",
+   "..#B##~#.",
+   ".#.....~#",
+   ".@.....~*",
+   "#~$....#.",
+   ".~.......",
+   ".~..#.*..",
+   ".<##..+.."
+  ],
+  "par": 22,
+  "source": "MOVE\nTURN LEFT\nTURN LEFT\nTURN LEFT\nMOVE 2\nTURN RIGHT\nMOVE 5\nTURN RIGHT\nMOVE\nDRILL\nMOVE\nTURN LEFT\nMOVE 2\nTURN LEFT\nMOVE 3\nWAIT\nMOVE\nTURN LEFT\nDRILL\nMOVE 4\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 2,
+   "commands": 21,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 3,
+    "y": 3
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 2,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 32
+  },
+  "map": [
+   ".#....~#.",
+   "..#B##~#.",
+   ".#.....~#",
+   ".@.....~*",
+   "#~$....#.",
+   ".~.......",
+   ".~..#.*..",
+   ".<##..+.."
+  ],
+  "par": 22,
+  "source": "MOVE\nTURN LEFT\nTURN LEFT\nTURN LEFT\nMOVE 2\nTURN RIGHT\nMOVE 5\nTURN RIGHT\nMOVE\nDRILL\nMOVE\nTURN LEFT\nMOVE 2\nTURN LEFT\nMOVE 3\nWAIT\nMOVE\nTURN LEFT\nDRILL\nMOVE 4\nTURN RIGHT"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 23,
+   "energy": null,
+   "final": {
+    "dir": "W",
+    "x": 0,
+    "y": 7
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   ".#....~#.",
+   "..#B##~#.",
+   ".#.....~#",
+   ".@.....~*",
+   "#~$....#.",
+   ".~.......",
+   ".~..#.*..",
+   ".<##..+.."
+  ],
+  "par": 22,
+  "source": "MOVE 9\nMOVE\nTURN LEFT\nTURN LEFT\nTURN LEFT\nMOVE 2\nTURN RIGHT\nMOVE 5\nTURN RIGHT\nMOVE\nDRILL\nMOVE\nTURN LEFT\nMOVE 2\nTURN LEFT\nMOVE 3\nWAIT\nMOVE\nTURN LEFT\nDRILL\nMOVE 4\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 22,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 0,
+    "y": 7
+   },
+   "line": 5,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 2,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 5
+  },
+  "map": [
+   ".#....~#.",
+   "..#B##~#.",
+   ".#.....~#",
+   ".@.....~*",
+   "#~$....#.",
+   ".~.......",
+   ".~..#.*..",
+   ".<##..+.."
+  ],
+  "par": 22,
+  "source": "MOVE\nTURN RIGHT\nTURN RIGHT\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE 5\nTURN RIGHT\nMOVE\nDRILL\nMOVE\nTURN RIGHT\nMOVE 2\nTURN RIGHT\nMOVE 3\nWAIT\nMOVE\nTURN RIGHT\nDRILL\nMOVE 4\nTURN RIGHT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 1,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 3
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "MOVE 3"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 1,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 3
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "move three"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 1,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 3
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "এগোও ৩"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 2,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 3
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "পুনরাবৃত্তি ৩ বার\n  এগোও\nশেষ"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "Hmm, I don't know \"mvoe 3\".",
+    "suggestion": "MOVE"
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "mvoe 3"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "MOVE needs a number from 1 to 9, like MOVE 3.",
+    "suggestion": null
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "MOVE 10"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 1,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 4
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "MOVE 4"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "Which way? Say TURN LEFT or TURN RIGHT.",
+    "suggestion": null
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "TURN AROUND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This REPEAT needs an END.",
+    "suggestion": "Add END after the lines to repeat."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "REPEAT 3 TIMES\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "This END has nothing to finish.",
+    "suggestion": "Check that every REPEAT, IF and DEFINE has one END."
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "END"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "I don't know the check \"rokc ahead\".",
+    "suggestion": "ROCK AHEAD"
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "IF ROKC AHEAD\nMOVE\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 2,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 0,
+    "y": 0
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 0,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "REPEAT UNTIL AT BASE\nTURN LEFT\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "REPEAT works with 1 to 99 times.",
+    "suggestion": null
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "REPEAT 100 TIMES\nMOVE\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 4,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "line": 2,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 4
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "DEFINE GO\nMOVE\nGO\nEND\nGO"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 3,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 3
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "GO\nDEFINE GO\nMOVE 3\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "Give your routine a one-word name, like DEFINE HOP.",
+    "suggestion": null
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "DEFINE MOVE\nMOVE\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 3,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 3
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "IF NOT PATH AHEAD\nTURN LEFT\nELSE\nMOVE 3\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 5,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "",
+   "samples": 1,
+   "stars": 1,
+   "status": "success",
+   "steps": 6
+  },
+  "map": [
+   ">*.B"
+  ],
+  "par": 3,
+  "source": "SCAN\nDRILL\nMOVE\nSCAN\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 1,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 3
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "# just a comment\nMOVE 3 // go!"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 2,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 0,
+    "y": 0
+   },
+   "line": 2,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 2
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "TURN RIGHT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 3,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 3
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "REPEAT 2\n  MOVE\nEND\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 4,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 1,
+    "y": 2
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 2,
+   "status": "success",
+   "steps": 4
+  },
+  "map": [
+   ">.#",
+   "#.#",
+   "#B#"
+  ],
+  "par": 3,
+  "source": "repeat until at base\n  if path ahead\n    move\n  else\n    turn right\n  end\nend"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 3,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 3
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": "যদি পথ সামনে\n  এগোও ৩\nনইলে\n  বামে ঘোরো\nশেষ"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 2,
+   "energy": null,
+   "final": {
+    "dir": "N",
+    "x": 1,
+    "y": 0
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 2
+  },
+  "map": [
+   "...",
+   ".>.",
+   "..B"
+  ],
+  "par": 3,
+  "source": "TURN LEFT\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 0,
+    "y": 0
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 0
+  },
+  "map": [
+   ">..B"
+  ],
+  "par": 3,
+  "source": ""
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 1,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 1
+  },
+  "map": [
+   ">~~.B"
+  ],
+  "par": 4,
+  "source": "MOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 2,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 4,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 2
+  },
+  "map": [
+   ">~~.B"
+  ],
+  "par": 4,
+  "source": "MOVE\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 1,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 2
+  },
+  "map": [
+   ">.~~#",
+   "####B"
+  ],
+  "par": 4,
+  "source": "MOVE 2"
+ },
+ {
+  "battery": 3,
+  "expect": {
+   "collected": 0,
+   "commands": 3,
+   "energy": 0,
+   "final": {
+    "dir": "S",
+    "x": 2,
+    "y": 0
+   },
+   "line": 3,
+   "message": "The battery is empty! Plan a route past a charging pad.",
+   "samples": 0,
+   "stars": 0,
+   "status": "flat",
+   "steps": 4
+  },
+  "map": [
+   ">..#",
+   "##+#",
+   "##B#"
+  ],
+  "par": 4,
+  "source": "MOVE 2\nTURN RIGHT\nMOVE"
+ },
+ {
+  "battery": 4,
+  "expect": {
+   "collected": 0,
+   "commands": 3,
+   "energy": 4,
+   "final": {
+    "dir": "S",
+    "x": 2,
+    "y": 1
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 4
+  },
+  "map": [
+   ">..#",
+   "##+#",
+   "##B#"
+  ],
+  "par": 4,
+  "source": "MOVE 2\nTURN RIGHT\nMOVE"
+ },
+ {
+  "battery": 3,
+  "expect": {
+   "collected": 0,
+   "commands": 5,
+   "energy": 0,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 1
+   },
+   "message": "The program finished, but the rover isn't at the base yet.",
+   "samples": 0,
+   "stars": 0,
+   "status": "not_home",
+   "steps": 6
+  },
+  "map": [
+   ">..#.",
+   "#+...",
+   "####B"
+  ],
+  "par": 4,
+  "source": "MOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE 2"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 1,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "line": 1,
+   "message": "Whoosh! A dust devil blew the rover off course. Wait for it to pass!",
+   "samples": 0,
+   "stars": 0,
+   "status": "blown",
+   "steps": 3
+  },
+  "map": [
+   ">.@..B"
+  ],
+  "par": 4,
+  "source": "MOVE 4"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 2,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 0
+   },
+   "line": 2,
+   "message": "Whoosh! A dust devil blew the rover off course. Wait for it to pass!",
+   "samples": 0,
+   "stars": 0,
+   "status": "blown",
+   "steps": 4
+  },
+  "map": [
+   ">.@..B"
+  ],
+  "par": 4,
+  "source": "WAIT 2\nMOVE 4"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 2,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "line": 2,
+   "message": "Whoosh! A dust devil blew the rover off course. Wait for it to pass!",
+   "samples": 0,
+   "stars": 0,
+   "status": "blown",
+   "steps": 4
+  },
+  "map": [
+   ">..@..B"
+  ],
+  "par": 4,
+  "source": "WAIT\nMOVE 5"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 4,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "The rover got tired! Your program ran too many steps.",
+   "samples": 0,
+   "stars": 0,
+   "status": "too_long",
+   "steps": 1001
+  },
+  "map": [
+   ">...$.B",
+   "#####.#",
+   "#######"
+  ],
+  "par": 4,
+  "source": "REPEAT UNTIL AT BASE\n IF PATH AHEAD\n  MOVE\n ELSE\n  WAIT\n END\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 4,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 0
+   },
+   "line": 4,
+   "message": "Whoosh! A dust devil blew the rover off course. Wait for it to pass!",
+   "samples": 0,
+   "stars": 0,
+   "status": "blown",
+   "steps": 7
+  },
+  "map": [
+   ">.$B",
+   "#..#"
+  ],
+  "par": 4,
+  "source": "SCAN\nWAIT 3\nSCAN\nMOVE 2"
+ },
+ {
+  "battery": 5,
+  "expect": {
+   "collected": 0,
+   "commands": 4,
+   "energy": 4,
+   "final": {
+    "dir": "E",
+    "x": 3,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 4
+  },
+  "map": [
+   ">~+B"
+  ],
+  "par": 4,
+  "source": "SCAN\nMOVE\nSCAN\nMOVE"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 0,
+   "error": {
+    "line": 1,
+    "message": "WAIT can have a number from 1 to 9, like WAIT 2.",
+    "suggestion": null
+   },
+   "stars": 0,
+   "status": "error",
+   "steps": 0
+  },
+  "map": [
+   ">.B"
+  ],
+  "par": 4,
+  "source": "wait 10"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 2,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 2,
+    "y": 0
+   },
+   "message": "",
+   "samples": 0,
+   "stars": 3,
+   "status": "success",
+   "steps": 4
+  },
+  "map": [
+   ">.B"
+  ],
+  "par": 4,
+  "source": "অপেক্ষা ২\nএগোও ২"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 5,
+   "energy": null,
+   "final": {
+    "dir": "E",
+    "x": 1,
+    "y": 0
+   },
+   "line": 2,
+   "message": "Whoosh! A dust devil blew the rover off course. Wait for it to pass!",
+   "samples": 0,
+   "stars": 0,
+   "status": "blown",
+   "steps": 3
+  },
+  "map": [
+   ">.@.",
+   "...B"
+  ],
+  "par": 4,
+  "source": "DEFINE GO\n MOVE\n WAIT\nEND\nREPEAT 3 TIMES\n GO\nEND"
+ },
+ {
+  "expect": {
+   "collected": 0,
+   "commands": 3,
+   "energy": null,
+   "final": {
+    "dir": "S",
+    "x": 2,
+    "y": 0
+   },
+   "line": 3,
+   "message": "Bonk! A rock is in the way.",
+   "samples": 0,
+   "stars": 0,
+   "status": "crashed",
+   "steps": 3
+  },
+  "map": [
+   ">~..",
+   "#.##",
+   "#B##"
+  ],
+  "par": 4,
+  "source": "MOVE\nTURN RIGHT\nMOVE 2"
+ }
+]

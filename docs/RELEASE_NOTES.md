@@ -1,3 +1,17 @@
+# Mars Colony 3D and Kitty Code surprises update
+
+**Mars Colony 3D** (`world/colony.html`, first card in Mission Hub) is a big base kids can explore inside and out: a central dome with tunnels to a greenhouse (food), a power plant and solar farm (electricity), a water and oxygen hall, a garage and a lab. Roofs fade when you walk in, so there are no loading screens between rooms. The sky follows the real Mars clock (Mars24 method) with blue sunsets, Phobos, Deimos and Earth. A mission director picks surprise problems based on how the base is doing (dust storms, leaks, mold, a clogged filter, a jammed ice drill, a power surge, lost radio, cold snaps, a stuck rover) plus good surprises, each with its own mini-game. Kids can travel to nine real places (eight on Mars, plus its moon Phobos), build new modules and gadgets, drive the rover, fly a drone, change suits and take postcard photos. The source is in `src/colony/` and is bundled with esbuild (`npm run build:3d`).
+
+**Kitty Code** has World 7, *Surprise Storm* (ice, batteries with charging pads, dust devils and the new `WAIT` command), a Remix button that makes a new level for any world, and a level maker with share links. The map now animates all the time. Every surprise level is checked by a solver in `backend/astrokitty/surprise.py`, so each one can be won with three stars.
+
+The backend has the same Mars clock as the colony (`GET /api/sky/mars-time`), and My Mars Diary now prints the date on Mars.
+
+The hub pages have a twinkling sky and cards that float in. All motion stops with the system's reduce-motion setting or the game's own switch.
+
+Checked: 295 Node tests, 50 Python tests and the data-file check pass. The colony and Kitty Code were played in headless Chromium at laptop and phone sizes. Not checked: real phones and tablets, the micro:bit robot on real hardware, and live NASA fetches (the archive copies were used).
+
+---
+
 # Kitty’s Mars Adventure 3D — world mission update
 
 Home has two separate 3D entrances: **Explore Mars in 3D** for the planet, and **Kitty’s Mars Adventure 3D** for the game (`mars-explorer.html?play=1`).

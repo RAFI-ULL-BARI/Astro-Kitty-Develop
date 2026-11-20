@@ -1,6 +1,7 @@
 import {teamCreditHTML} from './flags.js?v=10';
 import {t,copy,setLanguage} from './strings.js?v=10';
 import {registerOffline} from './compat.js?v=10';
+import {mountTeacherDashboard} from './teacher-dashboard.js?v=10';
 let settings={};try{settings=JSON.parse(localStorage.getItem('astro-kitty-profile-v1')||'{}')??{};}catch{}
 const preferences=[['bigText','bigText'],['reduceMotion','reduced'],['captions','captions'],['voice','voice']];
 const page=document.getElementById('teacherPage');
@@ -18,4 +19,5 @@ page.addEventListener('change',event=>{
  applyPreferences();
  try{localStorage.setItem('astro-kitty-profile-v1',JSON.stringify(settings));}catch{}
 });
+mountTeacherDashboard(page);
 registerOffline();

@@ -1,0 +1,1145 @@
+{
+ "1": [
+  {
+   "hint": {
+    "bn": "ঘাঁটিতে পৌঁছাও আর নমুনা তোলো!",
+    "en": "Reach the base and grab the samples!"
+   },
+   "id": "remix-w1-2026-0",
+   "index": 0,
+   "map": [
+    "B.#....",
+    "..*.*.#",
+    ".#...^.",
+    "#.#.#.."
+   ],
+   "par": 9,
+   "remix": true,
+   "title": "Remix",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "ঘাঁটিতে পৌঁছাও আর নমুনা তোলো!",
+    "en": "Reach the base and grab the samples!"
+   },
+   "id": "remix-w1-2026-1",
+   "index": 0,
+   "map": [
+    "....v",
+    ".....",
+    "....#",
+    ".....",
+    "#B*.."
+   ],
+   "par": 8,
+   "remix": true,
+   "title": "Remix",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "ঘাঁটিতে পৌঁছাও আর নমুনা তোলো!",
+    "en": "Reach the base and grab the samples!"
+   },
+   "id": "remix-w1-2026-2",
+   "index": 0,
+   "map": [
+    "..#....",
+    "....^..",
+    "B..#...",
+    "....#.."
+   ],
+   "par": 4,
+   "remix": true,
+   "title": "Remix",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "ঘাঁটিতে পৌঁছাও আর নমুনা তোলো!",
+    "en": "Reach the base and grab the samples!"
+   },
+   "id": "remix-w1-2026-3",
+   "index": 0,
+   "map": [
+    "..B.*",
+    ".....",
+    "#....",
+    ".^..."
+   ],
+   "par": 7,
+   "remix": true,
+   "title": "Remix",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "ঘাঁটিতে পৌঁছাও আর নমুনা তোলো!",
+    "en": "Reach the base and grab the samples!"
+   },
+   "id": "remix-w1-2026-4",
+   "index": 0,
+   "map": [
+    "...*.",
+    "...B.",
+    "..#.#",
+    ".<#.."
+   ],
+   "par": 7,
+   "remix": true,
+   "title": "Remix",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "ঘাঁটিতে পৌঁছাও আর নমুনা তোলো!",
+    "en": "Reach the base and grab the samples!"
+   },
+   "id": "remix-w1-2026-5",
+   "index": 0,
+   "map": [
+    "B*...",
+    "#....",
+    ".#v#.",
+    "#*..#"
+   ],
+   "par": 13,
+   "remix": true,
+   "title": "Remix",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "ঘাঁটিতে পৌঁছাও আর নমুনা তোলো!",
+    "en": "Reach the base and grab the samples!"
+   },
+   "id": "remix-w1-2026-6",
+   "index": 0,
+   "map": [
+    "..*...",
+    "......",
+    ".....B",
+    "#...#.",
+    ".^...."
+   ],
+   "par": 7,
+   "remix": true,
+   "title": "Remix",
+   "world": 1
+  },
+  {
+   "hint": {
+    "bn": "ঘাঁটিতে পৌঁছাও আর নমুনা তোলো!",
+    "en": "Reach the base and grab the samples!"
+   },
+   "id": "remix-w1-2026-7",
+   "index": 0,
+   "map": [
+    "#.>..",
+    ".#...",
+    "..#..",
+    "#.#B."
+   ],
+   "par": 3,
+   "remix": true,
+   "title": "Remix",
+   "world": 1
+  }
+ ],
+ "2": [
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "remix-w2-2026-0",
+   "index": 0,
+   "map": [
+    "####B",
+    "###..",
+    "##..#",
+    "#..##",
+    ">.###"
+   ],
+   "par": 5,
+   "remix": true,
+   "title": "Remix",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "remix-w2-2026-1",
+   "index": 0,
+   "map": [
+    "###B",
+    "##*.",
+    "#*.#",
+    ">.##"
+   ],
+   "par": 7,
+   "remix": true,
+   "title": "Remix",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "remix-w2-2026-2",
+   "index": 0,
+   "map": [
+    "######B",
+    "####...",
+    "##...##",
+    ">..####"
+   ],
+   "par": 5,
+   "remix": true,
+   "title": "Remix",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "remix-w2-2026-3",
+   "index": 0,
+   "map": [
+    ">.##",
+    "#.##",
+    "#*.#",
+    "##.#",
+    "##*.",
+    "###.",
+    "###B"
+   ],
+   "par": 7,
+   "remix": true,
+   "title": "Remix",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "remix-w2-2026-4",
+   "index": 0,
+   "map": [
+    ">..##",
+    "##...",
+    "####B"
+   ],
+   "par": 5,
+   "remix": true,
+   "title": "Remix",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "remix-w2-2026-5",
+   "index": 0,
+   "map": [
+    ">...###",
+    "###*...",
+    "######B"
+   ],
+   "par": 7,
+   "remix": true,
+   "title": "Remix",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "remix-w2-2026-6",
+   "index": 0,
+   "map": [
+    "######B",
+    "###*...",
+    ">...###"
+   ],
+   "par": 7,
+   "remix": true,
+   "title": "Remix",
+   "world": 2
+  },
+  {
+   "hint": {
+    "bn": "যে অংশটা বারবার আসে, সেটা পুনরাবৃত্তি ... শেষ-এর ভেতরে রাখো।",
+    "en": "Find the part that repeats. Put it inside REPEAT ... END."
+   },
+   "id": "remix-w2-2026-7",
+   "index": 0,
+   "map": [
+    ">.##",
+    "#..#",
+    "##..",
+    "###B"
+   ],
+   "par": 5,
+   "remix": true,
+   "title": "Remix",
+   "world": 2
+  }
+ ],
+ "3": [
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "remix-w3-2026-0",
+   "index": 0,
+   "map": [
+    "#######",
+    "#v#####",
+    "#.#####",
+    "#...###",
+    "###.###",
+    "###.*.#",
+    "#B###*#",
+    "#.#...#",
+    "#...###",
+    "#######"
+   ],
+   "par": 8,
+   "remix": true,
+   "title": "Remix",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "remix-w3-2026-1",
+   "index": 0,
+   "map": [
+    "########",
+    "#>*.#.B#",
+    "###.#.##",
+    "###*..##",
+    "########"
+   ],
+   "par": 8,
+   "remix": true,
+   "title": "Remix",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "remix-w3-2026-2",
+   "index": 0,
+   "map": [
+    "###########",
+    "#>..#...###",
+    "###.#.#.###",
+    "###...#...#",
+    "#########B#",
+    "###########"
+   ],
+   "par": 6,
+   "remix": true,
+   "title": "Remix",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "remix-w3-2026-3",
+   "index": 0,
+   "map": [
+    "#######",
+    "#v#####",
+    "#.#####",
+    "#...###",
+    "###.###",
+    "###...#",
+    "#####.#",
+    "###B*.#",
+    "#######"
+   ],
+   "par": 8,
+   "remix": true,
+   "title": "Remix",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "remix-w3-2026-4",
+   "index": 0,
+   "map": [
+    "#####",
+    "#v###",
+    "#.###",
+    "#...#",
+    "###.#",
+    "#..*#",
+    "#.###",
+    "#...#",
+    "###B#",
+    "#####"
+   ],
+   "par": 8,
+   "remix": true,
+   "title": "Remix",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "remix-w3-2026-5",
+   "index": 0,
+   "map": [
+    "#####",
+    "#>..#",
+    "###.#",
+    "#...#",
+    "#.###",
+    "#...#",
+    "###.#",
+    "###B#",
+    "#####"
+   ],
+   "par": 6,
+   "remix": true,
+   "title": "Remix",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "remix-w3-2026-6",
+   "index": 0,
+   "map": [
+    "#####",
+    "#>..#",
+    "###.#",
+    "#...#",
+    "#.###",
+    "#...#",
+    "###B#",
+    "#####"
+   ],
+   "par": 6,
+   "remix": true,
+   "title": "Remix",
+   "world": 3
+  },
+  {
+   "hint": {
+    "bn": "সুড়ঙ্গ ধরে চলতে 'পুনরাবৃত্তি যতক্ষণ না ঘাঁটিতে' আর 'যদি পথ সামনে' ব্যবহার করো।",
+    "en": "Use REPEAT UNTIL AT BASE with IF PATH AHEAD to follow the tunnel."
+   },
+   "id": "remix-w3-2026-7",
+   "index": 0,
+   "map": [
+    "#####",
+    "#v###",
+    "#.###",
+    "#.*.#",
+    "###.#",
+    "#*..#",
+    "#.###",
+    "#..B#",
+    "#####"
+   ],
+   "par": 8,
+   "remix": true,
+   "title": "Remix",
+   "world": 3
+  }
+ ],
+ "4": [
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "remix-w4-2026-0",
+   "index": 0,
+   "map": [
+    "########.B",
+    "########.#",
+    "#####....#",
+    "#####.####",
+    "#.....####",
+    "#.########",
+    ">.########"
+   ],
+   "par": 11,
+   "remix": true,
+   "title": "Remix",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "remix-w4-2026-1",
+   "index": 0,
+   "map": [
+    ">..#####",
+    "##.#####",
+    "##.....#",
+    "######.#",
+    "######.B"
+   ],
+   "par": 9,
+   "remix": true,
+   "title": "Remix",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "remix-w4-2026-2",
+   "index": 0,
+   "map": [
+    ">..######",
+    "##......#",
+    "#######.B"
+   ],
+   "par": 9,
+   "remix": true,
+   "title": "Remix",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "remix-w4-2026-3",
+   "index": 0,
+   "map": [
+    ">.####",
+    "#....#",
+    "####.B"
+   ],
+   "par": 9,
+   "remix": true,
+   "title": "Remix",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "remix-w4-2026-4",
+   "index": 0,
+   "map": [
+    "##############.B",
+    "#########......#",
+    "#####.....######",
+    "#.....##########",
+    ">.##############"
+   ],
+   "par": 13,
+   "remix": true,
+   "title": "Remix",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "remix-w4-2026-5",
+   "index": 0,
+   "map": [
+    "############.B",
+    "#######......#",
+    "####....######",
+    "#....#########",
+    ">.############"
+   ],
+   "par": 13,
+   "remix": true,
+   "title": "Remix",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "remix-w4-2026-6",
+   "index": 0,
+   "map": [
+    "###########.B",
+    "#######.....#",
+    "##......#####",
+    ">..##########"
+   ],
+   "par": 11,
+   "remix": true,
+   "title": "Remix",
+   "world": 4
+  },
+  {
+   "hint": {
+    "bn": "একবার 'নাম HOP' বানাও, তারপর HOP নতুন কমান্ড হিসেবে ব্যবহার করো।",
+    "en": "DEFINE HOP once, then use HOP as a new command."
+   },
+   "id": "remix-w4-2026-7",
+   "index": 0,
+   "map": [
+    ">..#####",
+    "##.#####",
+    "##.....#",
+    "######.#",
+    "######.B"
+   ],
+   "par": 9,
+   "remix": true,
+   "title": "Remix",
+   "world": 4
+  }
+ ],
+ "5": [
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "remix-w5-2026-0",
+   "index": 0,
+   "map": [
+    "##################.B",
+    "#############......#",
+    "#########.....######",
+    "######....##########",
+    "#......#############",
+    ">.##################"
+   ],
+   "par": 15,
+   "remix": true,
+   "title": "Remix",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "remix-w5-2026-1",
+   "index": 0,
+   "map": [
+    ">..###############",
+    "##.###############",
+    "##......##########",
+    "#######.##########",
+    "#######......#####",
+    "############.#####",
+    "############.....#",
+    "################.#",
+    "################.B"
+   ],
+   "par": 13,
+   "remix": true,
+   "title": "Remix",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "remix-w5-2026-2",
+   "index": 0,
+   "map": [
+    ">.##########",
+    "#.##########",
+    "#....#######",
+    "####.#######",
+    "####....####",
+    "#######.####",
+    "#######....#",
+    "##########.#",
+    "##########.B"
+   ],
+   "par": 13,
+   "remix": true,
+   "title": "Remix",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "remix-w5-2026-3",
+   "index": 0,
+   "map": [
+    "######################.B",
+    "######################.#",
+    "##################.....#",
+    "##################.#####",
+    "##############.....#####",
+    "##############.#########",
+    "########.......#########",
+    "########.###############",
+    "##.......###############",
+    "##.#####################",
+    ">..#####################"
+   ],
+   "par": 15,
+   "remix": true,
+   "title": "Remix",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "remix-w5-2026-4",
+   "index": 0,
+   "map": [
+    "#####",
+    "#>*.#",
+    "###.#",
+    "#...#",
+    "#.###",
+    "#...#",
+    "###.#",
+    "#...#",
+    "#.###",
+    "#B###",
+    "#####"
+   ],
+   "par": 8,
+   "remix": true,
+   "title": "Remix",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "remix-w5-2026-5",
+   "index": 0,
+   "map": [
+    "###########",
+    "#v#...#####",
+    "#.#.#.#####",
+    "#..*#...###",
+    "#######.###",
+    "#######..*#",
+    "#########B#",
+    "###########"
+   ],
+   "par": 8,
+   "remix": true,
+   "title": "Remix",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "remix-w5-2026-6",
+   "index": 0,
+   "map": [
+    "#########B",
+    "######*...",
+    "###*...###",
+    ">...######"
+   ],
+   "par": 7,
+   "remix": true,
+   "title": "Remix",
+   "world": 5
+  },
+  {
+   "hint": {
+    "bn": "পুনরাবৃত্তি, যদি আর নাম মিলিয়ে নাও। ঝড়ের আগে সব নমুনা তোলো!",
+    "en": "Mix REPEAT, IF and DEFINE. Grab every sample before the storm!"
+   },
+   "id": "remix-w5-2026-7",
+   "index": 0,
+   "map": [
+    "#########B",
+    "######*...",
+    "###*...###",
+    ">...######"
+   ],
+   "par": 7,
+   "remix": true,
+   "title": "Remix",
+   "world": 5
+  }
+ ],
+ "6": [
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "remix-w6-2026-0",
+   "index": 0,
+   "map": [
+    "######B",
+    "######.",
+    "####*..",
+    "####.##",
+    "##*..##",
+    "##.####",
+    ">..####"
+   ],
+   "par": 7,
+   "remix": true,
+   "title": "Remix",
+   "world": 6
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "remix-w6-2026-1",
+   "index": 0,
+   "map": [
+    "####B",
+    "###*.",
+    "##*.#",
+    "#*.##",
+    ">.###"
+   ],
+   "par": 7,
+   "remix": true,
+   "title": "Remix",
+   "world": 6
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "remix-w6-2026-2",
+   "index": 0,
+   "map": [
+    "###B",
+    "##*.",
+    "#*.#",
+    ">.##"
+   ],
+   "par": 7,
+   "remix": true,
+   "title": "Remix",
+   "world": 6
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "remix-w6-2026-3",
+   "index": 0,
+   "map": [
+    ">..######################",
+    "##.......################",
+    "########.......##########",
+    "##############......#####",
+    "###################.....#",
+    "#######################.B"
+   ],
+   "par": 15,
+   "remix": true,
+   "title": "Remix",
+   "world": 6
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "remix-w6-2026-4",
+   "index": 0,
+   "map": [
+    "##########",
+    "#v#.*.#*B#",
+    "#*#.#.#.##",
+    "#...#...##",
+    "##########"
+   ],
+   "par": 8,
+   "remix": true,
+   "title": "Remix",
+   "world": 6
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "remix-w6-2026-5",
+   "index": 0,
+   "map": [
+    "#######",
+    "#>..###",
+    "###.###",
+    "#...###",
+    "#.#####",
+    "#*..###",
+    "###.###",
+    "#...###",
+    "#.#####",
+    "#...###",
+    "###..B#",
+    "#######"
+   ],
+   "par": 8,
+   "remix": true,
+   "title": "Remix",
+   "world": 6
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "remix-w6-2026-6",
+   "index": 0,
+   "map": [
+    ">..############",
+    "##.############",
+    "##......#######",
+    "#######.#######",
+    "#######.......#",
+    "#############.#",
+    "#############.B"
+   ],
+   "par": 11,
+   "remix": true,
+   "title": "Remix",
+   "world": 6
+  },
+  {
+   "hint": {
+    "bn": "বস লেভেল! আগে ভাবো, তারপর কোড লেখো।",
+    "en": "Boss level! Think first, then code."
+   },
+   "id": "remix-w6-2026-7",
+   "index": 0,
+   "map": [
+    "############B",
+    "############.",
+    "#########*...",
+    "#########.###",
+    "######*...###",
+    "######.######",
+    "###*...######",
+    "###.#########",
+    ">...#########"
+   ],
+   "par": 7,
+   "remix": true,
+   "title": "Remix",
+   "world": 6
+  }
+ ],
+ "7": [
+  {
+   "battery": 21,
+   "hint": {
+    "bn": "ধুলোর ঘূর্ণি প্রতি ধাপে সরে। পথ খালি না হওয়া পর্যন্ত অপেক্ষা করো!",
+    "en": "Dust devils move every step. WAIT until the way is clear!"
+   },
+   "id": "remix-w7-2026-0",
+   "index": 0,
+   "map": [
+    "#.....B..",
+    "...@.....",
+    "#..#.....",
+    "#*..*#.~.",
+    "@##....~.",
+    "....#..##",
+    "+.~~..##.",
+    "<.#~~~..+"
+   ],
+   "par": 36,
+   "remix": true,
+   "title": "Remix",
+   "world": 7
+  },
+  {
+   "battery": 9,
+   "hint": {
+    "bn": "প্রতিটি এগোও আর ঘোরো ব্যাটারি খরচ করে। ⚡ চার্জিং প্যাডে থেমে ভরে নাও।",
+    "en": "Each MOVE and TURN uses battery. Stop on a ⚡ charging pad to fill up."
+   },
+   "id": "remix-w7-2026-1",
+   "index": 0,
+   "map": [
+    "..#..~.#",
+    "..+.....",
+    "#.~##~#.",
+    "^.#..*.B",
+    "..#..#..",
+    "....#...",
+    "........"
+   ],
+   "par": 11,
+   "remix": true,
+   "title": "Remix",
+   "world": 7
+  },
+  {
+   "battery": 13,
+   "hint": {
+    "bn": "প্রতিটি এগোও আর ঘোরো ব্যাটারি খরচ করে। ⚡ চার্জিং প্যাডে থেমে ভরে নাও।",
+    "en": "Each MOVE and TURN uses battery. Stop on a ⚡ charging pad to fill up."
+   },
+   "id": "remix-w7-2026-2",
+   "index": 0,
+   "map": [
+    "......#.",
+    ".#.....B",
+    "....#...",
+    "...##...",
+    "...+.#..",
+    "##*..+.#",
+    ".#.#<.*."
+   ],
+   "par": 16,
+   "remix": true,
+   "title": "Remix",
+   "world": 7
+  },
+  {
+   "hint": {
+    "bn": "ধুলোর ঘূর্ণি প্রতি ধাপে সরে। পথ খালি না হওয়া পর্যন্ত অপেক্ষা করো!",
+    "en": "Dust devils move every step. WAIT until the way is clear!"
+   },
+   "id": "remix-w7-2026-3",
+   "index": 0,
+   "map": [
+    "<#.....",
+    ".#$#...",
+    "......#",
+    ".#.B..#",
+    "......."
+   ],
+   "par": 8,
+   "remix": true,
+   "title": "Remix",
+   "world": 7
+  },
+  {
+   "hint": {
+    "bn": "ধুলোর ঘূর্ণি প্রতি ধাপে সরে। পথ খালি না হওয়া পর্যন্ত অপেক্ষা করো!",
+    "en": "Dust devils move every step. WAIT until the way is clear!"
+   },
+   "id": "remix-w7-2026-4",
+   "index": 0,
+   "map": [
+    "..##....",
+    "......>.",
+    "....###.",
+    "...$....",
+    "B.....##",
+    ".~.*#...",
+    ".#...~#~"
+   ],
+   "par": 15,
+   "remix": true,
+   "title": "Remix",
+   "world": 7
+  },
+  {
+   "battery": 14,
+   "hint": {
+    "bn": "প্রতিটি এগোও আর ঘোরো ব্যাটারি খরচ করে। ⚡ চার্জিং প্যাডে থেমে ভরে নাও।",
+    "en": "Each MOVE and TURN uses battery. Stop on a ⚡ charging pad to fill up."
+   },
+   "id": "remix-w7-2026-5",
+   "index": 0,
+   "map": [
+    "...#~##.",
+    ">.#.#...",
+    "...#~+..",
+    "#...+..#",
+    "##..#~.B",
+    "....*#..",
+    ".##..~.."
+   ],
+   "par": 19,
+   "remix": true,
+   "title": "Remix",
+   "world": 7
+  },
+  {
+   "hint": {
+    "bn": "বরফে স্বাভাবিক মাটিতে না পৌঁছানো পর্যন্ত পিছলে যাবে!",
+    "en": "On ice you keep sliding until you reach normal ground!"
+   },
+   "id": "remix-w7-2026-6",
+   "index": 0,
+   "map": [
+    "B.~~~.",
+    "......",
+    "...v##",
+    "#~...*",
+    ".~...."
+   ],
+   "par": 11,
+   "remix": true,
+   "title": "Remix",
+   "world": 7
+  },
+  {
+   "battery": 8,
+   "hint": {
+    "bn": "প্রতিটি এগোও আর ঘোরো ব্যাটারি খরচ করে। ⚡ চার্জিং প্যাডে থেমে ভরে নাও।",
+    "en": "Each MOVE and TURN uses battery. Stop on a ⚡ charging pad to fill up."
+   },
+   "id": "remix-w7-2026-7",
+   "index": 0,
+   "map": [
+    ".....#..",
+    ".v..+...",
+    "...*...#",
+    "#.....*.",
+    "....##.B",
+    ".#......",
+    ".#......"
+   ],
+   "par": 14,
+   "remix": true,
+   "title": "Remix",
+   "world": 7
+  }
+ ]
+}
