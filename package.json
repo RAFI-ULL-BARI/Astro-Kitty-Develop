@@ -17,7 +17,7 @@
     "test": "npm run build && node --test test/*.test.mjs",
     "build": "tsc && npm run build:3d && node scripts/finish-build.mjs",
     "typecheck": "tsc --noEmit",
-    "build:3d": "esbuild src/mars-walk/surface.js --bundle --format=esm --target=es2022 --minify --legal-comments=inline --outfile=dist/world/mars-surface.js"
+    "build:3d": "esbuild src/mars-walk/surface.js --bundle --format=esm --target=es2022 --minify --legal-comments=inline --outfile=dist/world/mars-surface.js && esbuild src/colony/main.js --bundle --format=esm --target=es2022 --minify --legal-comments=inline --outfile=dist/world/colony.js"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

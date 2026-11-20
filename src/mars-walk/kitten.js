@@ -32,15 +32,16 @@ function earGeometry() {
 
 const ears = earGeometry()
 
-export function makeKitty(scene) {
+// Options let the Mars Colony game dress crew kitties differently; defaults are Astro Kitty.
+export function makeKitty(scene, options = {}) {
   const rig = new THREE.Group(), body = new THREE.Group()
   rig.add(body)
   scene.add(rig)
 
-  const suit = standard('#e9dcd1'), seam = standard('#a99aa5'), indigo = standard('#3e3d58', 0.80)
-  const trim = standard('#e79459'), steel = standard('#737684', 0.38, 0.25)
-  const fur = standard('#d9a376'), cream = standard('#fae0bc'), innerEar = standard('#d88685')
-  const dark = standard('#302735'), stripe = standard('#9d6549')
+  const suit = standard(options.suit ?? '#e9dcd1'), seam = standard('#a99aa5'), indigo = standard(options.pack ?? '#3e3d58', 0.80)
+  const trim = standard(options.trim ?? '#e79459'), steel = standard('#737684', 0.38, 0.25)
+  const fur = standard(options.fur ?? '#d9a376'), cream = standard(options.cream ?? '#fae0bc'), innerEar = standard('#d88685')
+  const dark = standard('#302735'), stripe = standard(options.stripe ?? '#9d6549')
   const teal = new THREE.MeshStandardMaterial({color: '#7ac2c2', emissive: '#3a8885', emissiveIntensity: 0.42})
   const oval = (parent, material, ...shape) => part(parent, sphere, material, ...shape)
   const casePart = (parent, material, ...shape) => part(parent, rounded, material, ...shape)
@@ -74,12 +75,14 @@ export function makeKitty(scene) {
   body.add(head)
   oval(head, fur, 0, 0, 0, 0.334, 0.287, 0.282)
   oval(head, cream, 0, -0.074, -0.11, 0.29, 0.19, 0.205)
+  const earParts = [], eyes = []
   for (const side of [-1, 1]) {
     const ear = part(head, ears, fur, side * 0.20, 0.145, 0.013, side, 1.02, 1.25)
     ear.rotation.z = side * -0.25
     const lining = part(head, ears, innerEar, side * 0.20, 0.173, -0.036, side * 0.65, 0.74, 0.27)
     lining.rotation.z = ear.rotation.z
-    oval(head, dark, side * 0.11, -0.018, -0.277, 0.037, 0.055, 0.019)
+    earParts.push({ear, lining, side})
+    eyes.push(oval(head, dark, side * 0.11, -0.018, -0.277, 0.037, 0.055, 0.019))
     const mark = oval(head, stripe, side * 0.115, 0.072, 0.255, 0.035, 0.119, 0.030)
     mark.rotation.z = side * -0.35
     oval(head, stripe, side * 0.258, 0.003, 0.166, 0.044, 0.046, 0.025)
@@ -157,13 +160,43 @@ export function makeKitty(scene) {
     body.add(leg)
     legs.push({leg, shin})
   }
-  let stride = 0, life = 0, cheer = 0
+  // A tail poking out of a tail sleeve in the suit: a chain of joints that swish.
+  const tail = []
+  let joint = new THREE.Group()
+  joint.position.set(0, 0.74, 0.25)
+  body.add(joint)
+  for (let i = 0; i < 6; i++) {
+    const r = 0.075 - i * 0.008
+    oval(joint, i === 0 ? suit : i === 5 ? cream : fur, 0, 0, 0.07, r, r, 0.1)
+    tail.push(joint)
+    const next = new THREE.Group()
+    next.position.set(0, 0, 0.13)
+    joint.add(next)
+    joint = next
+  }
+  let stride = 0, life = 0, cheer = 0, blink = 2.5, twitch = 4
+  const twitchSide = {value: 1}
 
   return {
-    rig,
+    rig, head, helmet,
+    materials: {suit, trim, indigo, fur, cream, stripe},
+    setHelmet(on) { helmet.visible = on },
     cheer() { cheer = 1 },
     animate(dt, speed, ground, action, reduced) {
       cheer = Math.max(0, cheer - dt / 1.1)
+      // blink every few seconds, twitch an ear now and then
+      blink -= dt
+      const closed = !reduced && blink < 0.12
+      if (blink < 0) blink = 2.2 + Math.random() * 3.5
+      for (const eye of eyes) eye.scale.y = closed ? 0.008 : 0.055
+      twitch -= dt
+      if (twitch < 0) { twitch = 3 + Math.random() * 5; twitchSide.value = Math.random() < 0.5 ? -1 : 1 }
+      const flick = !reduced && twitch > 0 && twitch < 0.25 ? Math.sin(twitch / 0.25 * Math.PI) * 0.35 : 0
+      for (const {ear, lining, side} of earParts) {
+        const z = side * -0.25 + (side === twitchSide.value ? flick * side : 0)
+        ear.rotation.z = z
+        lining.rotation.z = z
+      }
       const hop = reduced ? 0 : Math.abs(Math.sin(cheer * Math.PI * 2)) * cheer
       const weight = THREE.MathUtils.clamp(speed / 2.5, 0, 1)
       stride += speed * dt * 4.7
@@ -176,6 +209,11 @@ export function makeKitty(scene) {
       body.rotation.x = weight * -0.060 + reach * -0.15
       head.rotation.y = reduced ? 0 : Math.sin(stride * 0.37) * weight * 0.12 + Math.sin(life * 0.81) * (1 - weight) * 0.09
       head.rotation.x = reach * 0.13
+      const swish = reduced ? 0 : Math.sin(life * (2.2 + cheer * 6) ) * (0.18 + cheer * 0.3 + weight * 0.1)
+      tail.forEach((j, i) => {
+        j.rotation.y = swish * (0.4 + i * 0.12) + Math.sin(life * 1.3 + i) * 0.04
+        j.rotation.x = i === 0 ? -0.6 : -0.12 - weight * 0.05
+      })
       for (let i = 0; i < 2; i++) {
         const phase = stride + Math.PI * i
         const motion = Math.sin(phase) * weight
