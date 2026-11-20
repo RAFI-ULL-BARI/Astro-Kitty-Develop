@@ -181,8 +181,10 @@ export function makeHud(root, getLang) {
     mapMenu(current, visited, onGo) {
       const home = SITES.home
       const pins = SITE_ORDER.filter(id => !SITES[id].moon).map(id => {
-        const s = SITES[id], x = (((s.lon % 360) + 360) % 360) / 360 * 100, y = (90 - s.lat) / 180 * 100
-        return `<button class="cx-pin ${id === current ? 'here' : ''} ${visited.includes(id) ? 'seen' : ''}" style="left:${x}%;top:${y}%" data-site="${id}" title="${esc(s.name[L()])}"><i></i><span>${esc(s.name[L()].split(' · ')[0])}</span></button>`
+        // The Viking map is centred on 0 degrees longitude (same as the 3D adventure's map).
+        const s = SITES[id], x = (((s.lon + 180) % 360) + 360) % 360 / 360 * 100, y = (90 - s.lat) / 180 * 100
+        const side = x > 85 ? 'right' : x < 15 ? 'left' : ''
+        return `<button class="cx-pin ${side} ${id === current ? 'here' : ''} ${visited.includes(id) ? 'seen' : ''}" style="left:${x}%;top:${y}%" data-site="${id}" title="${esc(s.name[L()])}"><i></i><span>${esc(s.name[L()].split(' · ')[0])}</span></button>`
       }).join('')
       const c = openPanel(`<h2>🪐 ${esc(t('mapTitle'))}</h2><p class="cx-muted">${esc(t('mapIntro'))}</p>
         <div class="cx-mars">${pins}</div><button class="cx-phobos ${current === 'phobos' ? 'here' : ''}" data-site="phobos">🌑 ${esc(SITES.phobos.name[L()])}</button>

@@ -223,6 +223,11 @@ function makeCave(group, cave) {
   const mesh = new THREE.Mesh(tube, rock)
   mesh.receiveShadow = true
   group.add(mesh)
+  // close the far end of the tube with a rounded rock wall
+  const capPoint = curve.getPoint(1)
+  const cap = new THREE.Mesh(new THREE.SphereGeometry(6.1, 18, 12), rock)
+  cap.position.copy(capPoint)
+  group.add(cap)
   // Glittering ice crystals at the far end (a game idea: some scientists think caves could hold ice).
   const end = curve.getPoint(1)
   const crystals = new THREE.Group()

@@ -77,7 +77,7 @@ a{color:var(--mint)}
 .cx-stick span{width:52px;height:52px;border-radius:50%;background:#fff0d7cc;box-shadow:0 4px 12px #0005}
 .cx-buttons{display:flex;gap:10px;align-items:flex-end}
 .cx-buttons button{width:58px;height:58px;border-radius:50%;border:0;background:#14233ccc;font-size:24px;display:grid;place-items:center;box-shadow:0 4px 14px #0005;position:relative}
-.cx-buttons button small{position:absolute;bottom:-17px;font-size:11px;font-weight:800;white-space:nowrap}
+.cx-buttons button small{position:absolute;bottom:-17px;font-size:11px;font-weight:800;white-space:nowrap;color:var(--cream);text-shadow:0 1px 3px #000}
 .cx-buttons .cx-big{width:76px;height:76px;background:#f7c873;color:var(--ink);font-size:30px}
 .cx-buttons button:active{transform:scale(.9)}
 @media (pointer:fine){.cx-stick,.cx-buttons [data-press=jump]{display:none}.cx-controls{height:auto}}
@@ -114,6 +114,8 @@ a{color:var(--mint)}
 .cx-pin.here i{background:#5ef08a}
 .cx-pin.seen i{background:var(--mint)}
 .cx-pin span{font-size:11px;font-weight:800;padding:1px 6px;border-radius:6px;background:#14233ccc;white-space:nowrap}
+.cx-pin.right{justify-items:end;transform:translate(calc(-100% + 8px),-50%)}
+.cx-pin.left{justify-items:start;transform:translate(-8px,-50%)}
 .cx-phobos{border:0;border-radius:999px;padding:8px 14px;background:#22365a;font-weight:800}
 .cx-phobos.here{outline:2px solid #5ef08a}
 .cx-site-card{margin-top:10px;padding:12px;border-radius:14px;background:#22365a}
