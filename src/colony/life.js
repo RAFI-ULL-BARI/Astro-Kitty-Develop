@@ -145,12 +145,12 @@ export function makeDustDevils(scene, height, count = 3, area = 120, seed = 1) {
 }
 
 // A pool of short-lived particles for sparks, steam, smoke and dust puffs.
-export function makeBursts(scene, size = 600) {
+export function makeBursts(scene, capacity = 600) {
   const geo = new THREE.BufferGeometry()
-  geo.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(size * 3), 3))
-  geo.setAttribute('color', new THREE.Float32BufferAttribute(new Float32Array(size * 3), 3))
-  geo.setAttribute('alpha', new THREE.Float32BufferAttribute(new Float32Array(size), 1))
-  geo.setAttribute('size', new THREE.Float32BufferAttribute(new Float32Array(size), 1))
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(capacity * 3), 3))
+  geo.setAttribute('color', new THREE.Float32BufferAttribute(new Float32Array(capacity * 3), 3))
+  geo.setAttribute('alpha', new THREE.Float32BufferAttribute(new Float32Array(capacity), 1))
+  geo.setAttribute('size', new THREE.Float32BufferAttribute(new Float32Array(capacity), 1))
   const mat = new THREE.ShaderMaterial({
     transparent: true, depthWrite: false, vertexColors: true,
     uniforms: {pixel: {value: 1}},
@@ -175,14 +175,14 @@ export function makeBursts(scene, size = 600) {
   const points = new THREE.Points(geo, mat)
   points.frustumCulled = false
   scene.add(points)
-  const parts = Array.from({length: size}, () => ({life: 0, max: 1, x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, g: 0, size: 0.1, r: 1, gg: 1, b: 1, grow: 0}))
+  const parts = Array.from({length: capacity}, () => ({life: 0, max: 1, x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, g: 0, size: 0.1, r: 1, gg: 1, b: 1, grow: 0}))
   let next = 0
   const color = new THREE.Color()
   function emit(x, y, z, {count = 10, speed = 2, up = 1, gravity = -4, life = 0.8, size = 0.12, color: col = '#ffd27a', spread = 1, dir = null, grow = 0} = {}) {
     color.set(col)
     for (let i = 0; i < count; i++) {
       const p = parts[next]
-      next = (next + 1) % size
+      next = (next + 1) % capacity
       const a = Math.random() * TAU, s = speed * (0.4 + Math.random() * 0.6)
       p.x = x; p.y = y; p.z = z
       if (dir) {

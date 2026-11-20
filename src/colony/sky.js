@@ -31,13 +31,18 @@ void main() {
   vec3 horizonDay = mix(vec3(0.80, 0.58, 0.42), vec3(0.88, 0.74, 0.62), polar);
   vec3 zenithDay = mix(vec3(0.54, 0.36, 0.28), vec3(0.36, 0.30, 0.36), thin);
   vec3 col = mix(horizonDay, zenithDay, pow(smoothstep(0.0, 0.85, up), 0.7));
-  // blue halo around the Sun, strongest at sunset
-  float halo = pow(max(cosSun, 0.0), 6.0);
-  col = mix(col, vec3(0.42, 0.62, 0.86), halo * (0.35 + twilight * 0.65) * (1.0 - storm));
-  col *= mix(0.06, 1.0, day);
+  // The whole sky dims as the Sun gets low, and a blue halo grows around it:
+  // fine Mars dust scatters blue light forward, so Mars sunsets are blue.
+  float bright = smoothstep(-0.15, 0.45, sunUp);
+  col *= mix(0.05, 0.86, bright);
+  float halo = pow(max(cosSun, 0.0), 5.0);
+  float glowBand = pow(max(cosSun, 0.0), 40.0);
+  vec3 blue = vec3(0.2, 0.44, 0.92);
+  col = mix(col, blue * mix(0.55, 1.0, bright), halo * (0.18 + twilight * 1.1) * (1.0 - storm));
+  col += vec3(0.45, 0.7, 1.0) * glowBand * twilight * 1.3 * (1.0 - storm);
   vec3 night = vec3(0.025, 0.028, 0.055) + vec3(0.06, 0.05, 0.07) * (1.0 - up);
   col = mix(night, col, day);
-  col += vec3(0.30, 0.42, 0.60) * twilight * halo * 1.4;
+  col += vec3(0.08, 0.06, 0.05) * twilight * (1.0 - halo) * smoothstep(0.3, 0.0, up);
   // stars and a faint band of the Milky Way at night (always in space)
   float dark = max(1.0 - day, space);
   vec3 cell = floor(dir * 160.0);
@@ -63,6 +68,8 @@ void main() {
   #include <tonemapping_fragment>
   #include <colorspace_fragment>
 }`
+
+const MOON_DIR = new THREE.Vector3(0.35, 0.82, -0.45).normalize()
 
 export function makeSky(scene, {space = false, thin = false, polar = false} = {}) {
   const material = new THREE.ShaderMaterial({
@@ -113,12 +120,15 @@ export function makeSky(scene, {space = false, thin = false, polar = false} = {}
       u.time.value = time
       const day = smooth(-0.1, 0.2, sunDir.y)
       const low = 1 - smooth(0.05, 0.5, sunDir.y)
-      sun.color.setRGB(1.0, lerp(0.88, 0.62, low), lerp(0.75, 0.45, low))
-      sun.intensity = 3.1 * day * (1 - storm * 0.75)
-      hemi.intensity = lerp(0.32, 1.45, day) * (1 - storm * 0.25) + indoors * 0.1
-      hemi.color.setRGB(lerp(0.36, 0.95, day), lerp(0.38, 0.82, day), lerp(0.55, 0.77, day))
-      hemi.groundColor.setRGB(lerp(0.12, 0.48, day), lerp(0.1, 0.3, day), lerp(0.14, 0.25, day))
-      tmp.copy(sunDir).normalize().multiplyScalar(80)
+      // At night the same light becomes soft blue moonlight from high in the sky,
+      // brighter than real Mars nights so kids can still find their way.
+      const moon = 1 - smooth(-0.12, 0.06, sunDir.y)
+      sun.color.setRGB(lerp(1.0, 0.55, moon), lerp(lerp(0.88, 0.62, low), 0.66, moon), lerp(lerp(0.75, 0.45, low), 1.0, moon))
+      sun.intensity = 3.1 * day * (1 - storm * 0.75) + moon * 0.55
+      hemi.intensity = lerp(0.62, 1.45, day) * (1 - storm * 0.25) + indoors * 0.1
+      hemi.color.setRGB(lerp(0.42, 0.95, day), lerp(0.46, 0.82, day), lerp(0.7, 0.77, day))
+      hemi.groundColor.setRGB(lerp(0.16, 0.48, day), lerp(0.14, 0.3, day), lerp(0.2, 0.25, day))
+      tmp.copy(moon > 0.5 ? MOON_DIR : sunDir).normalize().multiplyScalar(80)
       sun.position.copy(focus).add(tmp.y > 4 ? tmp : tmp.setY(4))
       sun.target.position.copy(focus)
       const cam = sun.shadow.camera
@@ -138,7 +148,7 @@ export function makeSky(scene, {space = false, thin = false, polar = false} = {}
       return {day, low}
     },
     fogColor(target, storm = 0) {
-      const day = smooth(-0.1, 0.2, u().sunDir.value.y)
+      const day = smooth(-0.12, 0.42, u().sunDir.value.y)
       target.setRGB(lerp(0.08, 0.72, day), lerp(0.07, 0.5, day), lerp(0.1, 0.4, day))
       target.lerp(new THREE.Color(lerp(0.15, 0.62, day), lerp(0.09, 0.38, day), lerp(0.06, 0.22, day)), storm)
       return target

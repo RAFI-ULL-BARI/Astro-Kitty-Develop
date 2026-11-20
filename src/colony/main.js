@@ -185,6 +185,11 @@ function buildWorld(siteId) {
   }
   // shared actors
   w.kitty = makeKitty(scene, suitColors(save.suit))
+  // a helmet lamp for walking about at night
+  w.headlamp = new THREE.SpotLight('#fff1d6', 0, 26, 0.55, 0.6, 1.2)
+  w.headlamp.position.set(0, 1.75, -0.35)
+  w.headlamp.target.position.set(0, 0.2, -7)
+  w.kitty.rig.add(w.headlamp, w.headlamp.target)
   w.dhrubo = makeDhrubo(scene)
   w.rover = makeRover(scene, terrainHeight, collider)
   w.drone = save.base.built.includes('drone') ? makeDrone(scene, terrainHeight) : null
@@ -221,7 +226,8 @@ function addMarsInSky(w) {
   // From Phobos, Mars fills a huge part of the sky.
   const mat = new THREE.MeshBasicMaterial({map: marsTexture, color: marsTexture ? '#ffffff' : '#c1704f', fog: false})
   const mars = new THREE.Mesh(new THREE.SphereGeometry(110, 48, 32), mat)
-  mars.position.set(-120, 160, -260)
+  // Real size: from Phobos, Mars is about 42 degrees across and never moves in the sky.
+  mars.position.set(-150, 85, -235)
   w.sky.dome.add(mars)
   w.marsGlobe = mars
 }
@@ -438,6 +444,8 @@ function eventStarted(e) {
 }
 
 function fixSpotFor(e) {
+  // Problems at the base wait for you to come home.
+  if (!world.home) return null
   const spec = director.EVENTS[e.id]
   if (e.phase === 'warning' && !spec.good) return null
   const fx = activeFx.get(e.uid) ?? {}
@@ -497,11 +505,13 @@ function burst(x, y, z, color, count = 20, opts = {}) {
 
 // --- interacting with things ------------------------------------------------------------
 function currentSpots() {
-  const list = [...world.spots]
+  // A problem to fix always wins over the normal use of the same spot.
+  const fixes = []
   if (dir) for (const e of dir.active) {
     const s = fixSpotFor(e)
-    if (s) list.push({...s, event: e})
+    if (s) fixes.push({...s, event: e})
   }
+  const list = [...world.spots.filter(s => !fixes.some(f => f.id === s.id)), ...fixes]
   if (world.home && player.mode === 'walk') {
     const r = world.rover.state
     list.push({id: 'rover', x: r.x, z: r.z, r: 3.2, verb: 'tap', label: {en: T('drive'), bn: S.bn.drive}})
@@ -654,7 +664,9 @@ function travel(id) {
     hud.fade(false)
     travelling = false
     hud.toast(`🚀 ${T('landed')}`, 'good')
-    say(SITES[id].fact[lang], 9)
+    const waiting = id === 'home' ? dir?.active.find(e => !director.EVENTS[e.id].good) : null
+    if (waiting) say(`${lang === 'bn' ? 'স্বাগতম! একটা সমস্যা অপেক্ষা করছে:' : 'Welcome back! A problem is waiting for us:'} ${EVENT_TEXT[waiting.id][lang][0]}`, 8)
+    else say(SITES[id].fact[lang], 9)
     burst(player.x, player.y + 0.3, player.z, '#c48a64', 40, {speed: 6, gravity: -1, size: 0.3, life: 1.6})
   }, 900)
 }
@@ -731,7 +743,7 @@ function frame(now) {
   if (!paused) {
     const homeHours = (gameHours + (SITES.home.lon - site.lon) / 15 + 48) % 24
     const homeSun = sunPosition(homeHours, SITES.home.lat, clockCache.ls)
-    const problems = dir ? director.problems(dir) : {}
+    const problems = dir && w.home ? director.problems(dir) : {}
     const r = simTick(save.base, {sunElevation: homeSun.elevation, night: homeSun.elevation < 0, storm: w.home ? storm : 0, problems}, dt * 24 / 360)
     w.rates = r
     if (save.base.built.includes('observatory') && Math.random() < dt / 60) save.base.stuff.science += 1
@@ -768,7 +780,7 @@ function frame(now) {
   if (flare) w.sky.hemi.color.offsetHSL(0.0, 0, Math.sin(time * 6) * 0.02)
   w.wind.elapsed.value = reduced ? 0 : time
   w.wind.storm.value = storm
-  w.wind.inside.value = region ? 1 : 0
+  w.wind.inside.value = region || site.sky === 'space' ? 1 : 0
   w.wind.center.value.set(player.x, w.terrainHeight(player.x, player.z), player.z)
   const pixel = renderer.getPixelRatio()
   w.wind.pixel.value = pixel
@@ -779,6 +791,9 @@ function frame(now) {
   else updateSite(dt, reduced)
   updateEffects(dt, reduced)
   hideIdleDrone()
+  w.headlamp.intensity = !region && player.mode === 'walk' ? night * 38 + (player.underground ? 45 : 0) : 0
+  M.window().emissive.setRGB(lerp(0.11, 1.0, night), lerp(0.18, 0.78, night), lerp(0.3, 0.42, night))
+  M.window().emissiveIntensity = lerp(0.35, 1.4, night)
   // Dhrubo floats beside you and looks at what matters
   const goal = hudGoal()
   const side = player.heading + Math.PI / 2
@@ -797,7 +812,7 @@ function frame(now) {
     prompt = {text: `${touch ? '✋' : 'E'} · ${verb}: ${spot.label[lang] ?? spot.label.en}`, verb: spot.verb, progress: hold.id === spotKey(spot) ? hold.t / 1.1 : 0}
   }
   if (player.mode === 'drive') prompt = {text: `${touch ? '🛞' : 'E / R'} · ${T('leaveRover')}`, verb: 'tap'}
-  const alert = dir?.active.find(e => !(e.id === 'dustStorm' && e.phase === 'active' && e.age > 20)) ?? null
+  const alert = w.home ? dir?.active.find(e => !(e.id === 'dustStorm' && e.phase === 'active' && e.age > 20)) ?? null : null
   hud.update({
     site: site.id, clock: clockCache, hours: gameHours, base: save.base, colonySol: (save.sols ?? 0) + 1,
     objectives: w.objectives, alert: alert ? {id: alert.phase === 'cleanup' ? 'dustStormCleanup' : alert.id, phase: alert.phase, good: director.EVENTS[alert.id].good} : null,
@@ -1150,10 +1165,11 @@ function markerFor(goal) {
   const behind = tmpV.z > 1
   let x = (tmpV.x * 0.5 + 0.5) * w, y = (-tmpV.y * 0.5 + 0.5) * h
   if (behind) { x = w - x; y = h - 60 }
-  const pad = 46
-  const edge = behind || x < pad || x > w - pad || y < pad + 50 || y > h - pad - 90
-  x = clamp(x, pad, w - pad)
-  y = clamp(y, pad + 50, h - pad - 90)
+  // keep the arrow clear of the meters (top right) and the controls (bottom)
+  const pad = 46, top = 175
+  const edge = behind || x < pad || x > w - pad - 30 || y < top || y > h - pad - 110
+  x = clamp(x, pad, w - pad - 30)
+  y = clamp(y, top, h - pad - 110)
   const angle = edge ? Math.atan2(y - h / 2, x - w / 2) + Math.PI / 2 : Math.PI
   const d = Math.round(Math.hypot(goal.x - player.x, goal.z - player.z))
   return {x, y, angle, edge, label: d > 3 ? `${d} m` : ''}
@@ -1225,7 +1241,7 @@ function postcard() {
     g.fillText(`${lang === 'bn' ? 'শুভেচ্ছা' : 'Greetings from'} ${SITES[world.site.id].name[lang]}!`, 40, img.height + 85)
     g.font = `${Math.round(c.width / 44)}px system-ui`
     g.fillStyle = '#6b5f73'
-    g.fillText(`${name ? name + ' · ' : ''}${T('sol')} ${clockCache.sol} · Astro Kitty 🐱🚀`, 40, img.height + 130)
+    g.fillText(`${name ? name + ' · ' : ''}${T('sol')} ${(save.sols ?? 0) + 1} · ${T('marsYear')} ${clockCache.marsYear} · Astro Kitty 🐱🚀`, 40, img.height + 130)
     hud.showPicture(c.toDataURL('image/png'))
   }
   img.src = capture()
@@ -1239,10 +1255,13 @@ hud.title(hasSave, startGame)
 addEventListener('resize', () => resize())
 requestAnimationFrame(t => { last = t; frame(t) })
 canvas.addEventListener('pointerdown', () => audio.unlock(), {once: true})
+// works offline after the first visit (same cache as the 3D adventure)
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?v=10').catch(() => {})
 // for automated checks
 window.__colony = {
   get world() { return world }, player, get save() { return save }, get director() { return dir },
   start: startGame, travel, buy,
-  setHours(h) { gameHours = h }, trigger(id) { const e = director.start(dir, id, Math.random, {leakModules: ['greenhouse']}); e.phase = 'active'; eventStarted(e); return e },
+  setHours(h) { gameHours = h },
+  setQuality(q) { save.settings.quality = q; downgraded = true; applyQuality() }, trigger(id) { const e = director.start(dir, id, Math.random, {leakModules: ['greenhouse']}); e.phase = 'active'; eventStarted(e); return e },
   teleport(x, z) { player.x = x; player.z = z; player.y = world.groundAt(x, z) },
 }
