@@ -66,6 +66,10 @@ class MicrobitRover:
         display.show(Image.SKULL if self.rock_ahead() else Image.YES)
         sleep(400)
 
+    def wait(self):
+        display.show(Image.CLOCK12)
+        sleep(800)
+
     def rock_ahead(self):
         return distance_cm() < ROCK_CM
 

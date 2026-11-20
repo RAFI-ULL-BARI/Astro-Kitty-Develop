@@ -52,7 +52,7 @@ def test_robot_tree():
 
 def test_every_level_is_winnable_and_stable():
     first = levels.build_all()
-    assert len(first) == 60
+    assert len(first) == 70
     for level in first:
         levels.check_level(level)
     assert first == levels.build_all()  # same seed, same levels
@@ -154,3 +154,38 @@ def test_doing_nothing_loses_the_base():
             if base.phase == "playing":
                 base.choose(pid, "rest")
     assert base.phase == "lost"
+
+
+def test_ice_slides_until_normal_ground():
+    assert run("MOVE", [">~~.B"])["final"]["x"] == 3
+
+
+def test_battery_runs_flat_and_pads_recharge():
+    assert run("MOVE 2\nTURN RIGHT\nMOVE", [">..#", "##+#", "##B#"], battery=3)["status"] == "flat"
+    ok = run("MOVE 2\nTURN RIGHT\nMOVE", [">..#", "##+#", "##B#"], battery=4)
+    assert ok["status"] == "not_home" and ok["energy"] == 4  # recharged on the pad
+
+
+def test_dust_devils_move_and_wait_helps():
+    assert run("MOVE 4", [">.@..B"])["status"] == "blown"
+    # A devil goes up and down a gap: moving at once gets you blown, waiting a bit lets you pass.
+    crossing = [">.$.B", "##.##", "##.##"]
+    results = [run(("WAIT %d\n" % k if k else "") + "MOVE 4", crossing)["status"] for k in range(7)]
+    assert "blown" in results and "success" in results  # timing matters!
+
+
+def test_surprise_levels_need_their_surprise():
+    from astrokitty.surprise import solve
+    for level in [lv for lv in levels.build_all() if lv["world"] == 7]:
+        result = levels.check_level(level)
+        ops = {t["op"] for t in result["trace"]}
+        assert ops & {"slide", "charge", "wait"}, level["id"]
+        assert solve(level["map"], level.get("battery")) is not None
+
+
+def test_remixes_are_new_and_winnable():
+    a = levels.remix(3, "a")
+    b = levels.remix(3, "b")
+    assert a["map"] != b["map"]
+    for world in range(1, 8):
+        levels.check_level(levels.remix(world, "x"))

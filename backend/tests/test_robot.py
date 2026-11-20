@@ -47,7 +47,8 @@ class GridRover:
 
 
 def test_robot_runner_matches_the_game_engine_on_every_level():
-    for level in levels.build_all():
+    # The classroom robot drives on a plain mat: no virtual ice, batteries or dust devils.
+    for level in [lv for lv in levels.build_all() if lv["world"] <= 6]:
         for source in (level["reference"], level["reference"].replace("LEFT", "RIGHT")):
             game = run(source, level["map"], level["par"])
             if game["status"] == "error":

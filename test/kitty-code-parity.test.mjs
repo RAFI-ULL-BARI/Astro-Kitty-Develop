@@ -15,7 +15,7 @@ test('the browser engine agrees with the Python engine on every case',()=>{
 });
 
 test('levels ship without their reference solutions',()=>{
-  assert.equal(levels.length,60);
+  assert.equal(levels.length,70);
   for(const level of levels){assert.equal(level.reference,undefined);assert.ok(level.par>0);}
 });
 

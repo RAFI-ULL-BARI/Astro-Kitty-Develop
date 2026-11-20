@@ -13,7 +13,7 @@ P_SLIP = 0.1     # chance of a wrong answer despite knowing
 MASTERED = 0.85
 
 # Kitty Code world concepts feed the same skill map as quiz questions.
-WORLD_SKILLS = {1: "sequence", 2: "loops", 3: "conditions", 4: "routines", 5: "conditions", 6: "routines"}
+WORLD_SKILLS = {1: "sequence", 2: "loops", 3: "conditions", 4: "routines", 5: "conditions", 6: "routines", 7: "conditions"}
 
 
 def update(p_known: float, correct: bool) -> float:

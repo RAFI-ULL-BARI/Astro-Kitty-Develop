@@ -206,3 +206,16 @@ def test_dhrubo_without_credentials_answers_offline(monkeypatch):
     monkeypatch.setenv("ANTHROPIC_CONFIG_DIR", "/nonexistent-astro-kitty")
     reply = asyncio.run(dhrubo.ask("How many moons does Mars have?"))
     assert reply["mode"] == "offline" and "Phobos" in reply["answer"]
+
+
+def test_remix_endpoint_gives_fresh_levels(client):
+    a = client.get("/api/levels/remix?world=7").json()
+    b = client.get("/api/levels/remix?world=7").json()
+    assert "reference" not in a and a["map"] != b["map"]
+
+
+def test_world7_submission_uses_the_battery(client):
+    _, auth = join(client)
+    level = next(lv for lv in levels.build_all() if lv.get("battery"))
+    good = client.post(f"/api/levels/{level['id']}/submit", json={"code": level["reference"]}, headers=auth).json()
+    assert good["result"]["stars"] == 3

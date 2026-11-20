@@ -12,12 +12,14 @@ import hashlib
 import random
 
 from .kittycode import DELTA, DIRS, run
+from .surprise import gen_surprise, surprise_seed
 
 BASIC = ["move", "turn left", "turn right", "drill", "scan"]
 LOOPS = BASIC + ["repeat"]
 LOGIC = LOOPS + ["repeat until", "if", "else", "rock ahead", "path ahead", "path left",
                  "path right", "sample here", "at base", "not"]
 ALL = LOGIC + ["define"]
+SURPRISE = ALL + ["wait"]
 
 WORLDS = [
     {"id": 1, "place": {"en": "Landing Site", "bn": "অবতরণ স্থান"}, "concept": "sequence",
@@ -32,6 +34,8 @@ WORLDS = [
      "learn": {"en": "Mix loops and decisions to beat the storm", "bn": "লুপ আর সিদ্ধান্ত মিলিয়ে ঝড়কে হারাও"}, "toolbox": ALL},
     {"id": 6, "place": {"en": "Olympus Mons", "bn": "অলিম্পাস মনস"}, "concept": "boss",
      "learn": {"en": "Boss missions on the tallest volcano", "bn": "সবচেয়ে উঁচু আগ্নেয়গিরিতে বস মিশন"}, "toolbox": ALL},
+    {"id": 7, "place": {"en": "Surprise Storm", "bn": "চমকের ঝড়"}, "concept": "surprises",
+     "learn": {"en": "Slippery ice, tired batteries and dust devils: plan for surprises!", "bn": "পিছলে যাওয়া বরফ, ক্লান্ত ব্যাটারি আর ধুলোর ঘূর্ণি: চমকের জন্য তৈরি থাকো!"}, "toolbox": SURPRISE},
 ]
 
 # --- World 1: hand-made ----------------------------------------------------
@@ -256,13 +260,13 @@ def gen_routine(rng: random.Random, uses: int):
 
 def check_level(level: dict) -> dict:
     """Run the reference solution. Raises if the level is not winnable with 3 stars."""
-    result = run(level["reference"], level["map"], level["par"])
+    result = run(level["reference"], level["map"], level["par"], level.get("battery"))
     if result["status"] != "success" or result["stars"] != 3:
         raise AssertionError(f"level {level['id']} is broken: {result['status']} {result['message']}")
     return result
 
 
-def _level(world: int, index: int, title: str, hint_en: str, hint_bn: str, rows, ref) -> dict:
+def _level(world: int, index: int, title: str, hint_en: str, hint_bn: str, rows, ref, battery=None) -> dict:
     from .kittycode import count_commands, parse
     level = {
         "id": f"w{world}-{index}",
@@ -274,6 +278,8 @@ def _level(world: int, index: int, title: str, hint_en: str, hint_bn: str, rows,
         "par": count_commands(parse(ref)),
         "reference": ref,
     }
+    if battery is not None:
+        level["battery"] = battery
     check_level(level)
     return level
 
@@ -289,7 +295,26 @@ TITLES = {
         "Hidden samples", "Storm maze", "Gusty steps", "Whiteout", "Storm survivor"],
     6: ["Volcano foot", "Lava field", "Steep stairs", "Caldera cave", "Summit samples",
         "Cloud tunnel", "Giant steps", "Boss maze", "Peak routine", "Top of the world"],
+    7: ["Slippery start", "Ice rink", "Low battery", "Charge and go", "Dust devil dance",
+        "Wait for it", "Icy whirlwinds", "Frosty power", "Devil maze", "The perfect storm"],
 }
+
+# World 7 mixes the surprises: ice, batteries with charging pads and dust devils.
+SURPRISE_PLAN = [
+    dict(w=6, h=5, ice=True, samples=1), dict(w=7, h=6, ice=True, samples=2),
+    dict(w=7, h=6, battery=True, samples=1), dict(w=8, h=7, battery=True, samples=2),
+    dict(w=7, h=5, devils=1, samples=0), dict(w=8, h=6, devils=1, samples=1),
+    dict(w=8, h=7, ice=True, devils=1, samples=1), dict(w=8, h=7, ice=True, battery=True, samples=1),
+    dict(w=8, h=8, devils=2, battery=True, samples=1), dict(w=9, h=8, ice=True, battery=True, devils=2, samples=2),
+]
+SURPRISE_HINTS = {
+    "ice": ("On ice you keep sliding until you reach normal ground!", "বরফে স্বাভাবিক মাটিতে না পৌঁছানো পর্যন্ত পিছলে যাবে!"),
+    "battery": ("Each MOVE and TURN uses battery. Stop on a ⚡ charging pad to fill up.", "প্রতিটি এগোও আর ঘোরো ব্যাটারি খরচ করে। ⚡ চার্জিং প্যাডে থেমে ভরে নাও।"),
+    "devils": ("Dust devils move every step. WAIT until the way is clear!", "ধুলোর ঘূর্ণি প্রতি ধাপে সরে। পথ খালি না হওয়া পর্যন্ত অপেক্ষা করো!"),
+}
+def surprise_hint(plan):
+    key = "devils" if plan.get("devils") else "battery" if plan.get("battery") else "ice"
+    return SURPRISE_HINTS[key]
 
 HINTS = {
     2: ("Find the part that repeats. Put it inside REPEAT ... END.",
@@ -307,6 +332,12 @@ HINTS = {
 def build_world(world: int, seed: int = 2026) -> list[dict]:
     if world == 1:
         return [_level(1, i + 1, t, he, hb, rows, ref) for i, (t, he, hb, rows, ref) in enumerate(W1)]
+    if world == 7:
+        out = []
+        for i, plan in enumerate(SURPRISE_PLAN):
+            rows, ref, battery = gen_surprise(surprise_seed("world7", seed, i), **plan)
+            out.append(_level(7, i + 1, TITLES[7][i], *surprise_hint(plan), rows, ref, battery))
+        return out
     rng = random.Random(f"astro-kitty-world-{world}-{seed}")
     he, hb = HINTS[world]
     out = []
@@ -344,20 +375,58 @@ def build_all(seed: int = 2026) -> list[dict]:
     return levels
 
 
+def remix(world: int, seed) -> dict:
+    """A brand-new level that practises the same idea as a world. Different every time."""
+    rng = random.Random(f"remix-{world}-{seed}")
+    battery = None
+    if world == 1:
+        rows, ref, battery = gen_surprise(rng, rng.randint(5, 7), rng.randint(4, 5), samples=rng.randint(0, 2), min_steps=4, max_steps=16)
+    elif world == 2:
+        rows, ref = gen_stairs(rng, reps=rng.randint(2, 4), with_samples=rng.random() < 0.6)
+    elif world == 3:
+        rows, ref = gen_corridor(rng, length=rng.randint(10, 18), size=rng.randint(7, 9), n_samples=rng.randint(0, 2))
+    elif world == 4:
+        rows, ref = gen_routine(rng, uses=rng.randint(2, 4))
+    elif world in (5, 6):
+        kind = rng.randint(0, 2)
+        big = world == 6
+        if kind == 0:
+            rows, ref = gen_corridor(rng, length=rng.randint(16, 26 if big else 20), size=10 if big else 9, n_samples=rng.randint(1, 3))
+        elif kind == 1:
+            rows, ref = gen_stairs(rng, reps=rng.randint(3, 5), with_samples=True, rock_rate=0.35)
+        else:
+            rows, ref = gen_routine(rng, uses=rng.randint(3, 5))
+    else:
+        plan = dict(rng.choice(SURPRISE_PLAN))
+        rows, ref, battery = gen_surprise(rng, **plan)
+    hint = surprise_hint(plan) if world == 7 else HINTS.get(world, ("Reach the base and grab the samples!", "ঘাঁটিতে পৌঁছাও আর নমুনা তোলো!"))
+    level = _level(world, 0, "Remix", *hint, rows, ref, battery)
+    level["id"] = f"remix-w{world}-{seed}"
+    level["remix"] = True
+    return level
+
+
+def remix_pool(per_world: int = 8, seed: int = 2026) -> dict:
+    return {str(w["id"]): [public(remix(w["id"], f"{seed}-{i}")) for i in range(per_world)] for w in WORLDS}
+
+
 def daily_level(day: dt.date | None = None) -> dict:
     """The Daily Challenge: the same level for every player on the same (UTC) day."""
     day = day or dt.datetime.now(dt.timezone.utc).date()
     seed = int(hashlib.sha256(f"daily-{day.isoformat()}".encode()).hexdigest()[:12], 16)
     rng = random.Random(seed)
-    kind = seed % 3
+    kind = seed % 4
+    battery = None
     if kind == 0:
         rows, ref = gen_corridor(rng, length=rng.randint(14, 22), size=9, n_samples=rng.randint(1, 3))
     elif kind == 1:
         rows, ref = gen_stairs(rng, reps=rng.randint(3, 5), with_samples=True, rock_rate=0.3)
-    else:
+    elif kind == 2:
         rows, ref = gen_routine(rng, uses=rng.randint(3, 4))
+    else:
+        rows, ref, battery = gen_surprise(rng, **dict(rng.choice(SURPRISE_PLAN[2:])))
     level = _level(0, 0, "Daily Challenge", "A new mission every day. Same level for every kitty!",
-                   "প্রতিদিন নতুন মিশন। সব বিড়ালের জন্য একই লেভেল!", rows, ref)
+                   "প্রতিদিন নতুন মিশন। সব বিড়ালের জন্য একই লেভেল!", rows, ref, battery)
     level["id"] = f"daily-{day.isoformat()}"
     level["date"] = day.isoformat()
     return level

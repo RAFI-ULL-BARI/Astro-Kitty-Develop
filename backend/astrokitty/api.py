@@ -175,6 +175,11 @@ def create_app(database_url: str | None = None, serve_dist: bool | None = None, 
     def daily():
         return lv.public(daily_for(today()))
 
+    @app.get("/api/levels/remix")
+    def remix(world: int = Query(1, ge=1, le=7)):
+        # A brand-new practice level: same idea as the world, a map nobody has seen.
+        return lv.public(lv.remix(world, secrets.token_hex(4)))
+
     @app.post("/api/levels/{level_id}/submit")
     def submit_level(level_id: str, body: CodeBody, player: Player = Depends(current_player), session=Depends(db)):
         if level_id.startswith("daily-"):
@@ -185,7 +190,7 @@ def create_app(database_url: str | None = None, serve_dist: bool | None = None, 
             level = all_levels().get(level_id)
         if not level:
             raise HTTPException(404, "Unknown level")
-        result = run(body.code, level["map"], level["par"])  # the server re-runs the program
+        result = run(body.code, level["map"], level["par"], level.get("battery"))  # the server re-runs the program
         result.pop("trace")
         best = session.scalar(select(LevelResult).where(LevelResult.player_id == player.id,
                                                         LevelResult.level_id == level_id))

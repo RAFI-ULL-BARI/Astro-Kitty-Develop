@@ -76,6 +76,11 @@ class RoverVM:
             elif op == "scan":
                 self._step()
                 self.hw.scan()
+            elif op == "wait":
+                for _ in range(node.get("arg", 1)):
+                    self._step()
+                    if hasattr(self.hw, "wait"):
+                        self.hw.wait()
             elif op == "repeat":
                 for _ in range(node["arg"]):
                     self._tick()

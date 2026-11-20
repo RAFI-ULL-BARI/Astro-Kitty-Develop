@@ -99,6 +99,7 @@ def outputs() -> dict[str, object]:
     return {
         "kitty-code-levels.json": {"worlds": lv.WORLDS, "levels": [lv.public(level) for level in all_levels]},
         "kitty-code-cases.json": cases(all_levels),
+        "kitty-code-remix.json": lv.remix_pool(),
         "quizzes.json": quizzes.client_bank(bank),
     }
 
