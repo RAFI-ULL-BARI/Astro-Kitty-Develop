@@ -61,6 +61,63 @@ def light_delay_minutes(when: dt.datetime | None = None) -> float:
     return mars_distance_km(when) / LIGHT_KM_S / 60
 
 
+# --- Mars time ---------------------------------------------------------------------
+# NASA GISS "Mars24" (Allison & McEwen 2000), the same maths as the 3D colony's clock
+# (src/colony/calendar.js), so the server and the game agree on the date on Mars.
+MARS_YEAR_SOLS = 668.5991
+_PERTURBERS = ((0.0071, 2.2353, 49.409), (0.0057, 2.7543, 168.173), (0.0039, 1.1177, 191.837),
+               (0.0037, 15.7866, 21.736), (0.0021, 2.1354, 15.704), (0.0020, 2.4694, 95.528),
+               (0.0018, 32.8493, 49.095))
+_SEASONS = ("spring", "summer", "autumn", "winter")
+
+
+def _mars_core(when: dt.datetime) -> tuple[float, float]:
+    """Solar longitude Ls (degrees) and Mars Sol Date for a moment."""
+    jd_tt = julian_day(when) + 69.184 / 86400  # Terrestrial Time runs 69.184 s ahead of UTC
+    d = jd_tt - J2000
+    m = math.radians(19.3871 + 0.52402073 * d)
+    alpha = 270.3871 + 0.524038496 * d
+    pbs = sum(a * math.cos(math.radians(0.985626 * d / tau + phi)) for a, tau, phi in _PERTURBERS)
+    center = ((10.691 + 3.0e-7 * d) * math.sin(m) + 0.623 * math.sin(2 * m) + 0.050 * math.sin(3 * m)
+              + 0.005 * math.sin(4 * m) + 0.0005 * math.sin(5 * m) + pbs)
+    ls = (alpha + center) % 360
+    msd = (jd_tt - 2405522.0028779) / 1.0274912517
+    return ls, msd
+
+
+# Mars Year 38 began (Ls 0) on 12 November 2024 (Clancy et al. numbering).
+_MY38_START = _mars_core(dt.datetime(2024, 11, 12, 12, tzinfo=dt.timezone.utc))[1]
+
+
+def mars_clock(when: dt.datetime | None = None, lon_east: float = 0.0) -> dict:
+    """What day and time it is on Mars right now (or at `when`), at a longitude east."""
+    when = when or dt.datetime.now(dt.timezone.utc)
+    ls, msd = _mars_core(when)
+    mtc = (msd % 1) * 24
+    lmst = (mtc + lon_east / 15) % 24
+    since_year_start = ls / 360 * MARS_YEAR_SOLS
+    mars_year = 38 + round((msd - _MY38_START - since_year_start) / MARS_YEAR_SOLS)
+    year_start = _MY38_START + (mars_year - 38) * MARS_YEAR_SOLS
+    quarter = int(ls // 90) % 4
+
+    def hhmm(hours: float) -> str:
+        minutes = int(hours * 60) % (24 * 60)
+        return f"{minutes // 60:02d}:{minutes % 60:02d}"
+
+    return {
+        "msd": round(msd, 4),
+        "mtc": hhmm(mtc),
+        "local_time": hhmm(lmst),
+        "ls": round(ls, 2),
+        "mars_year": mars_year,
+        "sol_of_year": max(1, int(msd - year_start) + 1),
+        "northern_season": _SEASONS[quarter],
+        "southern_season": _SEASONS[(quarter + 2) % 4],
+        # Big dust storms mostly happen when Mars is closest to the Sun (southern spring and summer).
+        "dust_season": 180 <= ls <= 330,
+    }
+
+
 def mars_in_sky(lat: float, lon: float, when: dt.datetime | None = None) -> dict:
     """Altitude/azimuth of Mars for someone at (lat, lon). Good to about a degree."""
     when = when or dt.datetime.now(dt.timezone.utc)

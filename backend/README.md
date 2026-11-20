@@ -17,7 +17,8 @@ backend/
     adaptive.py    Bayesian Knowledge Tracing: what each kid has learned
     names.py       safe generated kitty names (kids never type a name)
     dhrubo.py      AI Dhrubo (Claude) with child-safety rules and an offline fallback
-    sky.py         Mars position, light delay, Hohmann launch windows, ISS passes
+    sky.py         Mars position, light delay, Hohmann launch windows, ISS passes,
+                   and the date and time on Mars (NASA Mars24, same as the 3D colony)
     nasa_feed.py   daily APOD, Mars images and solar flares -> dist/data/nasa-feed.json
     crew.py        co-op Mars base rules (2-4 players, preset messages only)
     diary.py       "My Mars Diary" PDF certificate
@@ -141,6 +142,7 @@ so it is not part of the robot test.) The micro:bit driver itself has not been t
 | GET | `/api/classes/{code}/insights` | teacher dashboard (`X-Teacher-Key` header) |
 | POST | `/api/dhrubo/ask` | ask Dhrubo |
 | GET | `/api/sky/mars`, `/api/sky/iss`, `/api/feed` | sky and NASA data |
+| GET | `/api/sky/mars-time?lon=184` | today's sol, Mars Year, season and local Mars time |
 | GET | `/api/players/me/diary.pdf` | My Mars Diary |
 | POST | `/api/robot/compile` | Kitty Code to a robot program |
 | POST, WS | `/api/crew`, `/api/crew/{room}` | crew missions |

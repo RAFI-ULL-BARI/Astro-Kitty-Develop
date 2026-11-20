@@ -10,6 +10,8 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.pdfgen import canvas
 
+from . import sky
+
 INK = colors.HexColor("#14233c")
 CREAM = colors.HexColor("#fff0d7")
 MINT = colors.HexColor("#a9e5d1")
@@ -83,6 +85,9 @@ def render(kitty_name: str, levels: list[dict], quizzes: list[dict], mastery: di
                         f"{len(levels)} Kitty Code missions  -  {len(quizzes)} quizzes completed")
     c.setFont("Helvetica", 11)
     c.setFillColor(colors.HexColor("#c5cfdf"))
+    mars = sky.mars_clock(dt.datetime(today.year, today.month, today.day, 12, tzinfo=dt.timezone.utc))
+    c.drawCentredString(w / 2, 47 * mm, f"On Mars it was sol {mars['sol_of_year']} of Mars Year {mars['mars_year']}, "
+                                        f"{mars['northern_season']} in the north")
     c.drawCentredString(w / 2, 40 * mm, f"Certificate code {certificate_code}  -  {today.isoformat()}")
     c.drawCentredString(w / 2, 33 * mm, "Dhrubo the robot says: Shabbash! Keep exploring!")
     c.showPage()

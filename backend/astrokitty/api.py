@@ -341,6 +341,11 @@ def create_app(database_url: str | None = None, serve_dist: bool | None = None, 
     def mars(lat: float = Query(22.82, ge=-90, le=90), lon: float = Query(89.55, ge=-180, le=180)):
         return {"mars": sky.mars_in_sky(lat, lon), "windows": sky.launch_windows(count=3)}
 
+    @app.get("/api/sky/mars-time")
+    def mars_time(lon: float = Query(184.0, ge=-360, le=360)):
+        # Default longitude: Arcadia Planitia, where the Mars Colony's home base sits.
+        return sky.mars_clock(lon_east=lon)
+
     @app.get("/api/sky/iss")
     def iss(lat: float = Query(22.82, ge=-90, le=90), lon: float = Query(89.55, ge=-180, le=180)):
         fresh = tle_cache.get("at", 0) > time.time() - 6 * 3600
