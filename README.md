@@ -37,7 +37,7 @@ Kids pick a kitty astronaut and, with **Dhrubo** (ধ্রুব, “pole star�
 </tr>
 </table>
 
-Then the whole planet opens up in **3D**.
+Then the whole planet opens up in **3D**, and kids can run their own **Mars Colony**: a big base to explore inside and out, keep alive and grow.
 
 Kids learn by **doing and watching**, not by reading. Every right move earns a cheer: **“Shabbash!”** (Good job!), **“Oshadharon!”** (Amazing!), a happy jump and confetti.
 
@@ -67,6 +67,35 @@ A walkable 3D Mars world with **24 missions in six chapters**. Kids brush dusty 
 </table>
 
 It runs smoothly on phones too: the game lowers its own picture detail when a device is slow, so play stays quick.
+
+---
+
+## 🏗️ Mars Colony 3D
+
+A big Mars base to explore **inside and out**, with no loading screens between rooms. Open it from Mission Hub or go straight to `world/colony.html`.
+
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/26-colony-base.jpg" alt="Kitty and Dhrubo outside the Mars base, with domes, modules and a rover"></td>
+<td width="50%"><img src="docs/screenshots/27-colony-greenhouse.jpg" alt="Inside the greenhouse: rows of rice, lettuce, tomatoes and sunflowers under pink grow lights"></td>
+</tr>
+<tr>
+<td><b>A real base to walk around.</b> A central dome joined by tunnels to a greenhouse, a power plant, a water and oxygen hall, a garage and a science lab. Step through an airlock and the roof fades away so you can see inside.</td>
+<td><b>A plant for food, a plant for power.</b> The greenhouse grows rice, potatoes, lettuce, tomatoes, strawberries and sunflowers. The power plant and the solar farm keep the lights on, and batteries carry the base through the night.</td>
+</tr>
+</table>
+
+<img src="docs/screenshots/28-colony-solar-farm.jpg" alt="Late afternoon at the solar farm, with long shadows and the base behind" width="100%">
+
+- **Everything moves.** Day turns to night on the real Mars clock (sol, Mars year and season), sunsets glow blue, Phobos and Deimos cross the sky and Earth shines as a small blue star. Dust devils wander, the crew walk about, fans spin and plants sway.
+- **Surprises, not a script.** A mission director watches how the base is doing and picks the next problem: a dust storm on the panels, an air leak, mold in the greenhouse, a clogged filter, a jammed ice drill, a power surge, a lost radio link, a cold snap or a stuck rover. Each one has its own mini-game. Some surprises are good news: a supply drop, a dust devil that cleans the panels, a meteorite to study. A solar storm names a real flare from NASA's DONKI records.
+- **Keep the base alive.** Power, water, oxygen and food rise and fall as you play.
+- **Travel to 9 real places:** Jezero Crater, Gale Crater, Olympus Mons, Valles Marineris, a cave skylight on Arsia Mons, the south pole's ice and geysers, Meridiani Planum, Utopia Planitia, and the moon Phobos. Each one has its own jobs, dangers and a true fact.
+- **Build and grow.** Spend metal, ice and science on more solar panels, a reactor, a second greenhouse, an observatory, a playroom, a fuel plant, a 3D printer, a drone and bigger batteries.
+- **Drive, fly and take photos.** Drive the rover, fly the drone, unlock new suits (Jamdani pink, Sundarbans green and more) and make postcards.
+- **Works on phones.** Touch joystick, keyboard or gamepad. The picture detail adjusts itself to the device, and the colony works offline after the first visit.
+
+Controls: move with WASD or the arrows, drag to look, **E** to use, **Space** to jump, **Shift** to run, **M** for the map, **B** to build, **P** for photos.
 
 ---
 
@@ -142,8 +171,10 @@ Open **Mission Hub** from the home screen's menu (`hub.html`).
 
 | Feature | What kids do |
 | --- | --- |
-| **🧩 Kitty Code** | Drive a rover with simple code words: `MOVE 2`, `TURN LEFT`, `REPEAT 3 TIMES`, `IF ROCK AHEAD`, `DEFINE HOP`. It works in Bangla too (`এগোও ২`). 6 worlds and 60 levels, each with 1 to 3 stars: reach the base, write short code, collect every sample. |
-| **☀️ Daily Challenge** | One new level every day, the same for every player, with a global leaderboard. |
+| **🧩 Kitty Code** | Drive a rover with simple code words: `MOVE 2`, `TURN LEFT`, `REPEAT 3 TIMES`, `IF ROCK AHEAD`, `DEFINE HOP`, `WAIT`. It works in Bangla too (`এগোও ২`). 7 worlds and 70 levels, each with 1 to 3 stars: reach the base, write short code, collect every sample. World 7, **Surprise Storm**, adds slippery ice, batteries with charging pads, and dust devils that move every step. |
+| **🎲 Remix** | A brand-new level for any world, different every time, so practice never runs out. |
+| **🛠️ Level maker** | Paint your own Mars puzzle, beat it, then share a link. Friends have to beat your number of commands. |
+| **☀️ Daily Challenge** | One new level every day, the same for every player, with a global leaderboard. Some days bring surprise levels with ice, batteries or dust devils. |
 | **❓ Space quizzes** | A 5-question quiz after each part of the story, in English and Bangla. Questions use pictures, true/false and put-in-order. Dhrubo reads every question aloud. A wrong answer gets a short explanation and another try. Every fact has a NASA source. |
 | **🏆 Leaderboards** | Three boards: this device, your class (6-letter class code) and the Daily Challenge. Kids appear only by generated kitty names. |
 | **🤖 Ask Dhrubo** | Type or speak any space question. Dhrubo answers with Claude when online and from NASA facts when offline. |
@@ -153,7 +184,18 @@ Open **Mission Hub** from the home screen's menu (`hub.html`).
 | **🏫 Class dashboard** | On the teacher page: create a class code and see which topics and questions the class finds hardest. |
 | **🤖 Classroom robot** | Run the same Kitty Code on a real micro:bit rover. |
 
-Everything above runs on a **Python backend** (FastAPI) in [`backend/`](backend/README.md). It replays every program and quiz answer before a score counts, and it builds all 60 levels and checks that each one can be won. Without the backend, the game still works offline as before.
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/29-kitty-code-storm.jpg" alt="Kitty Code World 7: the rover slides across ice past two dust devils, with a battery meter above the map"></td>
+<td width="50%"><img src="docs/screenshots/30-level-maker.jpg" alt="The Kitty Code level maker with ice, rocks, samples, a charging pad and a dust devil"></td>
+</tr>
+<tr>
+<td><b>Surprise Storm.</b> Ice, batteries and dust devils that move every step.</td>
+<td><b>Level maker.</b> Build a puzzle, beat it, share the link.</td>
+</tr>
+</table>
+
+Everything above runs on a **Python backend** (FastAPI) in [`backend/`](backend/README.md). It replays every program and quiz answer before a score counts, and it builds all 70 levels (plus every remix) and checks that each one can be won. Without the backend, the game still works offline as before.
 
 ---
 
@@ -168,12 +210,14 @@ python3 -m http.server 8000 --directory dist
 # open http://localhost:8000
 ```
 
-To compile the TypeScript modules and run the tests (Node.js 20+):
+To compile the TypeScript modules, bundle the 3D worlds and run the tests (Node.js 20+):
 
 ```bash
 npm ci
 npm test
 ```
+
+`npm run build:3d` rebuilds only the two Three.js bundles (`dist/world/colony.js` and `dist/world/mars-surface.js`) from `src/`.
 
 To run everything, including the online features (Python 3.11+):
 
@@ -187,8 +231,9 @@ uvicorn astrokitty.api:app --reload
 ```
 backend/     Python backend: Kitty Code engine, levels, quizzes, API, AI Dhrubo, robot
 dist/        the game itself: hand-written HTML, CSS and JavaScript, served as-is
-dist/world/  the 24-mission Mars Adventure 3D (prebuilt)
+dist/world/  the 24-mission Mars Adventure 3D and the Mars Colony 3D (bundled)
 src/         TypeScript modules that compile into dist/ (flight model, narrator, visuals)
+src/colony/  Mars Colony 3D source: base layout, interiors, sky and Mars clock, surprises, places on Mars
 scripts/     build and voice helper scripts
 test/        automated tests, run on GitHub on every push
 voice/       script and tool for Dhrubo's recorded voice

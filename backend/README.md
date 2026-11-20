@@ -7,8 +7,12 @@ adaptive quizzes, AI Dhrubo, live sky data and crew missions.
 ```
 backend/
   astrokitty/
-    kittycode.py   Kitty Code language: parser + interpreter (English and Bangla)
-    levels.py      6 worlds, 60 levels, Daily Challenge; every level checked by its reference solution
+    kittycode.py   Kitty Code language: parser + interpreter (English and Bangla),
+                   with ice, batteries, charging pads, dust devils and WAIT
+    levels.py      7 worlds, 70 levels, Daily Challenge and endless remixes;
+                   every level checked by its reference solution
+    surprise.py    surprise-level generator and a solver (breadth-first search)
+                   that proves each one can be won
     quizzes.py     quiz bank loader, quality checker, adaptive picker, server-side scoring
     adaptive.py    Bayesian Knowledge Tracing: what each kid has learned
     names.py       safe generated kitty names (kids never type a name)
@@ -55,8 +59,8 @@ python -m astrokitty.build
 ```
 
 Run `python -m astrokitty.build` after you change levels or `content/quizzes.yaml`.
-It rewrites `dist/data/kitty-code-levels.json`, `quizzes.json` and
-`kitty-code-cases.json`. CI runs `python -m astrokitty.build --check`, which fails if
+It rewrites `dist/data/kitty-code-levels.json`, `kitty-code-remix.json` (the offline
+remix pool), `quizzes.json` and `kitty-code-cases.json`. CI runs `python -m astrokitty.build --check`, which fails if
 a question is missing Bangla text, an explanation or a NASA source, if the wording is
 too hard for ages 7-12, or if the data files are out of date.
 
@@ -116,8 +120,9 @@ python -m astrokitty.robot my-program.txt > main.py
 
 Flash `main.py` to a BBC micro:bit V2 on a two-motor rover with an ultrasonic
 sensor. Pins and timings are at the top of `robot/microbit_main.py`.
-The runner (`robot/rover_vm.py`) is tested against the game engine on all 60
-levels. The micro:bit driver itself has not been tested on real hardware yet.
+The runner (`robot/rover_vm.py`) is tested against the game engine on the 60
+levels of Worlds 1-6. (World 7's ice, batteries and dust devils exist only in the game,
+so it is not part of the robot test.) The micro:bit driver itself has not been tested on real hardware yet.
 
 ## API at a glance
 
@@ -129,6 +134,7 @@ levels. The micro:bit driver itself has not been tested on real hardware yet.
 | POST | `/api/players/me/class` | join a class by code |
 | GET | `/api/levels`, `/api/daily` | levels (no solutions) and today's challenge |
 | POST | `/api/levels/{id}/submit` | the server runs your code and saves your best |
+| GET | `/api/levels/remix?world=1..7` | a brand-new level for that world (practice only, no leaderboard) |
 | GET/POST | `/api/quizzes/{part}`, `/api/quizzes/{part}/submit` | adaptive quiz; server scoring |
 | GET | `/api/leaderboard/class/{code}`, `/api/leaderboard/daily` | leaderboards |
 | POST | `/api/classes` | teacher: new class code and teacher key |
@@ -138,3 +144,26 @@ levels. The micro:bit driver itself has not been tested on real hardware yet.
 | GET | `/api/players/me/diary.pdf` | My Mars Diary |
 | POST | `/api/robot/compile` | Kitty Code to a robot program |
 | POST, WS | `/api/crew`, `/api/crew/{room}` | crew missions |
+
+## Surprise levels (World 7)
+
+World 7 and some Daily Challenges add things that change while the program runs:
+
+| Tile | In the map | What happens |
+|---|---|---|
+| Ice | `~` | the rover keeps sliding until it reaches normal ground or something solid |
+| Charging pad | `+` | levels with a battery cost one charge per MOVE or TURN; a pad fills it again |
+| Dust devil | `@` (moves east-west) or `$` (moves north-south) | moves one cell after every action and bounces off rocks, the base and the map edge; touching one ends the run |
+
+`WAIT` (or `WAIT 3`, `অপেক্ষা ৩`) lets the dust devils move while the rover stays put.
+Each surprise level is generated from a seed, then `surprise.solve` searches the
+rover's position, direction and battery charge, the dust devils' positions and the
+samples left, to find the shortest route that collects every sample and ends at the
+base. A level with no such route is thrown away. The route, written as Kitty Code,
+sets the level's par, so every level, remix and daily surprise can be beaten with
+three stars. The server replays submitted code with the same battery,
+so a score can't be faked.
+
+Kids can also make their own levels in the browser's level maker and share them as a
+link (`kitty-code.html#custom=...`). Shared levels are checked in the browser
+(`dist/kitty-code-share.js`) and never touch the server or the leaderboards.
