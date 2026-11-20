@@ -6,6 +6,8 @@ const QUEUE='astro-kitty-online-queue-v1';
 export function readJSON(key,fallback){try{const v=JSON.parse(localStorage.getItem(key)??'null');return v??fallback;}catch{return fallback;}}
 export function writeJSON(key,value){try{localStorage.setItem(key,JSON.stringify(value));}catch{}}
 
+// The in-game 'reduce motion' switch also calms the hub pages.
+if(typeof document!=='undefined')document.body?.classList.toggle('reduce-motion',readJSON('astro-kitty-profile-v1',{}).reduceMotion===true);
 export function lang(){const p=readJSON('astro-kitty-profile-v1',{});return p.language==='bn'?'bn':'en';}
 export const pick=(text)=>text&&typeof text==='object'?(text[lang()]??text.en):text;
 export function escapeHTML(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
