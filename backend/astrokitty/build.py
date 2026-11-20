@@ -47,14 +47,37 @@ EXTRA_CASES = [
     ("", [">..B"]),
 ]
 
+# Surprises: ice, batteries with charging pads, dust devils and WAIT.
+SURPRISE_CASES = [
+    ("MOVE", [">~~.B"], None),
+    ("MOVE\nMOVE", [">~~.B"], None),
+    ("MOVE 2", [">.~~#", "####B"], None),
+    ("MOVE 2\nTURN RIGHT\nMOVE", [">..#", "##+#", "##B#"], 3),
+    ("MOVE 2\nTURN RIGHT\nMOVE", [">..#", "##+#", "##B#"], 4),
+    ("MOVE\nTURN RIGHT\nMOVE\nTURN LEFT\nMOVE 2", [">..#.", "#+...", "####B"], 3),
+    ("MOVE 4", [">.@..B"], None),
+    ("WAIT 2\nMOVE 4", [">.@..B"], None),
+    ("WAIT\nMOVE 5", [">..@..B"], None),
+    ("REPEAT UNTIL AT BASE\n IF PATH AHEAD\n  MOVE\n ELSE\n  WAIT\n END\nEND", [">...$.B", "#####.#", "#######"], None),
+    ("SCAN\nWAIT 3\nSCAN\nMOVE 2", [">.$B", "#..#"], None),
+    ("SCAN\nMOVE\nSCAN\nMOVE", [">~+B"], 5),
+    ("wait 10", [">.B"], None),
+    ("অপেক্ষা ২\nএগোও ২", [">.B"], None),
+    ("DEFINE GO\n MOVE\n WAIT\nEND\nREPEAT 3 TIMES\n GO\nEND", [">.@.", "...B"], None),
+    ("MOVE\nTURN RIGHT\nMOVE 2", [">~..", "#.##", "#B##"], None),
+]
+
 
 def cases(all_levels: list[dict]) -> list[dict]:
     out = []
 
-    def add(source, rows, par=None):
-        result = run(source, rows, par)
+    def add(source, rows, par=None, battery=None):
+        result = run(source, rows, par, battery)
         result.pop("trace")
-        out.append({"source": source, "map": rows, "par": par, "expect": result})
+        case = {"source": source, "map": rows, "par": par, "expect": result}
+        if battery is not None:
+            case["battery"] = battery
+        out.append(case)
 
     for level in all_levels:
         ref = level["reference"]
@@ -65,6 +88,8 @@ def cases(all_levels: list[dict]) -> list[dict]:
         add(ref.replace("LEFT", "RIGHT"), level["map"], level["par"])
     for source, rows in EXTRA_CASES:
         add(source, rows, 3)
+    for source, rows, battery in SURPRISE_CASES:
+        add(source, rows, 4, battery)
     return out
 
 

@@ -9,7 +9,7 @@ const {levels}=JSON.parse(await readFile(new URL('../dist/data/kitty-code-levels
 test('the browser engine agrees with the Python engine on every case',()=>{
   assert.ok(cases.length>200);
   for(const c of cases){
-    const got=run(c.source,c.map,c.par);delete got.trace;
+    const got=run(c.source,c.map,c.par,c.battery??null);delete got.trace;
     assert.deepEqual(got,c.expect,`program:\n${c.source}`);
   }
 });

@@ -16,6 +16,10 @@ so a score can never be faked. ``test/kitty-code-parity.test.mjs`` checks that t
 two engines agree on every case in ``dist/data/kitty-code-cases.json``.
 
 Map cells:  ``.`` ground  ``#`` rock  ``*`` sample  ``B`` base  ``^ > v <`` rover start
+Surprises:  ``~`` ice (the rover slides on)  ``+`` charging pad  ``@`` dust devil moving
+            east-west  ``$`` dust devil moving north-south
+Optional battery: each MOVE step and TURN uses 1 charge; a charging pad fills it up again.
+Dust devils move one cell after every action and bounce off rocks.
 """
 from __future__ import annotations
 
@@ -32,7 +36,7 @@ MAX_LINES = 200
 MAX_REPEAT = 99
 
 CONDITIONS = ("rock ahead", "path ahead", "path left", "path right", "sample here", "at base")
-KEYWORDS = ("move", "turn left", "turn right", "drill", "scan", "repeat", "times", "until",
+KEYWORDS = ("move", "turn left", "turn right", "drill", "scan", "wait", "repeat", "times", "until",
             "if", "else", "end", "define", "not") + CONDITIONS
 
 NUMBER_WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
@@ -44,7 +48,7 @@ BANGLA = [
     ("পাথর সামনে", "rock ahead"), ("পথ সামনে", "path ahead"), ("পথ বামে", "path left"),
     ("পথ ডানে", "path right"), ("নমুনা এখানে", "sample here"), ("ঘাঁটিতে", "at base"),
     ("যতক্ষণ না", "until"), ("পুনরাবৃত্তি", "repeat"), ("এগোও", "move"), ("খনন", "drill"),
-    ("স্ক্যান", "scan"), ("বার", "times"), ("যদি", "if"), ("নইলে", "else"), ("শেষ", "end"),
+    ("স্ক্যান", "scan"), ("অপেক্ষা", "wait"), ("বার", "times"), ("যদি", "if"), ("নইলে", "else"), ("শেষ", "end"),
     ("নাম", "define"), ("না", "not"),
 ]
 BANGLA_DIGITS = str.maketrans("০১২৩৪৫৬৭৮৯", "0123456789")
@@ -169,6 +173,13 @@ def parse(source: str) -> list[Stmt]:
                     raise KittyCodeError(n, "Which way? Say TURN LEFT or TURN RIGHT.")
             elif head in ("drill", "scan") and len(w) == 1:
                 out.append(Stmt(head, n))
+            elif head == "wait":
+                if len(w) == 1:
+                    out.append(Stmt("wait", n, 1))
+                elif len(w) == 2 and DIGITS_RE.match(w[1]) and 1 <= int(w[1]) <= 9:
+                    out.append(Stmt("wait", n, int(w[1])))
+                else:
+                    raise KittyCodeError(n, "WAIT can have a number from 1 to 9, like WAIT 2.")
             elif head == "repeat":
                 if len(w) >= 2 and w[1] == "until":
                     cond, neg = _parse_cond(w[2:], n)
@@ -258,10 +269,11 @@ class World:
     dir: str
     samples: set
     base: tuple
+    devils: list = field(default_factory=list)
 
     @classmethod
     def from_map(cls, rows: list[str]) -> "World":
-        grid, x, y, d, samples, base = [], 0, 0, "E", set(), None
+        grid, x, y, d, samples, base, devils = [], 0, 0, "E", set(), None, []
         for j, row in enumerate(rows):
             cells = list(row)
             for i, ch in enumerate(cells):
@@ -272,10 +284,27 @@ class World:
                     samples.add((i, j))
                 elif ch == "B":
                     base = (i, j)
+                elif ch in "@$":
+                    devils.append([i, j, 1, 0] if ch == "@" else [i, j, 0, 1])
+                    cells[i] = "."
             grid.append(cells)
         if base is None:
             raise ValueError("map has no base")
-        return cls(grid, x, y, d, samples, base)
+        return cls(grid, x, y, d, samples, base, devils)
+
+    def devil_at(self, x: int, y: int) -> bool:
+        return any(dv[0] == x and dv[1] == y for dv in self.devils)
+
+    def move_devils(self) -> None:
+        """Each dust devil moves one cell, bouncing off rocks, the map edge and the base."""
+        for dv in self.devils:
+            for _ in range(2):
+                nx, ny = dv[0] + dv[2], dv[1] + dv[3]
+                if self.cell(nx, ny) in "#B":
+                    dv[2], dv[3] = -dv[2], -dv[3]
+                    continue
+                dv[0], dv[1] = nx, ny
+                break
 
     def cell(self, x: int, y: int) -> str:
         if 0 <= y < len(self.grid) and 0 <= x < len(self.grid[y]):
@@ -287,8 +316,14 @@ class World:
         dx, dy = DELTA[d]
         return self.cell(self.x + dx, self.y + dy)
 
+    def clear(self, turn: int) -> bool:
+        """A path: no rock and no dust devil."""
+        d = DIRS[(DIRS.index(self.dir) + turn) % 4]
+        dx, dy = DELTA[d]
+        return self.cell(self.x + dx, self.y + dy) != "#" and not self.devil_at(self.x + dx, self.y + dy)
 
-def run(source: str, rows: list[str], par: int | None = None) -> dict:
+
+def run(source: str, rows: list[str], par: int | None = None, battery: int | None = None) -> dict:
     """Parse and run a program on a map. Returns a JSON-friendly result."""
     try:
         program = parse(source)
@@ -302,9 +337,39 @@ def run(source: str, rows: list[str], par: int | None = None) -> dict:
     collected: list = []
     counters = {"steps": 0, "ticks": 0}
     outcome = {"status": "done", "message": ""}
+    energy = {"left": battery}
 
     def record(s: Stmt, op: str, note: str = "") -> None:
-        trace.append({"line": s.line, "op": op, "x": world.x, "y": world.y, "dir": world.dir, "note": note})
+        entry = {"line": s.line, "op": op, "x": world.x, "y": world.y, "dir": world.dir, "note": note}
+        if world.devils:
+            entry["devils"] = [[dv[0], dv[1]] for dv in world.devils]
+        if battery is not None:
+            entry["energy"] = energy["left"]
+        trace.append(entry)
+
+    def use_energy(s: Stmt) -> None:
+        if battery is None:
+            return
+        if energy["left"] <= 0:
+            record(s, "flat")
+            outcome.update(status="flat", message="The battery is empty! Plan a route past a charging pad.", line=s.line)
+            raise _Stop
+        energy["left"] -= 1
+
+    def blown(s: Stmt) -> None:
+        record(s, "blown")
+        outcome.update(status="blown", message="Whoosh! A dust devil blew the rover off course. Wait for it to pass!", line=s.line)
+        raise _Stop
+
+    def world_turn(s: Stmt) -> None:
+        # After every action the dust devils move one cell.
+        if not world.devils:
+            return
+        world.move_devils()
+        if trace:
+            trace[-1]["devils"] = [[dv[0], dv[1]] for dv in world.devils]
+        if world.devil_at(world.x, world.y):
+            blown(s)
 
     def step(s: Stmt) -> None:
         counters["steps"] += 1
@@ -321,9 +386,9 @@ def run(source: str, rows: list[str], par: int | None = None) -> dict:
     def check(cond: str, negate: bool) -> bool:
         value = {
             "rock ahead": lambda: world.look(0) == "#",
-            "path ahead": lambda: world.look(0) != "#",
-            "path left": lambda: world.look(-1) != "#",
-            "path right": lambda: world.look(1) != "#",
+            "path ahead": lambda: world.clear(0),
+            "path left": lambda: world.clear(-1),
+            "path right": lambda: world.clear(1),
             "sample here": lambda: (world.x, world.y) in world.samples,
             "at base": lambda: (world.x, world.y) == world.base,
         }[cond]()
@@ -335,18 +400,41 @@ def run(source: str, rows: list[str], par: int | None = None) -> dict:
             if s.op == "move":
                 for _ in range(s.arg):
                     step(s)
+                    use_energy(s)
                     dx, dy = DELTA[world.dir]
                     if world.cell(world.x + dx, world.y + dy) == "#":
                         record(s, "bonk", "rock")
                         outcome.update(status="crashed", message="Bonk! A rock is in the way.", line=s.line)
                         raise _Stop
+                    if world.devil_at(world.x + dx, world.y + dy):
+                        blown(s)
                     world.x += dx
                     world.y += dy
                     record(s, "move")
+                    # Ice: keep sliding until you reach normal ground or something solid.
+                    for _slide in range(30):
+                        if world.cell(world.x, world.y) != "~" or world.cell(world.x + dx, world.y + dy) == "#":
+                            break
+                        if world.devil_at(world.x + dx, world.y + dy):
+                            blown(s)
+                        world.x += dx
+                        world.y += dy
+                        record(s, "slide")
+                    if battery is not None and world.cell(world.x, world.y) == "+":
+                        energy["left"] = battery
+                        record(s, "charge")
+                    world_turn(s)
             elif s.op == "turn":
                 step(s)
+                use_energy(s)
                 world.dir = DIRS[(DIRS.index(world.dir) + (1 if s.arg == "right" else -1)) % 4]
                 record(s, "turn")
+                world_turn(s)
+            elif s.op == "wait":
+                for _ in range(s.arg):
+                    step(s)
+                    record(s, "wait")
+                    world_turn(s)
             elif s.op == "drill":
                 step(s)
                 here = (world.x, world.y)
@@ -356,10 +444,14 @@ def run(source: str, rows: list[str], par: int | None = None) -> dict:
                     record(s, "drill", "sample")
                 else:
                     record(s, "drill", "empty")
+                world_turn(s)
             elif s.op == "scan":
                 step(s)
                 ahead = world.look(0)
-                record(s, "scan", {"#": "rock", "*": "sample", "B": "base"}.get(ahead, "path"))
+                dx, dy = DELTA[world.dir]
+                note = "devil" if world.devil_at(world.x + dx, world.y + dy) else {"#": "rock", "*": "sample", "B": "base", "~": "ice", "+": "pad"}.get(ahead, "path")
+                record(s, "scan", note)
+                world_turn(s)
             elif s.op == "repeat":
                 for _ in range(s.arg):
                     tick(s)
@@ -399,6 +491,7 @@ def run(source: str, rows: list[str], par: int | None = None) -> dict:
         "collected": len(collected),
         "samples": total_samples,
         "final": {"x": world.x, "y": world.y, "dir": world.dir},
+        "energy": energy["left"],
         "trace": trace,
     }
     if "line" in outcome:
