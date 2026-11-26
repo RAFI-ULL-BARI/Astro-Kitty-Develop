@@ -1,10 +1,7 @@
 // Mars Colony: a big Mars base to run and explore, inside and out, plus real places to visit.
 import * as THREE from 'three'
-import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js'
-import {RenderPass} from 'three/addons/postprocessing/RenderPass.js'
-import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js'
-import {OutputPass} from 'three/addons/postprocessing/OutputPass.js'
 import {makeKitty} from '../mars-walk/kitten.js'
+import {chosenAvatar, kittyLook} from '../mars-walk/avatar.js'
 import {soundOn, saveSound} from '../../dist/world/sound-preference.js'
 import {dhruboNarrator} from '../../dist/world/narration.js'
 import {clamp, damp, dampAngle, lerp, rng, hashString, TAU} from './util.js'
@@ -27,6 +24,8 @@ import {makeInput} from './input.js'
 import {makeHud} from './hud.js'
 import {S, EVENT_TEXT, FIX_TEXT, SPOT_FACTS, SUITS} from './strings.js'
 import {sign, glow, Builder, M} from './kit.js'
+import {loadRealism, makeSkyLight, realism} from './realism.js'
+import {makeLook} from './look.js'
 
 const SAVE_KEY = 'astro-kitty-colony-v1'
 const root = document.getElementById('colony')
@@ -59,7 +58,7 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping
 renderer.toneMappingExposure = 0.98
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 1200)
-let composer = null, bloom = null
+let look = null
 function applyQuality() {
   const q = save.settings.quality
   const dpr = window.devicePixelRatio || 1
@@ -71,14 +70,10 @@ function applyQuality() {
     world.sky.sun.shadow.map?.dispose()
     world.sky.sun.shadow.map = null
   }
-  composer = null
-  if (q === 'high' && world) {
-    composer = new EffectComposer(renderer)
-    composer.addPass(new RenderPass(world.scene, camera))
-    bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), 0.38, 0.4, 0.9)
-    composer.addPass(bloom)
-    composer.addPass(new OutputPass())
-  }
+  look?.dispose()
+  look = null
+  // High quality: contact shadows, glow and a camera-like finish (see look.js).
+  if (q === 'high' && world) look = makeLook(renderer, world.scene, camera, {ao: realism.enabled})
   resize(true)
 }
 let lastW = 0, lastH = 0
@@ -88,7 +83,7 @@ function resize(force = false) {
   lastW = w
   lastH = h
   renderer.setSize(w, h, false)
-  composer?.setSize(w, h)
+  look?.setSize(w, h)
   camera.aspect = w / h
   camera.fov = camera.aspect < 0.8 ? 68 : 55
   camera.updateProjectionMatrix()
@@ -127,6 +122,7 @@ realFlare.then(v => { flareInfo = v })
 let world = null
 function disposeWorld() {
   if (!world) return
+  world.skyLight?.dispose()
   world.scene.traverse(node => {
     node.geometry?.dispose?.()
     const mats = Array.isArray(node.material) ? node.material : node.material ? [node.material] : []
@@ -145,6 +141,8 @@ function buildWorld(siteId) {
   const placed = home ? placeModules(built) : []
   const collider = new Collider()
   const sky = makeSky(scene, {space: site.sky === 'space', thin: site.sky === 'thin', polar: site.sky === 'polar'})
+  // Light from the sky itself: every surface is lit by the real colour of the sky around it.
+  const skyLight = realism.enabled && save.settings.quality !== 'low' ? makeSkyLight(renderer, sky.material, {size: save.settings.quality === 'high' ? 128 : 64}) : null
   scene.fog = new THREE.Fog('#b98066', 40, 330)
   const paths = home ? [[[-11, 11], [-40, 40]], [[-36, 0], [-48, 8]], [[36, 0], [39, 0]], [[0, 37], [0, 50]], [[18, -30], [20, -44]], [[-36, 0], [-15, -15]]] : []
   const clear = home ? clearZones(placed, built) : [{x: site.spawn.x, z: site.spawn.z, r: 14}, ...(site.landmarks ?? []).map(l => ({x: l.x, z: l.z, r: 8}))]
@@ -152,7 +150,7 @@ function buildWorld(siteId) {
   const ground = makeGround(scene, renderer, site, (x, z) => terrainHeight(x, z), {clear, paths, quality: q === 'high' ? 2 : q === 'medium' ? 1 : 0, seed: hashString(siteId) % 997})
   for (const r of ground.blockers) collider.circle(r.x, r.z, r.r)
   const w = {
-    site, scene, sky, ground, collider, placed, home, terrainHeight, regions: null,
+    site, scene, sky, skyLight, ground, collider, placed, home, terrainHeight, regions: null,
     structures: null, interiors: null, outdoor: null, crew: null, patrol: null, droneBot: null,
     spots: [], dynamic: [], landmarks: [], collectibles: [], hazards: {},
   }
@@ -217,9 +215,11 @@ function buildWorld(siteId) {
   return w
 }
 
+// Your own kitty from the home screen, in the suit you picked (the classic suit wears your kitty's colour).
 function suitColors(id) {
   const s = SUITS.find(x => x.id === id) ?? SUITS[0]
-  return {suit: s.suit, trim: s.trim}
+  const look = kittyLook(chosenAvatar())
+  return {...look, suit: s.suit, trim: s.id === 'classic' ? look.trim : s.trim}
 }
 
 function addMarsInSky(w) {
@@ -644,9 +644,9 @@ function buy(id) {
 function wear(id) {
   save.suit = id
   persist()
-  const s = SUITS.find(x => x.id === id)
-  world.kitty.materials.suit.color.set(s.suit)
-  world.kitty.materials.trim.color.set(s.trim)
+  const look = suitColors(id)
+  world.kitty.materials.suit.color.set(look.suit)
+  world.kitty.materials.trim.color.set(look.trim)
   world.kitty.cheer()
 }
 
@@ -686,7 +686,8 @@ function leaveRover() {
 }
 
 // --- main loop ----------------------------------------------------------------------------
-const tmpV = new THREE.Vector3(), sunDir = new THREE.Vector3(), earthDir = new THREE.Vector3()
+const tmpV = new THREE.Vector3()
+const envGround = new THREE.Color(), sunDir = new THREE.Vector3(), earthDir = new THREE.Vector3()
 const fogColor = new THREE.Color()
 let fpsAvg = 1 / 60, fpsClock = 0, downgraded = false, clockCache = null, clockTimer = 0, earthCache = earthFromMars(new Date())
 
@@ -771,11 +772,22 @@ function frame(now) {
   const focus = tmpV.set(player.x, player.y, player.z)
   const skyState = w.sky.update({sunDir, earthDir, hours: gameHours, storm, focus, indoors: region ? 1 : 0, time, shadowSize: region ? 30 : 60})
   w.sky.dome.position.copy(camera.position)
+  if (w.skyLight) {
+    // redraw the sky light when the Sun has moved a little or the weather changed
+    const key = `${Math.round(sunDir.x * 30)},${Math.round(sunDir.y * 30)},${Math.round(sunDir.z * 30)},${Math.round(storm * 8)}`
+    envGround.set(site.palette[1]).multiplyScalar(0.06 + 0.42 * skyState.day * (1 - storm * 0.5))
+    w.skyLight.update(w.scene, envGround, key, time, save.settings.quality === 'high' ? 1.5 : 4)
+    w.scene.environmentIntensity = region ? 0.6 : 1
+    // the sky light now does most of the soft fill; keep a little flat light for moonlit nights
+    w.sky.hemi.intensity *= lerp(0.55, 0.12, skyState.day)
+  }
+  realism.dustAmount.value = 1 + storm * 0.6
   w.sky.fogColor(fogColor, storm)
   w.scene.fog.color.copy(fogColor)
   const thin = site.sky === 'space' ? 0 : 1
-  w.scene.fog.near = lerp(60, 4, storm) * thin + (1 - thin) * 300
-  w.scene.fog.far = lerp(340, 45, storm) * thin + (1 - thin) * 900
+  // dusty air: far hills fade into the sky colour (aerial perspective)
+  w.scene.fog.near = lerp(realism.enabled ? 22 : 60, 4, storm) * thin + (1 - thin) * 300
+  w.scene.fog.far = lerp(realism.enabled ? 290 : 340, 45, storm) * thin + (1 - thin) * 900
   const flare = dir?.active.find(e => e.id === 'solarFlare' && e.phase === 'active')
   if (flare) w.sky.hemi.color.offsetHSL(0.0, 0, Math.sin(time * 6) * 0.02)
   w.wind.elapsed.value = reduced ? 0 : time
@@ -820,7 +832,7 @@ function frame(now) {
     drone: player.mode === 'drone' ? w.drone.state : null, showDrone: !!w.drone, showRover: player.mode === 'drive',
   })
   // --- render
-  if (composer) composer.render()
+  if (look) look.render(performance.now() / 1000)
   else renderer.render(w.scene, camera)
   // --- performance: drop quality once if the device struggles
   fpsAvg = lerp(fpsAvg, dt, 0.05)
@@ -1217,7 +1229,7 @@ function updatePhoto(dt, inp) {
   world.kitty.animate(dt, 0, player.y, 0, false)
 }
 function capture() {
-  if (composer) composer.render()
+  if (look) look.render(performance.now() / 1000)
   else renderer.render(world.scene, camera)
   return renderer.domElement.toDataURL('image/png')
 }
@@ -1248,6 +1260,7 @@ function postcard() {
 }
 
 // --- start --------------------------------------------------------------------------------------
+await loadRealism(renderer, {quality: save.settings.quality})
 buildWorld(save.site)
 root.querySelector('.cx-loading')?.remove()
 camera.position.set(player.x + 6, player.y + 5, player.z + 8)

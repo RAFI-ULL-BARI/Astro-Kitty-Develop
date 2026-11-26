@@ -3,6 +3,7 @@
 import * as THREE from 'three'
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js'
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js'
+import {cloneDressed, dress, realism, solarMaterial} from './realism.js'
 
 const cache = new Map()
 export function mat(key, make) {
@@ -11,43 +12,67 @@ export function mat(key, make) {
 }
 const std = (color, rough = 0.62, metal = 0.12, extra = {}) =>
   new THREE.MeshStandardMaterial({color, roughness: rough, metalness: metal, ...extra})
+const real = () => realism.enabled
 
-export const M = {
-  shell: () => mat('shell', () => std('#e9ded2', 0.5, 0.14)),
-  shellShade: () => mat('shellShade', () => std('#c9bcae', 0.56, 0.16)),
-  frame: () => mat('frame', () => std('#5c5562', 0.45, 0.35)),
-  trim: () => mat('trim', () => std('#e3884c', 0.5, 0.1)),
-  indigo: () => mat('indigo', () => std('#3f3e5a', 0.62, 0.15)),
-  steel: () => mat('steel', () => std('#9aa0ad', 0.32, 0.72)),
-  darkSteel: () => mat('darkSteel', () => std('#4a4e5c', 0.4, 0.6)),
-  rubber: () => mat('rubber', () => std('#2c2a33', 0.9, 0)),
-  floor: () => mat('floor', () => std('#6b7585', 0.7, 0.2, {map: gridTexture('#6b7585', '#5b6474')})),
-  wallIn: () => mat('wallIn', () => std('#dcd7df', 0.7, 0.05)),
-  wood: () => mat('wood', () => std('#b98b5e', 0.75, 0)),
-  fabric: () => mat('fabric', () => std('#6b8fb5', 0.95, 0)),
-  fabricWarm: () => mat('fabricWarm', () => std('#d97a6a', 0.95, 0)),
-  soil: () => mat('soil', () => std('#4a3026', 0.98, 0)),
-  regolith: () => mat('regolith', () => std('#a46e56', 0.97, 0, {map: bagTexture()})),
-  hazard: () => mat('hazard', () => std('#ffffff', 0.6, 0.1, {map: hazardTexture()})),
-  glass: () => mat('glass', () => new THREE.MeshStandardMaterial({
-    color: '#cfe9ff', roughness: 0.08, metalness: 0.1, transparent: true, opacity: 0.18, depthWrite: false, side: THREE.DoubleSide,
-  })),
-  window: () => mat('window', () => std('#334a6e', 0.12, 0.5, {emissive: '#1d2f4d', emissiveIntensity: 0.35})),
-  water: () => mat('water', () => new THREE.MeshStandardMaterial({
+// Every material: how to make it, and which real-world texture set it wears (scale = metres per tile,
+// dust = how much Mars dust settles on top, low = dust splashed up the bottom of walls).
+const BASE = {
+  shell: [() => std('#e8e2d8', 0.5, 0.1), 'panel', {scale: 4.8, dust: 0.55, low: 0.7}],
+  shellShade: [() => std('#c4bcb1', 0.56, 0.12), 'panel', {scale: 4.8, dust: 0.5, low: 0.7}],
+  foundation: [() => (real() ? std('#ffffff', 0.95, 0) : std('#c9bcae', 0.56, 0.16)), 'printed', {scale: 1, dust: 0.85, low: 0.9}],
+  frame: [() => std(real() ? '#6a6a70' : '#5c5562', 0.45, real() ? 0.6 : 0.35), 'metal', {scale: 1.2, dust: 0.45, low: 0.5}],
+  trim: [() => std(real() ? '#c8743f' : '#e3884c', 0.5, 0.1), 'panel', {scale: 4.8, dust: 0.45, low: 0.4}],
+  indigo: [() => std(real() ? '#3a3d4c' : '#3f3e5a', 0.55, 0.2), 'panel', {scale: 1.6, dust: 0.4, low: 0.4}],
+  steel: [() => std('#a9adb5', 0.32, 0.85), 'metal', {scale: 1, dust: 0.3, low: 0.3}],
+  darkSteel: [() => std('#545862', 0.4, 0.7), 'metal', {scale: 1, dust: 0.35, low: 0.45}],
+  rubber: [() => std('#2a2a2e', 0.9, 0), 'rubber', {scale: 0.4, dust: 0.55, low: 0.9}],
+  floor: [() => (real() ? std('#8a929c', 0.5, 0.55) : std('#6b7585', 0.7, 0.2, {map: gridTexture('#6b7585', '#5b6474')})), 'plate', {scale: 0.6, dust: 0, low: 0}],
+  wallIn: [() => std('#e2dfe2', 0.6, 0.05), 'panel', {scale: 1.2, dust: 0, low: 0}],
+  wood: [() => std('#b98b5e', 0.75, 0), null],
+  fabric: [() => std('#5e7fa3', 0.95, 0), 'cloth', {scale: 0.3, dust: 0, low: 0}],
+  fabricWarm: [() => std('#c46e60', 0.95, 0), 'cloth', {scale: 0.3, dust: 0, low: 0}],
+  soil: [() => (real() ? std('#ffffff', 0.98, 0) : std('#4a3026', 0.98, 0)), 'soil', {scale: 0.6, dust: 0, low: 0}],
+  // Regolith shielding: 3D-printed walls of Mars soil (sandbags on low quality).
+  regolith: [() => (real() ? std('#ffffff', 0.95, 0) : std('#a46e56', 0.97, 0, {map: bagTexture()})), 'printed', {scale: 1, dust: 0.75, low: 0.6}],
+  hazard: [() => std('#ffffff', 0.6, 0.1, {map: hazardTexture()}), 'panel', {scale: 1.2, dust: 0.45, low: 0.5}],
+  glass: [() => new THREE.MeshPhysicalMaterial({
+    color: '#dcefff', roughness: 0.04, metalness: 0, transparent: true, opacity: 0.16, depthWrite: false, side: THREE.DoubleSide,
+    ...(real() ? {ior: 1.5, specularIntensity: 1, envMapIntensity: 1.4} : {}),
+  }), null],
+  window: [() => std(real() ? '#1e2a38' : '#334a6e', real() ? 0.05 : 0.12, real() ? 0.1 : 0.5, {emissive: '#1d2f4d', emissiveIntensity: 0.35, envMapIntensity: 1.6}), null],
+  water: [() => new THREE.MeshStandardMaterial({
     color: '#5fb6e8', roughness: 0.1, metalness: 0.05, transparent: true, opacity: 0.62, emissive: '#1d5f88', emissiveIntensity: 0.35,
-  })),
-  lampWarm: () => mat('lampWarm', () => std('#ffe2b5', 0.4, 0, {emissive: '#ffcf8a', emissiveIntensity: 2.2})),
-  lampCool: () => mat('lampCool', () => std('#c8fff4', 0.4, 0, {emissive: '#7ef4e0', emissiveIntensity: 2.0})),
-  lampPink: () => mat('lampPink', () => std('#ffb3ef', 0.4, 0, {emissive: '#ff5fd2', emissiveIntensity: 2.6})),
-  lampRed: () => mat('lampRed', () => std('#ff8a7a', 0.4, 0, {emissive: '#ff3b2f', emissiveIntensity: 2.4})),
-  lampGreen: () => mat('lampGreen', () => std('#b6ffb0', 0.4, 0, {emissive: '#52e05c', emissiveIntensity: 2.2})),
-  solarCell: () => mat('solarCell', () => std('#ffffff', 0.25, 0.55, {map: solarTexture()})),
-  leaf: () => mat('leaf', () => std('#6fae5c', 0.8, 0)),
-  leafDark: () => mat('leafDark', () => std('#3f7d45', 0.8, 0)),
-  fruitRed: () => mat('fruitRed', () => std('#e2452f', 0.45, 0)),
-  fruitYellow: () => mat('fruitYellow', () => std('#f4c542', 0.5, 0)),
-  potato: () => mat('potato', () => std('#b98a55', 0.9, 0)),
-  rice: () => mat('rice', () => std('#a8c95b', 0.85, 0)),
+  }), null],
+  lampWarm: [() => std('#ffe2b5', 0.4, 0, {emissive: '#ffcf8a', emissiveIntensity: 2.2}), null],
+  lampCool: [() => std('#c8fff4', 0.4, 0, {emissive: '#7ef4e0', emissiveIntensity: 2.0}), null],
+  lampPink: [() => std('#ffb3ef', 0.4, 0, {emissive: '#ff5fd2', emissiveIntensity: 2.6}), null],
+  lampRed: [() => std('#ff8a7a', 0.4, 0, {emissive: '#ff3b2f', emissiveIntensity: 2.4}), null],
+  lampGreen: [() => std('#b6ffb0', 0.4, 0, {emissive: '#52e05c', emissiveIntensity: 2.2}), null],
+  solarCell: [() => solarMaterial(std('#ffffff', 0.25, 0.55, {map: solarTexture()})), null],
+  leaf: [() => std('#6fae5c', 0.8, 0), null],
+  leafDark: [() => std('#3f7d45', 0.8, 0), null],
+  fruitRed: [() => std('#e2452f', 0.45, 0), null],
+  fruitYellow: [() => std('#f4c542', 0.5, 0), null],
+  potato: [() => std('#b98a55', 0.9, 0), null],
+  rice: [() => std('#a8c95b', 0.85, 0), null],
+}
+function build(name, kind) {
+  const [make, set, opts] = BASE[name]
+  const m = make()
+  if (set && real()) {
+    // Textures follow each building's own walls (buildings stand at all angles); moving things get no ground splash.
+    const o = kind === 'in' ? {...opts, dust: 0, low: 0, object: true} : kind === 'obj' ? {...opts, object: true, low: 0} : {...opts, object: true}
+    dress(m, set, o)
+  }
+  return m
+}
+// M: outdoor and buildings. MI: indoor (no dust). MO: things that move (the texture moves with them).
+export const M = {}, MI = {}, MO = {}
+for (const name of Object.keys(BASE)) {
+  M[name] = () => mat(name, () => build(name, 'out'))
+  const own = kind => () => (BASE[name][1] && real() ? mat(`${name}:${kind}`, () => build(name, kind)) : M[name]())
+  MI[name] = own('in')
+  MO[name] = own('obj')
 }
 
 // --- canvas textures ------------------------------------------------------
@@ -255,7 +280,7 @@ export function glow(color, size = 1, opacity = 0.8) {
 
 // Materials that fade (roofs) must be unique per building.
 export function fadeable(material) {
-  const m = material.clone()
+  const m = cloneDressed(material)
   m.transparent = true
   m.userData.fade = true
   return m

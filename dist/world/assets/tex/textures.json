@@ -1,0 +1,55 @@
+{
+ "regolith": {
+  "detail": true,
+  "size": 1024
+ },
+ "rock": {
+  "detail": false,
+  "size": 512
+ },
+ "panel": {
+  "detail": true,
+  "size": 1024
+ },
+ "metal": {
+  "detail": true,
+  "size": 512
+ },
+ "printed": {
+  "detail": false,
+  "size": 512
+ },
+ "fabric": {
+  "detail": true,
+  "size": 512
+ },
+ "cloth": {
+  "detail": true,
+  "size": 512
+ },
+ "plate": {
+  "detail": true,
+  "size": 512
+ },
+ "rubber": {
+  "detail": true,
+  "size": 256
+ },
+ "soil": {
+  "detail": false,
+  "size": 512
+ },
+ "fur": {
+  "detail": true,
+  "size": 256
+ },
+ "grime": {
+  "detail": false,
+  "size": 512
+ },
+ "solar": {
+  "detail": false,
+  "size": 1024
+ },
+ "detailMean": 0.75
+}

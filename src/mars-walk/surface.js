@@ -5,6 +5,7 @@ import {makeHabitatRoom, STATIONS} from './habitat-room.js'
 import * as THREE from 'three'
 import {makeHeight, makeSky, makeTerrain, randomFrom, SUN} from './terrain.js'
 import {makeKitty} from './kitten.js'
+import {chosenAvatar, kittyLook} from './avatar.js'
 import {ENTRY, SAMPLE, SOLAR, OUTPOST_Z, makeOutpost} from './outpost.js'
 
 const {clamp, lerp, damp} = THREE.MathUtils
@@ -160,7 +161,7 @@ export function makeSurface(canvas, spot, onFootstep) {
   }
   const rocks = makeTerrain(scene, renderer, height, seed, clearings)
   const obstacles = [...rocks, ...outpost.blockers]
-  const kitty = makeKitty(scene)
+  const kitty = makeKitty(scene, kittyLook(chosenAvatar()))
   const air = drift(scene, seed)
   const stamp = makeTrail(scene)
 

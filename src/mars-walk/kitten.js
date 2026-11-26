@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js'
+import {detailMaps, realism} from '../colony/realism.js'
 
 const sphere = new THREE.SphereGeometry(1, 24, 16)
 const rounded = new RoundedBoxGeometry(1, 1, 1, 3, 0.18)
@@ -38,10 +39,20 @@ export function makeKitty(scene, options = {}) {
   rig.add(body)
   scene.add(rig)
 
-  const suit = standard(options.suit ?? '#e9dcd1'), seam = standard('#a99aa5'), indigo = standard(options.pack ?? '#3e3d58', 0.80)
-  const trim = standard(options.trim ?? '#e79459'), steel = standard('#737684', 0.38, 0.25)
-  const fur = standard(options.fur ?? '#d9a376'), cream = standard(options.cream ?? '#fae0bc'), innerEar = standard('#d88685')
-  const dark = standard('#302735'), stripe = standard(options.stripe ?? '#9d6549')
+  const real = realism.enabled
+  // Suit fabric with a fine rip-stop weave; soft fur with a sheen; glossy eyes; a gold-tinted visor.
+  const suit = detailMaps(standard(options.suit ?? '#e9dcd1', 0.88), 'cloth', 7, 0.55)
+  const seam = detailMaps(standard('#a99aa5', 0.85), 'cloth', 7, 0.55)
+  const indigo = detailMaps(standard(options.pack ?? '#3e3d58', 0.6, real ? 0.25 : 0.02), 'panel', 2, 0.4)
+  const trim = detailMaps(standard(options.trim ?? '#e79459', 0.8), 'cloth', 7, 0.5)
+  const steel = standard(real ? '#9ea2ab' : '#737684', real ? 0.28 : 0.38, real ? 0.85 : 0.25)
+  const furry = color => (real
+    ? detailMaps(new THREE.MeshPhysicalMaterial({color, roughness: 0.82, sheen: 1, sheenRoughness: 0.5, sheenColor: new THREE.Color(color).lerp(new THREE.Color('#ffffff'), 0.35)}), 'fur', 5, 0.45)
+    : standard(color))
+  const fur = furry(options.fur ?? '#d9a376'), cream = furry(options.cream ?? '#fae0bc'), innerEar = standard(options.inner ?? '#d88685', 0.7)
+  const dark = real ? new THREE.MeshPhysicalMaterial({color: '#1d1820', roughness: 0.15, clearcoat: 1, clearcoatRoughness: 0.05}) : standard('#302735')
+  const nose = standard(options.nose ?? '#302735', 0.45)
+  const stripe = furry(options.stripe ?? '#9d6549')
   const teal = new THREE.MeshStandardMaterial({color: '#7ac2c2', emissive: '#3a8885', emissiveIntensity: 0.42})
   const oval = (parent, material, ...shape) => part(parent, sphere, material, ...shape)
   const casePart = (parent, material, ...shape) => part(parent, rounded, material, ...shape)
@@ -88,7 +99,7 @@ export function makeKitty(scene, options = {}) {
     oval(head, stripe, side * 0.258, 0.003, 0.166, 0.044, 0.046, 0.025)
   }
   oval(head, stripe, 0, 0.117, 0.258, 0.032, 0.089, 0.030)
-  oval(head, dark, 0, -0.10, -0.304, 0.040, 0.027, 0.021)
+  oval(head, nose, 0, -0.10, -0.304, 0.040, 0.027, 0.021)
 
   const helmet = new THREE.Group()
   helmet.position.set(0, 1.66, 0)
@@ -103,7 +114,10 @@ export function makeKitty(scene, options = {}) {
     oval(helmet, suit, side * 0.388, -0.035, 0.005, 0.046, 0.084, 0.078)
     oval(helmet, trim, side * 0.417, -0.035, 0.005, 0.025, 0.045, 0.041)
   }
-  const visor = new THREE.ShaderMaterial({
+  const visor = real ? new THREE.MeshPhysicalMaterial({
+    color: '#e8d2a6', metalness: 0.65, roughness: 0.05, transparent: true, opacity: 0.3, depthWrite: false,
+    clearcoat: 1, clearcoatRoughness: 0.03, envMapIntensity: 1.8,
+  }) : new THREE.ShaderMaterial({
     transparent: true, depthWrite: false,
     vertexShader: `
       varying vec3 viewNormal;
@@ -179,7 +193,7 @@ export function makeKitty(scene, options = {}) {
 
   return {
     rig, head, helmet,
-    materials: {suit, trim, indigo, fur, cream, stripe},
+    materials: {suit, trim, indigo, fur, cream, stripe, innerEar, nose},
     setHelmet(on) { helmet.visible = on },
     cheer() { cheer = 1 },
     animate(dt, speed, ground, action, reduced) {

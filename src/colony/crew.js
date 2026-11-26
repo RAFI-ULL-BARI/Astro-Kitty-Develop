@@ -1,7 +1,8 @@
 // Dhrubo the robot buddy, and the crew kitties who live and work in the base.
 import * as THREE from 'three'
 import {makeKitty} from '../mars-walk/kitten.js'
-import {Builder, M, glow} from './kit.js'
+import {Builder, M, MO, glow} from './kit.js'
+import {chosenAvatar, crewAvatars, kittyLook} from '../mars-walk/avatar.js'
 import {FLOOR_Y} from './structures.js'
 import {toWorld, tunnels} from './layout.js'
 import {angleDiff, clamp, damp, dampAngle, lerp, TAU} from './util.js'
@@ -12,10 +13,10 @@ export function makeDhrubo(scene) {
   const body = new THREE.Group()
   root.add(body)
   const b = new Builder()
-  b.ball(M.shell(), 0, 0, 0, 0.42, 0.38, 0.4)
-  b.cyl(M.trim(), 0, -0.05, 0, 0.43, 0.06, 24)
-  b.cyl(M.frame(), 0, 0.38, 0, 0.03, 0.3, 6)
-  for (const side of [-1, 1]) b.ball(M.indigo(), side * 0.44, -0.02, 0, 0.09, 0.16, 0.16)
+  b.ball(MO.shell(), 0, 0, 0, 0.42, 0.38, 0.4)
+  b.cyl(MO.trim(), 0, -0.05, 0, 0.43, 0.06, 24)
+  b.cyl(MO.frame(), 0, 0.38, 0, 0.03, 0.3, 6)
+  for (const side of [-1, 1]) b.ball(MO.indigo(), side * 0.44, -0.02, 0, 0.09, 0.16, 0.16)
   b.build(body)
   const faceCanvas = document.createElement('canvas')
   faceCanvas.width = 128
@@ -84,11 +85,9 @@ export function makeDhrubo(scene) {
 }
 
 // --- the crew ---------------------------------------------------------------------
-const CREW = [
-  {name: 'Mishti', fur: '#e8a35e', stripe: '#b8673a', suit: '#e9dcd1', trim: '#6b8fb5'},
-  {name: 'Megh', fur: '#a9a6b2', stripe: '#6f6c7a', cream: '#e8e4ee', suit: '#e9dcd1', trim: '#b07ad6'},
-  {name: 'Neel', fur: '#3b3540', stripe: '#24202a', cream: '#f2ece6', suit: '#e9dcd1', trim: '#5fbf8a'},
-]
+// The other three kitties from the home screen (never a second copy of the player's kitty).
+const SUIT_TRIMS = ['#6b8fb5', '#b07ad6', '#5fbf8a']
+const crewLooks = () => crewAvatars(chosenAvatar()).map((id, i) => ({...kittyLook(id), suit: '#e9dcd1', trim: SUIT_TRIMS[i]}))
 
 // A simple map of walking routes: each building connects through its tunnel to a ring in the hub.
 function routeGraph(placed, interiors) {
@@ -127,7 +126,7 @@ export function makeCrew(scene, placed, interiors, {onLeft} = {}) {
   const podAngles = [-1.42, -1.0, -0.6]
   const pods = podAngles.map(a => [Math.cos(a) * 9.5, Math.sin(a) * 9.5])
   const zzz = []
-  const members = CREW.map((look, i) => {
+  const members = crewLooks().map((look, i) => {
     const kitty = makeKitty(scene, look)
     kitty.setHelmet(false)
     const start = graph.spots('hub')[i % graph.spots('hub').length]
