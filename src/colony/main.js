@@ -780,7 +780,7 @@ function frame(now) {
     w.skyLight.update(w.scene, envGround, key, time, save.settings.quality === 'high' ? 1.5 : 4)
     w.scene.environmentIntensity = region ? 0.6 : 1
     // the sky light now does most of the soft fill; keep a little flat light for moonlit nights
-    w.sky.hemi.intensity *= lerp(0.55, 0.12, skyState.day)
+    w.sky.hemi.intensity *= lerp(0.42, 0.12, skyState.day)
   }
   realism.dustAmount.value = 1 + storm * 0.6
   w.sky.fogColor(fogColor, storm)
