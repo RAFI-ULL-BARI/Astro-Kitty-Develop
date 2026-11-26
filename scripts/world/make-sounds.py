@@ -254,6 +254,11 @@ def oneshots():
     beep = np.where(tt < 0.09, np.sin(2 * np.pi * 1180 * tt), np.sin(2 * np.pi * 1580 * tt)) * np.clip((0.22 - tt) / 0.03, 0, 1)
     save("console", norm(spectral(beep, 300, 5000), 0.35))
 
+    # air leak: a thin, steady hiss
+    tt = t(1.3)
+    hiss = spectral(rng.normal(0, 1, len(tt)), 2500, 9000) * np.clip(tt / 0.08, 0, 1) * np.clip((1.3 - tt) / 0.3, 0, 1)
+    save("hiss", norm(hiss * (1 + 0.1 * np.sin(2 * np.pi * 9 * tt)), 0.35))
+
     # ice drill working
     tt = t(1.6)
     drill = sum(np.sin(2 * np.pi * 95 * k * tt) / k for k in range(1, 10)) + spectral(rng.normal(0, 1, len(tt)), 400, 3000) * 0.8

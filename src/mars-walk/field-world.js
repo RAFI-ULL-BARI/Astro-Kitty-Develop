@@ -1,5 +1,6 @@
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js'
 import * as THREE from 'three'
+import {dress} from '../colony/realism.js'
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js'
 import {OBJECTS, GEMS} from '../../dist/world/field-missions.js'
 
@@ -8,7 +9,7 @@ export function makeFieldWorld(scene,height){
  const root=new THREE.Group();root.visible=false;scene.add(root)
  const cube=new RoundedBoxGeometry(1,1,1,2,.06),cylinder=new THREE.CylinderGeometry(1,1,1,16)
  const paints={},nodes={},blockers=[]
- function paint(color,glow=false){const key=color+glow;return paints[key]??=new THREE.MeshStandardMaterial({color,metalness:glow?.05:.25,roughness:.55,emissive:glow?color:0,emissiveIntensity:glow?.8:0})}
+ function paint(color,glow=false){const key=color+glow;return paints[key]??=(glow?new THREE.MeshStandardMaterial({color,metalness:glow?.05:.25,roughness:.55,emissive:glow?color:0,emissiveIntensity:glow?.8:0}):dress(new THREE.MeshStandardMaterial({color,metalness:glow?.05:.25,roughness:.55,emissive:glow?color:0,emissiveIntensity:glow?.8:0}),'panel',{scale:2.4,dust:0.5,low:0.5}))}
  function part(parent,geo,color,x,y,z,sx,sy,sz,glow=false){const mesh=new THREE.Mesh(geo,paint(color,glow));mesh.position.set(x,y,z);mesh.scale.set(sx,sy,sz);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh}
  const box=(p,c,x,y,z,w,h,d,glow=false)=>part(p,cube,c,x,y,z,w,h,d,glow)
  const tube=(p,c,x,y,z,r,h)=>part(p,cylinder,c,x,y,z,r,h,r)

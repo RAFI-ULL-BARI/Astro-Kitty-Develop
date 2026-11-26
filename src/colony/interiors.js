@@ -65,6 +65,35 @@ function plantMaterial(color) {
   }
   return m
 }
+// A real leaf shape: pointed, cupped across and curling along its length (unit size: 1 long, 0.5 wide).
+function leafGeometry() {
+  const rows = 7, cols = 5, pos = [], idx = []
+  for (let i = 0; i <= rows; i++) {
+    const u = i / rows, width = Math.pow(Math.sin(Math.PI * Math.min(0.999, u * 0.92 + 0.04)), 0.8) * (1 - 0.25 * u)
+    for (let j = 0; j <= cols; j++) {
+      const v = j / cols * 2 - 1
+      pos.push(v * width * 0.5, u, -0.18 * v * v * width + 0.22 * u * u)
+    }
+  }
+  for (let i = 0; i < rows; i++) for (let j = 0; j < cols; j++) {
+    const a = i * (cols + 1) + j, b = a + cols + 1
+    idx.push(a, b, a + 1, a + 1, b, b + 1)
+  }
+  const g = new THREE.BufferGeometry()
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3))
+  g.setIndex(idx)
+  g.computeVertexNormals()
+  return g.toNonIndexed()
+}
+const LEAF = leafGeometry()
+const leafMatrix = new THREE.Matrix4(), leafQuat = new THREE.Quaternion(), leafEuler = new THREE.Euler(), leafPos = new THREE.Vector3(), leafScale = new THREE.Vector3()
+// tilt: 0 = pointing up, about 1.3 = lying flat; yaw: direction around the stem
+function leafAt(builder, material, x, y, z, length, width, tilt, yaw, roll = 0) {
+  leafEuler.set(tilt, yaw, roll, 'YXZ')
+  leafMatrix.compose(leafPos.set(x, y, z), leafQuat.setFromEuler(leafEuler), leafScale.set(width * 2, length, width * 2))
+  builder.raw(LEAF.clone().applyMatrix4(leafMatrix), material)
+}
+
 const plantMats = {
   leaf: () => mat('pLeaf', () => plantMaterial('#6fb35e')),
   leafDark: () => mat('pLeafDark', () => plantMaterial('#3f8a4a')),
@@ -273,22 +302,38 @@ function greenhouse(m, out, small = false) {
     for (let x = -half + 0.5; x < half - 0.3; x += kind === 'rice' ? 0.35 : 0.85) {
       for (const dz of kind === 'rice' ? [-0.4, 0, 0.4] : [-0.3, 0.3]) {
         const px = x, pz = z + dz, base = F + 0.79
-        if (kind === 'lettuce') for (let k = 0; k < 5; k++) plants.ball(plantMats.lettuce(), px + Math.cos(k * 1.3) * 0.12, base + 0.12, pz + Math.sin(k * 1.3) * 0.12, 0.2, 0.1, 0.13)
-        else if (kind === 'rice') for (let k = 0; k < 3; k++) plants.box(plantMats.rice(), px + k * 0.06, base + 0.32, pz, 0.025, 0.65, 0.025, k, 0.15 * (k - 1))
-        else if (kind === 'potato') { plants.ball(plantMats.leafDark(), px, base + 0.32, pz, 0.32, 0.3, 0.3); plants.ball(plantMats.leaf(), px + 0.1, base + 0.5, pz, 0.2, 0.18, 0.2) }
-        else if (kind === 'strawberry') {
-          plants.ball(plantMats.leaf(), px, base + 0.12, pz, 0.24, 0.1, 0.24)
-          fruit.ball(plantMats.fruit(), px + 0.15, base + 0.12, pz + 0.1, 0.06, 0.07, 0.06)
+        const turn = (px * 7.1 + pz * 3.7) % (Math.PI * 2)
+        if (kind === 'lettuce') {
+          // a rosette: big outer leaves lying open, small inner ones standing up
+          for (let k = 0; k < 10; k++) {
+            const inner = k >= 6
+            leafAt(plants, plantMats.lettuce(), px, base + 0.02, pz, inner ? 0.18 : 0.26, inner ? 0.12 : 0.17, inner ? 0.45 : 1.05, turn + k * 2.4)
+          }
+        } else if (kind === 'rice') {
+          for (let k = 0; k < 7; k++) leafAt(plants, plantMats.rice(), px + (k % 3 - 1) * 0.03, base, pz, 0.55 + (k % 3) * 0.12, 0.025, 0.15 + (k % 4) * 0.12, turn + k * 0.9)
+        } else if (kind === 'potato') {
+          plants.cyl(plantMats.stem(), px, base + 0.22, pz, 0.02, 0.45, 5)
+          for (let k = 0; k < 14; k++) leafAt(plants, k % 3 ? plantMats.leaf() : plantMats.leafDark(), px, base + 0.1 + (k % 5) * 0.08, pz, 0.2, 0.11, 0.7 + (k % 3) * 0.25, turn + k * 2.39)
+        } else if (kind === 'strawberry') {
+          for (let k = 0; k < 9; k++) leafAt(plants, plantMats.leaf(), px, base + 0.04, pz, 0.15, 0.1, 0.9 + (k % 3) * 0.15, turn + k * 2.1)
+          fruit.ball(plantMats.fruit(), px + 0.15, base + 0.06, pz + 0.1, 0.05, 0.065, 0.05)
+          fruit.ball(plantMats.fruit(), px - 0.12, base + 0.06, pz - 0.08, 0.045, 0.06, 0.045)
         } else if (kind === 'tomato') {
-          plants.cyl(plantMats.stem(), px, base + 0.8, pz, 0.025, 1.6, 6)
-          for (let k = 0; k < 4; k++) plants.ball(plantMats.leaf(), px + Math.cos(k * 2) * 0.18, base + 0.5 + k * 0.32, pz + Math.sin(k * 2) * 0.18, 0.18, 0.08, 0.12)
-          fruit.ball(plantMats.fruit(), px + 0.12, base + 0.9, pz, 0.09)
-          fruit.ball(plantMats.fruit(), px - 0.1, base + 1.25, pz + 0.05, 0.08)
+          plants.cyl(plantMats.stem(), px, base + 0.8, pz, 0.022, 1.6, 6)
+          for (let k = 0; k < 12; k++) leafAt(plants, plantMats.leaf(), px, base + 0.25 + k * 0.11, pz, 0.24, 0.1, 1.1, turn + k * 2.4)
+          fruit.ball(plantMats.fruit(), px + 0.12, base + 0.9, pz, 0.075)
+          fruit.ball(plantMats.fruit(), px - 0.1, base + 1.25, pz + 0.05, 0.065)
+          fruit.ball(plantMats.fruit(), px + 0.04, base + 0.62, pz - 0.11, 0.06)
         } else if (kind === 'sunflower') {
-          plants.cyl(plantMats.stem(), px, base + 0.9, pz, 0.035, 1.8, 6)
-          plants.ball(plantMats.leaf(), px + 0.15, base + 0.7, pz, 0.22, 0.06, 0.12)
-          plants.add(new THREE.CylinderGeometry(0.28, 0.28, 0.04, 14), plantMats.petal(), px, base + 1.85, pz, 1, 1, 1, Math.PI / 2 - 0.3)
-          plants.add(new THREE.CylinderGeometry(0.14, 0.14, 0.06, 12), plantMats.seed(), px + 0.02, base + 1.85, pz, 1, 1, 1, Math.PI / 2 - 0.3)
+          plants.cyl(plantMats.stem(), px, base + 0.9, pz, 0.03, 1.8, 6)
+          for (let k = 0; k < 6; k++) leafAt(plants, plantMats.leaf(), px, base + 0.35 + k * 0.22, pz, 0.28, 0.16, 1.0, turn + k * 2.5)
+          // the flower head faces the grow lights: a ring of petals around a seed disc
+          const head = new THREE.Vector3(px, base + 1.85, pz)
+          for (let k = 0; k < 16; k++) {
+            const a = k / 16 * Math.PI * 2
+            leafAt(plants, plantMats.petal(), head.x + Math.cos(a) * 0.1, head.y + Math.sin(a) * 0.1 * 0.96, head.z + 0.03, 0.17, 0.06, 0, 0, -a + Math.PI / 2 * -1 + Math.PI)
+          }
+          plants.add(new THREE.CylinderGeometry(0.12, 0.12, 0.06, 16), plantMats.seed(), px, head.y, pz + 0.04, 1, 1, 1, Math.PI / 2)
         }
       }
     }

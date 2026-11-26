@@ -24,7 +24,7 @@ export const realism = {
 export async function loadRealism(renderer, {quality = 'high', base = new URL('./assets/tex/', import.meta.url)} = {}) {
   if (quality === 'low' || realism.enabled) return realism.enabled
   const loader = new THREE.TextureLoader()
-  const aniso = Math.min(quality === 'high' ? 8 : 4, renderer.capabilities.getMaxAnisotropy())
+  const aniso = Math.min(quality === 'high' ? 8 : 4, renderer?.capabilities?.getMaxAnisotropy?.() ?? 8)
   const load = (file, srgb) => loader.loadAsync(new URL(file, base).href).then(t => {
     t.wrapS = t.wrapT = THREE.RepeatWrapping
     t.colorSpace = srgb ? THREE.SRGBColorSpace : THREE.NoColorSpace
@@ -193,6 +193,9 @@ const FRAG_NORMAL = /* glsl */`
   normal = normalize(mat3(vRX, vRY, vRZ) * rNormalW);
 #else
   normal = normalize((viewMatrix * vec4(rNormalW, 0.0)).xyz);
+#endif
+#ifdef DOUBLE_SIDED
+  normal *= faceDirection;
 #endif`
 
 /**
@@ -333,4 +336,31 @@ export function cloneDressed(material) {
   const info = material.userData.realism
   if (info) dress(copy, info.set, info.opts)
   return copy
+}
+
+// A fixed sky light for scenes where the Sun does not move (the Mars Adventure): a butterscotch sky,
+// brighter around the Sun, over reddish ground.
+export function staticSkyLight(renderer, {zenith = '#7f6252', horizon = '#cfa98b', ground = '#5e3e31', sun = null} = {}) {
+  const scene = new THREE.Scene()
+  const material = new THREE.ShaderMaterial({
+    side: THREE.BackSide, depthWrite: false,
+    uniforms: {
+      zen: {value: new THREE.Color(zenith)}, hor: {value: new THREE.Color(horizon)}, gro: {value: new THREE.Color(ground)},
+      sunDir: {value: sun ? sun.clone().normalize() : new THREE.Vector3(0, 1, 0)}, sunOn: {value: sun ? 1 : 0},
+    },
+    vertexShader: 'varying vec3 vDir; void main() { vDir = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+    fragmentShader: `uniform vec3 zen; uniform vec3 hor; uniform vec3 gro; uniform vec3 sunDir; uniform float sunOn; varying vec3 vDir;
+      void main() {
+        vec3 d = normalize(vDir);
+        vec3 c = d.y > 0.0 ? mix(hor, zen, pow(d.y, 0.6)) : mix(hor, gro, pow(min(-d.y * 4.0, 1.0), 0.5));
+        c += vec3(1.0, 0.92, 0.8) * pow(max(dot(d, sunDir), 0.0), 12.0) * 0.8 * sunOn;
+        gl_FragColor = vec4(c, 1.0);
+      }`,
+  })
+  scene.add(new THREE.Mesh(new THREE.SphereGeometry(10, 32, 16), material))
+  const pmrem = new THREE.PMREMGenerator(renderer)
+  const target = pmrem.fromScene(scene, 0, 0.1, 50)
+  pmrem.dispose()
+  material.dispose()
+  return target.texture
 }

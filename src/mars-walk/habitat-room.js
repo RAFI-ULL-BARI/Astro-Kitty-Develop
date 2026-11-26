@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import {dress} from '../colony/realism.js'
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js'
 
 export const STATIONS = {
@@ -12,7 +13,7 @@ export function makeHabitatRoom(scene) {
   scene.add(room)
   const paints={}
   const box=(parent,color,x,y,z,w,h,d)=>{
-    paints[color]??=new THREE.MeshStandardMaterial({color,roughness:.6,metalness:.12})
+    paints[color]??=dress(new THREE.MeshStandardMaterial({color,roughness:.6,metalness:.12}),'panel',{scale:1.2,dust:0,low:0})
     const mesh=new THREE.Mesh(geometry,paints[color])
     mesh.position.set(x,y,z);mesh.scale.set(w,h,d);mesh.receiveShadow=true;mesh.castShadow=true
     parent.add(mesh);return mesh

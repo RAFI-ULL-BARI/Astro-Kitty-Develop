@@ -1,15 +1,35 @@
-// All sounds are made in code (no downloads). Mars sounds are quieter because the air is so thin.
-export function makeAudio() {
-  let ctx = null, master = null, wind = null, windGain = null, hum = null, humGain = null, enabled = true
-  const noiseBuffer = () => {
-    const b = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate)
-    const d = b.getChannelData(0)
-    let last = 0
-    for (let i = 0; i < d.length; i++) {
-      last = last * 0.97 + (Math.random() * 2 - 1) * 0.03
-      d[i] = last * 6
-    }
-    return b
+// Sounds of the base and the places you visit: real sound files (made by scripts/world/make-sounds.py),
+// plus the shared UI sounds (dist/ui-sound.js) for wins and menus.
+// Mars air is about 100 times thinner than Earth's, so outdoor sounds are soft and muffled.
+const FILES = [
+  'step-sand-1', 'step-sand-2', 'step-sand-3', 'step-sand-4', 'step-metal-1', 'step-metal-2', 'step-metal-3', 'step-metal-4',
+  'airlock', 'door', 'alarm', 'pickup', 'spark', 'thump', 'rocket', 'shutter', 'build', 'console', 'drill', 'hiss',
+  'wind-loop', 'hum-loop', 'water-loop', 'rover-loop', 'drone-loop',
+]
+const LOOPS = ['wind', 'hum', 'water', 'rover', 'drone']
+
+export function makeAudio(base = new URL('./audio/world/', import.meta.url)) {
+  let ctx = null, master = null, outdoor = null, enabled = true
+  const buffers = new Map(), loops = {}
+  let lastStep = -1
+  const ui = (id, o) => { if (enabled) globalThis.astroSound?.play(id, o) }
+
+  async function load(name) {
+    try {
+      const r = await fetch(new URL(`${name}.wav`, base))
+      if (!r.ok) return
+      buffers.set(name, await ctx.decodeAudioData(await r.arrayBuffer()))
+      if (name.endsWith('-loop')) startLoop(name.slice(0, -5))
+    } catch {}
+  }
+  function startLoop(kind) {
+    const l = loops[kind]
+    if (!l || l.source || !buffers.has(`${kind}-loop`)) return
+    l.source = ctx.createBufferSource()
+    l.source.buffer = buffers.get(`${kind}-loop`)
+    l.source.loop = true
+    l.source.connect(l.gain)
+    l.source.start()
   }
   function unlock() {
     if (ctx) { if (ctx.state === 'suspended') ctx.resume(); return }
@@ -17,81 +37,71 @@ export function makeAudio() {
     if (!AC) return
     ctx = new AC()
     master = ctx.createGain()
-    master.gain.value = enabled ? 0.8 : 0
+    master.gain.value = enabled ? 0.9 : 0
     master.connect(ctx.destination)
-    const buffer = noiseBuffer()
-    wind = ctx.createBufferSource()
-    wind.buffer = buffer
-    wind.loop = true
-    const band = ctx.createBiquadFilter()
-    band.type = 'bandpass'
-    band.frequency.value = 420
-    band.Q.value = 0.6
-    windGain = ctx.createGain()
-    windGain.gain.value = 0
-    wind.connect(band).connect(windGain).connect(master)
-    wind.start()
-    hum = ctx.createOscillator()
-    hum.type = 'sine'
-    hum.frequency.value = 58
-    const hum2 = ctx.createOscillator()
-    hum2.type = 'triangle'
-    hum2.frequency.value = 117
-    humGain = ctx.createGain()
-    humGain.gain.value = 0
-    hum.connect(humGain)
-    hum2.connect(humGain)
-    humGain.connect(master)
-    hum.start()
-    hum2.start()
+    // outside, sounds reach you through thin air and your helmet: duller and quieter
+    outdoor = ctx.createBiquadFilter()
+    outdoor.type = 'lowpass'
+    outdoor.frequency.value = 2400
+    outdoor.connect(master)
+    for (const kind of LOOPS) {
+      const gain = ctx.createGain()
+      gain.gain.value = 0
+      gain.connect(kind === 'wind' ? outdoor : master)
+      loops[kind] = {gain, source: null}
+    }
+    for (const name of FILES) load(name)
   }
-  function tone(freq, time, dur, type = 'sine', vol = 0.15, slide = 0) {
+  function play(name, {volume = 1, rate = 1, out = false} = {}) {
     if (!ctx || !enabled) return
-    const o = ctx.createOscillator(), g = ctx.createGain()
-    o.type = type
-    o.frequency.setValueAtTime(freq, time)
-    if (slide) o.frequency.linearRampToValueAtTime(freq + slide, time + dur)
-    g.gain.setValueAtTime(0, time)
-    g.gain.linearRampToValueAtTime(vol, time + 0.01)
-    g.gain.exponentialRampToValueAtTime(0.0001, time + dur)
-    o.connect(g).connect(master)
-    o.start(time)
-    o.stop(time + dur + 0.05)
+    const b = buffers.get(name)
+    if (!b) return
+    const s = ctx.createBufferSource(), g = ctx.createGain()
+    s.buffer = b
+    s.playbackRate.value = rate
+    g.gain.value = volume
+    s.connect(g).connect(out ? outdoor : master)
+    s.start()
   }
-  function burst(dur = 0.15, vol = 0.2, freq = 2500) {
-    if (!ctx || !enabled) return
-    const src = ctx.createBufferSource()
-    src.buffer = noiseBuffer()
-    const f = ctx.createBiquadFilter()
-    f.type = 'highpass'
-    f.frequency.value = freq
-    const g = ctx.createGain()
-    const t = ctx.currentTime
-    g.gain.setValueAtTime(vol, t)
-    g.gain.exponentialRampToValueAtTime(0.0001, t + dur)
-    src.connect(f).connect(g).connect(master)
-    src.start(t)
-    src.stop(t + dur + 0.05)
-  }
+  const fadeTo = (kind, value, time = 0.4) => { if (ctx && loops[kind]) loops[kind].gain.gain.setTargetAtTime(value, ctx.currentTime, time) }
   return {
     unlock,
-    setEnabled(on) { enabled = on; if (master) master.gain.value = on ? 0.8 : 0 },
+    setEnabled(on) { enabled = on; if (master) master.gain.value = on ? 0.9 : 0 },
     get enabled() { return enabled },
-    // indoors: 0..1, storm: 0..1, machine: 0..1 (how close to loud machines)
-    ambience(indoors, storm, machine = 0) {
+    // indoors: 0..1, storm: 0..1, machine: 0..1 (how close to loud machines), wet: in the greenhouse
+    ambience(indoors, storm, machine = 0, wet = 0) {
       if (!ctx) return
-      const t = ctx.currentTime
-      windGain.gain.setTargetAtTime((0.05 + storm * 0.3) * (1 - indoors * 0.85), t, 0.4)
-      humGain.gain.setTargetAtTime(indoors * (0.025 + machine * 0.05), t, 0.4)
+      fadeTo('wind', (0.35 + storm * 0.9) * (1 - indoors * 0.85))
+      fadeTo('hum', indoors * (0.25 + machine * 0.5))
+      fadeTo('water', wet * 0.5)
+      if (outdoor) outdoor.frequency.setTargetAtTime(indoors ? 9000 : 2400, ctx.currentTime, 0.3)
     },
-    click() { if (ctx) tone(880, ctx.currentTime, 0.06, 'square', 0.05) },
-    success() { if (ctx) [523, 659, 784, 1046].forEach((f, i) => tone(f, ctx.currentTime + i * 0.09, 0.25, 'triangle', 0.12)) },
-    alarm() { if (ctx) for (let i = 0; i < 3; i++) tone(740, ctx.currentTime + i * 0.32, 0.18, 'square', 0.07, -160) },
-    spark() { burst(0.12, 0.18, 3200) },
-    hiss() { burst(0.6, 0.06, 4500) },
-    thump() { if (ctx) tone(90, ctx.currentTime, 0.12, 'sine', 0.12, -40) },
-    rocket() { burst(2.2, 0.12, 300) },
-    door() { if (ctx) { tone(220, ctx.currentTime, 0.3, 'sawtooth', 0.03, 120); burst(0.5, 0.04, 1500) } },
-    pickup() { if (ctx) [660, 990].forEach((f, i) => tone(f, ctx.currentTime + i * 0.07, 0.15, 'sine', 0.1)) },
+    // kind: 'rover' or 'drone'; amount 0 (off) .. 1 (full speed)
+    vehicle(kind, amount) {
+      if (!ctx || !loops[kind]) return
+      fadeTo(kind, amount > 0.01 ? 0.18 + amount * 0.5 : 0, 0.15)
+      if (loops[kind].source) loops[kind].source.playbackRate.setTargetAtTime(0.7 + amount * 0.6, ctx.currentTime, 0.2)
+    },
+    step(surface = 'sand') {
+      let i = 1 + Math.floor(Math.random() * 4)
+      if (i === lastStep) i = (i % 4) + 1
+      lastStep = i
+      if (surface === 'metal') play(`step-metal-${i}`, {volume: 0.5, rate: 0.95 + Math.random() * 0.1})
+      else play(`step-sand-${i}`, {volume: 0.7, rate: 0.9 + Math.random() * 0.2, out: true})
+    },
+    click() { play('console', {volume: 0.7}) },
+    console() { play('console', {volume: 0.7}) },
+    success() { ui('success-warm-chime') },
+    alarm() { play('alarm', {volume: 0.45}) },
+    spark() { play('spark', {volume: 0.8}) },
+    hiss() { play('hiss', {volume: 0.5}) },
+    thump() { play('thump', {volume: 0.8, rate: 0.9 + Math.random() * 0.2}) },
+    rocket() { play('rocket', {volume: 0.9, out: true}) },
+    door() { play('door', {volume: 0.7}) },
+    airlock() { play('airlock', {volume: 0.6}) },
+    pickup() { play('pickup', {volume: 0.6}); ui('pop-bubble', {volume: 0.6}) },
+    shutter() { play('shutter', {volume: 0.8}) },
+    build() { play('build', {volume: 0.7}) },
+    drill() { play('drill', {volume: 0.6, out: true}) },
   }
 }

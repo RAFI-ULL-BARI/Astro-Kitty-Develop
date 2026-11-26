@@ -151,7 +151,59 @@ function solarTexture() {
 }
 
 // A sign with an icon and English + Bangla words.
+// With the realistic look it is a riveted metal plate with stencil letters and a hazard stripe
+// (the Bangladesh flag is painted, not an emoji).
 export function signTexture(icon, en, bn, {bg = '#262b3d', fg = '#fff1d9', accent = '#e3884c'} = {}) {
+  if (realism.enabled) {
+    return canvasTexture(512, 160, (c, w, h) => {
+      const g = c.createLinearGradient(0, 0, 0, h)
+      g.addColorStop(0, '#3a3e45')
+      g.addColorStop(1, '#2a2d33')
+      c.fillStyle = g
+      c.fillRect(0, 0, w, h)
+      for (let i = 0; i < 260; i++) { // brushed metal streaks
+        c.fillStyle = `rgba(255,255,255,${Math.random() * 0.035})`
+        c.fillRect(Math.random() * w, Math.random() * h, 40 + Math.random() * 160, 1)
+      }
+      if (icon === '🇧🇩') {
+        c.fillStyle = '#006a4e'
+        c.fillRect(22, 30, 96, 64)
+        c.fillStyle = '#f42a41'
+        c.beginPath()
+        c.arc(64, 62, 19, 0, Math.PI * 2)
+        c.fill()
+      } else {
+        c.save()
+        c.beginPath()
+        c.rect(18, 18, 26, h - 36)
+        c.clip()
+        c.fillStyle = accent === '#e3884c' ? '#e5b23a' : accent
+        c.fillRect(18, 18, 26, h - 36)
+        c.fillStyle = '#1d1e22'
+        for (let y = -40; y < h + 40; y += 22) {
+          c.beginPath()
+          c.moveTo(18, y)
+          c.lineTo(44, y - 18)
+          c.lineTo(44, y - 7)
+          c.lineTo(18, y + 11)
+          c.fill()
+        }
+        c.restore()
+      }
+      c.fillStyle = '#9aa0a8'
+      for (const [x, y] of [[8, 8], [w - 8, 8], [8, h - 8], [w - 8, h - 8]]) { c.beginPath(); c.arc(x, y, 3.5, 0, Math.PI * 2); c.fill() }
+      const left = icon === '🇧🇩' ? 134 : 62
+      c.fillStyle = '#eceae4'
+      c.textBaseline = 'middle'
+      c.font = '700 50px "Arial Narrow", "Roboto Condensed", "DIN Condensed", system-ui, sans-serif'
+      c.letterSpacing = '3px'
+      c.fillText(en, left, 58, w - left - 18)
+      c.letterSpacing = '0px'
+      c.fillStyle = '#b8bcc3'
+      c.font = '34px "Noto Sans Bengali", "Hind Siliguri", system-ui, sans-serif'
+      c.fillText(bn, left + 2, 114, w - left - 18)
+    })
+  }
   return canvasTexture(512, 160, (c, w, h) => {
     c.fillStyle = bg
     c.fillRect(0, 0, w, h)
@@ -170,9 +222,10 @@ export function signTexture(icon, en, bn, {bg = '#262b3d', fg = '#fff1d9', accen
 }
 export function sign(icon, en, bn, width = 3.4, opts) {
   const tex = signTexture(icon, en, bn, opts)
-  const m = new THREE.Mesh(new THREE.PlaneGeometry(width, width * 160 / 512),
-    new THREE.MeshBasicMaterial({map: tex, toneMapped: false}))
-  return m
+  const material = realism.enabled
+    ? new THREE.MeshStandardMaterial({map: tex, roughness: 0.5, metalness: 0.35, emissive: '#ffffff', emissiveMap: tex, emissiveIntensity: 0.12})
+    : new THREE.MeshBasicMaterial({map: tex, toneMapped: false})
+  return new THREE.Mesh(new THREE.PlaneGeometry(width, width * 160 / 512), material)
 }
 
 // A screen whose picture can be redrawn (power flow, weather, gauges...).

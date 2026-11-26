@@ -634,6 +634,7 @@ function buy(id) {
   save.base.built.push(id)
   save.player = {x: player.x, z: player.z, yaw: player.yaw}
   persist()
+  audio.build()
   audio.success()
   hud.toast(`🏗️ ${T('built')}!`, 'good')
   // Rebuild the base so the new building appears (it is quick).
@@ -814,7 +815,9 @@ function frame(now) {
   w.dhrubo.setMood(dir?.active.some(e => !director.EVENTS[e.id].good && e.phase !== 'warning') ? 'worried' : 'happy')
   w.dhrubo.root.visible = player.mode !== 'drone' && !photo
   updateCamera(dt, inp, reduced)
-  audio.ambience(region ? 1 : player.underground ? 0.7 : 0, storm, region?.module === 'power' ? 1 : region?.module === 'life' ? 0.6 : 0)
+  audio.ambience(region ? 1 : player.underground ? 0.7 : 0, storm, region?.module === 'power' ? 1 : region?.module === 'life' ? 0.6 : 0, /greenhouse/.test(region?.module ?? '') ? 1 : 0)
+  audio.vehicle('rover', player.mode === 'drive' ? 0.15 + Math.min(1, Math.abs(w.rover.state.speed) / 6) : 0)
+  audio.vehicle('drone', player.mode === 'drone' ? 0.6 : 0)
 
   // --- HUD
   const spot = started && !photo ? nearestSpot() : null
@@ -961,6 +964,7 @@ function updatePlayer(dt, inp, reduced) {
   player.stride += moved
   if (player.stride > 0.8 && player.grounded) {
     player.stride = 0
+    audio.step(region ? 'metal' : 'sand')
     if (!region && !reduced) w.bursts.emit(player.x, player.y + 0.05, player.z, {count: 2, color: '#b98067', speed: 0.4, up: 0.4, gravity: -0.3, life: 0.9, size: 0.12, grow: 0.15})
   }
   // holding the action button on a "hold" spot fills a ring
@@ -989,7 +993,7 @@ function toggleDrone() {
   if (player.mode !== 'walk') return
   player.mode = 'drone'
   Object.assign(w.drone.state, {x: player.x + 1, z: player.z + 1, y: player.y + 2, battery: 1, heading: player.yaw})
-  audio.click()
+  audio.console()
 }
 function landDrone() {
   player.mode = 'walk'
@@ -1008,7 +1012,7 @@ function updateBase(dt, night, storm, reduced) {
     const near = agents.some(p => Math.hypot(p.x - a.a.outer[0], p.z - a.a.outer[1]) < (a.a.wide ? 6 : 3.4))
     const open = w.structures.driveAirlock(a, near, dt, reduced)
     w.collider.setEnabled(a.a.id, open < 0.7)
-    if (near && !a.wasNear) { audio.door(); if (!reduced) w.bursts.emit(a.a.outer[0], FLOOR_Y + 1.5, a.a.outer[1], {count: 14, color: '#e6f3ff', speed: 1.4, life: 0.8, size: 0.2, grow: 0.4, gravity: 0.2}) }
+    if (near && !a.wasNear) { audio.airlock(); if (!reduced) w.bursts.emit(a.a.outer[0], FLOOR_Y + 1.5, a.a.outer[1], {count: 14, color: '#e6f3ff', speed: 1.4, life: 0.8, size: 0.2, grow: 0.4, gravity: 0.2}) }
     a.wasNear = near
   }
   updateInteriorLights(w.interiors.list, region?.module)
@@ -1234,7 +1238,7 @@ function capture() {
   return renderer.domElement.toDataURL('image/png')
 }
 function snap() {
-  audio.click()
+  audio.shutter()
   hud.showPicture(capture())
 }
 function postcard() {
@@ -1272,7 +1276,7 @@ canvas.addEventListener('pointerdown', () => audio.unlock(), {once: true})
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?v=10').catch(() => {})
 // for automated checks
 window.__colony = {
-  get world() { return world }, player, get save() { return save }, get director() { return dir },
+  get world() { return world }, player, audio, get save() { return save }, get director() { return dir },
   start: startGame, travel, buy,
   setHours(h) { gameHours = h },
   setQuality(q) { save.settings.quality = q; downgraded = true; applyQuality() }, trigger(id) { const e = director.start(dir, id, Math.random, {leakModules: ['greenhouse']}); e.phase = 'active'; eventStarted(e); return e },

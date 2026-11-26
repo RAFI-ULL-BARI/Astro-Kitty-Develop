@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js'
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js'
+import {dress} from '../colony/realism.js'
 
 export const ENTRY = {x: -2.5, z: -8.7}
 export const SAMPLE = {x: 3.7, z: 4.2}
@@ -10,7 +11,12 @@ const round = new RoundedBoxGeometry(1, 1, 1, 2, 0.13)
 const boxGeometry = new THREE.BoxGeometry(1, 1, 1)
 const cylinder = new THREE.CylinderGeometry(1, 1, 1, 18)
 const ring = new THREE.TorusGeometry(1, 0.038, 8, 32)
-const material = (color, extra = {}) => new THREE.MeshStandardMaterial({color, roughness: 0.67, ...extra})
+// Painted hull panels and metal parts get real textures and Mars dust (lamps, glass and pictures stay plain).
+const material = (color, extra = {}) => {
+  const m = new THREE.MeshStandardMaterial({color, roughness: 0.67, ...extra})
+  if (extra.emissive || extra.map || extra.transparent || extra.flatShading) return m
+  return dress(m, (extra.metalness ?? 0) > 0.2 ? 'metal' : 'panel', {scale: (extra.metalness ?? 0) > 0.2 ? 1.2 : 2.4, dust: 0.55, low: 0.6})
+}
 
 function piece(group, geometry, paint, x, y, z, w, h, d) {
   const mesh = new THREE.Mesh(geometry, paint)
