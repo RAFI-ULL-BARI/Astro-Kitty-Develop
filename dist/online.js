@@ -88,7 +88,18 @@ export function speak(text){
   try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=/[ঀ-৿]/.test(text)?'bn-BD':'en-US';u.rate=.95;u.pitch=1.15;speechSynthesis.speak(u);}catch{}
 }
 
+const soundIsOn=()=>{try{return localStorage.getItem('astro-kitty-sound-v3')!=='off';}catch{return true;}};
+const speaker=on=>`<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m11 4-6 5H2v6h3l6 5Z"/>${on?'<path d="M15 8c3 2 3 6 0 8m3-11c5 4 5 10 0 14"/>':'<path d="m16 9 6 6m0-6-6 6"/>'}</svg>`;
 export function topBar(title){
-  return `<header class="hub-top"><a class="hub-brand" href="./">🐱 astro kitty</a><nav><a href="./hub.html">${lang()==='bn'?'মিশন হাব':'Mission Hub'}</a></nav></header><h1 class="hub-title">${escapeHTML(title)}</h1>`;
+  const on=soundIsOn(),bn=lang()==='bn';
+  return `<header class="hub-top"><a class="hub-brand" href="./">🐱 astro kitty</a><nav><button type="button" class="sound-toggle" data-sound="none" data-sound-toggle aria-pressed="${on}" aria-label="${bn?'শব্দ':'Sound'}" title="${bn?'শব্দ চালু/বন্ধ':'Sound on/off'}">${speaker(on)}</button><a href="./hub.html">${bn?'মিশন হাব':'Mission Hub'}</a></nav></header><h1 class="hub-title">${escapeHTML(title)}</h1>`;
 }
+// One sound switch for clicks, game sounds and Dhrubo's voice (shared with the main game).
+if(typeof document!=='undefined')document.addEventListener('click',e=>{
+  const b=e.target.closest?.('[data-sound-toggle]');if(!b)return;
+  const on=!soundIsOn();
+  try{localStorage.setItem('astro-kitty-sound-v3',on?'on':'off');const p=readJSON('astro-kitty-profile-v1',{});writeJSON('astro-kitty-profile-v1',{...p,voice:on,captions:true});}catch{}
+  for(const t of document.querySelectorAll('[data-sound-toggle]')){t.setAttribute('aria-pressed',String(on));t.innerHTML=speaker(on);}
+  if(on)globalThis.astroSound?.play('toggle-switch-on');else try{speechSynthesis.cancel();}catch{}
+});
 window.addEventListener('online',()=>{healthPromise=null;flushQueue();});

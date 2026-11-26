@@ -2,6 +2,13 @@ export function createStorySound({AudioClass=globalThis.Audio,ContextClass=globa
  let enabled=true,context=null,available=new Set(),hissNode=null,loaded=false,generation=0;const playing=new Set(),nodes=new Set();
  const urls={yay:new URL('./audio/sfx/yay.mp3',import.meta.url).href,applause:new URL('./audio/sfx/applause.mp3',import.meta.url).href,meow:new URL('./audio/sfx/meow.mp3',import.meta.url).href,purr:new URL('./audio/sfx/purr.mp3',import.meta.url).href};
  async function load(){if(loaded)return;loaded=true;try{const r=await fetcher(new URL('./audio/sfx/manifest.json',import.meta.url));if(r.ok){const data=await r.json();if(Array.isArray(data.files))available=new Set(data.files.filter(f=>Object.keys(urls).some(k=>f===k+'.mp3')));}}catch{}}
+ const stepBuffers={sand:[],metal:[]};let stepsLoading=false,wind=null,windGain=null;
+ const fileUrl=name=>new URL(`./audio/world/${name}.wav`,import.meta.url);
+ const decodeFile=name=>fetcher(fileUrl(name)).then(r=>r.ok?r.arrayBuffer():null).then(b=>b&&context.decodeAudioData(b)).catch(()=>null);
+ function loadSteps(){if(stepsLoading||!context)return;stepsLoading=true;for(const kind of ['sand','metal'])for(let i=1;i<=4;i++)decodeFile(`step-${kind}-${i}`).then(b=>{if(b)stepBuffers[kind].push(b);});}
+ function stepFile(kind){if(!enabled||!context)return false;const list=stepBuffers[kind];if(!list.length){loadSteps();return false;}try{const s=context.createBufferSource(),g=context.createGain();s.buffer=list[Math.floor(Math.random()*list.length)];s.playbackRate.value=.9+Math.random()*.2;g.gain.value=kind==='sand'?.5:.42;s.connect(g);g.connect(context.destination);s.start();return true;}catch{return false;}}
+ // a soft, low Mars wind while you walk outside (amount 0 = off)
+ function ambient(amount=0.3){if(!enabled||!context)return;if(!wind&&amount>0){windGain=context.createGain();windGain.gain.value=0;windGain.connect(context.destination);decodeFile('wind-loop').then(b=>{if(!b||wind)return;wind=context.createBufferSource();wind.buffer=b;wind.loop=true;wind.connect(windGain);wind.start();});}if(windGain)windGain.gain.setTargetAtTime(Math.max(0,amount)*.5,context.currentTime,.5);}
  function unlock(){if(!enabled)return;try{context??=new ContextClass();context.resume()?.catch?.(()=>{});}catch{}void load();}
  function tone(freq,delay=0,length=.3,volume=.035,type='sine'){
   if(!enabled||!context)return;try{const o=context.createOscillator(),g=context.createGain(),now=context.currentTime+delay;o.type=type;o.frequency.value=freq;g.gain.setValueAtTime(0,now);g.gain.linearRampToValueAtTime(volume,now+.015);g.gain.exponentialRampToValueAtTime(.001,now+length);o.connect(g);g.connect(context.destination);nodes.add(o);o.onended=()=>{nodes.delete(o);o.disconnect();g.disconnect();};o.start(now);o.stop(now+length+.03);}catch{}
@@ -24,10 +31,10 @@ export function createStorySound({AudioClass=globalThis.Audio,ContextClass=globa
  const synth={yay:synthYay,applause:synthApplause,meow:synthMeow,purr:synthPurr};
  function play(name='yay'){recording(name,()=>(synth[name]??chime)());}
  function finish(){if(!enabled)return;chime(true);recording('applause',synthApplause);recording('meow',synthMeow);}
- function stopAll(){generation++;for(const a of playing){a.pause();try{a.currentTime=0;}catch{}}playing.clear();for(const n of nodes){try{n.stop();}catch{}}nodes.clear();hissNode=null;}
+ function stopAll(){generation++;if(windGain&&context)windGain.gain.value=0;for(const a of playing){a.pause();try{a.currentTime=0;}catch{}}playing.clear();for(const n of nodes){try{n.stop();}catch{}}nodes.clear();hissNode=null;}
  function setEnabled(value){enabled=!!value;if(!enabled)stopAll();}
  function hiss(on){if(!on){if(hissNode){try{hissNode.stop();}catch{}nodes.delete(hissNode);hissNode=null;}return;}if(!enabled||!context||hissNode)return;
   try{const b=context.createBuffer(1,Math.floor(context.sampleRate*.6),context.sampleRate),data=b.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*.08;const source=context.createBufferSource(),filter=context.createBiquadFilter(),gain=context.createGain();source.buffer=b;source.loop=true;filter.type='lowpass';filter.frequency.value=1100;gain.gain.value=.12;source.connect(filter);filter.connect(gain);gain.connect(context.destination);source.onended=()=>{source.disconnect();filter.disconnect();gain.disconnect();};source.start();nodes.add(source);hissNode=source;}catch{}
  }
- return{unlock,load,setEnabled,stopAll,play,finish,hiss,chime,buzz:synthBuzz,footstep:(dust=true)=>{burst(0,.068,.025,dust?730:420);tone(83,0,.061,.014,'sine');},kitty:()=>play('meow'),purr:()=>play('purr'),click:()=>tone(380,0,.06,.02),thunk:()=>tone(105,0,.12,.035)};
+ return{unlock,load,setEnabled,stopAll,play,finish,hiss,chime,buzz:synthBuzz,footstep:(dust=true)=>{if(!stepFile(dust?'sand':'metal')){burst(0,.068,.025,dust?730:420);tone(83,0,.061,.014,'sine');}},ambient,kitty:()=>play('meow'),purr:()=>play('purr'),click:()=>tone(380,0,.06,.02),thunk:()=>tone(105,0,.12,.035)};
 }

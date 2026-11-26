@@ -96,6 +96,7 @@ async function quiz(part){
   }
 
   function feedback(q,correct){
+    globalThis.astroSound?.play(correct?'success-subtle-ping':'error-soft-thud');
     const box=app.querySelector('#feedback');
     const cheer=T.right[Math.floor(Math.random()*T.right.length)];
     const last=index===questions.length-1;
@@ -114,6 +115,8 @@ async function quiz(part){
     writeJSON(STORE,s);
     const badge=stars===3?['🏅',T.expert]:stars===2?['🌟',T.good]:['🚀',T.keep];
     app.innerHTML=`${topBar(pick(meta.title))}<div class="quiz card" style="text-align:center"><div class="badge">${badge[0]}</div><h2>${badge[1]}</h2><p class="question">${T.result.replace('{c}',correct).replace('{t}',total)}</p><p class="stars" style="font-size:40px">${'★'.repeat(stars)}${'☆'.repeat(3-stars)}</p>${correct<total?`<p class="muted">${T.practice}</p>`:''}<p id="saveNote" class="muted"></p><div class="quiz-actions" style="justify-content:center"><a class="btn" href="?part=${part}">${T.again}</a><a class="btn ghost" href="./hub.html">${T.hub}</a></div></div>`;
+    globalThis.astroSound?.play(stars===3?'achievement':stars===2?'success-warm-chime':'xp-up');
+    for(let i=0;i<stars;i++)globalThis.astroSound?.play('coin-collect',{delay:.5+i*.2,rate:1+i*.12});
     speak(`${badge[1]} ${T.result.replace('{c}',correct).replace('{t}',total)}`);
     // The server re-scores the first-try answers itself.
     try{const r=await submit(`/api/quizzes/${part}/submit`,{answers:firstAnswer});app.querySelector('#saveNote').textContent=r?T.saved:T.queued;}catch{}

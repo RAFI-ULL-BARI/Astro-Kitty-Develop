@@ -29,8 +29,10 @@ export function mountDhrubo(){
   panel.innerHTML=`<header><span aria-hidden="true">🤖</span>${t.title}<button type="button" aria-label="${t.close}">×</button></header><div class="dhrubo-log" aria-live="polite"><p class="from-bot">${t.hello}</p><p class="from-bot muted" style="font-size:14px">${t.private}</p></div><div class="dhrubo-chips">${t.chips.map(c=>`<button type="button">${escapeHTML(c)}</button>`).join('')}</div><form class="dhrubo-form"><input maxlength="300" placeholder="${t.placeholder}" aria-label="${t.placeholder}"><button type="button" class="mic" aria-label="${t.mic}">🎤</button><button type="submit" aria-label="${t.send}">➤</button></form>`;
   document.body.append(fab,panel);
   const log=panel.querySelector('.dhrubo-log'),form=panel.querySelector('form'),input=form.querySelector('input'),mic=form.querySelector('.mic');
-  const toggle=open=>{panel.hidden=!open;fab.setAttribute('aria-expanded',String(open));if(open)input.focus();};
+  fab.dataset.sound='modal-open-rise';
+  const toggle=open=>{panel.hidden=!open;fab.setAttribute('aria-expanded',String(open));fab.dataset.sound=open?'modal-close-fall':'modal-open-rise';if(open)input.focus();};
   fab.onclick=()=>toggle(panel.hidden);
+  panel.querySelector('header button').dataset.sound='modal-close-fall';
   panel.querySelector('header button').onclick=()=>toggle(false);
   const add=(text,who)=>{const p=document.createElement('p');p.className=who==='kid'?'from-kid':'from-bot';p.textContent=text;log.append(p);log.scrollTop=log.scrollHeight;return p;};
   async function ask(question){
@@ -43,10 +45,11 @@ export function mountDhrubo(){
       else answer=await offlineAnswer(question);
     }catch{answer=await offlineAnswer(question);}
     waiting.textContent=answer;
+    globalThis.astroSound?.play('message-incoming-pop');
     history.push({role:'user',text:question},{role:'assistant',text:answer});
     speak(answer);
   }
-  form.onsubmit=e=>{e.preventDefault();ask(input.value);};
+  form.onsubmit=e=>{e.preventDefault();if(input.value.trim())globalThis.astroSound?.play('message-sent-swish');ask(input.value);};
   panel.querySelectorAll('.dhrubo-chips button').forEach(b=>b.onclick=()=>ask(b.textContent));
   const Recognition=window.SpeechRecognition??window.webkitSpeechRecognition;
   if(!Recognition){mic.hidden=true;return;}

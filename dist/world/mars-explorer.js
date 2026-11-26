@@ -129,9 +129,11 @@ async function renderSurface() {
     document.getElementById('landShortcut').focus();
   };
   try {
-    const {makeSurface} = await import('./mars-surface.js?v=10');
+    const {makeSurface, prepareSurface} = await import('./mars-surface.js?v=10');
+    await prepareSurface?.().catch?.(() => false);
     if (ticket !== surfaceTicket) return;
     surface = makeSurface(canvas,spot,walkSound.footstep);
+    walkSound.ambient?.(0.3);
     if (!surface) return onError();
     const habitat = await surface.ready;
     if (ticket !== surfaceTicket) return;

@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import {dress, naturalRock, realism} from '../colony/realism.js'
 
 export const SUN = new THREE.Vector3(-0.72, 0.37, -0.48).normalize()
 const TAU = Math.PI * 2
@@ -92,10 +93,14 @@ function surfaceMesh(renderer, height, seed, size, segments, detailed) {
   }
   geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
   geometry.computeVertexNormals()
-  const texture = detailed ? soilTexture(renderer) : null
+  const texture = detailed && !realism.enabled ? soilTexture(renderer) : null
   const material = new THREE.MeshStandardMaterial({
     vertexColors: true, roughness: 0.95, map: texture, bumpMap: texture, bumpScale: 0.065,
   })
+  // real-looking soil (and bare rock on steep slopes) when the textures are loaded
+  dress(material, 'regolith', detailed
+    ? {scale: 2.5, dust: 0, low: 0, rough: 0.9, normal: 1.1, terrain: {rock: 'rock', rockScale: 3}}
+    : {scale: 9, dust: 0, low: 0, planar: true, normal: 0.7})
   const mesh = new THREE.Mesh(geometry, material)
   mesh.receiveShadow = detailed
   return mesh
@@ -141,9 +146,9 @@ function ridge(x, z, width, depth, elevation, seed, height, distant) {
   geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
   geometry.setIndex(indices)
   geometry.computeVertexNormals()
-  return new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({
-    vertexColors: true, roughness: 1, side: THREE.DoubleSide,
-  }))
+  return new THREE.Mesh(geometry, realism.enabled
+    ? dress(new THREE.MeshStandardMaterial({vertexColors: true, roughness: 1, side: THREE.DoubleSide}), 'rock', {scale: 6, dust: 0.9, low: 0, normal: 1.5})
+    : new THREE.MeshStandardMaterial({vertexColors: true, roughness: 1, side: THREE.DoubleSide}))
 }
 
 function rockGeometry(seed) {
@@ -176,10 +181,14 @@ export function makeTerrain(scene, renderer, height, seed, clearings) {
       seed + i * 321, height, distant))
   }
   const palette = ['#814e3f', '#a5755d', '#765850', '#be8b71', '#68504d', '#9d6552'].map(color => new THREE.Color(color))
-  const rockMaterial = new THREE.MeshStandardMaterial({vertexColors: true, flatShading: true, roughness: 0.97})
+  // fractured basalt boulders with dust on top (smooth blobs on low quality)
+  const rockMaterial = realism.enabled
+    ? dress(new THREE.MeshStandardMaterial({color: '#ffffff', roughness: 0.9}), 'rock', {scale: 1.4, dust: 0.85, low: 0.6, normal: 1.2})
+    : new THREE.MeshStandardMaterial({vertexColors: true, flatShading: true, roughness: 0.97})
+  if (realism.enabled) palette.forEach(c => c.lerp(new THREE.Color('#ffffff'), 0.6))
   const dummy = new THREE.Object3D()
   for (let kind = 0; kind < 5; kind++) {
-    const rocks = new THREE.InstancedMesh(rockGeometry(seed + kind * 163), rockMaterial, 300)
+    const rocks = new THREE.InstancedMesh(realism.enabled ? naturalRock(seed + kind * 163, kind === 0 ? 3 : 2) : rockGeometry(seed + kind * 163), rockMaterial, 300)
     let placed = 0
     for (let i = 0; i < 340 && placed < 300; i++) {
       const x = (random() - 0.5) * 132, z = (random() - 0.5) * 132

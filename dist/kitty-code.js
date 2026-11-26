@@ -9,6 +9,7 @@ const PROGRESS='astro-kitty-code-v1';
 const UNLOCK_STARS=10; // stars needed in a world to open the next one
 const app=document.getElementById('app');
 const L=lang();
+const sfx=(id,o)=>globalThis.astroSound?.play(id,o);
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches||readJSON('astro-kitty-profile-v1',{}).reduceMotion===true;
 const T={
   en:{title:'Kitty Code',sub:'Drive the rover with simple words. Reach the base, grab samples, write short code!',world:'WORLD',locked:`Get ${UNLOCK_STARS} stars in the world before to open this one`,daily:'Daily Challenge',dailySub:'A new mission every day. Same level for every kitty!',dailyOff:'Connect to the internet to play the Daily Challenge.',
@@ -70,7 +71,7 @@ function world(id){
   const w=data.worlds.find(x=>x.id===id);
   const list=data.levels.filter(l=>l.world===id);
   app.innerHTML=`${topBar(`${T.world} ${id}: ${pick(w.place)}`)}<p class="hub-sub">${escapeHTML(pick(w.learn))}</p>
-    <p class="run-row"><button class="btn ghost" id="back">${T.back}</button><button class="btn mint" id="remix" title="${escapeHTML(T.remixSub)}">${T.remix}</button></p><div class="level-grid stagger" id="levels"></div>`;
+    <p class="run-row"><button class="btn ghost" id="back">${T.back}</button><button class="btn mint" id="remix" data-sound="whoosh-short" title="${escapeHTML(T.remixSub)}">${T.remix}</button></p><div class="level-grid stagger" id="levels"></div>`;
   app.querySelector('#back').onclick=home;
   app.querySelector('#remix').onclick=()=>loadRemix(id);
   const grid=app.querySelector('#levels');
@@ -187,7 +188,7 @@ function play(level,{fromEditor=null}={}){
     <div>
       <div class="toolbox" id="toolbox"></div>
       <div class="editor"><div class="gutter" id="gutter" aria-hidden="true"></div><textarea id="code" spellcheck="false" autocapitalize="characters" aria-label="Your Kitty Code"></textarea></div>
-      <div class="run-row" style="margin-top:12px"><button class="btn" id="run">${T.run}</button><button class="btn ghost" id="step">${T.step}</button><button class="btn ghost" id="reset">${T.reset}</button><button class="btn ghost" id="clear">${T.clear}</button><label>${T.speed}<input type="range" id="speed" min="1" max="5" value="3"></label></div>
+      <div class="run-row" style="margin-top:12px"><button class="btn" id="run">${T.run}</button><button class="btn ghost" id="step">${T.step}</button><button class="btn ghost" id="reset">${T.reset}</button><button class="btn ghost" id="clear" data-sound="delete-soft-swipe">${T.clear}</button><label>${T.speed}<input type="range" id="speed" min="1" max="5" value="3"></label></div>
       <div id="message" class="message" hidden></div>
       <p class="run-row"><button class="btn ghost" id="back">${T.back}</button>${fromEditor?`<button class="btn ghost" id="editAgain">${T.edit}</button>`:''}</p>
     </div>
@@ -286,7 +287,7 @@ function play(level,{fromEditor=null}={}){
   const box=$('toolbox');
   for(const key of toolbox){
     if(!SNIPPETS[key])continue;
-    const b=document.createElement('button');b.type='button';
+    const b=document.createElement('button');b.type='button';b.dataset.sound='select-item';
     b.className=CONTROL.has(key)?'ctl':CONDS.has(key)?'cond':key==='wait'?'wait':'';
     b.textContent=SNIPPETS[key].split('\n')[0];
     b.onclick=()=>insert(SNIPPETS[key],CONDS.has(key));
@@ -318,6 +319,7 @@ function play(level,{fromEditor=null}={}){
     const result=run(code.value,level.map,level.par,level.battery??null);
     if(result.status==='error'){
       const e=result.error;renderGutter(null,e.line);
+      sfx('invalid-thunk');
       show(`<strong>${T.error} (line ${e.line}):</strong> ${escapeHTML(e.message)}${e.suggestion?` ${T.didYouMean} <b>${escapeHTML(e.suggestion)}</b>?`:''}`,'bad');
       speak(e.message);
       return null;
@@ -337,6 +339,9 @@ function play(level,{fromEditor=null}={}){
     if(entry.op==='charge'){const p=board.pads.find(p=>p.x===entry.x&&p.y===entry.y);if(p)p.flash=1.2;puff((entry.x+.5)*size,(entry.y+.5)*size,'#7ef4e0',14,50);}
     if(entry.op==='blown'){view.spin=1.5;puff((entry.x+.5)*size,(entry.y+.5)*size,'#d9a882',20,70);}
     if(entry.op==='flat')puff((entry.x+.5)*size,(entry.y+.2)*size,'#5c6676',8,20);
+    ({move:()=>sfx('tap-ui-tick',{volume:.7,rate:.9+Math.random()*.2}),slide:()=>sfx('tap-light',{rate:1.3}),turn:()=>sfx('tap-light'),
+      drill:()=>sfx(entry.note==='sample'?'pop-bubble':'tap-light'),charge:()=>sfx('xp-up'),bonk:()=>sfx('error-soft-thud'),
+      blown:()=>sfx('whoosh-short'),flat:()=>sfx('warning-buzz'),scan:()=>sfx('select-item',{volume:.6})}[entry.op]??(()=>{}))();
     renderGutter(entry.line);
     const line=code.value.split('\n')[entry.line-1]??'';
     status.textContent=`${T.running} ${entry.line}: ${line.trim()}${entry.op==='scan'?` → ${T.seen[entry.note]??entry.note}`:''}${entry.op==='drill'?(entry.note==='sample'?' 💎!':' …'):''}${entry.op==='slide'?' 🧊💨':''}${entry.op==='charge'?' ⚡':''}`;
@@ -375,6 +380,9 @@ function play(level,{fromEditor=null}={}){
       writeJSON(PROGRESS,progress);
     }
     const cheer=T.cheers[Math.floor(Math.random()*T.cheers.length)];
+    sfx('success-warm-chime');
+    for(let i=0;i<result.stars;i++)sfx('coin-collect',{delay:.35+i*.18,rate:1+i*.12});
+    if(result.stars===3)sfx('achievement',{delay:.35+3*.18+.1});
     speak(`${cheer} ${T.success}`);
     const list=level.world&&!level.remix?data.levels.filter(l=>l.world===level.world):[];
     const next=list[list.findIndex(l=>l.id===level.id)+1];
@@ -392,7 +400,7 @@ function play(level,{fromEditor=null}={}){
     overlay.querySelector('#next')?.addEventListener('click',()=>{overlay.remove();play(next);});
     overlay.querySelector('#another')?.addEventListener('click',()=>{overlay.remove();loadRemix(level.world);});
     overlay.querySelector('#edit2')?.addEventListener('click',()=>{overlay.remove();editor(fromEditor);});
-    overlay.querySelector('#copy')?.addEventListener('click',async e=>{try{await navigator.clipboard.writeText(share.url);e.target.textContent=T.copied;}catch{overlay.querySelector('.share input').select();}});
+    overlay.querySelector('#copy')?.addEventListener('click',async e=>{try{await navigator.clipboard.writeText(share.url);e.target.textContent=T.copied;sfx('success-subtle-ping');}catch{overlay.querySelector('.share input').select();}});
     (overlay.querySelector('#next')??overlay.querySelector('#another')??overlay.querySelector('#again')).focus();
     if(level.remix||level.custom)return;
     try{
@@ -413,7 +421,7 @@ function editor(draft=null){
   const keep=()=>{try{sessionStorage.setItem(MAKER,JSON.stringify(state));}catch{}};
   let brush='#';
   app.innerHTML=`${topBar(T.editor)}<p class="hub-sub">${T.editHelp}</p>
-    <div class="maker"><div class="palette" id="palette">${TILES.map(([c,icon,name])=>`<button type="button" data-tile="${c}" title="${escapeHTML(T.legend[name]??name)}">${icon}</button>`).join('')}</div>
+    <div class="maker"><div class="palette" id="palette">${TILES.map(([c,icon,name])=>`<button type="button" data-sound="select-item" data-tile="${c}" title="${escapeHTML(T.legend[name]??name)}">${icon}</button>`).join('')}</div>
     <div class="maker-body"><div class="maker-grid" id="grid" role="grid"></div>
     <div class="maker-side card"><label class="wide">${T.levelName}<input id="name" maxlength="30" value="${escapeHTML(state.title)}" placeholder="${escapeHTML(T.custom)}"></label>
       <div class="run-row"><label>${T.width} <input type="number" id="w" min="3" max="12" value="${state.map[0].length}"></label><label>${T.height} <input type="number" id="h" min="3" max="10" value="${state.map.length}"></label></div>
@@ -422,7 +430,7 @@ function editor(draft=null){
   const grid=app.querySelector('#grid');
   const draw=()=>{
     grid.style.gridTemplateColumns=`repeat(${state.map[0].length},1fr)`;
-    grid.innerHTML=state.map.map((row,y)=>[...row].map((c,x)=>`<button type="button" data-x="${x}" data-y="${y}" aria-label="${x+1},${y+1}" class="cell c-${{'.':'g','#':'r','*':'s','B':'b','~':'i','+':'p','@':'d','$':'d'}[c]??'g'}">${{'#':'🪨','*':'💎',B:'🏠','~':'🧊','+':'⚡','@':'🌪️','$':'🌪️','^':'⬆️','>':'➡️','v':'⬇️','<':'⬅️'}[c]??''}</button>`).join('')).join('');
+    grid.innerHTML=state.map.map((row,y)=>[...row].map((c,x)=>`<button type="button" data-sound="none" data-x="${x}" data-y="${y}" aria-label="${x+1},${y+1}" class="cell c-${{'.':'g','#':'r','*':'s','B':'b','~':'i','+':'p','@':'d','$':'d'}[c]??'g'}">${{'#':'🪨','*':'💎',B:'🏠','~':'🧊','+':'⚡','@':'🌪️','$':'🌪️','^':'⬆️','>':'➡️','v':'⬇️','<':'⬅️'}[c]??''}</button>`).join('')).join('');
   };
   const set=(x,y,c)=>{
     const rows=state.map.map(r=>[...r]);
@@ -433,6 +441,7 @@ function editor(draft=null){
     }else if(c==='B'){for(const r of rows)for(let i=0;i<r.length;i++)if(r[i]==='B')r[i]='.';rows[y][x]='B';}
     else rows[y][x]=c;
     state.map=rows.map(r=>r.join(''));draw();keep();
+    sfx('tap-ui-tick',{volume:.8,rate:.85+Math.random()*.3});
   };
   let painting=false,lastCell='';
   const cellAt=e=>document.elementFromPoint(e.clientX,e.clientY)?.closest?.('#grid [data-x]');

@@ -1,7 +1,7 @@
 // The six-wheeled rover you can drive, a robot rover that patrols on its own,
 // and an Ingenuity-style helicopter drone.
 import * as THREE from 'three'
-import {Builder, M, glow} from './kit.js'
+import {Builder, M, MO, glow} from './kit.js'
 import {angleDiff, clamp, damp, dampAngle, TAU} from './util.js'
 
 export function roverModel() {
@@ -9,30 +9,30 @@ export function roverModel() {
   const chassis = new THREE.Group()
   root.add(chassis)
   const b = new Builder()
-  b.round(M.shell(), 0, 1.25, 0, 2.2, 0.55, 3.4)
-  b.box(M.indigo(), 0, 1.58, 0.3, 2.0, 0.08, 2.4)
-  b.box(M.solarCell(), 0, 1.64, 0.3, 1.9, 0.02, 2.3)
-  b.round(M.trim(), 0, 1.05, -1.75, 2.0, 0.25, 0.2)
-  b.cyl(M.frame(), 0.7, 2.1, -1.2, 0.06, 1.2, 8)
-  b.round(M.shell(), 0.7, 2.8, -1.25, 0.5, 0.32, 0.3)
-  b.box(M.window(), 0.7, 2.82, -1.42, 0.38, 0.14, 0.04)
-  b.cyl(M.frame(), -0.7, 2.0, 1.2, 0.03, 1.0, 6)
-  b.ball(M.lampCool(), -0.7, 2.52, 1.2, 0.06)
+  b.round(MO.shell(), 0, 1.25, 0, 2.2, 0.55, 3.4)
+  b.box(MO.indigo(), 0, 1.58, 0.3, 2.0, 0.08, 2.4)
+  b.box(MO.solarCell(), 0, 1.64, 0.3, 1.9, 0.02, 2.3)
+  b.round(MO.trim(), 0, 1.05, -1.75, 2.0, 0.25, 0.2)
+  b.cyl(MO.frame(), 0.7, 2.1, -1.2, 0.06, 1.2, 8)
+  b.round(MO.shell(), 0.7, 2.8, -1.25, 0.5, 0.32, 0.3)
+  b.box(MO.window(), 0.7, 2.82, -1.42, 0.38, 0.14, 0.04)
+  b.cyl(MO.frame(), -0.7, 2.0, 1.2, 0.03, 1.0, 6)
+  b.ball(MO.lampCool(), -0.7, 2.52, 1.2, 0.06)
   for (const side of [-1, 1]) {
-    b.box(M.frame(), side * 1.2, 0.95, -0.6, 0.12, 0.12, 2.0, 0, 0.35)
-    b.box(M.frame(), side * 1.2, 0.95, 0.9, 0.12, 0.12, 1.4, 0, -0.3)
+    b.box(MO.frame(), side * 1.2, 0.95, -0.6, 0.12, 0.12, 2.0, 0, 0.35)
+    b.box(MO.frame(), side * 1.2, 0.95, 0.9, 0.12, 0.12, 1.4, 0, -0.3)
   }
   // a glass bubble seat for Kitty
-  b.ball(M.glass(), 0, 1.75, -0.7, 0.55, 0.45, 0.55)
+  b.ball(MO.glass(), 0, 1.75, -0.7, 0.55, 0.45, 0.55)
   b.build(chassis)
   const wheels = []
   for (const side of [-1, 1]) for (const z of [-1.4, 0, 1.4]) {
     const w = new THREE.Group()
     w.position.set(side * 1.35, 0.42, z)
     const wb = new Builder()
-    wb.cyl(M.rubber(), 0, 0, 0, 0.42, 0.34, 18, 0, 0, Math.PI / 2)
-    wb.cyl(M.steel(), side * 0.05, 0, 0, 0.22, 0.36, 12, 0, 0, Math.PI / 2)
-    for (let k = 0; k < 6; k++) wb.box(M.darkSteel(), 0, Math.cos(k / 6 * TAU) * 0.42, Math.sin(k / 6 * TAU) * 0.42, 0.36, 0.06, 0.1, 0, k / 6 * TAU)
+    wb.cyl(MO.rubber(), 0, 0, 0, 0.42, 0.34, 18, 0, 0, Math.PI / 2)
+    wb.cyl(MO.steel(), side * 0.05, 0, 0, 0.22, 0.36, 12, 0, 0, Math.PI / 2)
+    for (let k = 0; k < 6; k++) wb.box(MO.darkSteel(), 0, Math.cos(k / 6 * TAU) * 0.42, Math.sin(k / 6 * TAU) * 0.42, 0.36, 0.06, 0.1, 0, k / 6 * TAU)
     wb.build(w)
     root.add(w)
     wheels.push(w)
@@ -128,21 +128,21 @@ export function makePatrol(scene, height, route) {
 export function droneModel() {
   const root = new THREE.Group()
   const b = new Builder()
-  b.round(M.shell(), 0, 0, 0, 0.5, 0.4, 0.5)
-  b.box(M.solarCell(), 0, 1.05, 0, 0.7, 0.02, 0.45)
-  b.cyl(M.frame(), 0, 0.55, 0, 0.04, 1.0, 8)
+  b.round(MO.shell(), 0, 0, 0, 0.5, 0.4, 0.5)
+  b.box(MO.solarCell(), 0, 1.05, 0, 0.7, 0.02, 0.45)
+  b.cyl(MO.frame(), 0, 0.55, 0, 0.04, 1.0, 8)
   for (let k = 0; k < 4; k++) {
     const a = k / 4 * TAU + Math.PI / 4
-    b.box(M.frame(), Math.cos(a) * 0.4, -0.45, Math.sin(a) * 0.4, 0.04, 0.8, 0.04, -a, 0, 0.6)
+    b.box(MO.frame(), Math.cos(a) * 0.4, -0.45, Math.sin(a) * 0.4, 0.04, 0.8, 0.04, -a, 0, 0.6)
   }
-  b.box(M.window(), 0, -0.05, -0.26, 0.16, 0.1, 0.02)
+  b.box(MO.window(), 0, -0.05, -0.26, 0.16, 0.1, 0.02)
   b.build(root)
   const rotors = []
   for (const [y, dir] of [[0.5, 1], [0.75, -1]]) {
     const r = new THREE.Group()
     r.position.y = y
     const rb = new Builder()
-    rb.box(M.darkSteel(), 0, 0, 0, 2.4, 0.02, 0.16)
+    rb.box(MO.darkSteel(), 0, 0, 0, 2.4, 0.02, 0.16)
     rb.build(r, {shadows: false})
     root.add(r)
     rotors.push({r, dir})

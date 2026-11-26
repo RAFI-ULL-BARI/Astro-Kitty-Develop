@@ -5,6 +5,8 @@ import {makeHabitatRoom, STATIONS} from './habitat-room.js'
 import * as THREE from 'three'
 import {makeHeight, makeSky, makeTerrain, randomFrom, SUN} from './terrain.js'
 import {makeKitty} from './kitten.js'
+import {chosenAvatar, kittyLook} from './avatar.js'
+import {loadRealism, realism, staticSkyLight} from '../colony/realism.js'
 import {ENTRY, SAMPLE, SOLAR, OUTPOST_Z, makeOutpost} from './outpost.js'
 
 const {clamp, lerp, damp} = THREE.MathUtils
@@ -110,6 +112,12 @@ function makeTrail(scene) {
   }
 }
 
+// Download the real-world surface textures first (skipped on small, slow screens).
+export async function prepareSurface() {
+  const slow = (navigator.hardwareConcurrency ?? 8) <= 2
+  return loadRealism(null, {quality: slow ? 'low' : matchMedia('(pointer: coarse)').matches ? 'medium' : 'high'})
+}
+
 export function makeSurface(canvas, spot, onFootstep) {
   const gl = canvas.getContext('webgl2', {alpha: false, antialias: true, powerPreference: 'high-performance'})
   if (!gl) return null
@@ -134,6 +142,13 @@ export function makeSurface(canvas, spot, onFootstep) {
   sunlight.shadow.normalBias = 0.072
   sunlight.shadow.bias = -0.00016
   scene.add(ambient, sunlight, sunlight.target)
+  if (realism.enabled) {
+    // light from the dusty sky itself; the flat fill light steps back
+    scene.environment = staticSkyLight(renderer, {sun: SUN})
+    scene.environmentIntensity = 0.95
+    ambient.intensity *= 0.35
+    scene.fog.near = 14
+  }
   const sky = makeSky(scene)
   const terrainHeight = makeHeight(seed)
   const height = (x,z) => x > 150 ? 0 : terrainHeight(x,z)
@@ -160,7 +175,7 @@ export function makeSurface(canvas, spot, onFootstep) {
   }
   const rocks = makeTerrain(scene, renderer, height, seed, clearings)
   const obstacles = [...rocks, ...outpost.blockers]
-  const kitty = makeKitty(scene)
+  const kitty = makeKitty(scene, kittyLook(chosenAvatar()))
   const air = drift(scene, seed)
   const stamp = makeTrail(scene)
 

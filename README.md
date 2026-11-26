@@ -68,6 +68,24 @@ A walkable 3D Mars world with **24 missions in six chapters**. Kids brush dusty 
 
 It runs smoothly on phones too: the game lowers its own picture detail when a device is slow, so play stays quick.
 
+The 3D worlds now look real rather than cartoonish, and **the kitty in 3D is the one you picked** on the home screen: Mishti, Megh, Neel or Tara.
+
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/31-adventure-real.jpg" alt="Megh, a cream-coloured kitty in a white spacesuit, walking towards the outpost on textured Mars soil with dusty mesas behind"></td>
+<td width="50%"><img src="docs/screenshots/32-colony-closeup.jpg" alt="Close-up of the Mars base: riveted hull panels, a brushed-metal door frame, a layered 3D-printed regolith foundation and pebbly soil"></td>
+</tr>
+<tr>
+<td><b>Your own kitty.</b> Megh here, with her orange suit trim.</td>
+<td><b>Real surfaces up close.</b> Riveted hull panels, brushed metal, 3D-printed regolith walls and pebbly Mars soil.</td>
+</tr>
+</table>
+
+- **Real-world surfaces.** Mars soil with grit and pebbles, fractured basalt boulders, hull panels, brushed metal, layered 3D-printed regolith walls, insulation fabric and solar cells. Every texture is made by our own script (`scripts/world/make-textures.py`).
+- **Dust on everything.** Red dust settles on the tops of buildings, rocks and rovers and splashes up the bottom of walls, more during dust storms.
+- **Light from the sky.** Surfaces are lit by the real colour of the Mars sky around them, metal and visors reflect it, and far hills fade into the dusty haze. On high quality, soft contact shadows, a gentle glow and a touch of film grain finish the picture.
+- **Sounds you can hear.** Footsteps crunch on soil and ring on metal floors, airlocks hiss, doors slide, the rover hums, the drone buzzes, the wind blows and the life-support machines whirr.
+
 ---
 
 ## 🏗️ Mars Colony 3D
@@ -80,7 +98,7 @@ A big Mars base to explore **inside and out**, with no loading screens between r
 <td width="50%"><img src="docs/screenshots/27-colony-greenhouse.jpg" alt="Inside the greenhouse: rows of rice, lettuce, tomatoes and sunflowers under pink grow lights"></td>
 </tr>
 <tr>
-<td><b>A real base to walk around.</b> A central dome joined by tunnels to a greenhouse, a power plant, a water and oxygen hall, a garage and a science lab. Step through an airlock and the roof fades away so you can see inside.</td>
+<td><b>A real base to walk around.</b> A central dome joined by tunnels to a greenhouse, a power plant, a water and oxygen hall, a garage and a science lab, all with realistic hull panels, metal and Mars dust. Step through an airlock and the roof fades away so you can see inside.</td>
 <td><b>A plant for food, a plant for power.</b> The greenhouse grows rice, potatoes, lettuce, tomatoes, strawberries and sunflowers. The power plant and the solar farm keep the lights on, and batteries carry the base through the night.</td>
 </tr>
 </table>
@@ -93,7 +111,7 @@ A big Mars base to explore **inside and out**, with no loading screens between r
 - **Travel to 9 real places:** Jezero Crater, Gale Crater, Olympus Mons, Valles Marineris, a cave skylight on Arsia Mons, the south pole's ice and geysers, Meridiani Planum, Utopia Planitia, and the moon Phobos. Each one has its own jobs, dangers and a true fact.
 - **Build and grow.** Spend metal, ice and science on more solar panels, a reactor, a second greenhouse, an observatory, a playroom, a fuel plant, a 3D printer, a drone and bigger batteries.
 - **Drive, fly and take photos.** Drive the rover, fly the drone, unlock new suits (Jamdani pink, Sundarbans green and more) and make postcards.
-- **Works on phones.** Touch joystick, keyboard or gamepad. The picture detail adjusts itself to the device, and the colony works offline after the first visit.
+- **Works on phones.** Touch joystick, keyboard or gamepad. The picture detail adjusts itself to the device, and the colony works offline after the first visit. On low quality the realistic textures are skipped, so slow phones stay smooth.
 
 Controls: move with WASD or the arrows, drag to look, **E** to use, **Space** to jump, **Shift** to run, **M** for the map, **B** to build, **P** for photos.
 
@@ -158,7 +176,7 @@ Every fact carries a **🛰️ Real** badge and every made-up game rule carries 
 - **Praise in Bangla and English.** Shabbash! Oshadharon! Purr-fect!
 - **Four kitties to choose from:** Mishti, Megh, Neel and Tara.
 - **Safe to fail.** Wrong answers cost nothing, and the crew is always safe.
-- **Calm background music** and soft sounds, all made in code. One button turns sound off.
+- **Sounds for everything.** Every button, link, tab, switch and slider clicks, pop-ups rise and fall, and wins chime with a coin for each star (real sound files from the SoundWeaver library, MIT). Calm background music plays in the story. One button turns all sound off, on every page.
 - **Accessible.** Keyboard and touch controls, captions and a reduced-motion mode.
 - **Works anywhere.** Phones, tablets and laptops, and offline after the first visit.
 - **Teacher page** with ideas for using the game in class.

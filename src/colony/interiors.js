@@ -1,7 +1,7 @@
 // Everything inside the base buildings. All of it moves: plants sway and grow, batteries charge,
 // water sloshes, screens update, robots work.
 import * as THREE from 'three'
-import {Builder, M, mat, screen, sign, glow, dotTexture} from './kit.js'
+import {Builder, M, MI, mat, screen, sign, glow, dotTexture} from './kit.js'
 import {toWorld} from './layout.js'
 import {FLOOR_Y} from './structures.js'
 import {clamp, lerp, TAU} from './util.js'
@@ -65,6 +65,35 @@ function plantMaterial(color) {
   }
   return m
 }
+// A real leaf shape: pointed, cupped across and curling along its length (unit size: 1 long, 0.5 wide).
+function leafGeometry() {
+  const rows = 7, cols = 5, pos = [], idx = []
+  for (let i = 0; i <= rows; i++) {
+    const u = i / rows, width = Math.pow(Math.sin(Math.PI * Math.min(0.999, u * 0.92 + 0.04)), 0.8) * (1 - 0.25 * u)
+    for (let j = 0; j <= cols; j++) {
+      const v = j / cols * 2 - 1
+      pos.push(v * width * 0.5, u, -0.18 * v * v * width + 0.22 * u * u)
+    }
+  }
+  for (let i = 0; i < rows; i++) for (let j = 0; j < cols; j++) {
+    const a = i * (cols + 1) + j, b = a + cols + 1
+    idx.push(a, b, a + 1, a + 1, b, b + 1)
+  }
+  const g = new THREE.BufferGeometry()
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3))
+  g.setIndex(idx)
+  g.computeVertexNormals()
+  return g.toNonIndexed()
+}
+const LEAF = leafGeometry()
+const leafMatrix = new THREE.Matrix4(), leafQuat = new THREE.Quaternion(), leafEuler = new THREE.Euler(), leafPos = new THREE.Vector3(), leafScale = new THREE.Vector3()
+// tilt: 0 = pointing up, about 1.3 = lying flat; yaw: direction around the stem
+function leafAt(builder, material, x, y, z, length, width, tilt, yaw, roll = 0) {
+  leafEuler.set(tilt, yaw, roll, 'YXZ')
+  leafMatrix.compose(leafPos.set(x, y, z), leafQuat.setFromEuler(leafEuler), leafScale.set(width * 2, length, width * 2))
+  builder.raw(LEAF.clone().applyMatrix4(leafMatrix), material)
+}
+
 const plantMats = {
   leaf: () => mat('pLeaf', () => plantMaterial('#6fb35e')),
   leafDark: () => mat('pLeafDark', () => plantMaterial('#3f8a4a')),
@@ -106,9 +135,9 @@ function blocker(list, m, lx, lz, r) {
 const polar = (a, r) => [Math.cos(a) * r, Math.sin(a) * r]
 
 function crewBed(b, x, z, rot) {
-  b.round(M.shell(), x, F + 0.55, z, 2.5, 1.1, 1.25, rot)
-  b.box(M.fabric(), x, F + 0.72, z, 2.1, 0.22, 0.95, rot)
-  b.round(M.fabricWarm(), x + Math.cos(-rot) * 0.8, F + 0.9, z + Math.sin(-rot) * 0.8, 0.45, 0.18, 0.7, rot)
+  b.round(MI.shell(), x, F + 0.55, z, 2.5, 1.1, 1.25, rot)
+  b.box(MI.fabric(), x, F + 0.72, z, 2.1, 0.22, 0.95, rot)
+  b.round(MI.fabricWarm(), x + Math.cos(-rot) * 0.8, F + 0.9, z + Math.sin(-rot) * 0.8, 0.45, 0.18, 0.7, rot)
 }
 
 // --- the habitat hub ----------------------------------------------------------
@@ -117,26 +146,26 @@ function hub(m, out) {
   const b = new Builder()
   const R = m.r
   // planner table in the middle
-  b.cyl(M.frame(), 0, F + 0.45, 0, 1.35, 0.9, 32)
-  b.cyl(M.shell(), 0, F + 0.93, 0, 1.45, 0.08, 32)
-  b.cyl(M.lampCool(), 0, F + 0.98, 0, 1.2, 0.03, 32)
+  b.cyl(MI.frame(), 0, F + 0.45, 0, 1.35, 0.9, 32)
+  b.cyl(MI.shell(), 0, F + 0.93, 0, 1.45, 0.08, 32)
+  b.cyl(MI.lampCool(), 0, F + 0.98, 0, 1.2, 0.03, 32)
   // kitchen (north-west)
   for (let a = 3.5; a < 4.4; a += 0.21) {
     const [x, z] = polar(a, R - 1.0)
-    b.box(M.shellShade(), x, F + 0.48, z, 1.6, 0.95, 0.75, -a + Math.PI / 2)
-    b.box(M.wood(), x, F + 0.98, z, 1.65, 0.06, 0.8, -a + Math.PI / 2)
+    b.box(MI.shellShade(), x, F + 0.48, z, 1.6, 0.95, 0.75, -a + Math.PI / 2)
+    b.box(MI.wood(), x, F + 0.98, z, 1.65, 0.06, 0.8, -a + Math.PI / 2)
   }
   const [fx, fz] = polar(4.5, R - 1.1)
-  b.round(M.steel(), fx, F + 1.1, fz, 1.0, 2.2, 0.8, -4.5 + Math.PI / 2)
+  b.round(MI.steel(), fx, F + 1.1, fz, 1.0, 2.2, 0.8, -4.5 + Math.PI / 2)
   const [tx, tz] = polar(3.93, 5.9)
-  b.cyl(M.wood(), tx, F + 0.78, tz, 1.15, 0.08, 24)
-  b.cyl(M.frame(), tx, F + 0.4, tz, 0.14, 0.78, 10)
+  b.cyl(MI.wood(), tx, F + 0.78, tz, 1.15, 0.08, 24)
+  b.cyl(MI.frame(), tx, F + 0.4, tz, 0.14, 0.78, 10)
   for (let i = 0; i < 4; i++) {
     const [sx, sz] = polar(i * Math.PI / 2 + 0.4, 1.6)
-    b.cyl(M.trim(), tx + sx, F + 0.42, tz + sz, 0.32, 0.12, 14)
-    b.cyl(M.frame(), tx + sx, F + 0.2, tz + sz, 0.07, 0.4, 8)
+    b.cyl(MI.trim(), tx + sx, F + 0.42, tz + sz, 0.32, 0.12, 14)
+    b.cyl(MI.frame(), tx + sx, F + 0.2, tz + sz, 0.07, 0.4, 8)
   }
-  b.cyl(M.fabricWarm(), tx, F + 0.02, tz, 2.6, 0.03, 32)
+  b.cyl(MI.fabricWarm(), tx, F + 0.02, tz, 2.6, 0.03, 32)
   // sleeping pods (north and north-east)
   for (const a of [-1.42, -1.0, -0.6, -0.18]) crewBed(b, ...polar(a, R - 1.5), -a + Math.PI / 2)
   // storm shelter: a ring of water tanks (water blocks radiation)
@@ -144,38 +173,38 @@ function hub(m, out) {
   for (let i = 0; i < 12; i++) {
     const a = i / 12 * TAU
     if (Math.abs(Math.atan2(Math.sin(a - (Math.PI / 4 + Math.PI)), Math.cos(a - (Math.PI / 4 + Math.PI)))) < 0.5) continue
-    b.cyl(M.water(), shx + Math.cos(a) * 2.2, F + 1.25, shz + Math.sin(a) * 2.2, 0.48, 2.5, 14)
-    b.cyl(M.frame(), shx + Math.cos(a) * 2.2, F + 2.55, shz + Math.sin(a) * 2.2, 0.5, 0.1, 14)
+    b.cyl(MI.water(), shx + Math.cos(a) * 2.2, F + 1.25, shz + Math.sin(a) * 2.2, 0.48, 2.5, 14)
+    b.cyl(MI.frame(), shx + Math.cos(a) * 2.2, F + 2.55, shz + Math.sin(a) * 2.2, 0.5, 0.1, 14)
   }
-  b.cyl(M.frame(), shx, F + 2.75, shz, 2.75, 0.18, 32)
-  b.box(M.fabric(), shx + 0.6, F + 0.35, shz + 0.6, 1.6, 0.5, 0.6, -Math.PI / 4)
+  b.cyl(MI.frame(), shx, F + 2.75, shz, 2.75, 0.18, 32)
+  b.box(MI.fabric(), shx + 0.6, F + 0.35, shz + 0.6, 1.6, 0.5, 0.6, -Math.PI / 4)
   // suit lockers (south)
   const suitColors = ['#e9dcd1', '#e3884c', '#6b8fb5', '#b07ad6']
   suitColors.forEach((color, i) => {
     const a = 1.72 + i * 0.17
     const [x, z] = polar(a, R - 0.9)
-    b.box(M.frame(), x, F + 1.2, z, 1.0, 2.4, 0.5, -a + Math.PI / 2)
+    b.box(MI.frame(), x, F + 1.2, z, 1.0, 2.4, 0.5, -a + Math.PI / 2)
     const suit = mat(`suit-${color}`, () => new THREE.MeshStandardMaterial({color, roughness: 0.7}))
     b.round(suit, x * 0.97, F + 1.2, z * 0.97, 0.6, 0.9, 0.35, -a + Math.PI / 2)
-    b.ball(M.glass(), x * 0.97, F + 1.95, z * 0.97, 0.3)
+    b.ball(MI.glass(), x * 0.97, F + 1.95, z * 0.97, 0.3)
   })
   // med bay (west of the airlock)
   const [mx, mz] = polar(2.8, R - 2.2)
-  b.round(M.shell(), mx, F + 0.5, mz, 2.2, 0.75, 1.0, -2.8 + Math.PI / 2)
-  b.box(M.fabric(), mx, F + 0.9, mz, 2.0, 0.12, 0.9, -2.8 + Math.PI / 2)
+  b.round(MI.shell(), mx, F + 0.5, mz, 2.2, 0.75, 1.0, -2.8 + Math.PI / 2)
+  b.box(MI.fabric(), mx, F + 0.9, mz, 2.0, 0.12, 0.9, -2.8 + Math.PI / 2)
   // exercise bike
   const [ex, ez] = polar(0.3, 5.3)
-  b.round(M.darkSteel(), ex, F + 0.45, ez, 1.4, 0.35, 0.45, -0.3)
-  b.cyl(M.frame(), ex + 0.4, F + 0.75, ez, 0.06, 0.8, 8)
+  b.round(MI.darkSteel(), ex, F + 0.45, ez, 1.4, 0.35, 0.45, -0.3)
+  b.cyl(MI.frame(), ex + 0.4, F + 0.75, ez, 0.06, 0.8, 8)
   // Dhrubo's charging pad
   const [dx, dz] = polar(-0.5, 3.6)
-  b.cyl(M.frame(), dx, F + 0.05, dz, 0.75, 0.1, 24)
-  b.cyl(M.lampCool(), dx, F + 0.11, dz, 0.55, 0.02, 24)
+  b.cyl(MI.frame(), dx, F + 0.05, dz, 0.75, 0.1, 24)
+  b.cyl(MI.lampCool(), dx, F + 0.11, dz, 0.55, 0.02, 24)
   // plants in pots
   for (const a of [1.2, 2.3, 3.2, 4.8]) {
     const [x, z] = polar(a, R - 0.9)
-    b.cyl(M.trim(), x, F + 0.35, z, 0.38, 0.7, 14, 0, 0, 0, 1.2)
-    b.ball(M.leafDark(), x, F + 1.0, z, 0.55, 0.65, 0.55)
+    b.cyl(MI.trim(), x, F + 0.35, z, 0.38, 0.7, 14, 0, 0, 0, 1.2)
+    b.ball(MI.leafDark(), x, F + 1.0, z, 0.55, 0.65, 0.55)
   }
   b.build(g)
   // the hologram over the planner table
@@ -255,40 +284,56 @@ function greenhouse(m, out, small = false) {
   const g = moduleGroup(m)
   const b = new Builder(), plants = new Builder(), fruit = new Builder()
   const R = m.r
-  b.box(M.darkSteel(), 0, F + 0.03, 0, R * 2 - 1, 0.04, 2.2)
+  b.box(MI.darkSteel(), 0, F + 0.03, 0, R * 2 - 1, 0.04, 2.2)
   const beds = small ? [-3.4, 3.4, 6.2] : [-8.4, -6, -3.2, 3.2, 6, 8.4]
   const kinds = small ? ['lettuce', 'tomato', 'sunflower'] : ['rice', 'potato', 'lettuce', 'tomato', 'strawberry', 'sunflower']
   beds.forEach((z, i) => {
     const half = Math.sqrt(Math.max(0, R * R - (Math.abs(z) + 1.1) ** 2)) - 1.3
     if (half < 1) return
-    b.box(M.shellShade(), 0, F + 0.38, z, half * 2, 0.75, 1.6)
-    b.box(M.soil(), 0, F + 0.77, z, half * 2 - 0.2, 0.04, 1.4)
-    b.box(M.trim(), 0, F + 0.7, z + 0.81, half * 2, 0.1, 0.02)
+    b.box(MI.shellShade(), 0, F + 0.38, z, half * 2, 0.75, 1.6)
+    b.box(MI.soil(), 0, F + 0.77, z, half * 2 - 0.2, 0.04, 1.4)
+    b.box(MI.trim(), 0, F + 0.7, z + 0.81, half * 2, 0.1, 0.02)
     // grow lights above each bed
-    b.box(M.lampPink(), 0, F + 3.4, z, half * 2 - 0.4, 0.06, 0.12)
-    b.box(M.frame(), 0, F + 3.47, z, half * 2 - 0.2, 0.05, 0.16)
-    for (const x of [-half + 0.5, half - 0.5]) b.cyl(M.frame(), x, F + 4.6, z, 0.02, 2.2, 4)
+    b.box(MI.lampPink(), 0, F + 3.4, z, half * 2 - 0.4, 0.06, 0.12)
+    b.box(MI.frame(), 0, F + 3.47, z, half * 2 - 0.2, 0.05, 0.16)
+    for (const x of [-half + 0.5, half - 0.5]) b.cyl(MI.frame(), x, F + 4.6, z, 0.02, 2.2, 4)
     const kind = kinds[i]
-    if (kind === 'rice') b.box(M.water(), 0, F + 0.8, z, half * 2 - 0.3, 0.05, 1.3)
+    if (kind === 'rice') b.box(MI.water(), 0, F + 0.8, z, half * 2 - 0.3, 0.05, 1.3)
     for (let x = -half + 0.5; x < half - 0.3; x += kind === 'rice' ? 0.35 : 0.85) {
       for (const dz of kind === 'rice' ? [-0.4, 0, 0.4] : [-0.3, 0.3]) {
         const px = x, pz = z + dz, base = F + 0.79
-        if (kind === 'lettuce') for (let k = 0; k < 5; k++) plants.ball(plantMats.lettuce(), px + Math.cos(k * 1.3) * 0.12, base + 0.12, pz + Math.sin(k * 1.3) * 0.12, 0.2, 0.1, 0.13)
-        else if (kind === 'rice') for (let k = 0; k < 3; k++) plants.box(plantMats.rice(), px + k * 0.06, base + 0.32, pz, 0.025, 0.65, 0.025, k, 0.15 * (k - 1))
-        else if (kind === 'potato') { plants.ball(plantMats.leafDark(), px, base + 0.32, pz, 0.32, 0.3, 0.3); plants.ball(plantMats.leaf(), px + 0.1, base + 0.5, pz, 0.2, 0.18, 0.2) }
-        else if (kind === 'strawberry') {
-          plants.ball(plantMats.leaf(), px, base + 0.12, pz, 0.24, 0.1, 0.24)
-          fruit.ball(plantMats.fruit(), px + 0.15, base + 0.12, pz + 0.1, 0.06, 0.07, 0.06)
+        const turn = (px * 7.1 + pz * 3.7) % (Math.PI * 2)
+        if (kind === 'lettuce') {
+          // a rosette: big outer leaves lying open, small inner ones standing up
+          for (let k = 0; k < 10; k++) {
+            const inner = k >= 6
+            leafAt(plants, plantMats.lettuce(), px, base + 0.02, pz, inner ? 0.18 : 0.26, inner ? 0.12 : 0.17, inner ? 0.45 : 1.05, turn + k * 2.4)
+          }
+        } else if (kind === 'rice') {
+          for (let k = 0; k < 7; k++) leafAt(plants, plantMats.rice(), px + (k % 3 - 1) * 0.03, base, pz, 0.55 + (k % 3) * 0.12, 0.025, 0.15 + (k % 4) * 0.12, turn + k * 0.9)
+        } else if (kind === 'potato') {
+          plants.cyl(plantMats.stem(), px, base + 0.22, pz, 0.02, 0.45, 5)
+          for (let k = 0; k < 14; k++) leafAt(plants, k % 3 ? plantMats.leaf() : plantMats.leafDark(), px, base + 0.1 + (k % 5) * 0.08, pz, 0.2, 0.11, 0.7 + (k % 3) * 0.25, turn + k * 2.39)
+        } else if (kind === 'strawberry') {
+          for (let k = 0; k < 9; k++) leafAt(plants, plantMats.leaf(), px, base + 0.04, pz, 0.15, 0.1, 0.9 + (k % 3) * 0.15, turn + k * 2.1)
+          fruit.ball(plantMats.fruit(), px + 0.15, base + 0.06, pz + 0.1, 0.05, 0.065, 0.05)
+          fruit.ball(plantMats.fruit(), px - 0.12, base + 0.06, pz - 0.08, 0.045, 0.06, 0.045)
         } else if (kind === 'tomato') {
-          plants.cyl(plantMats.stem(), px, base + 0.8, pz, 0.025, 1.6, 6)
-          for (let k = 0; k < 4; k++) plants.ball(plantMats.leaf(), px + Math.cos(k * 2) * 0.18, base + 0.5 + k * 0.32, pz + Math.sin(k * 2) * 0.18, 0.18, 0.08, 0.12)
-          fruit.ball(plantMats.fruit(), px + 0.12, base + 0.9, pz, 0.09)
-          fruit.ball(plantMats.fruit(), px - 0.1, base + 1.25, pz + 0.05, 0.08)
+          plants.cyl(plantMats.stem(), px, base + 0.8, pz, 0.022, 1.6, 6)
+          for (let k = 0; k < 12; k++) leafAt(plants, plantMats.leaf(), px, base + 0.25 + k * 0.11, pz, 0.24, 0.1, 1.1, turn + k * 2.4)
+          fruit.ball(plantMats.fruit(), px + 0.12, base + 0.9, pz, 0.075)
+          fruit.ball(plantMats.fruit(), px - 0.1, base + 1.25, pz + 0.05, 0.065)
+          fruit.ball(plantMats.fruit(), px + 0.04, base + 0.62, pz - 0.11, 0.06)
         } else if (kind === 'sunflower') {
-          plants.cyl(plantMats.stem(), px, base + 0.9, pz, 0.035, 1.8, 6)
-          plants.ball(plantMats.leaf(), px + 0.15, base + 0.7, pz, 0.22, 0.06, 0.12)
-          plants.add(new THREE.CylinderGeometry(0.28, 0.28, 0.04, 14), plantMats.petal(), px, base + 1.85, pz, 1, 1, 1, Math.PI / 2 - 0.3)
-          plants.add(new THREE.CylinderGeometry(0.14, 0.14, 0.06, 12), plantMats.seed(), px + 0.02, base + 1.85, pz, 1, 1, 1, Math.PI / 2 - 0.3)
+          plants.cyl(plantMats.stem(), px, base + 0.9, pz, 0.03, 1.8, 6)
+          for (let k = 0; k < 6; k++) leafAt(plants, plantMats.leaf(), px, base + 0.35 + k * 0.22, pz, 0.28, 0.16, 1.0, turn + k * 2.5)
+          // the flower head faces the grow lights: a ring of petals around a seed disc
+          const head = new THREE.Vector3(px, base + 1.85, pz)
+          for (let k = 0; k < 16; k++) {
+            const a = k / 16 * Math.PI * 2
+            leafAt(plants, plantMats.petal(), head.x + Math.cos(a) * 0.1, head.y + Math.sin(a) * 0.1 * 0.96, head.z + 0.03, 0.17, 0.06, 0, 0, -a + Math.PI / 2 * -1 + Math.PI)
+          }
+          plants.add(new THREE.CylinderGeometry(0.12, 0.12, 0.06, 16), plantMats.seed(), px, head.y, pz + 0.04, 1, 1, 1, Math.PI / 2)
         }
       }
     }
@@ -296,11 +341,11 @@ function greenhouse(m, out, small = false) {
     b.add(new THREE.CylinderGeometry(0.07, 0.07, half * 2, 8), flowMats.water(), 0, F + 0.88, z - 0.75, 1, 1, 1, 0, 0, Math.PI / 2)
   })
   // harvest station and climate panel
-  b.round(M.wood(), R - 3.2, F + 0.35, -1.9, 1.0, 0.6, 0.8)
-  b.ball(M.fruitRed(), R - 3.35, F + 0.72, -1.9, 0.14)
-  b.ball(M.potato(), R - 3.05, F + 0.72, -1.75, 0.13)
-  b.ball(M.fruitYellow(), R - 3.1, F + 0.72, -2.1, 0.12)
-  b.box(M.frame(), -R + 2.4, F + 1.1, 1.9, 0.5, 2.2, 1.2)
+  b.round(MI.wood(), R - 3.2, F + 0.35, -1.9, 1.0, 0.6, 0.8)
+  b.ball(MI.fruitRed(), R - 3.35, F + 0.72, -1.9, 0.14)
+  b.ball(MI.potato(), R - 3.05, F + 0.72, -1.75, 0.13)
+  b.ball(MI.fruitYellow(), R - 3.1, F + 0.72, -2.1, 0.12)
+  b.box(MI.frame(), -R + 2.4, F + 1.1, 1.9, 0.5, 2.2, 1.2)
   b.build(g)
   plants.build(g, {shadows: false})
   const fruitMeshes = fruit.build(g, {shadows: false})
@@ -314,23 +359,23 @@ function greenhouse(m, out, small = false) {
     const fan = new THREE.Group()
     fan.position.set(0, F + 2.6, side * (R - 1.0))
     const fb = new Builder()
-    fb.cyl(M.frame(), 0, 0, 0, 0.15, 0.2, 10, Math.PI / 2)
-    for (let k = 0; k < 4; k++) fb.box(M.shell(), Math.cos(k * Math.PI / 2) * 0.35, Math.sin(k * Math.PI / 2) * 0.35, 0, 0.5, 0.12, 0.03, 0, 0, k * Math.PI / 2)
+    fb.cyl(MI.frame(), 0, 0, 0, 0.15, 0.2, 10, Math.PI / 2)
+    for (let k = 0; k < 4; k++) fb.box(MI.shell(), Math.cos(k * Math.PI / 2) * 0.35, Math.sin(k * Math.PI / 2) * 0.35, 0, 0.5, 0.12, 0.03, 0, 0, k * Math.PI / 2)
     fb.build(fan, {shadows: false})
     g.add(fan)
     fans.push(fan)
   }
   const rail = new Builder()
-  rail.box(M.frame(), 0, F + 4.4, 0, R * 1.6, 0.1, 0.1)
+  rail.box(MI.frame(), 0, F + 4.4, 0, R * 1.6, 0.1, 0.1)
   rail.build(g)
   const robot = new THREE.Group()
   const rb = new Builder()
-  rb.round(M.shell(), 0, 0, 0, 0.7, 0.4, 0.6)
-  rb.box(M.trim(), 0, -0.1, 0.31, 0.5, 0.08, 0.02)
-  rb.cyl(M.steel(), 0, -0.6, 0, 0.05, 0.9, 8)
-  rb.box(M.lampCool(), 0, 0.05, 0.31, 0.2, 0.08, 0.02)
+  rb.round(MI.shell(), 0, 0, 0, 0.7, 0.4, 0.6)
+  rb.box(MI.trim(), 0, -0.1, 0.31, 0.5, 0.08, 0.02)
+  rb.cyl(MI.steel(), 0, -0.6, 0, 0.05, 0.9, 8)
+  rb.box(MI.lampCool(), 0, 0.05, 0.31, 0.2, 0.08, 0.02)
   rb.build(robot)
-  const claw = new THREE.Mesh(new THREE.TorusGeometry(0.14, 0.03, 6, 12, Math.PI), M.steel())
+  const claw = new THREE.Mesh(new THREE.TorusGeometry(0.14, 0.03, 6, 12, Math.PI), MI.steel())
   claw.position.y = -1.05
   claw.rotation.z = Math.PI
   robot.add(claw)
@@ -397,8 +442,8 @@ function power(m, out) {
   const b = new Builder()
   const cabinets = []
   for (const z of [-6.6, -3.9]) for (let x = -5.2; x <= 5.2; x += 2.0) {
-    b.round(M.indigo(), x, F + 1.15, z, 1.7, 2.3, 0.85)
-    b.box(M.frame(), x, F + 2.35, z, 1.75, 0.08, 0.9)
+    b.round(MI.indigo(), x, F + 1.15, z, 1.7, 2.3, 0.85)
+    b.box(MI.frame(), x, F + 2.35, z, 1.75, 0.08, 0.9)
     cabinets.push([x, z + 0.44])
   }
   // charge bars: one instanced mesh, coloured by how full the battery is
@@ -413,20 +458,20 @@ function power(m, out) {
   }
   g.add(bars)
   // flywheel energy storage
-  b.box(M.frame(), -3.5, F + 0.3, 5.4, 2.6, 0.6, 1.4)
-  const flywheel = new THREE.Mesh(new THREE.CylinderGeometry(1.0, 1.0, 0.5, 32), M.steel())
+  b.box(MI.frame(), -3.5, F + 0.3, 5.4, 2.6, 0.6, 1.4)
+  const flywheel = new THREE.Mesh(new THREE.CylinderGeometry(1.0, 1.0, 0.5, 32), MI.steel())
   flywheel.position.set(-3.5, F + 1.6, 5.4)
   flywheel.rotation.x = Math.PI / 2
   flywheel.castShadow = true
-  const stripe = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.1, 0.52), M.trim())
+  const stripe = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.1, 0.52), MI.trim())
   flywheel.add(stripe)
   g.add(flywheel)
   // control desk + big power-flow wall screen
-  b.round(M.shell(), 3.6, F + 0.5, 5.6, 2.8, 1.0, 1.0)
-  b.box(M.darkSteel(), 3.6, F + 1.05, 5.4, 2.6, 0.08, 0.7, 0, -0.3)
-  b.box(M.frame(), 1.8, F + 2.9, 8.2, 5.4, 3.0, 0.2)
+  b.round(MI.shell(), 3.6, F + 0.5, 5.6, 2.8, 1.0, 1.0)
+  b.box(MI.darkSteel(), 3.6, F + 1.05, 5.4, 2.6, 0.08, 0.7, 0, -0.3)
+  b.box(MI.frame(), 1.8, F + 2.9, 8.2, 5.4, 3.0, 0.2)
   // breaker panel on the back wall, next to the door to the solar farm
-  b.box(M.frame(), -6.75, F + 1.5, 4.6, 0.2, 2.0, 2.4)
+  b.box(MI.frame(), -6.75, F + 1.5, 4.6, 0.2, 2.0, 2.4)
   b.build(g)
   const wall = screen(5.0, 2.6, 320)
   wall.mesh.position.set(1.8, F + 2.9, 8.08)
@@ -514,26 +559,26 @@ function life(m, out) {
   const g = moduleGroup(m)
   const b = new Builder()
   // water side (z < 0)
-  b.round(M.steel(), -4.2, F + 1.4, -6.6, 2.2, 2.8, 2.0)
-  b.box(M.frame(), -4.2, F + 3.0, -6.6, 1.2, 0.5, 1.2)
-  b.cyl(M.shellShade(), -1.2, F + 1.3, -6.8, 1.0, 2.6, 24)
-  b.cyl(M.lampWarm(), -1.2, F + 1.3, -5.79, 0.35, 0.06, 16, Math.PI / 2)
-  for (let i = 0; i < 3; i++) b.cyl(M.shell(), 1.4 + i * 0.9, F + 1.2, -7.3, 0.36, 2.4, 16)
+  b.round(MI.steel(), -4.2, F + 1.4, -6.6, 2.2, 2.8, 2.0)
+  b.box(MI.frame(), -4.2, F + 3.0, -6.6, 1.2, 0.5, 1.2)
+  b.cyl(MI.shellShade(), -1.2, F + 1.3, -6.8, 1.0, 2.6, 24)
+  b.cyl(MI.lampWarm(), -1.2, F + 1.3, -5.79, 0.35, 0.06, 16, Math.PI / 2)
+  for (let i = 0; i < 3; i++) b.cyl(MI.shell(), 1.4 + i * 0.9, F + 1.2, -7.3, 0.36, 2.4, 16)
   b.add(new THREE.CylinderGeometry(0.1, 0.1, 9, 8), flowMats.water(), 0.3, F + 2.9, -8.0, 1, 1, 1, 0, 0, Math.PI / 2)
   // oxygen side (z > 0)
-  b.round(M.indigo(), -3.6, F + 1.3, 6.8, 2.6, 2.6, 1.8)
-  b.box(M.lampWarm(), -3.6, F + 1.5, 5.88, 1.6, 0.8, 0.05)
-  b.cyl(M.glass(), 0.2, F + 1.3, 7.1, 0.9, 2.6, 24)
+  b.round(MI.indigo(), -3.6, F + 1.3, 6.8, 2.6, 2.6, 1.8)
+  b.box(MI.lampWarm(), -3.6, F + 1.5, 5.88, 1.6, 0.8, 0.05)
+  b.cyl(MI.glass(), 0.2, F + 1.3, 7.1, 0.9, 2.6, 24)
   for (let i = 0; i < 3; i++) b.cyl(mat('o2tank', () => new THREE.MeshStandardMaterial({color: '#6fd17a', roughness: 0.4, metalness: 0.3})), 3.0 + i * 1.1, F + 1.3, 7.6, 0.45, 2.6, 18)
   b.add(new THREE.CylinderGeometry(0.1, 0.1, 9, 8), flowMats.oxygen(), 0.3, F + 2.9, 8.2, 1, 1, 1, 0, 0, Math.PI / 2)
   b.build(g)
   // clean water tanks with a sloshing water level
   const tanks = []
   for (const z of [-3.4, -6.8]) {
-    const shell = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 2.8, 24, 1, true), M.glass())
+    const shell = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 2.8, 24, 1, true), MI.glass())
     shell.position.set(4.9, F + 1.4, z)
     g.add(shell)
-    const water = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 0.8, 1, 24), M.water())
+    const water = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 0.8, 1, 24), MI.water())
     water.position.set(4.9, F, z)
     g.add(water)
     tanks.push(water)
@@ -581,23 +626,23 @@ function life(m, out) {
 function garage(m, out) {
   const g = moduleGroup(m)
   const b = new Builder()
-  b.box(M.hazard(), -1.5, F + 0.02, -2.6, 8, 0.02, 0.2)
-  b.box(M.hazard(), -1.5, F + 0.02, 2.6, 8, 0.02, 0.2)
-  b.box(M.wood(), 3.6, F + 0.9, -7.4, 4.2, 0.12, 1.2)
-  b.box(M.frame(), 3.6, F + 0.45, -7.4, 4.0, 0.9, 1.0)
-  b.box(M.shellShade(), 3.6, F + 2.4, -8.1, 4.4, 2.0, 0.08)
-  for (let i = 0; i < 7; i++) b.box(M.steel(), 1.9 + i * 0.55, F + 2.3 + (i % 2) * 0.3, -8.0, 0.08, 0.6, 0.06)
-  for (let x = -6; x <= -1; x += 1.25) for (let y = 0; y < 3; y++) b.round(M.wood(), x, F + 0.42 + y * 0.82, 7.8, 1.1, 0.75, 0.75)
-  for (let i = 0; i < 3; i++) b.cyl(M.rubber(), -6.2, F + 0.3 + i * 0.6, -6.8, 0.55, 0.45, 18)
-  b.round(M.shell(), 4.6, F + 1.2, 6.3, 2.4, 2.4, 2.0)
-  b.box(M.glass(), 4.6, F + 1.5, 5.25, 2.0, 1.6, 0.05)
-  b.round(M.shellShade(), -2.2, F + 0.6, 7.0, 0.8, 1.2, 0.8)
+  b.box(MI.hazard(), -1.5, F + 0.02, -2.6, 8, 0.02, 0.2)
+  b.box(MI.hazard(), -1.5, F + 0.02, 2.6, 8, 0.02, 0.2)
+  b.box(MI.wood(), 3.6, F + 0.9, -7.4, 4.2, 0.12, 1.2)
+  b.box(MI.frame(), 3.6, F + 0.45, -7.4, 4.0, 0.9, 1.0)
+  b.box(MI.shellShade(), 3.6, F + 2.4, -8.1, 4.4, 2.0, 0.08)
+  for (let i = 0; i < 7; i++) b.box(MI.steel(), 1.9 + i * 0.55, F + 2.3 + (i % 2) * 0.3, -8.0, 0.08, 0.6, 0.06)
+  for (let x = -6; x <= -1; x += 1.25) for (let y = 0; y < 3; y++) b.round(MI.wood(), x, F + 0.42 + y * 0.82, 7.8, 1.1, 0.75, 0.75)
+  for (let i = 0; i < 3; i++) b.cyl(MI.rubber(), -6.2, F + 0.3 + i * 0.6, -6.8, 0.55, 0.45, 18)
+  b.round(MI.shell(), 4.6, F + 1.2, 6.3, 2.4, 2.4, 2.0)
+  b.box(MI.glass(), 4.6, F + 1.5, 5.25, 2.0, 1.6, 0.05)
+  b.round(MI.shellShade(), -2.2, F + 0.6, 7.0, 0.8, 1.2, 0.8)
   b.build(g)
   // the 3D printer making a new wheel
-  const head = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 0.3), M.trim())
+  const head = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 0.3), MI.trim())
   head.position.set(4.6, F + 1.8, 6.3)
   g.add(head)
-  const part = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 1, 20), M.rubber())
+  const part = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 1, 20), MI.rubber())
   part.rotation.x = Math.PI / 2
   part.position.set(4.6, F + 0.8, 6.3)
   g.add(part)
@@ -606,16 +651,16 @@ function garage(m, out) {
   arm.position.set(0.5, F, 6.6)
   const lower = new THREE.Group(), upper = new THREE.Group()
   const ab = new Builder()
-  ab.cyl(M.frame(), 0, 0.2, 0, 0.45, 0.4, 16)
+  ab.cyl(MI.frame(), 0, 0.2, 0, 0.45, 0.4, 16)
   ab.build(arm)
   const lb = new Builder()
-  lb.round(M.trim(), 0, 0.8, 0, 0.3, 1.6, 0.3)
+  lb.round(MI.trim(), 0, 0.8, 0, 0.3, 1.6, 0.3)
   lb.build(lower)
   lower.position.y = 0.4
   upper.position.y = 1.6
   const ub = new Builder()
-  ub.round(M.shell(), 0, 0.6, 0, 0.25, 1.2, 0.25)
-  ub.ball(M.lampCool(), 0, 1.25, 0, 0.12)
+  ub.round(MI.shell(), 0, 0.6, 0, 0.25, 1.2, 0.25)
+  ub.ball(MI.lampCool(), 0, 1.25, 0, 0.12)
   ub.build(upper)
   lower.add(upper)
   arm.add(lower)
@@ -648,33 +693,33 @@ function lab(m, out, marsTexture) {
   const g = moduleGroup(m)
   const b = new Builder()
   const R = m.r
-  b.cyl(M.frame(), 0, F + 0.45, 0, 0.9, 0.9, 24)
-  b.cyl(M.lampCool(), 0, F + 0.92, 0, 0.7, 0.03, 24)
+  b.cyl(MI.frame(), 0, F + 0.45, 0, 0.9, 0.9, 24)
+  b.cyl(MI.lampCool(), 0, F + 0.92, 0, 0.7, 0.03, 24)
   // shelves for collected rocks, on both sides
   for (const side of [-1, 1]) {
     const a = side * Math.PI / 2
     const [x, z] = polar(a, R - 0.9)
-    for (let k = 0; k < 3; k++) b.box(M.wood(), x, F + 0.6 + k * 0.7, z, 3.6, 0.06, 0.6, -a + Math.PI / 2)
-    b.box(M.frame(), x, F + 1.3, z, 3.7, 2.6, 0.05, -a + Math.PI / 2)
+    for (let k = 0; k < 3; k++) b.box(MI.wood(), x, F + 0.6 + k * 0.7, z, 3.6, 0.06, 0.6, -a + Math.PI / 2)
+    b.box(MI.frame(), x, F + 1.3, z, 3.7, 2.6, 0.05, -a + Math.PI / 2)
   }
   // microscope desk and radio desk
   const [mx, mz] = polar(1.15, R - 1.6)
-  b.box(M.shell(), mx, F + 0.85, mz, 2.0, 0.08, 1.0, -1.15 + Math.PI / 2)
-  b.box(M.frame(), mx, F + 0.42, mz, 1.8, 0.84, 0.9, -1.15 + Math.PI / 2)
-  b.cyl(M.darkSteel(), mx, F + 1.25, mz, 0.12, 0.7, 10)
+  b.box(MI.shell(), mx, F + 0.85, mz, 2.0, 0.08, 1.0, -1.15 + Math.PI / 2)
+  b.box(MI.frame(), mx, F + 0.42, mz, 1.8, 0.84, 0.9, -1.15 + Math.PI / 2)
+  b.cyl(MI.darkSteel(), mx, F + 1.25, mz, 0.12, 0.7, 10)
   const [rx, rz] = polar(-1.95, R - 1.6)
-  b.box(M.shell(), rx, F + 0.85, rz, 2.0, 0.08, 1.0, 1.95 + Math.PI / 2)
-  b.box(M.frame(), rx, F + 0.42, rz, 1.8, 0.84, 0.9, 1.95 + Math.PI / 2)
-  b.cyl(M.steel(), rx + 0.4, F + 1.4, rz, 0.04, 1.1, 6)
+  b.box(MI.shell(), rx, F + 0.85, rz, 2.0, 0.08, 1.0, 1.95 + Math.PI / 2)
+  b.box(MI.frame(), rx, F + 0.42, rz, 1.8, 0.84, 0.9, 1.95 + Math.PI / 2)
+  b.cyl(MI.steel(), rx + 0.4, F + 1.4, rz, 0.04, 1.1, 6)
   // seismometer (like NASA's InSight) on the floor
   const [sx, sz] = polar(-1.0, R - 2.4)
-  b.ball(M.shellShade(), sx, F + 0.1, sz, 0.55, 0.45, 0.55)
+  b.ball(MI.shellShade(), sx, F + 0.1, sz, 0.55, 0.45, 0.55)
   b.build(g)
   const globe = new THREE.Mesh(new THREE.SphereGeometry(0.85, 48, 24),
     new THREE.MeshStandardMaterial({map: marsTexture ?? null, color: marsTexture ? '#ffffff' : '#c1704f', roughness: 0.9, emissive: '#3a1a10', emissiveIntensity: 0.25}))
   globe.position.set(0, F + 2.0, 0)
   g.add(globe)
-  const ring = new THREE.Mesh(new THREE.TorusGeometry(1.1, 0.025, 6, 48), M.lampCool())
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(1.1, 0.025, 6, 48), MI.lampCool())
   ring.position.copy(globe.position)
   ring.rotation.x = Math.PI / 2.4
   g.add(ring)
@@ -701,7 +746,7 @@ function lab(m, out, marsTexture) {
     }
   }
   g.add(rocks)
-  const needle = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.4, 0.02), M.trim())
+  const needle = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.4, 0.02), MI.trim())
   needle.position.set(sx, F + 0.75, sz)
   g.add(needle)
   const lights = [pointLight(g, '#d6f3ff', 0, F + 4.6, 0, 12, 18)]
@@ -748,11 +793,11 @@ function lab(m, out, marsTexture) {
 function observatory(m, out) {
   const g = moduleGroup(m)
   const b = new Builder()
-  b.cyl(M.frame(), 0, F + 0.6, 0, 0.8, 1.2, 16)
+  b.cyl(MI.frame(), 0, F + 0.6, 0, 0.8, 1.2, 16)
   b.build(g)
   const scope = new THREE.Group()
   scope.position.set(0, F + 1.6, 0)
-  const tube = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.55, 3.2, 20), M.shell())
+  const tube = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.55, 3.2, 20), MI.shell())
   tube.rotation.z = Math.PI / 3
   tube.position.y = 0.6
   scope.add(tube)
@@ -766,20 +811,20 @@ function observatory(m, out) {
 function playroom(m, out) {
   const g = moduleGroup(m)
   const b = new Builder()
-  b.cyl(M.frame(), -2.5, F + 0.35, 2.0, 2.0, 0.7, 24)
+  b.cyl(MI.frame(), -2.5, F + 0.35, 2.0, 2.0, 0.7, 24)
   const colors = ['#ff6b6b', '#ffd166', '#06d6a0', '#4cc9f0', '#b07ad6']
   for (let i = 0; i < 60; i++) {
     const a = i * 2.4, r = Math.sqrt(i / 60) * 1.7
     b.ball(mat(`ball-${i % 5}`, () => new THREE.MeshStandardMaterial({color: colors[i % 5], roughness: 0.5})), -2.5 + Math.cos(a) * r, F + 0.7 + (i % 3) * 0.12, 2.0 + Math.sin(a) * r, 0.17)
   }
-  b.cyl(M.wood(), 2.6, F + 1.4, -2.0, 0.25, 2.8, 12)
-  b.cyl(M.fabricWarm(), 2.6, F + 2.9, -2.0, 1.0, 0.15, 20)
-  b.cyl(M.fabric(), 2.6, F + 1.6, -2.0, 0.8, 0.12, 20)
+  b.cyl(MI.wood(), 2.6, F + 1.4, -2.0, 0.25, 2.8, 12)
+  b.cyl(MI.fabricWarm(), 2.6, F + 2.9, -2.0, 1.0, 0.15, 20)
+  b.cyl(MI.fabric(), 2.6, F + 1.6, -2.0, 0.8, 0.12, 20)
   b.build(g)
-  const trampoline = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, 0.1, 24), M.indigo())
+  const trampoline = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, 0.1, 24), MI.indigo())
   trampoline.position.set(1.5, F + 0.6, 3.0)
   g.add(trampoline)
-  const yarn = new THREE.Mesh(new THREE.SphereGeometry(0.3, 14, 10), M.fabricWarm())
+  const yarn = new THREE.Mesh(new THREE.SphereGeometry(0.3, 14, 10), MI.fabricWarm())
   g.add(yarn)
   const lights = [pointLight(g, '#ffd6a8', 0, F + 4, 0, 10, 16)]
   spot(out.spots, m, 'trampoline', 1.5, 3.0, 1.6, {en: 'Bounce!', bn: 'লাফাও!'})

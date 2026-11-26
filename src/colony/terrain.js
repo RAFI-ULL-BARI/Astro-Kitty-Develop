@@ -1,6 +1,7 @@
 // Ground for a site: shaped terrain with rock layers, scattered rocks and site details.
 import * as THREE from 'three'
 import {fbm, noise, rng, smooth, TAU} from './util.js'
+import {dress, naturalRock, realism} from './realism.js'
 
 function soilTexture(renderer, ice) {
   const size = 256
@@ -31,22 +32,6 @@ function soilTexture(renderer, ice) {
   return tex
 }
 
-function rockGeometry(seed) {
-  const random = rng(seed)
-  const g = new THREE.IcosahedronGeometry(1, 1)
-  const p = g.attributes.position, colors = []
-  for (let i = 0; i < p.count; i++) {
-    const x = p.getX(i), y = p.getY(i), z = p.getZ(i)
-    const f = 0.72 + 0.48 * noise(x * 4 + y * 6, z * 4 - y * 2, seed)
-    p.setXYZ(i, x * f + y * 0.12, Math.max(y * f, -0.42), z * f)
-    const s = 0.72 + 0.3 * noise(x * 2 + z, y * 6, seed + 2) + random() * 0.1
-    colors.push(s, s, s)
-  }
-  g.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
-  g.computeVertexNormals()
-  return g
-}
-
 // Distance from a point to a polyline path (for the darker driven-on trails).
 function pathDistance(paths, x, z) {
   let best = Infinity
@@ -63,6 +48,13 @@ export function makeGround(scene, renderer, site, height, {clear = [], paths = [
   const group = new THREE.Group()
   scene.add(group)
   const [dark, light, rockTone] = site.palette.map(c => new THREE.Color(c))
+  if (realism.enabled) {
+    // Photos from Curiosity and Perseverance show a duller, browner ground than cartoons do.
+    for (const c of [dark, light, rockTone]) {
+      const l = c.r * 0.3 + c.g * 0.55 + c.b * 0.15
+      c.lerp(new THREE.Color(l * 1.12, l * 0.94, l * 0.82), 0.3)
+    }
+  }
   const layers = ['gale', 'valles', 'olympus', 'southpole'].includes(site.id)
   const segments = Math.round(site.size / (quality > 1 ? 1.5 : 2.1))
   const geo = new THREE.PlaneGeometry(site.size, site.size, segments, segments).rotateX(-Math.PI / 2)
@@ -92,8 +84,12 @@ export function makeGround(scene, renderer, site, height, {clear = [], paths = [
   }
   geo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3))
   geo.computeVertexNormals()
-  const tex = soilTexture(renderer, !!site.ice)
-  const ground = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({vertexColors: true, roughness: 0.96, map: tex, bumpMap: tex, bumpScale: 0.05}))
+  // Real-looking soil: a regolith texture (two sizes, so it never visibly repeats) and bare rock on steep slopes.
+  const groundMat = realism.enabled
+    ? dress(new THREE.MeshStandardMaterial({vertexColors: true, roughness: 0.95}), site.ice ? 'regolith' : 'regolith',
+      {scale: 2.5, dust: 0, low: 0, rough: 0.9, normal: 1.1, planar: quality < 2, terrain: {rock: 'rock', rockScale: 3}})
+    : (() => { const tex = soilTexture(renderer, !!site.ice); return new THREE.MeshStandardMaterial({vertexColors: true, roughness: 0.96, map: tex, bumpMap: tex, bumpScale: 0.05}) })()
+  const ground = new THREE.Mesh(geo, groundMat)
   ground.receiveShadow = true
   group.add(ground)
 
@@ -109,18 +105,24 @@ export function makeGround(scene, renderer, site, height, {clear = [], paths = [
   }
   far.setAttribute('color', new THREE.Float32BufferAttribute(fc, 3))
   far.computeVertexNormals()
-  group.add(new THREE.Mesh(far, new THREE.MeshStandardMaterial({vertexColors: true, roughness: 1})))
+  const farMat = new THREE.MeshStandardMaterial({vertexColors: true, roughness: 1})
+  group.add(new THREE.Mesh(far, realism.enabled ? dress(farMat, 'regolith', {scale: 9, dust: 0, low: 0, planar: true, normal: 0.7}) : farMat))
 
   // Rocks
   const random = rng(seed + 4711)
-  const rockMat = new THREE.MeshStandardMaterial({vertexColors: true, flatShading: true, roughness: 0.95})
+  // Fractured basalt boulders with dust settled on top.
+  const rockMat = realism.enabled
+    ? dress(new THREE.MeshStandardMaterial({color: '#ffffff', roughness: 0.9}), 'rock', {scale: 1.4, dust: 0.85, low: 0.6, normal: 1.2})
+    : new THREE.MeshStandardMaterial({color: '#ffffff', roughness: 0.95})
   const blockers = []
-  const tint = [dark, light, rockTone].map(t => t.clone().lerp(new THREE.Color('#ffffff'), 0.05))
+  const tint = realism.enabled
+    ? [dark, light, rockTone].map(t => t.clone().lerp(new THREE.Color('#ffffff'), 0.62))
+    : [dark, light, rockTone].map(t => t.clone().lerp(new THREE.Color('#ffffff'), 0.05))
   const dummy = new THREE.Object3D()
   const half = site.size / 2 - 6
   const count = Math.round((site.id === 'meridiani' ? 120 : 260) * (quality > 0 ? 1 : 0.5))
   for (let kind = 0; kind < 4; kind++) {
-    const mesh = new THREE.InstancedMesh(rockGeometry(seed + kind * 97), rockMat, count)
+    const mesh = new THREE.InstancedMesh(naturalRock(seed + kind * 97, kind === 0 && quality > 1 ? 3 : 2), rockMat, count)
     let n = 0
     for (let tries = 0; tries < count * 2 && n < count; tries++) {
       const x = (random() - 0.5) * 2 * half, z = (random() - 0.5) * 2 * half
@@ -128,8 +130,8 @@ export function makeGround(scene, renderer, site, height, {clear = [], paths = [
       if (clear.some(zone => Math.hypot(x - zone.x, z - zone.z) < zone.r + r)) continue
       if (site.cave && Math.hypot(x - site.cave.x, z - site.cave.z) < site.cave.r + 3) continue
       const h = r * (0.35 + random() * 0.6)
-      dummy.position.set(x, height(x, z) + h * 0.2, z)
-      dummy.rotation.set(random() * 0.5, random() * TAU, random() * 0.4)
+      dummy.position.set(x, height(x, z) + h * 0.12, z)
+      dummy.rotation.set(random() * 0.3, random() * TAU, random() * 0.3)
       dummy.scale.set(r * (0.9 + random() * 0.5), h, r)
       dummy.updateMatrix()
       mesh.setMatrixAt(n, dummy.matrix)
@@ -219,7 +221,8 @@ function makeCave(group, cave) {
     p.setY(i, Math.max(v.y + n * 1.2, -cave.depth - 0.4))
   }
   tube.computeVertexNormals()
-  const rock = new THREE.MeshStandardMaterial({color: '#4a3832', roughness: 1, side: THREE.BackSide})
+  const rock = new THREE.MeshStandardMaterial({color: realism.enabled ? '#b8a49a' : '#4a3832', roughness: 1, side: THREE.BackSide})
+  dress(rock, 'rock', {scale: 2.2, dust: 0.5, low: 0, normal: 1.4})
   const mesh = new THREE.Mesh(tube, rock)
   mesh.receiveShadow = true
   group.add(mesh)

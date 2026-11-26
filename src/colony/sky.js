@@ -20,6 +20,7 @@ uniform float thin;
 uniform float space;
 uniform float polar;
 uniform float time;
+uniform float envMode;
 float hash(vec3 p) { p = fract(p * 0.3183099 + 0.1); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }
 void main() {
   vec3 dir = normalize(vDir);
@@ -28,8 +29,10 @@ void main() {
   float day = smoothstep(-0.12, 0.18, sunUp);
   float twilight = smoothstep(-0.25, 0.0, sunUp) * (1.0 - smoothstep(0.0, 0.32, sunUp));
   float cosSun = dot(dir, normalize(sunDir));
-  vec3 horizonDay = mix(vec3(0.80, 0.58, 0.42), vec3(0.88, 0.74, 0.62), polar);
-  vec3 zenithDay = mix(vec3(0.54, 0.36, 0.28), vec3(0.36, 0.30, 0.36), thin);
+  vec3 horizonDay = mix(vec3(0.80, 0.64, 0.50), vec3(0.88, 0.76, 0.66), polar);
+  vec3 zenithDay = mix(vec3(0.55, 0.41, 0.33), vec3(0.36, 0.31, 0.36), thin);
+  // dust haze: the sky near the horizon is brighter and greyer
+  horizonDay = mix(horizonDay, vec3(0.78, 0.70, 0.62), 0.18 * (1.0 - smoothstep(0.0, 0.25, up)));
   vec3 col = mix(horizonDay, zenithDay, pow(smoothstep(0.0, 0.85, up), 0.7));
   // The whole sky dims as the Sun gets low, and a blue halo grows around it:
   // fine Mars dust scatters blue light forward, so Mars sunsets are blue.
@@ -44,17 +47,18 @@ void main() {
   col = mix(night, col, day);
   col += vec3(0.08, 0.06, 0.05) * twilight * (1.0 - halo) * smoothstep(0.3, 0.0, up);
   // stars and a faint band of the Milky Way at night (always in space)
-  float dark = max(1.0 - day, space);
+  float dark = max(1.0 - day, space) * (1.0 - envMode);
   vec3 cell = floor(dir * 160.0);
   float star = step(0.9975, hash(cell)) * (0.6 + 0.4 * sin(time * 2.0 + hash(cell + 3.0) * 30.0));
   float band = exp(-pow(dot(dir, normalize(vec3(0.3, 0.6, -0.74))) * 4.0, 2.0)) * 0.08;
   col += (vec3(star) + vec3(0.7, 0.75, 1.0) * band) * dark * (1.0 - storm * 0.9);
   // Earth: a bright blue-white star near the Sun after sunset
   float earth = smoothstep(0.99985, 0.99995, dot(dir, normalize(earthDir)));
-  col += vec3(0.6, 0.8, 1.0) * earth * 3.0 * (1.0 - day) * (1.0 - storm);
+  col += vec3(0.6, 0.8, 1.0) * earth * 3.0 * (1.0 - day) * (1.0 - storm) * (1.0 - envMode);
   // the Sun itself: smaller and dimmer than from Earth
   float disc = smoothstep(0.99955, 0.99975, cosSun);
-  col += vec3(1.3, 1.15, 1.0) * disc * (1.0 - storm * 0.85) + vec3(0.6, 0.4, 0.25) * pow(max(cosSun, 0.0), 300.0);
+  // (in the sky-light pass the disc is left out: the sunlight itself already adds it)
+  col += (vec3(1.3, 1.15, 1.0) * disc * (1.0 - storm * 0.85) + vec3(0.6, 0.4, 0.25) * pow(max(cosSun, 0.0), 300.0)) * (1.0 - envMode);
   // thin wispy ice clouds drifting by
   vec2 cuv = dir.xz / max(dir.y, 0.08) * 0.7 + vec2(time * 0.01, time * 0.004);
   float cloud = smoothstep(0.55, 0.9, sin(cuv.x * 2.1 + sin(cuv.y * 3.0)) * sin(cuv.y * 1.7 + 1.3) * 0.5 + 0.5);
@@ -76,12 +80,13 @@ export function makeSky(scene, {space = false, thin = false, polar = false} = {}
     vertexShader: vertex, fragmentShader: fragment, side: THREE.BackSide, depthWrite: false,
     uniforms: {
       sunDir: {value: new THREE.Vector3(0, 1, 0)}, earthDir: {value: new THREE.Vector3(0, 0.1, -1)},
-      storm: {value: 0}, thin: {value: thin ? 1 : 0}, space: {value: space ? 1 : 0}, polar: {value: polar ? 1 : 0}, time: {value: 0},
+      storm: {value: 0}, thin: {value: thin ? 1 : 0}, space: {value: space ? 1 : 0}, polar: {value: polar ? 1 : 0}, time: {value: 0}, envMode: {value: 0},
     },
   })
   const dome = new THREE.Mesh(new THREE.SphereGeometry(400, 40, 20), material)
   dome.frustumCulled = false
   dome.renderOrder = -10
+  dome.userData.noAO = true
   scene.add(dome)
 
   // The two moons. Phobos is a lumpy potato; Deimos looks like a bright star.

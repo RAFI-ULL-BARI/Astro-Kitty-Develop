@@ -1,7 +1,7 @@
 // The base's buildings, tunnels and airlocks. Roofs fade away when you walk inside,
 // so the camera can follow Kitty indoors without any loading screens.
 import * as THREE from 'three'
-import {Builder, M, fadeable, setFade, sign, domeCap, gridTexture} from './kit.js'
+import {Builder, M, MO, fadeable, setFade, sign, domeCap, gridTexture} from './kit.js'
 import {airlocks, doorsOf, toWorld, tunnels, TUNNEL_HALF, DOOR_HALF} from './layout.js'
 import {angleDiff, clamp, damp, TAU} from './util.js'
 
@@ -28,15 +28,15 @@ function floorMesh(geometry, y) {
   return mesh
 }
 
-function slidingDoor(width, height, material = M.shellShade()) {
+function slidingDoor(width, height, material = MO.shellShade()) {
   const group = new THREE.Group()
   const panels = []
   for (const side of [-1, 1]) {
     const p = new THREE.Group()
     const b = new Builder()
     b.round(material, 0, height / 2, 0, 0.16, height, width / 2)
-    b.box(M.window(), 0, height * 0.72, 0, 0.2, height * 0.18, width / 2 * 0.5)
-    b.box(M.trim(), 0, 0.35, 0, 0.18, 0.08, width / 2 * 0.9)
+    b.box(MO.window(), 0, height * 0.72, 0, 0.2, height * 0.18, width / 2 * 0.5)
+    b.box(MO.trim(), 0, 0.35, 0, 0.18, 0.08, width / 2 * 0.9)
     b.build(p)
     group.add(p)
     panels.push({p, side})
@@ -55,7 +55,7 @@ function domeShell(m, doors, roofMats) {
   const frameMat = M.frame()
   const roofFrame = fadeable(frameMat)
   roofMats.push(roofFrame)
-  shell.cyl(M.shellShade(), 0, FLOOR_Y / 2 - 0.55, 0, m.r + 0.7, FLOOR_Y + 1.1, 48)
+  shell.cyl(M.foundation(), 0, FLOOR_Y / 2 - 0.55, 0, m.r + 0.7, FLOOR_Y + 1.1, 48)
   const n = Math.max(40, Math.round(m.r * 6))
   for (let i = 0; i < n; i++) {
     const a0 = i / n * TAU, a1 = (i + 1) / n * TAU, mid = (a0 + a1) / 2
@@ -116,7 +116,7 @@ function hallShell(m, doors, roofMats) {
   const {hd, hw, h} = m
   const front = doors.some(d => d.local === 0), back = doors.find(d => d.local === Math.PI)
   const gap = d => (d?.wide ? 3.6 : DOOR_HALF + 0.15)
-  b.box(M.shellShade(), 0, FLOOR_Y / 2 - 0.55, 0, hd * 2 + 1.2, FLOOR_Y + 1.1, hw * 2 + 1.2)
+  b.box(M.foundation(), 0, FLOOR_Y / 2 - 0.55, 0, hd * 2 + 1.2, FLOOR_Y + 1.1, hw * 2 + 1.2)
   const wall = (x0, z0, x1, z1) => {
     const len = Math.hypot(x1 - x0, z1 - z0), cx = (x0 + x1) / 2, cz = (z0 + z1) / 2, rot = -Math.atan2(z1 - z0, x1 - x0)
     const nx = -(z1 - z0) / len, nz = (x1 - x0) / len
